@@ -5,3 +5,5 @@
 - Hallo Welt!
 - Moinsen?
 - Prost Ihr Säcke!
+- Moin!
+- Irgendwas
