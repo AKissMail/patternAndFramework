@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane prefHeight="500.0" prefWidth="270.0" style="-fx-background-color: #004d80#004d80;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="label_copyright" layoutX="64.0" layoutY="473.0" text="Copyright (c). All Rights Reserved." textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="171.0" fitWidth="105.0" layoutX="85.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/bulb.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="label_startpageTitle" layoutX="90.0" layoutY="327.0" text="Quizzz" textFill="WHITE">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="430.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="label_username" layoutX="60.0" layoutY="135.0" text="Benutzername">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textField_username" layoutX="61.0" layoutY="152.0" prefHeight="35.0" prefWidth="310.0" />
+            <Label fx:id="label_password" layoutX="60.0" layoutY="200.0" text="Passwort">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="textField_password" layoutX="61.0" layoutY="216.0" prefHeight="35.0" prefWidth="310.0" />
+            <Button fx:id="button_logIn" layoutX="61.0" layoutY="272.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Anmelden" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

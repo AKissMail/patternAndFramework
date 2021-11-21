@@ -12,7 +12,7 @@ Im Rahmen der Aufgabenstellung haben wir uns entschieden ein **Quiz** umzusetzen
 * [Jan Steinke](https://git.mylab.th-luebeck.de/jan.steinke)
 * [Thomas Krohnfuß](https://git.mylab.th-luebeck.de/BSG2000)
 
- ![Hauptfenster der Client-App](docu/mockups/Maske2%20-%20Hauptmenü.png)
+ ![Hauptfenster der Client-App](doc/mockups/Maske2%20-%20Hauptmenü.png)
 
 ## Ordnerstruktur
 
