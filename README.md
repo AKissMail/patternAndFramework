@@ -18,7 +18,7 @@ Im Rahmen der Aufgabenstellung haben wir uns entschieden ein **Quiz** umzusetzen
 
 Das Repository besteht aus folgenden Ordnern:
 
-    |-docu          Die ausgearbeitete Dokumentation und zugehörige Dateien.
+    |-doc           Die ausgearbeitete Dokumentation und zugehörige Dateien.
     | |-java_client Unterordner mit Doku zur Client-App
     | |-Mockups     Unterordner mit ersten Entwürfen der Client-App
     | |-notes       Unterordner mit Besprechungsnotizen
