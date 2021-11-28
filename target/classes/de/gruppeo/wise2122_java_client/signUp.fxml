@@ -35,23 +35,29 @@
    <right>
       <AnchorPane prefHeight="500.0" prefWidth="430.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="label_username" layoutX="60.0" layoutY="135.0" text="Benutzername">
+            <Label fx:id="label_signUp_username" layoutX="60.0" layoutY="135.0" text="Benutzername">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="textField_username" layoutX="61.0" layoutY="152.0" prefHeight="35.0" prefWidth="310.0" />
-            <Label fx:id="label_password" layoutX="60.0" layoutY="200.0" text="Passwort">
+            <TextField fx:id="textField_signUp_username" layoutX="61.0" layoutY="152.0" prefHeight="35.0" prefWidth="310.0" />
+            <Label fx:id="label_signUp_password2" layoutX="62.0" layoutY="264.0" text="Passwort bestätigen">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <PasswordField fx:id="textField_password" layoutX="61.0" layoutY="216.0" prefHeight="35.0" prefWidth="310.0" />
-            <Button fx:id="button_logIn" layoutX="61.0" layoutY="272.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Anmelden" textFill="WHITE">
+            <PasswordField fx:id="textField_signUp_password2" layoutX="63.0" layoutY="280.0" prefHeight="35.0" prefWidth="310.0" />
+            <Button fx:id="button_signUp" layoutX="63.0" layoutY="332.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Registrieren" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
+            <Label fx:id="label_signUp_password1" layoutX="61.0" layoutY="199.0" text="Passwort">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="textField_signUp_password1" layoutX="62.0" layoutY="215.0" prefHeight="35.0" prefWidth="310.0" />
          </children>
       </AnchorPane>
    </right>

@@ -12,6 +12,6 @@ module de.gruppeo.wise2122_paf_gruppeo {
 
     opens de.gruppeo.wise2122_java_client to javafx.fxml;
     exports de.gruppeo.wise2122_java_client;
-    opens de.gruppeo.wise2122_java_client.controller to javafx.fxml;
-    exports de.gruppeo.wise2122_java_client.controller;
+    opens de.gruppeo.wise2122_java_client.controllers to javafx.fxml;
+    exports de.gruppeo.wise2122_java_client.controllers;
 }
