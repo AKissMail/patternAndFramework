@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.ControllerSignUp">
    <left>
       <AnchorPane prefHeight="500.0" prefWidth="270.0" style="-fx-background-color: #004d80#004d80;" BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +47,7 @@
                </font>
             </Label>
             <PasswordField fx:id="textField_signUp_password2" layoutX="63.0" layoutY="280.0" prefHeight="35.0" prefWidth="310.0" />
-            <Button fx:id="button_signUp" layoutX="63.0" layoutY="332.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Registrieren" textFill="WHITE">
+            <Button fx:id="button_signUp" layoutX="63.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Registrieren" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -58,6 +58,7 @@
                </font>
             </Label>
             <PasswordField fx:id="textField_signUp_password1" layoutX="62.0" layoutY="215.0" prefHeight="35.0" prefWidth="310.0" />
+            <Button fx:id="button_signUp_back" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="26.0" prefWidth="69.0" text="Zurück" />
          </children>
       </AnchorPane>
    </right>

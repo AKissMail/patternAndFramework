@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CLogIn">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.ControllerLogIn">
    <left>
       <AnchorPane prefHeight="500.0" prefWidth="270.0" style="-fx-background-color: #004d80#004d80;" BorderPane.alignment="CENTER">
          <children>
@@ -47,12 +47,12 @@
                </font>
             </Label>
             <PasswordField fx:id="textField_logIn_password" layoutX="61.0" layoutY="216.0" prefHeight="35.0" prefWidth="310.0" />
-            <Button fx:id="button_logIn_logIn" layoutX="61.0" layoutY="272.0" mnemonicParsing="false" onAction="#onClickButton_logIn" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Anmelden" textFill="WHITE">
+            <Button fx:id="button_logIn_logIn" layoutX="61.0" layoutY="272.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_logIn" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Anmelden" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="button_logIn_signUp" layoutX="61.0" layoutY="324.0" mnemonicParsing="false" onAction="#onClickButton_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #a6a6a6#a6a6a6;" text="Registrieren" textFill="WHITE">
+            <Button fx:id="button_logIn_signUp" layoutX="61.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #a6a6a6#a6a6a6;" text="Registrieren" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
