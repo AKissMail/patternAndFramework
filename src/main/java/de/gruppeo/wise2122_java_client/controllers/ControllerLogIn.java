@@ -3,6 +3,7 @@ package de.gruppeo.wise2122_java_client.controllers;
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -11,9 +12,16 @@ import java.io.IOException;
 
 public class ControllerLogIn {
 
+    private ViewLoader loader = new ViewLoader();
+
     @FXML
     private BorderPane mainPane;
-    private ViewLoader loader = new ViewLoader();
+
+    @FXML
+    private TextField textField_logIn_username;
+
+    @FXML
+    private TextField textField_logIn_password;
 
     /**
      * Klick auf "Registrieren"
@@ -25,7 +33,8 @@ public class ControllerLogIn {
     }
 
     /**
-     *
+     * Klick auf "Anmelden"
+     * leitet den Anmeldevorgang ein.
      */
     public void onMouseClicked_logIn() {
         Stage stage = (Stage) mainPane.getScene().getWindow();

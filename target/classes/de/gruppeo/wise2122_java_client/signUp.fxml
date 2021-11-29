@@ -4,61 +4,52 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.ControllerSignUp">
-   <left>
-      <AnchorPane prefHeight="500.0" prefWidth="270.0" style="-fx-background-color: #004d80#004d80;" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="label_copyright" layoutX="64.0" layoutY="473.0" text="Copyright (c). All Rights Reserved." textFill="WHITE">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="171.0" fitWidth="105.0" layoutX="85.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/bulb.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="label_startpageTitle" layoutX="90.0" layoutY="327.0" text="Quizzz" textFill="WHITE">
-               <font>
-                  <Font size="31.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </left>
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.ControllerSignUp">
    <right>
       <AnchorPane prefHeight="500.0" prefWidth="430.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="label_signUp_username" layoutX="60.0" layoutY="135.0" text="Benutzername">
-               <font>
-                  <Font size="12.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textField_signUp_username" layoutX="61.0" layoutY="152.0" prefHeight="35.0" prefWidth="310.0" />
-            <Label fx:id="label_signUp_password2" layoutX="62.0" layoutY="264.0" text="Passwort bestätigen">
-               <font>
-                  <Font size="12.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="textField_signUp_password2" layoutX="63.0" layoutY="280.0" prefHeight="35.0" prefWidth="310.0" />
-            <Button fx:id="button_signUp" layoutX="63.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Registrieren" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <Label fx:id="label_signUp_password1" layoutX="61.0" layoutY="199.0" text="Passwort">
-               <font>
-                  <Font size="12.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="textField_signUp_password1" layoutX="62.0" layoutY="215.0" prefHeight="35.0" prefWidth="310.0" />
-            <Button fx:id="button_signUp_back" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="26.0" prefWidth="69.0" text="Zurück" />
+            <BorderPane prefHeight="500.0" prefWidth="430.0">
+               <top>
+                  <AnchorPane prefHeight="50.0" prefWidth="430.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="button_signUp_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="26.0" prefWidth="79.0" text="Zurück" />
+                     </children>
+                  </AnchorPane>
+               </top>
+               <center>
+                  <AnchorPane prefHeight="204.0" prefWidth="430.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="label_signUp_username" layoutX="60.0" layoutY="101.0" text="Benutzername">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textField_signUp_username" layoutX="60.0" layoutY="119.0" prefHeight="35.0" prefWidth="310.0" />
+                        <Label fx:id="label_signUp_password2" layoutX="61.0" layoutY="240.0" text="Passwort bestätigen">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="textField_signUp_password2" layoutX="62.0" layoutY="258.0" prefHeight="35.0" prefWidth="310.0" />
+                        <Button fx:id="button_signUp_signUp" layoutX="62.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Registrieren" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="label_signUp_password1" layoutX="60.0" layoutY="170.0" text="Passwort">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="textField_signUp_password1" layoutX="61.0" layoutY="188.0" prefHeight="35.0" prefWidth="310.0" />
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
          </children>
       </AnchorPane>
    </right>
