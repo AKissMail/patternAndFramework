@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.ControllerLogIn">
@@ -33,31 +35,49 @@
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="500.0" prefWidth="430.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="430.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="label_logIn_username" layoutX="60.0" layoutY="135.0" text="Benutzername">
+            <Label fx:id="label_logIn_username" text="Benutzername">
                <font>
                   <Font size="12.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="3.0" left="70.0" right="70.0" />
+               </VBox.margin>
             </Label>
-            <TextField fx:id="textField_logIn_username" layoutX="61.0" layoutY="152.0" prefHeight="35.0" prefWidth="310.0" />
-            <Label fx:id="label_logIn_password" layoutX="60.0" layoutY="200.0" text="Passwort">
+            <TextField fx:id="textField_logIn_username" prefHeight="35.0" prefWidth="310.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="70.0" right="70.0" />
+               </VBox.margin></TextField>
+            <Label fx:id="label_logIn_password" text="Passwort">
                <font>
                   <Font size="12.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="3.0" left="70.0" right="70.0" />
+               </VBox.margin>
             </Label>
-            <PasswordField fx:id="textField_logIn_password" layoutX="61.0" layoutY="216.0" prefHeight="35.0" prefWidth="310.0" />
-            <Button fx:id="button_logIn_logIn" layoutX="61.0" layoutY="272.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_logIn" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Anmelden" textFill="WHITE">
+            <PasswordField fx:id="textField_logIn_password" prefHeight="35.0" prefWidth="310.0">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="70.0" right="70.0" />
+               </VBox.margin></PasswordField>
+            <Button fx:id="button_logIn_logIn" mnemonicParsing="false" onMouseClicked="#onMouseClicked_logIn" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Anmelden" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="70.0" right="70.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="button_logIn_signUp" layoutX="61.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #a6a6a6#a6a6a6;" text="Registrieren" textFill="WHITE">
+            <Button fx:id="button_logIn_signUp" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #a6a6a6#a6a6a6;" text="Registrieren" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="70.0" right="70.0" />
+               </VBox.margin>
             </Button>
          </children>
-      </AnchorPane>
+      </VBox>
    </right>
 </BorderPane>
