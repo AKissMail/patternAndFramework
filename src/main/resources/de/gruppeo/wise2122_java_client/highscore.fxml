@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CHighscore">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,7 +21,7 @@
    <top>
       <AnchorPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_highscore_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Hauptmenü" />
+            <Button fx:id="button_highscore_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showMain" prefHeight="25.0" prefWidth="90.0" text="Hauptmenü" />
          </children></AnchorPane>
    </top>
 </BorderPane>

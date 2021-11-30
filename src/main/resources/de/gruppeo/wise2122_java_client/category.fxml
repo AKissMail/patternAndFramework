@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.ControllerCategory">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CCategory">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -18,7 +18,7 @@
                   <Font size="35.0" />
                </font>
             </Label>
-            <ComboBox fx:id="combo_category_selectedCategory" layoutX="210.0" layoutY="93.0" prefHeight="36.0" prefWidth="280.0" promptText="Auswählen ..." />
+            <ComboBox fx:id="combo_category_selectedCategory" layoutX="240.0" layoutY="91.0" prefHeight="36.0" prefWidth="220.0" promptText="Auswählen ..." />
             <RadioButton fx:id="radio_category_10Questions" layoutX="311.0" layoutY="162.0" mnemonicParsing="false" text="10 Fragen">
                <toggleGroup>
                   <ToggleGroup fx:id="radioGroup_category_questions" />

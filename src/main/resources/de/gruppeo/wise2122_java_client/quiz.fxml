@@ -7,32 +7,32 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CQuiz">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="label_quiz_numberQuestion" alignment="CENTER" contentDisplay="CENTER" layoutY="15.0" prefHeight="20.0" prefWidth="700.0" text="Frage 0 von 0" textAlignment="CENTER" />
-            <Label fx:id="label_quiz_question" alignment="CENTER" contentDisplay="CENTER" layoutY="40.0" prefHeight="88.0" prefWidth="700.0" text="Hier steht die Frage" textAlignment="CENTER">
+            <Label fx:id="label_quiz_numberQuestion" alignment="CENTER" contentDisplay="CENTER" layoutY="15.0" prefHeight="20.0" prefWidth="700.0" text="Question 0 of 0" textAlignment="CENTER" />
+            <Label fx:id="label_quiz_question" alignment="CENTER" contentDisplay="CENTER" layoutY="40.0" prefHeight="88.0" prefWidth="700.0" text="Question" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="button_quiz_answerA" contentDisplay="CENTER" layoutX="61.0" layoutY="154.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Antwort A" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="button_quiz_answerA" contentDisplay="CENTER" layoutX="61.0" layoutY="154.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerA" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer A" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="button_quiz_answerB" contentDisplay="CENTER" layoutX="365.0" layoutY="154.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Antwort B" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="button_quiz_answerB" contentDisplay="CENTER" layoutX="365.0" layoutY="154.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerB" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer B" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="button_quiz_answerC" contentDisplay="CENTER" layoutX="61.0" layoutY="269.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Antwort C" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="button_quiz_answerC" contentDisplay="CENTER" layoutX="61.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerC" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer C" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="button_quiz_answerD" contentDisplay="CENTER" layoutX="365.0" layoutY="269.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Antwort D" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="button_quiz_answerD" contentDisplay="CENTER" layoutX="365.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerD" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer D" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -42,7 +42,7 @@
    <top>
       <AnchorPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_quiz_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Beenden" />
+            <Button fx:id="button_quiz_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_quitGame" prefHeight="25.0" prefWidth="80.0" text="Beenden" />
             <Label fx:id="label_quiz_timer" layoutX="650.0" layoutY="12.0" text="10 s">
                <font>
                   <Font name="System Bold" size="20.0" />

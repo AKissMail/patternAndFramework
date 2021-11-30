@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CLobby">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,13 +23,13 @@
    <top>
       <AnchorPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_lobby_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Zurück" />
+            <Button fx:id="button_lobby_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="26.0" prefWidth="80.0" text="Zurück" />
          </children></AnchorPane>
    </top>
    <bottom>
       <AnchorPane prefHeight="150.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_lobby_startQuiz" disable="true" layoutX="230.0" layoutY="35.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="240.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz starten" textFill="WHITE">
+            <Button fx:id="button_lobby_startQuiz" disable="true" layoutX="230.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="240.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz starten" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
