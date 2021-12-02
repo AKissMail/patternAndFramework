@@ -1,16 +1,15 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.Validation;
 import de.gruppeo.wise2122_java_client.ViewLoader;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.fxml.FXML;
 
-import java.io.IOException;
-
-public class CLogIn {
+public class CLogIn extends Validation {
 
     private ViewLoader loader = new ViewLoader();
 
@@ -23,14 +22,11 @@ public class CLogIn {
     @FXML
     private TextField textField_logIn_password;
 
-    /**
-     * Klick auf "Registrieren"
-     * navigiert auf die signUp-Maske.
-     */
-    public void onMouseClicked_signUp() {
-        Pane pane = loader.getPane("signUp");
-        mainPane.setRight(pane);
-    }
+    @FXML
+    private Label label_logIn_messageUsername;
+
+    @FXML
+    private Label label_logIn_messagePassword;
 
     /**
      * Klick auf "Anmelden"
@@ -40,5 +36,14 @@ public class CLogIn {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
         stage.show();
+    }
+
+    /**
+     * Klick auf "Registrieren"
+     * navigiert auf die signUp-Maske.
+     */
+    public void onMouseClicked_signUp() {
+        Pane pane = loader.getPane("signUp");
+        mainPane.setRight(pane);
     }
 }
