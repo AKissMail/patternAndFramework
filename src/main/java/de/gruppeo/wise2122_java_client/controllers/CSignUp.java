@@ -4,6 +4,8 @@ import de.gruppeo.wise2122_java_client.Validation;
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -46,6 +48,8 @@ public class CSignUp extends Validation {
 
             // Fehlermeldung anzeigen
             System.out.println("Falsche Eingaben");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Ungültige Eingaben. Bitte prüfe deine Zugangsdaten.", ButtonType.OK);
+            alert.showAndWait();
         } else {
             MPlayer player = new MPlayer(username);
 

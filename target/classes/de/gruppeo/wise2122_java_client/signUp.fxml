@@ -15,13 +15,6 @@
       <AnchorPane prefHeight="500.0" prefWidth="430.0" BorderPane.alignment="CENTER">
          <children>
             <BorderPane prefHeight="500.0" prefWidth="430.0">
-               <top>
-                  <AnchorPane prefHeight="50.0" prefWidth="430.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="button_signUp_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="26.0" prefWidth="79.0" text="Zurück" />
-                     </children>
-                  </AnchorPane>
-               </top>
                <center>
                   <VBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
                      <children>
@@ -75,6 +68,17 @@
                      </children>
                   </VBox>
                </center>
+               <top>
+                  <BorderPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
+                     <left>
+                        <Button fx:id="button_signUp_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="90.0" text="Zurück" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </BorderPane.margin>
+                        </Button>
+                     </left>
+                  </BorderPane>
+               </top>
             </BorderPane>
          </children>
       </AnchorPane>

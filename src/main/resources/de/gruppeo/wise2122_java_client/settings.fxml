@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,12 +12,6 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CSettings">
-   <top>
-      <AnchorPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="button_settings_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="80.0" text="Zurück" />
-         </children></AnchorPane>
-   </top>
    <left>
       <VBox alignment="CENTER" prefHeight="450.0" prefWidth="260.0" style="-fx-background-color: #004d80#004d80 #004d80#004d80;" BorderPane.alignment="CENTER">
          <children>
@@ -63,4 +56,15 @@
          </children>
       </GridPane>
    </right>
+   <top>
+      <BorderPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
+         <left>
+            <Button fx:id="button_settings_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="90.0" text="Zurück" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </BorderPane.margin>
+            </Button>
+         </left>
+      </BorderPane>
+   </top>
 </BorderPane>

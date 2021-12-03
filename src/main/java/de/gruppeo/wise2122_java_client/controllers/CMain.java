@@ -25,7 +25,9 @@ public class CMain {
      * Session und navigiert zur logIn-Maske.
      */
     public void onMouseClicked_logOut() {
-
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("logIn"));
+        stage.show();
     }
 
     /**
