@@ -67,7 +67,11 @@ public abstract class Validation {
     }
 
     /**
-     *
+     * Baut Datenbankverbindng auf,
+     * übergibt Username und Password
+     * und prüft, ob die Benutzereingaben
+     * valide sind. Wenn gültige Daten gefunden
+     * wurden, wird true zurückgegeben.
      *
      * @param username
      * @param password

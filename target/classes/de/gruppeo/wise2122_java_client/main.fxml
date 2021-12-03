@@ -20,7 +20,7 @@
             </Button>
          </left>
          <right>
-            <Button fx:id="button_main_logOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_logOut" prefHeight="25.0" prefWidth="90.0" text="Abmelden" textFill="RED" BorderPane.alignment="CENTER">
+            <Button fx:id="button_main_logOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_logOut" prefHeight="25.0" prefWidth="90.0" text="Abmelden" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>

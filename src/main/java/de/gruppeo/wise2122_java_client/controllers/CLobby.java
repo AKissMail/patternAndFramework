@@ -22,4 +22,10 @@ public class CLobby {
         stage.setScene(loader.getScene("category"));
         stage.show();
     }
+
+    public void onMouseClicked_chooseOpponent() {
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("opponent"));
+        stage.show();
+    }
 }

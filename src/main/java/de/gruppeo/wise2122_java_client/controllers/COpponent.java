@@ -13,14 +13,18 @@ public class COpponent {
     private BorderPane mainPane;
 
     public void onMouseClicked_startQuiz() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("lobby"));
-        stage.show();
+
     }
 
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("category"));
+        stage.show();
+    }
+
+    public void onMouseClicked_joinQuiz() {
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("lobby"));
         stage.show();
     }
 }

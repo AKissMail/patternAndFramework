@@ -4,7 +4,6 @@ import de.gruppeo.wise2122_java_client.Validation;
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;

@@ -1,51 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CCategory">
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="15.0" prefHeight="43.0" prefWidth="700.0" text="Wähle eine Kategorie" textAlignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="combo_category_selectedCategory" layoutX="240.0" layoutY="91.0" prefHeight="36.0" prefWidth="220.0" promptText="Auswählen ..." />
-            <RadioButton fx:id="radio_category_10Questions" layoutX="311.0" layoutY="162.0" mnemonicParsing="false" text="10 Fragen">
-               <toggleGroup>
-                  <ToggleGroup fx:id="radioGroup_category_questions" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="radio_categorie_10Questionsradio_category_20Questions" layoutX="310.0" layoutY="189.0" mnemonicParsing="false" text="20 Fragen" toggleGroup="$radioGroup_category_questions" />
-         </children></AnchorPane>
-   </center>
    <top>
-      <AnchorPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="button_category_back" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="26.0" prefWidth="80.0" text="Zurück" />
-         </children></AnchorPane>
+      <BorderPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
+         <left>
+            <Button fx:id="button_category_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="90.0" text="Zurück" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </BorderPane.margin></Button>
+         </left>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </BorderPane>
    </top>
+   <center>
+      <BorderPane BorderPane.alignment="CENTER">
+         <top>
+            <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Wähle eine Kategorie" textAlignment="CENTER">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="10.0" />
+               </BorderPane.margin>
+            </VBox>
+         </top>
+         <center>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <ComboBox fx:id="combo_category_selectedCategory" prefHeight="35.0" prefWidth="220.0" promptText="Auswählen ...">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <RadioButton fx:id="radio_category_10Questions" mnemonicParsing="false" text="10 Fragen">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radioGroup_category_questions" />
+                     </toggleGroup>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="radio_categorie_10Questionsradio_category_20Questions" mnemonicParsing="false" text="20 Fragen" toggleGroup="$radioGroup_category_questions" />
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </center>
    <bottom>
-      <AnchorPane prefHeight="150.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_category_chooseOpponent" layoutX="93.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectOpponent" prefHeight="80.0" prefWidth="240.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Gegner wählen" textFill="WHITE">
+            <Button fx:id="button_category_chooseOpponent" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectOpponent" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Gegner wählen" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font size="25.0" />
                </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
             </Button>
-            <Button fx:id="button_category_joinQuiz" layoutX="367.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinQuiz" prefHeight="80.0" prefWidth="240.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz beitreten" textFill="WHITE">
+            <Button fx:id="button_category_joinQuiz" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinQuiz" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz beitreten" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font size="25.0" />
                </font>
             </Button>
          </children>
-      </AnchorPane>
+         <BorderPane.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </BorderPane.margin>
+      </HBox>
    </bottom>
 </BorderPane>

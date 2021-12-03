@@ -3,13 +3,13 @@ package de.gruppeo.wise2122_java_client.controllers;
 import de.gruppeo.wise2122_java_client.Validation;
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.fxml.FXML;
 
 public class CSignUp extends Validation {
 
