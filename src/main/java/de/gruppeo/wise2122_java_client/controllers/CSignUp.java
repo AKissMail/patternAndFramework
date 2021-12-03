@@ -54,7 +54,7 @@ public class CSignUp extends Validation {
             MPlayer player = new MPlayer(username);
 
             // Prüfen, ob Benutzername in DB enthalten ist
-            if (isPlayerValid(player)) {
+            if (isPlayerNotRegistered(player)) {
                 // Benutzer in DB speichern
                 // Anmeldung durchführen
                 Stage stage = (Stage) mainPane.getScene().getWindow();

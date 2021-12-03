@@ -1,7 +1,6 @@
 package de.gruppeo.wise2122_java_client;
 
 import de.gruppeo.wise2122_java_client.models.MPlayer;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,8 +60,20 @@ public abstract class Validation {
      * @param player
      * @return
      */
-    protected boolean isPlayerValid(MPlayer player) {
+    protected boolean isPlayerNotRegistered(MPlayer player) {
+        // Logik muss implementiert werden ...
 
+        return true;
+    }
+
+    /**
+     *
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    protected boolean isLoginDataValid(String username, String password) {
         // Logik muss implementiert werden ...
 
         return true;

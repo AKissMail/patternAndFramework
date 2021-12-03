@@ -2,6 +2,8 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.Validation;
 import de.gruppeo.wise2122_java_client.ViewLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -22,24 +24,32 @@ public class CLogIn extends Validation {
     @FXML
     private TextField textField_logIn_password;
 
-    @FXML
-    private Label label_logIn_messageUsername;
-
-    @FXML
-    private Label label_logIn_messagePassword;
-
     /**
-     * Klick auf "Anmelden"
+     * Klick auf "Anmelden"-Button
      * leitet den Anmeldevorgang ein.
      */
     public void onMouseClicked_logIn() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("main"));
-        stage.show();
+        String username = textField_logIn_username.getText();
+        String password = textField_logIn_password.getText();
+
+        // Prüfen, ob User in DB enthalten ist und Zugangsdaten korrekt sind
+        // Wenn Zugangsdaten korrekt, dann Hauptmenü anzeigen und Player-Objekt erzeugen
+        // Wenn Zugangsdaten falsch, dann Fehlermeldung anzeigen
+
+        if (isLoginDataValid(username, password)) {
+            Stage stage = (Stage) mainPane.getScene().getWindow();
+            stage.setScene(loader.getScene("main"));
+            stage.show();
+        } else {
+            // Fehlermeldung anzeigen
+            System.out.println("Falsche Eingaben");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Ungültige Eingaben. Bitte prüfe deine Zugangsdaten.", ButtonType.OK);
+            alert.showAndWait();
+        }
     }
 
     /**
-     * Klick auf "Registrieren"
+     * Klick auf "Registrieren"-Button
      * navigiert auf die signUp-Maske.
      */
     public void onMouseClicked_signUp() {
