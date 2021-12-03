@@ -17,6 +17,13 @@
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin></Button>
          </left>
+         <right>
+            <Button fx:id="button_lobby_chooseOpponent" mnemonicParsing="false" onMouseClicked="#onMouseClicked_chooseOpponent" prefHeight="25.0" text="Gegner wählen" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
       </BorderPane>
    </top>
    <bottom>

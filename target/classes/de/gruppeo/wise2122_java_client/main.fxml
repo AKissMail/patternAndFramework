@@ -51,7 +51,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="button_main_highscore" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHighscore" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #a6a6a6#a6a6a6 #a6a6a6;" text="Highscore" textFill="WHITE">
+            <Button fx:id="button_main_highscore" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHighscore" prefHeight="30.0" prefWidth="350.0" style="-fx-background-color: #a6a6a6#a6a6a6 #a6a6a6;" text="Highscore" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
