@@ -10,6 +10,8 @@ module de.gruppeo.wise2122_paf_gruppeo {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.prefs;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
 
     opens de.gruppeo.wise2122_java_client to javafx.fxml;
     exports de.gruppeo.wise2122_java_client;
