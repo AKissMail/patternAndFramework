@@ -15,7 +15,7 @@
    <left>
       <VBox alignment="CENTER" prefHeight="450.0" prefWidth="260.0" style="-fx-background-color: #004d80#004d80 #004d80#004d80;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_settings_changePicture" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_changePicture" prefHeight="50.0" prefWidth="200.0" text="Profilbild ändern">
+            <Button fx:id="button_settings_picture" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showPicturePane" prefHeight="50.0" prefWidth="200.0" text="Profilbild ändern">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -23,7 +23,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="button_settings_changePassword" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_changePassword" prefHeight="50.0" prefWidth="200.0" text="Passwort ändern">
+            <Button fx:id="button_settings_password" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showPasswordPane" prefHeight="50.0" prefWidth="200.0" text="Passwort ändern">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -31,7 +31,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="button_settings_resetScore" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_resetScore" prefHeight="50.0" prefWidth="200.0" text="Spielstatistik zurücksetzen">
+            <Button fx:id="button_settings_score" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showScorePane" prefHeight="50.0" prefWidth="200.0" text="Spielstatistik zurücksetzen">
                <font>
                   <Font size="15.0" />
                </font>

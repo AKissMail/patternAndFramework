@@ -14,14 +14,9 @@ public class CLogIn extends Validation {
 
     private ViewLoader loader = new ViewLoader();
 
-    @FXML
-    private BorderPane mainPane;
-
-    @FXML
-    private TextField textField_logIn_username;
-
-    @FXML
-    private TextField textField_logIn_password;
+    @FXML private BorderPane mainPane;
+    @FXML private TextField textField_logIn_username;
+    @FXML private TextField textField_logIn_password;
 
     /**
      * Klick auf "Anmelden"-Button

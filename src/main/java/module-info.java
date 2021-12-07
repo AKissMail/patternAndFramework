@@ -9,6 +9,7 @@ module de.gruppeo.wise2122_paf_gruppeo {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.prefs;
 
     opens de.gruppeo.wise2122_java_client to javafx.fxml;
     exports de.gruppeo.wise2122_java_client;

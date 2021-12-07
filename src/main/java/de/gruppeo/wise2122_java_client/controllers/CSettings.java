@@ -10,25 +10,35 @@ public class CSettings {
 
     private ViewLoader loader = new ViewLoader();
 
-    @FXML
-    private BorderPane mainPane;
+    @FXML private BorderPane mainPane;
 
-
-    public void onMouseClicked_changePicture() {
+    /**
+     *
+     */
+    public void onMouseClicked_showPicturePane() {
         Pane pane = loader.getPane("settings_changePicture");
         mainPane.setRight(pane);
     }
 
-    public void onMouseClicked_changePassword() {
+    /**
+     *
+     */
+    public void onMouseClicked_showPasswordPane() {
         Pane pane = loader.getPane("settings_changePassword");
         mainPane.setRight(pane);
     }
 
-    public void onMouseClicked_resetScore() {
+    /**
+     *
+     */
+    public void onMouseClicked_showScorePane() {
         Pane pane = loader.getPane("settings_resetScore");
         mainPane.setRight(pane);
     }
 
+    /**
+     *
+     */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
