@@ -1,0 +1,45 @@
+version: '3.9'
+services:
+  quizzzapi:
+    image: openjdk:17-alpine
+    depends_on:
+      - mariadb
+    restart: 'always'
+    ports:
+      - "80:8080"
+    volumes:
+      - .:/app
+    working_dir: /app
+    #command: ./mvnw spring-boot:run
+    environment:
+      DATASOURCE: jdbc:mariadb://db:5555/sample
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: sample
+      MARIADB_USER: adminer@%
+      MARIADB_PASSWORD: adminer
+    ports:
+      - "5555:3306"
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+
+  adminer:
+      image: adminer:latest
+      container_name: adminer
+      depends_on:
+        - mariadb
+      restart: always
+      environment:
+        ADMINER_DEFAULT_SERVER: mariadb
+        ADMINER_DEFAULT_DB_DRIVER: mysql
+        ADMINER_DEFAULT_DB_HOST: mariadb
+        ADMINER_DEFAULT_DB_NAME: sample
+        ADMINER_DESIGN: nette
+        ADMINER_PLUGINS: tables-filter tinymce
+      ports:
+        - "7777:8080"
