@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 3px 5px 3px 5px;
+            border: 1px solid #aaa;
+        }
+
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${title}"></h1>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>score</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="player: ${players}">
+        <td th:text="${player['id']}"></td>
+        <td th:text="${player['name']}"></td>
+        <td th:text="${player['age']}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
