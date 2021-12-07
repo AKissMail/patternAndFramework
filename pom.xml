@@ -3,18 +3,18 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>de.gruppeO</groupId>
+    <artifactId>wise21-22_paf_gruppeO</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>wise21-22_paf_gruppeO</name>
+    <description>Server REST Api und JAVA Client App for MIBQuizzz</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>de.gruppeO</groupId>
-    <artifactId>wise21-22_paf_gruppeO</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>wise21-22_paf_gruppeO</name>
-    <description>Server REST Api und JAVA Client App for MIBQuizzz</description>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
