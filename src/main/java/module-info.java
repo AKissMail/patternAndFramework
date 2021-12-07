@@ -12,6 +12,9 @@ module de.gruppeo.wise2122_paf_gruppeo {
     requires java.prefs;
     requires spring.boot;
     requires spring.boot.autoconfigure;
+    requires spring.jdbc;
+    requires spring.context;
+    requires spring.web;
 
     opens de.gruppeo.wise2122_java_client to javafx.fxml;
     exports de.gruppeo.wise2122_java_client;
