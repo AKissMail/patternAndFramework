@@ -10,14 +10,20 @@ module de.gruppeo.mibquizzz {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.prefs;
+    requires spring.web;
     requires spring.boot;
     requires spring.boot.autoconfigure;
     requires spring.jdbc;
     requires spring.context;
-    requires spring.web;
 
     opens de.gruppeo.wise2122_java_client to javafx.fxml;
     exports de.gruppeo.wise2122_java_client;
     opens de.gruppeo.wise2122_java_client.controllers to javafx.fxml;
     exports de.gruppeo.wise2122_java_client.controllers;
+
+    opens de.gruppeo.wise2122_java_server to spring.web,spring.boot,spring.boot.autoconfigure,spring.jdbc,spring.context;
+    exports de.gruppeo.wise2122_java_server;
+    opens de.gruppeo.wise2122_java_server.controller to spring.web,spring.boot,spring.boot.autoconfigure,spring.jdbc,spring.context;
+    exports de.gruppeo.wise2122_java_server.controller;
+
 }
