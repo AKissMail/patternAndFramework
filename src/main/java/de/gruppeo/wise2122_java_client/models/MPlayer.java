@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 
 public class MPlayer {
 
-    private int playerID;
+    private Long playerid;
     private String username;
-    private int currentScore;
+    private int currentscore;
     private int highscore;
 
     public MPlayer() {
@@ -30,10 +30,10 @@ public class MPlayer {
     }
 
     private Image picture;
-    //private enum currentStatus;
+    //private enum currentstatus;
 
-    public int getPlayerID() {
-        return playerID;
+    public Long getPlayerid() {
+        return playerid;
     }
 
     public String getUsername() {
@@ -44,12 +44,12 @@ public class MPlayer {
         this.username = username;
     }
 
-    public int getCurrentScore() {
-        return currentScore;
+    public int getCurrentscore() {
+        return currentscore;
     }
 
-    public void setCurrentScore(int currentScore) {
-        this.currentScore = currentScore;
+    public void setCurrentscore(int currentscore) {
+        this.currentscore = currentscore;
     }
 
     public int getHighscore() {
