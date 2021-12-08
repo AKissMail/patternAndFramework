@@ -12,7 +12,7 @@ services:
     working_dir: /app
     #command: ./mvnw spring-boot:run
     environment:
-      DATASOURCE: jdbc:mariadb://db:5555/sample
+      DATASOURCE: jdbc:mariadb://db:5555/mibquizzz
 
   mariadb:
     image: mariadb:latest
@@ -20,7 +20,7 @@ services:
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: password
-      MARIADB_DATABASE: sample
+      MARIADB_DATABASE: mibquizzz
       MARIADB_USER: adminer@%
       MARIADB_PASSWORD: adminer
     ports:
@@ -38,7 +38,7 @@ services:
         ADMINER_DEFAULT_SERVER: mariadb
         ADMINER_DEFAULT_DB_DRIVER: mysql
         ADMINER_DEFAULT_DB_HOST: mariadb
-        ADMINER_DEFAULT_DB_NAME: sample
+        ADMINER_DEFAULT_DB_NAME: mibquizzz
         ADMINER_DESIGN: nette
         ADMINER_PLUGINS: tables-filter tinymce
       ports:
