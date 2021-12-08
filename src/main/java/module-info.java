@@ -1,4 +1,4 @@
-module de.gruppeo.wise2122_paf_gruppeo {
+module de.gruppeo.mibquizzz {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
