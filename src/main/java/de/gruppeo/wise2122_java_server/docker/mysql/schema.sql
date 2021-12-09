@@ -27,7 +27,7 @@ CREATE TABLE category
 (
     quizcategoryid bigint(20) auto_increment
         primary key,
-    categoryName   varchar(255) not null,
+    categoryname   varchar(255) not null,
     constraint quizCategory_quizCategoryid_uindex
         unique (quizcategoryid)
 )
@@ -48,7 +48,7 @@ create table questions
     constraint quizQuestions_quizQuestionID_uindex
         unique (quizquestionid),
     constraint quizQuestions_quizCategory_quizCategoryID_fk
-        foreign key (fk_quizcategory) references quizCategory (quizcategoryid)
+        foreign key (fk_quizcategory) references category (quizcategoryid)
 )
     comment 'Enthält die Quizfragen';
 
