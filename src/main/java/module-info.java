@@ -1,7 +1,15 @@
 module de.gruppeo.mibquizzz {
+    requires java.prefs;
+    requires java.persistence;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+
+    requires spring.web;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
+    requires spring.jdbc;
+    requires spring.context;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -9,12 +17,6 @@ module de.gruppeo.mibquizzz {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
-    requires java.prefs;
-    requires spring.web;
-    requires spring.boot;
-    requires spring.boot.autoconfigure;
-    requires spring.jdbc;
-    requires spring.context;
 
     opens de.gruppeo.wise2122_java_client to javafx.fxml;
     exports de.gruppeo.wise2122_java_client;
