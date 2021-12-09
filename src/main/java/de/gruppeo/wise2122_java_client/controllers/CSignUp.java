@@ -42,16 +42,17 @@ public class CSignUp extends Validation {
          * Prüft, ob Passwörter den Richtlinien entsprechen
          * Prüft, ob Passwörter übereinstimmen
          */
-        if (!password1.equals(password2) ||
-                !isValidUsername(username) ||
-                !isValidPassword(password1) ||
-                !isValidPassword(password2)) {
 
-            // Fehlermeldung anzeigen
-            System.out.println("Falsche Eingaben");
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Ungültige Eingaben. Bitte prüfe deine Zugangsdaten.", ButtonType.OK);
-            alert.showAndWait();
-        } else {
+            if(!password1.equals(password2)){
+                errorprint("Die Passwörter stimmmen nicht überein");
+            }else if(!isValidUsername(username)){
+                errorprint("Der Nutzername enthält unzulässige zeichen");
+            }else if (!isValidPassword(password1)){
+                errorprint("Das erste Passwort enthält unzulässige zeichen");
+            }else if (!isValidPassword(password2)){
+                errorprint("Das zweite Passwort enthält unzulässige zeichen");
+            }else {
+                //
             MPlayer player = new MPlayer(username);
 
             // Prüfen, ob Benutzername in DB enthalten ist
@@ -75,5 +76,15 @@ public class CSignUp extends Validation {
     public void onMouseClicked_back() {
         Pane pane = loader.getPane("logIn");
         mainPane.setRight(pane);
+    }
+
+    /**
+     * Diese ist die Fehlernachricht, sie infomiert den Nutzer*innen über eine falsche eingaben
+     * @param error Das ist die Fehlernachricht.
+     */
+    public void errorprint(String error){
+        System.out.println(error);
+        Alert alert = new Alert(Alert.AlertType.WARNING, error, ButtonType.OK);
+        alert.showAndWait();
     }
 }
