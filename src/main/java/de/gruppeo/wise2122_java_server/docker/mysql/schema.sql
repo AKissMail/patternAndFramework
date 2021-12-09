@@ -36,7 +36,7 @@ CREATE TABLE category
 # 3. Tabellen mit den Fragen erstellen
 create table questions
 (
-    quizquestionid  bigint auto_increment
+    quizquestionid  bigint(20) auto_increment
         primary key,
     question        text                                                        not null,
     correctAnswer   varchar(255)                                                not null,
@@ -55,7 +55,7 @@ create table questions
 # 4. Highscore Table
 create table highscore
 (
-    quizHighscoreid bigint auto_increment
+    quizhighscoreid bigint(20) auto_increment
         primary key,
     fk_playerid     bigint                                   not null,
     highscore       int       default 0                   null,
