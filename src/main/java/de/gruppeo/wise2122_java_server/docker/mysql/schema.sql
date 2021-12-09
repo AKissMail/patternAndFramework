@@ -12,7 +12,7 @@ create table player
     username         varchar(20)                                                           not null,
     password         varchar(100)                                                          not null,
     currentscore     int                                                 default 0         null,
-    fk_quizHighscore bigint                                                 default 0         null,
+    fk_quizHighscore bigint                                              default 0         null,
     thumbnail        binary(1)                                                             null,
     currentstatus    enum ('offline', 'online', 'quizzing', 'searching') default 'offline' not null,
     constraint player_playerid_uindex
@@ -23,7 +23,7 @@ create table player
     comment 'Enthält die Spielerprofile';
 
 # 2. Kategorien der Fragen
-CREATE TABLE quizCategory
+CREATE TABLE category
 (
     quizcategoryid bigint(20) auto_increment
         primary key,
@@ -34,7 +34,7 @@ CREATE TABLE quizCategory
     comment 'Enthält verschiedene Fachgebiete';
 
 # 3. Tabellen mit den Fragen erstellen
-create table quizQuestions
+create table questions
 (
     quizquestionid  bigint auto_increment
         primary key,
@@ -53,7 +53,7 @@ create table quizQuestions
     comment 'Enthält die Quizfragen';
 
 # 4. Highscore Table
-create table quizHighscore
+create table highscore
 (
     quizHighscoreid bigint auto_increment
         primary key,
