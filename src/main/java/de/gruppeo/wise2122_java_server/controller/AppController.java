@@ -19,7 +19,7 @@ public class AppController {
 
     @RequestMapping("/")
     String index(Model model) {
-        List<Map<String, Object>> player = jdbcTemplate.queryForList("select * from mibquizzz.quizPlayer");
+        List<Map<String, Object>> player = jdbcTemplate.queryForList("select * from mibquizzz.player");
         model.addAttribute("title", "Liste der Spieler");
         model.addAttribute("spieler", player);
         return "index";

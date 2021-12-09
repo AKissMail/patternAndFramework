@@ -5,18 +5,18 @@ CREATE DATABASE IF NOT EXISTS mibquizzz CHARACTER SET utf8mb4 COLLATE utf8mb4_un
 
 # Erstelle die Tabellenstruktur, falls noch nicht existent
 # 1. Spielerprofile
-create table quizPlayer
+create table player
 (
-    playerID         int auto_increment
+    playerid         bigint auto_increment
         primary key,
     username         varchar(20)                                                           not null,
     password         varchar(100)                                                          not null,
-    currentScore     int                                                 default 0         null,
-    fk_quizHighscore int                                                 default 0         null,
+    currentscore     int                                                 default 0         null,
+    fk_quizHighscore bigint                                                 default 0         null,
     thumbnail        binary(1)                                                             null,
-    currentStatus    enum ('offline', 'online', 'quizzing', 'searching') default 'offline' not null,
-    constraint player_playerID_uindex
-        unique (playerID),
+    currentstatus    enum ('offline', 'online', 'quizzing', 'searching') default 'offline' not null,
+    constraint player_playerid_uindex
+        unique (playerid),
     constraint player_username_uindex
         unique (username)
 )
@@ -57,12 +57,12 @@ create table quizHighscore
 (
     quizHighscoreID int auto_increment
         primary key,
-    fk_playerID     int                                   not null,
+    fk_playerid     int                                   not null,
     highscore       int       default 0                   null,
     lastUpdate      timestamp default current_timestamp() not null on update current_timestamp(),
-    constraint quizHighscore_quizHighscoreID_uindex
+    constraint quizHighscore_quizHighscoreid_uindex
         unique (quizHighscoreID),
-    constraint quizHighscore_player_playerID_fk
-        foreign key (fk_playerID) references quizPlayer (playerID)
+    constraint quizHighscore_player_playerid_fk
+        foreign key (fk_playerid) references player (playerid)
             on delete cascade
 );

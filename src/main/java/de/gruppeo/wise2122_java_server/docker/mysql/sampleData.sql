@@ -1,5 +1,5 @@
 # 1. Sample Spieler anlegen
-INSERT INTO mibquizzz.player (playerID, username, password, currentScore, highscore, thumbnail, currentStatus)
+INSERT INTO mibquizzz.player (playerid, username, password, currentscore, fk_quizHighscore, thumbnail, currentstatus)
 VALUES (1, 'todeskralle', 'fingerweg!', 100, 0, null, 'offline');
 
 # 2. Beispielkategorien anlegen
