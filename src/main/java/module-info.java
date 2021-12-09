@@ -5,11 +5,12 @@ module de.gruppeo.mibquizzz {
     requires javafx.fxml;
     requires javafx.web;
 
-    requires spring.web;
     requires spring.boot;
     requires spring.boot.autoconfigure;
-    requires spring.jdbc;
     requires spring.context;
+    requires spring.data.jpa;
+    requires spring.jdbc;
+    requires spring.web;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
