@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    command: ./mvnw spring-boot:run
+    #command: ./mvnw spring-boot:run
     environment:
       DATASOURCE: jdbc:mariadb://db:5555/mibquizzz
 
@@ -21,7 +21,7 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: password
       MARIADB_DATABASE: mibquizzz
-      MARIADB_USER: adminer@%
+      MARIADB_USER: adminer
       MARIADB_PASSWORD: adminer
     ports:
       - "5555:3306"
