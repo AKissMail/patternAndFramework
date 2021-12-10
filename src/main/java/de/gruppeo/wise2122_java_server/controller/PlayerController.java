@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/player/all")
 public class PlayerController {
 
     private PlayerRepository playerRepository;
