@@ -18,6 +18,7 @@ module de.gruppeo.mibquizzz {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires org.hibernate.orm.core;
 
     opens de.gruppeo.wise2122_java_client to javafx.fxml;
     exports de.gruppeo.wise2122_java_client;
