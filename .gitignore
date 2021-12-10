@@ -1,7 +1,8 @@
-HELP.md
+# Maven
+!.mvn/wrapper/maven-wrapper.jar
+log/
 /target/
 */target/**
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
@@ -33,3 +34,9 @@ build/
 ### VS Code ###
 .vscode/
 
+# Mac
+.DS_Store
+
+# Other Stuff
+HELP.md
+/.jpb/
