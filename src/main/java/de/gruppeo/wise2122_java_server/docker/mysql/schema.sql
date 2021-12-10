@@ -12,7 +12,7 @@ create table player
     username         varchar(20)                                                           not null,
     password         varchar(100)                                                          not null,
     currentscore     int                                                 default 0         null,
-    fk_quizHighscore bigint                                              default 0         null,
+    fk_quizhighscore bigint(20)                                          default 0         null,
     thumbnail        binary(1)                                                             null,
     currentstatus    enum ('offline', 'online', 'quizzing', 'searching') default 'offline' not null,
     constraint player_playerid_uindex
@@ -39,11 +39,11 @@ create table questions
     quizquestionid  bigint(20) auto_increment
         primary key,
     question        text                                                        not null,
-    correctAnswer   varchar(255)                                                not null,
-    falseAnswer1    varchar(255)                                                not null,
-    falseAnswer2    varchar(255)                                                not null,
-    falseAnswer3    varchar(255)                                                not null,
-    fk_quizcategory bigint                                                      null,
+    correctanswer   varchar(255)                                                not null,
+    falseanswer1    varchar(255)                                                not null,
+    falseanswer2    varchar(255)                                                not null,
+    falseanswer3    varchar(255)                                                not null,
+    fk_quizcategory bigint(20)                                                  null,
     difficulty      enum ('Fachkraft', 'Ingenieur', 'Prof') default 'Fachkraft' not null,
     constraint quizQuestions_quizQuestionID_uindex
         unique (quizquestionid),
@@ -57,11 +57,11 @@ create table highscore
 (
     quizhighscoreid bigint(20) auto_increment
         primary key,
-    fk_playerid     bigint                                   not null,
+    fk_playerid     bigint(20)                            not null,
     highscore       int       default 0                   null,
     lastUpdate      timestamp default current_timestamp() not null on update current_timestamp(),
     constraint quizHighscore_quizHighscoreid_uindex
-        unique (quizHighscoreid),
+        unique (quizhighscoreid),
     constraint quizHighscore_player_playerid_fk
         foreign key (fk_playerid) references player (playerid)
             on delete cascade
