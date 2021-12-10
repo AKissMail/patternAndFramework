@@ -57,9 +57,9 @@ create table highscore
 (
     quizhighscoreid bigint(20) auto_increment
         primary key,
-    fk_playerid     bigint(20)                            not null,
     highscore       int       default 0                   null,
     lastUpdate      timestamp default current_timestamp() not null on update current_timestamp(),
+    fk_playerid     bigint(20)                            not null,
     constraint quizHighscore_quizHighscoreid_uindex
         unique (quizhighscoreid),
     constraint quizHighscore_player_playerid_fk
