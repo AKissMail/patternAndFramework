@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name = "player")
 @Table(name = "player", schema = "mibquizzz")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Player {
+public class PlayerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

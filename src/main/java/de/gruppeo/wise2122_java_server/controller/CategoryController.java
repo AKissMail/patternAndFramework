@@ -1,6 +1,6 @@
 package de.gruppeo.wise2122_java_server.controller;
 
-import de.gruppeo.wise2122_java_server.entity.Category;
+import de.gruppeo.wise2122_java_server.entity.CategoryEntity;
 import de.gruppeo.wise2122_java_server.repository.CategoryRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/category")
 public class CategoryController {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public CategoryController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -20,7 +20,7 @@ public class CategoryController {
     }
 
     @GetMapping("")
-    public List<Category> index() {
+    public List<CategoryEntity> index() {
         return categoryRepository.findAll();
     }
 }
