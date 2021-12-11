@@ -14,7 +14,9 @@ public class CLobby {
 
 
     public void onMouseClicked_startQuiz() {
-
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("quiz"));
+        stage.show();
     }
 
     public void onMouseClicked_back() {

@@ -57,7 +57,7 @@
                               <Insets bottom="20.0" left="70.0" right="70.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button fx:id="button_signUp_signUp" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Registrieren" textFill="WHITE">
+                        <Button fx:id="button_signUp_signUp" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_signUp" prefHeight="40.0" prefWidth="310.0" style="-fx-background-color: #008ae6#008ae6;" text="Registrieren" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>

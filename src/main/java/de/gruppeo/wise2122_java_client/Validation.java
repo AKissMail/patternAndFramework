@@ -38,9 +38,8 @@ public abstract class Validation {
     }
 
     /**
-     * Validiert das übergebene Passwort
-     * und wendet dabei das definierte
-     * Muster für sichere Passwörter an.
+     * Validiert das übergebene Passwort und wendet dabei
+     * das definierte Muster für sichere Passwörter an.
      *
      * @param password
      * @return boolean
@@ -51,27 +50,34 @@ public abstract class Validation {
     }
 
     /**
-     * Baut Datenbankverbindung auf,
-     * übergibt das Player-Objekt und
-     * prüft, ob Benutzername des Players
-     * bereits vergeben ist. Wenn nicht,
-     * wird true zurückgegeben.
+     * Prüft, ob die Eingabe mit dem in der DB
+     * gespeicherten Passwort übereinstimmt.
      *
-     * @param player
-     * @return
+     * @param password
+     * @return true oder false
      */
-    protected boolean isPlayerNotRegistered(MPlayer player) {
+    protected boolean isValidCurrentPassword(final String password) {
         // Logik muss implementiert werden ...
-
         return true;
     }
 
     /**
-     * Baut Datenbankverbindng auf,
-     * übergibt Username und Password
-     * und prüft, ob die Benutzereingaben
-     * valide sind. Wenn gültige Daten gefunden
-     * wurden, wird true zurückgegeben.
+     * Baut Datenbankverbindung auf, übergibt das Player-Objekt und
+     * prüft, ob Benutzername des Players bereits vergeben ist. Wenn
+     * nicht, wird true zurückgegeben.
+     *
+     * @param player
+     * @return
+     */
+    protected boolean isPlayerAvailable(MPlayer player) {
+        // Logik muss implementiert werden ...
+        return true;
+    }
+
+    /**
+     * Baut Datenbankverbindng auf, übergibt Username und Password
+     * und prüft, ob die Benutzereingaben valide sind. Wenn gültige
+     * Daten gefunden wurden, wird true zurückgegeben.
      *
      * @param username
      * @param password
@@ -79,7 +85,6 @@ public abstract class Validation {
      */
     protected boolean isLoginDataValid(String username, String password) {
         // Logik muss implementiert werden ...
-
         return true;
     }
 }
