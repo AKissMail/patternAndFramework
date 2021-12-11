@@ -7,17 +7,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity(name = "highscore")
-@Table(schema = "mibquizzz")
+@Table(name = "highscore", schema = "mibquizzz")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Highscore {
+public class HighscoreEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "quizhighscoreid", nullable = false)
+    @Column(name = "quizhighscoreid", nullable = false, updatable = false)
     private Long quizhighscoreid;
 
-    @Column(name = "highscore")
-    public Integer highscore;
+    @Column(name = "highscorepoints")
+    public Integer highscorepoints;
 
     @UpdateTimestamp
     @Column(name = "lastupdate", nullable = false)
@@ -27,15 +27,12 @@ public class Highscore {
         return lastupdate;
     }
 
-    public Integer getHighscore() {
-        return highscore;
+    public Integer getHighscorepoints() {
+        return highscorepoints;
     }
 
     public Long getQuizhighscoreid() {
         return quizhighscoreid;
     }
 
-    public void setQuizhighscoreid(Long quizhighscoreid) {
-        this.quizhighscoreid = quizhighscoreid;
-    }
 }
