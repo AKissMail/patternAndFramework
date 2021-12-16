@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.COpponent">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.gruppeo.wise2122_java_client.controllers.COpponent">
    <bottom>
       <Button fx:id="button_opponent_startQuiz" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz starten" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
