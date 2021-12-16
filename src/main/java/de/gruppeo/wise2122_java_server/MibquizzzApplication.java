@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "de.gruppeo.wise2122_java_server.repository")
-@EntityScan(basePackages = "de.gruppeo.wise2122_java_server.entity")
+@EntityScan(basePackages = "de.gruppeo.wise2122_java_server.model")
 @SpringBootApplication
 public class MibquizzzApplication {
 

@@ -1,4 +1,4 @@
-package de.gruppeo.wise2122_java_server.entity;
+package de.gruppeo.wise2122_java_server.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

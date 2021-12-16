@@ -1,4 +1,4 @@
-package de.gruppeo.wise2122_java_server.entity;
+package de.gruppeo.wise2122_java_server.model;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class CategoryEntity {
 
-    @ToString.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quizcategoryid", nullable = false)
@@ -21,7 +20,4 @@ public class CategoryEntity {
     @Column(unique = true)
     public String categoryname;
 
-    public void setQuizcategoryid(Long quizcategoryid) {
-        this.quizcategoryid = quizcategoryid;
-    }
 }
