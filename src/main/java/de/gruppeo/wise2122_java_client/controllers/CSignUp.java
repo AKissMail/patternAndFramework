@@ -8,12 +8,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 
 public class CSignUp extends Validation {
 
     private ViewLoader loader = new ViewLoader();
-    private int checkSum = 0;
+    ArrayList<Boolean> list =  new ArrayList<Boolean>();
+    private int requiredFields = 3;
 
     @FXML private TextField textField_signUp_username;
     @FXML private TextField textField_signUp_password1;
@@ -24,30 +26,18 @@ public class CSignUp extends Validation {
     @FXML private BorderPane mainPane;
     @FXML private Button button_signUp_signUp;
 
-    // Zugriff auf Eingabewerte
-    private String username = textField_signUp_username.getText();
-    private String password1 = textField_signUp_password1.getText();
-    private String password2 = textField_signUp_password2.getText();
-
     /**
-     * Aktiviert den "Registrieren"-Button, wenn alle
-     * drei Felder vollständig und korrekt ausgefüllt
-     * wurden.
-     *
-     * @param checkSum wird erhöht oder verringert
+     * Reserviert drei Speicherplätze
+     * im Zwischenspeicher.
      */
-    private void checkInputValidation(int checkSum) {
-        this.checkSum = checkSum;
-        System.out.println("CheckSum: " + checkSum);
-
-        if (checkSum == 3) {
-            button_signUp_signUp.setDisable(false);
-        } else {
-            button_signUp_signUp.setDisable(true);
+    public CSignUp() {
+        for (int i = 1; i <= requiredFields; i++) {
+            list.add(false);
         }
     }
 
     /**
+     * @TODO Datenbank-API
      * Klick auf "Registrieren"-Button
      * speichert Daten in Datenbank.
      */
@@ -62,51 +52,59 @@ public class CSignUp extends Validation {
     }
 
     /**
-     * Wird bei jeder Tastatureingabe in das Feld "Username"
-     * ausgeführt und prüft, ob die Benutzereingabe den
-     * Richtlinien entspricht und ob der Benutzername noch
-     * verfügbar ist oder in der DB bereits vergeben wurde.
+     * Prüft, ob der Benutzername
+     * den Richtlinien entspricht.
      */
-    public void onKeyPressed_username() {
-        if (isValidUsername(username) && isPlayerAvailable(new MPlayer())) {
-            label_signUp_username.setTextFill(Color.BLACK);
-            checkInputValidation(+1);
+    public void onKeyTyped_username() {
+        String username = textField_signUp_username.getText();
+        Color labelColor;
+
+        if (isValidUsername(username) && isUsernameAvailable(new MPlayer())) {
+            list.set(0, true);
+            labelColor = Color.BLACK;
+
         } else {
-            label_signUp_username.setTextFill(Color.RED);
-            checkInputValidation(-1);
+            list.set(0, false);
+            labelColor = Color.RED;
         }
+        checkInputValidation(label_signUp_username, labelColor, list, button_signUp_signUp);
     }
 
     /**
-     * Wird bei jeder Tastatureingabe in das Feld "Password1"
-     * ausgeführt und prüft, ob das eingegebene Password den
-     * Richtlinien entspricht.
+     * Prüft, ob das erste Passwort
+     * den Richtlinien entspricht.
      */
-    public void onKeyPressed_password1() {
+    public void onKeyTyped_password1() {
+        String password1 = textField_signUp_password1.getText();
+        Color labelColor;
+
         if (isValidPassword(password1)) {
-            label_signUp_password1.setTextFill(Color.BLACK);
-            checkInputValidation(+1);
+            list.set(1, true);
+            labelColor = Color.BLACK;
         } else {
-            label_signUp_password1.setTextFill(Color.RED);
-            checkInputValidation(-1);
+            list.set(1, false);
+            labelColor = Color.RED;
         }
-
-        System.out.println("VALID PW1: " + isValidPassword(password1));
+        checkInputValidation(label_signUp_password1, labelColor, list, button_signUp_signUp);
     }
 
     /**
-     * Wird bei jeder Tastatureingabe in das Feld
-     * "Password2" ausgeführt und prüft, ob beide
-     * Passwörter übereinstimmen.
+     * Prüft, ob das erste und das
+     * zweite Passwort übereinstimmen.
      */
-    public void onKeyPressed_password2() {
-        if (password2.equals(password1)) {
-            label_signUp_password2.setTextFill(Color.BLACK);
-            checkInputValidation(+1);
+    public void onKeyTyped_password2() {
+        String password1 = textField_signUp_password1.getText();
+        String password2 = textField_signUp_password2.getText();
+        Color labelColor;
+
+        if (password1.equals(password2)) {
+            list.set(2, true);
+            labelColor = Color.BLACK;
         } else {
-            label_signUp_password2.setTextFill(Color.RED);
-            checkInputValidation(-1);
+            list.set(2, false);
+            labelColor = Color.RED;
         }
+        checkInputValidation(label_signUp_password2, labelColor, list, button_signUp_signUp);
     }
 
     /**
@@ -117,15 +115,4 @@ public class CSignUp extends Validation {
         Pane pane = loader.getPane("logIn");
         mainPane.setRight(pane);
     }
-
-
-    /**
-     * Diese ist die Fehlernachricht, sie infomiert den Nutzer*innen über eine falsche eingaben
-     * @param error Das ist die Fehlernachricht.
-
-    public void errorprint(String error){
-    System.out.println(error);
-    Alert alert = new Alert(Alert.AlertType.WARNING, error, ButtonType.OK);
-    alert.showAndWait();
-    }*/
 }

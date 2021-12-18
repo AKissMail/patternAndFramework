@@ -2,27 +2,28 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MTimer;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
-import javafx.fxml.FXML;
-
 import java.net.MalformedURLException;
+import javafx.fxml.FXML;
 
 public class CQuiz {
 
     private ViewLoader loader = new ViewLoader();
+    private MTimer timer = new MTimer();
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_quiz_timer;
+    @FXML private ProgressBar progressBar_quiz_progress;
 
     @FXML public void initialize() throws MalformedURLException {
-        MTimer timer = new MTimer(10, "TIMER1", label_quiz_timer);
-        timer.start();
+        label_quiz_timer.setText(timer.getSeconds() + " s");
+        progressBar_quiz_progress.setProgress(timer.getSeconds() / timer.defaultSeconds);
 
-        //MTimer timer1 = new MTimer(10, "TIMER2", label_quiz_timer);
-        //timer1.start();
+        startTimer();
     }
 
     public void onMouseClicked_answerA() {
@@ -50,5 +51,26 @@ public class CQuiz {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
         stage.show();
+    }
+
+    private void startTimer() {
+        Thread thread = new Thread(() -> {
+            while (timer.getSeconds() > 0) {
+                try {
+                    System.out.println("TimerInWhile: " + timer.getSeconds());
+                    Thread.sleep(1000);
+                    timer.decreaseSeconds(1);
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }
+
+                Platform.runLater(() -> {
+                    label_quiz_timer.setText(timer.getSeconds() + " s");
+                    System.out.println("Progress: " + timer.getSeconds() / 10.0);
+                    progressBar_quiz_progress.setProgress(timer.getSeconds() / 10.0);
+                });
+            }
+        });
+        thread.start();
     }
 }

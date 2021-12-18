@@ -7,21 +7,20 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.net.MalformedURLException;
+
 public class CCategory {
 
     private ViewLoader loader = new ViewLoader();
 
-    @FXML
-    private BorderPane mainPane;
+    @FXML private BorderPane mainPane;
+    @FXML private ComboBox combo_category_selectedCategory;
+    @FXML private RadioButton radio_category_10Questions;
+    @FXML private RadioButton radio_category_20Questions;
 
-    @FXML
-    private ComboBox combo_category_selectedCategory;
-
-    @FXML
-    private RadioButton radio_category_10Questions;
-
-    @FXML
-    private RadioButton radio_category_20Questions;
+    @FXML public void initialize() throws MalformedURLException {
+        combo_category_selectedCategory.getItems().add("Kategorie 1");
+    }
 
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
