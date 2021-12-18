@@ -1,13 +1,20 @@
-package de.gruppeo.wise2122_java_server.entity;
+package de.gruppeo.wise2122_java_server.model;
 
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "player")
 @Table(name = "player", schema = "mibquizzz")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Player {
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+public class PlayerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +29,8 @@ public class Player {
     @NumberFormat(pattern = "0000", style = NumberFormat.Style.NUMBER)
     private Integer currentscore;
 
-    public Integer getCurrentscore() {
-        return currentscore;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     // private Image thumbnail;
@@ -41,15 +40,16 @@ public class Player {
     @Column(name = "currentstatus")
     public String currentstatus;
 
-    public String getCurrentStatus() {
-        return currentstatus;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        PlayerEntity that = (PlayerEntity) o;
+        return playerid != null && Objects.equals(playerid, that.playerid);
     }
 
-    public Long getPlayerid() {
-        return playerid;
-    }
-
-    public void setPlayerid(Long playerid) {
-        this.playerid = playerid;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

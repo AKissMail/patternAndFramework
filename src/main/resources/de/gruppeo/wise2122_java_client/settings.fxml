@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CSettings">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.1 " xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CSettings">
    <left>
       <VBox alignment="CENTER" prefHeight="450.0" prefWidth="260.0" style="-fx-background-color: #004d80#004d80 #004d80#004d80;" BorderPane.alignment="CENTER">
          <children>

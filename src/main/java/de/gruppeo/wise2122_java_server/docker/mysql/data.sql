@@ -23,7 +23,7 @@ VALUES (2, 'Woran erkennt man eine sichere Webseite?', 'Am kleinen Schloss neben
         'Am optischen Gesamteindruck des Seite', 'Am Impressum: Der Firmensitz sollte in Deutschland sein',
         'Wie aktuell die Seite ist', 3, 'Fachkraft');
 
-#4. Highscore Beispieldaten
-INSERT INTO mibquizzz.highscore (quizHighscoreID, fk_playerID, highscore, lastUpdate) VALUES (1, 1, 500, '2021-12-08 12:16:45');
-INSERT INTO mibquizzz.highscore (quizHighscoreID, fk_playerID, highscore, lastUpdate) VALUES (2, 2, 350, '2021-12-10 22:25:08');
+#4. HighscoreEntity Beispieldaten
+INSERT INTO mibquizzz.highscore (quizHighscoreID, fk_playerID, highscorepoints, lastUpdate) VALUES (1, 1, 500, '2021-12-08 12:16:45');
+INSERT INTO mibquizzz.highscore (quizHighscoreID, fk_playerID, highscorepoints, lastUpdate) VALUES (2, 2, 350, '2021-12-10 22:25:08');
 

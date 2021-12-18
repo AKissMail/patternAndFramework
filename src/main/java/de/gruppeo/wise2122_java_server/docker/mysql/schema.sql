@@ -38,7 +38,7 @@ create table questions
 (
     quizquestionid  bigint(20) auto_increment
         primary key,
-    question        text                                                        not null,
+    question        varchar(255)                                                not null,
     correctanswer   varchar(255)                                                not null,
     falseanswer1    varchar(255)                                                not null,
     falseanswer2    varchar(255)                                                not null,
@@ -57,7 +57,7 @@ create table highscore
 (
     quizhighscoreid bigint(20) auto_increment
         primary key,
-    highscore       int       default 0                   null,
+    highscorepoints int       default 0                   null,
     lastUpdate      timestamp default current_timestamp() not null on update current_timestamp(),
     fk_playerid     bigint(20)                            not null,
     constraint quizHighscore_quizHighscoreid_uindex

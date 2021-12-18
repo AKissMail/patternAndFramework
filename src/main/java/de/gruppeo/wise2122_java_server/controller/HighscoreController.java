@@ -1,7 +1,7 @@
 package de.gruppeo.wise2122_java_server.controller;
 
 
-import de.gruppeo.wise2122_java_server.entity.Highscore;
+import de.gruppeo.wise2122_java_server.model.HighscoreEntity;
 import de.gruppeo.wise2122_java_server.repository.HighscoreRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +13,14 @@ import java.util.List;
 @RequestMapping("/highscore")
 public class HighscoreController {
 
-    private HighscoreRepository highscoreRepository;
+    private final HighscoreRepository highscoreRepository;
 
     public HighscoreController(HighscoreRepository highscoreRepository) {
         this.highscoreRepository = highscoreRepository;
     }
 
     @GetMapping("")
-    public List<Highscore> index() {
+    public List<HighscoreEntity> index() {
         return highscoreRepository.findAll();
     }
 }

@@ -1,6 +1,6 @@
 package de.gruppeo.wise2122_java_server.controller;
 
-import de.gruppeo.wise2122_java_server.entity.Player;
+import de.gruppeo.wise2122_java_server.model.PlayerEntity;
 import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +12,14 @@ import java.util.List;
 @RequestMapping("/player/all")
 public class PlayerController {
 
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
     public PlayerController(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
     @GetMapping("")
-    public List<Player> index() {
+    public List<PlayerEntity> index() {
         return playerRepository.findAll();
     }
 }
