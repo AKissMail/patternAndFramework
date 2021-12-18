@@ -1,5 +1,6 @@
 package de.gruppeo.wise2122_java_server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.format.annotation.NumberFormat;
@@ -23,15 +24,14 @@ public class PlayerEntity {
 
     @Column(name = "username", unique = true, updatable = false)
     private String username;
+
+    @JsonIgnore
     @Column(name = "password")
     private String password;
+
     @Column(name = "currentscore")
     @NumberFormat(pattern = "0000", style = NumberFormat.Style.NUMBER)
     private Integer currentscore;
-
-    public String getPassword() {
-        return password;
-    }
 
     // private Image thumbnail;
 

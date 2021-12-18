@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "app.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Der furchtbar geheime Key zur geheimen Anmeldung."
+    }
+  ]
+}
