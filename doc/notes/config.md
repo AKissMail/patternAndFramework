@@ -12,3 +12,6 @@ Damit die JavaFX Klassen genutzt werden können, müssen die Libraries zuesrt de
 * Unter File/Project Structure die libs hinzufügen
 * dazu unter Project-Setting/Libraries auf das Plus klicken und den Pfad zu den JavaFX Libraries angeben die Klassen
   hinzufügen
+
+![](picture/Bildschirmfoto 2021-12-18 um 15.02.56.png)
+![](picture/Bildschirmfoto%202021-12-18%20um%2015.03.27.png)
