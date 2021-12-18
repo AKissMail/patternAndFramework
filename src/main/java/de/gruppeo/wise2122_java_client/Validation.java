@@ -1,6 +1,10 @@
 package de.gruppeo.wise2122_java_client;
 
 import de.gruppeo.wise2122_java_client.models.MPlayer;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +54,7 @@ public abstract class Validation {
     }
 
     /**
+     * @TODO Datenbank-API
      * Prüft, ob die Eingabe mit dem in der DB
      * gespeicherten Passwort übereinstimmt.
      *
@@ -62,6 +67,7 @@ public abstract class Validation {
     }
 
     /**
+     * @TODO Datenbank-API
      * Baut Datenbankverbindung auf, übergibt das Player-Objekt und
      * prüft, ob Benutzername des Players bereits vergeben ist. Wenn
      * nicht, wird true zurückgegeben.
@@ -69,12 +75,13 @@ public abstract class Validation {
      * @param player
      * @return
      */
-    protected boolean isPlayerAvailable(MPlayer player) {
+    protected boolean isUsernameAvailable(MPlayer player) {
         // Logik muss implementiert werden ...
         return true;
     }
 
     /**
+     * @TODO Datenbank-API
      * Baut Datenbankverbindng auf, übergibt Username und Password
      * und prüft, ob die Benutzereingaben valide sind. Wenn gültige
      * Daten gefunden wurden, wird true zurückgegeben.
@@ -86,5 +93,30 @@ public abstract class Validation {
     protected boolean isLoginDataValid(String username, String password) {
         // Logik muss implementiert werden ...
         return true;
+    }
+
+    /**
+     * Aktiviert einen Button, wenn alle
+     * drei Felder vollständig und korrekt ausgefüllt
+     * wurden.
+     */
+    protected void checkInputValidation(Label label, Color labelColor, ArrayList<Boolean> list, Button button) {
+        int checkSum = 0;
+
+        // Färbt das Label in rot/schwarz
+        label.setTextFill(labelColor);
+        //System.out.println("Huhu");
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == true) {
+                checkSum += 1;
+            }
+        }
+
+        if (checkSum == list.size()) {
+            button.setDisable(false);
+        } else {
+            button.setDisable(true);
+        }
     }
 }

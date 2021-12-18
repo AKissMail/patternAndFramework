@@ -26,7 +26,7 @@
                               <Insets bottom="3.0" left="70.0" right="70.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="textField_signUp_username" prefHeight="35.0" prefWidth="310.0">
+                        <TextField fx:id="textField_signUp_username" onKeyTyped="#onKeyTyped_username" prefHeight="35.0" prefWidth="310.0">
                            <VBox.margin>
                               <Insets bottom="10.0" left="70.0" right="70.0" />
                            </VBox.margin>
@@ -39,7 +39,7 @@
                               <Insets bottom="3.0" left="70.0" right="70.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="textField_signUp_password2" prefHeight="35.0" prefWidth="310.0">
+                        <PasswordField fx:id="textField_signUp_password1" onKeyTyped="#onKeyTyped_password1" prefHeight="35.0" prefWidth="310.0">
                            <VBox.margin>
                               <Insets bottom="10.0" left="70.0" right="70.0" />
                            </VBox.margin>
@@ -52,7 +52,7 @@
                               <Insets bottom="3.0" left="70.0" right="70.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="textField_signUp_password1" prefHeight="35.0" prefWidth="310.0">
+                        <PasswordField fx:id="textField_signUp_password2" onKeyTyped="#onKeyTyped_password2" prefHeight="35.0" prefWidth="310.0">
                            <VBox.margin>
                               <Insets bottom="20.0" left="70.0" right="70.0" />
                            </VBox.margin>
