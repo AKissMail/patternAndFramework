@@ -52,4 +52,17 @@ public class AuthController {
         PlayerEntity created = playerRepository.save(player);
         return ResponseEntity.ok(created);
     }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authRequest.getUsername(),
+                        authRequest.getPassword()
+                )
+        );
+
+        return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
+    }
+
 }
