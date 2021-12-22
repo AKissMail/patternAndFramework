@@ -29,6 +29,7 @@ public class Connection {
         this.requestMethod = requestMethod;
         this.privateToken = privateToken;
 
+        //@TODO JSON-Struktur muss umgebaut werden
         //requestServer();
         readFile(); // TEST
     }
