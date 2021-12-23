@@ -1,4 +1,4 @@
-export {displayLobby};
+
 function displayLobby(){
 
     let backHome = document.createElement("p");

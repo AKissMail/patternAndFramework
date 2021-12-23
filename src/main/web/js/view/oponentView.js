@@ -1,4 +1,4 @@
-export {displayOponentView};
+
 
 function displayOponentView(nameA, nameB ){
 

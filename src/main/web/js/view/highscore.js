@@ -1,4 +1,4 @@
-export {displaySHighscore};
+
 
 /**
  * Hier wird eine Tabelle ausgeben welche
@@ -15,6 +15,8 @@ function displaySHighscore(node) {
     highscoreHading.append("Highscore");
     let highscoreHadingDescription = document.createElement("p");
     highscoreHadingDescription.append(games.length + " Spielrunden gefunden");
+    document.getElementsByTagName("article")[0].appendChild(highscoreHading);
+    document.getElementsByTagName("article")[0].appendChild(highscoreHadingDescription);
 
     let scoreTabel = document.createElement("table");
     scoreTabel.setAttribute("id", "scoreTabel");
@@ -34,12 +36,14 @@ function displaySHighscore(node) {
         let score = document.createElement("td");
         ranking.append(i.toString());
         user.append(games[i - 1][1].toString());
-        score.append((games[i][2].toString()));
+        score.append((games[i-1][2].toString()));
         row.appendChild(ranking);
         row.appendChild(user);
         row.appendChild(score);
         scoreTabel.appendChild(row);
     }
+    document.getElementsByTagName("article")[0].appendChild(scoreTabel);
+
 }
 
 

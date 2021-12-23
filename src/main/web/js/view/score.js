@@ -1,6 +1,6 @@
-export {displaySore};
+
 function displaySore(){
-    let games = [[1, "User A", 650],[1, "User A", 650]]//apiGetHishscore();
+    let games = [[1, "User A", 650],[2, "User A", 650]]//apiGetHishscore();
 
     let backHome = document.createElement("p");
     backHome.append("Hauptmenü");
@@ -10,6 +10,9 @@ function displaySore(){
     highscoreHading.append("Highscore");
     let highscoreHadingDescription = document.createElement("p");
     highscoreHadingDescription.append(games.length+" Spielrunden gefunden");
+    document.getElementsByTagName("article")[0].appendChild(highscoreHading);
+    document.getElementsByTagName("article")[0].appendChild(highscoreHadingDescription);
+
 
     let scoreTabel= document.createElement("table");
     scoreTabel.setAttribute("id", "scoreTabel");
@@ -20,6 +23,7 @@ function displaySore(){
     scoreTabelHeading.appendChild(scoreTabelHeadingPlatz);
     scoreTabelHeading.appendChild(scoreTabelHeadingUser);
     scoreTabelHeading.appendChild(scoreTabelHeadingPunkte);
+    scoreTabel.appendChild(scoreTabelHeading);
 
     for (let i= 1; i <= games.length; i++){
        let row = document.createElement("tr");
@@ -27,26 +31,14 @@ function displaySore(){
        let user = document.createElement("td");
        let score = document.createElement("td");
        ranking.append(i.toString());
-       user.append(games[i-1][1]);
-       score.append((games[i][2]));
+       user.append(games[i-1][1].toString());
+       score.append((games[i-1][2]).toString());
 
-
-
-
-
+        row.appendChild(ranking);
+        row.appendChild(user);
+        row.appendChild(score);
+        scoreTabel.appendChild(row);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    document.getElementsByTagName("article")[0].appendChild(scoreTabel);
 
 }
