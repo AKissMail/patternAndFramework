@@ -1,3 +1,15 @@
+//export {clearStage,statUp, existCookie};
+import {displayLobby} from './view/lobby.js';
+import {displaySHighscore} from './view/highscore';
+import {displayOponentView} from 'view/oponentView';
+import {displaySHighscore} from 'view/highscore';
+
+
+
+
+
+
+
 function existCookie(url) {
     return false;
 }

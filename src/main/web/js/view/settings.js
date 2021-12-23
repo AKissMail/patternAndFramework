@@ -1,4 +1,6 @@
+export {displaySettings};
 /**
+ * @todo in die Init verschiben
  * macht die Stage leer und ruft home auf
  */
 

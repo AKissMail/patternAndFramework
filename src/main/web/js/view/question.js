@@ -1,5 +1,8 @@
+export {displayQuestion};
+
+
 /**
- *
+ * @ todo in API
  * @param a1
  * @returns {undefined}
  */
@@ -8,7 +11,7 @@ function sendAnser(a1) {
 }
 
 /**
- * @todo
+ * @todo In API!
  */
 function goHome() {
 

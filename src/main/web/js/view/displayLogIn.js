@@ -1,3 +1,6 @@
+export {displayLogIn, runLogIn};
+
+
 /**
  * Das ist der LogIn Screen. Diese function baut in das HTML gerüst ein Formular
  * welche die folgenden 3 werte abfragt.
