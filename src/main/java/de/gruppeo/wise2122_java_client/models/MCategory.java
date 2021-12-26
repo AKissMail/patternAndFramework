@@ -19,7 +19,7 @@ public class MCategory {
      */
     public MCategory(String serverResponse) throws JSONException {
         this.categories = new ArrayList<>();
-        parseJSON(serverResponse);
+        parseJSON("{\"categories\":"+serverResponse+"}");
     }
 
     /**

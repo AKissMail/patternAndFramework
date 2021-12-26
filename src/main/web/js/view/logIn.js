@@ -1,7 +1,3 @@
-
-
-
-
 /**
  * Das ist der LogIn Screen. Diese function baut in das HTML gerüst ein Formular
  * welche die folgenden 3 werte abfragt.
@@ -10,7 +6,7 @@
  * 3. Password
  * Die verarbeitung übernimmt runLogIn in displayLogin.js.
  */
-function displayLogIn(){
+export function show(){
     let form = document.createElement("form");
 
     let inputServer = document.createElement("input");

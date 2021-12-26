@@ -1,37 +1,26 @@
-//export {clearStage,statUp, existCookie};
-import {displayLobby} from './view/lobby.js';
-import {displaySHighscore} from './view/highscore';
-import {displayOponentView} from 'view/oponentView';
-import {displaySHighscore} from 'view/highscore';
 
-
-
-
-
-
-
-function existCookie(url) {
+export function existCookie(url) {
     return false;
 }
-function statUp(){
+export function statUp(){
     console.log("startUp");
  if(existCookie("url")){
      if(existCookie("url")&&existCookie("jwToken")){
        alert("homeView();");
      }else{
-        displayLogIn();
+        logIn();
      }
  }
  else {
-     console.log('displayLogIn();');
-     displayLogIn();
+     console.log('logIn();');
+     logIn();
 }
 }
 
 /**
  * Setzt das Dokument zurück
  */
-function clearStage(){
+export function clearStage(nextStage){
 
     document.querySelector("header").remove();
     document.querySelector("main").remove();
@@ -50,5 +39,6 @@ function clearStage(){
     document.getElementsByName("body")[0].appendChild(main);
     document.getElementsByName("body")[0].appendChild(aside);
     document.getElementsByName("body")[0].appendChild(footer);
+    nextStage();
 }
 

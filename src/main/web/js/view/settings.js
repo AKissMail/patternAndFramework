@@ -1,44 +1,16 @@
-export {displaySettings};
+import {clearStage} from '../controler/base.js';
 /**
  * @todo in die Init verschiben
  * macht die Stage leer und ruft home auf
  */
 
 function backHome() {
-    clearStage();
-    displayHome();
+    clearStage(displayHome);
 }
-
-/**
- * @todo
- * @returns {undefined}
- */
-function deleteStatistics() {
-    alert("deleteStatistics()");
-    return undefined;
-}
-
-/**
- * @todo
- * @returns {undefined}
- */
-function updatePassword() {
-
-    return undefined;
-}
-
-/**
- * @todo
- * @returns {undefined}
- */
-function updatePicture() {
-    return undefined;
-}
-
 /**
  * Baut das Optionsmenü auf
  */
-function displaySettings() {
+export function displaySettings() {
 
     let backHome = document.createElement("p");
     backHome.append("Hauptmenü");

@@ -1,6 +1,4 @@
 
-
-
 /**
  * @ todo in API
  * @param a1
@@ -21,7 +19,7 @@ function goHome() {
  *
  * @param question
  */
-function displayQuestion(question) {
+export function displayQuestion(question) {
 
     let backHome = document.createElement("p");
     backHome.append("Beenden");

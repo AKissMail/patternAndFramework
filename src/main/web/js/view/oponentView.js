@@ -1,6 +1,9 @@
-
-
-function displayOponentView(nameA, nameB ){
+/**
+ *
+ * @param nameA @todo doku
+ * @param nameB
+ */
+export function displayOponentView(nameA, nameB ){
 
     let backHome = document.createElement("p");
     backHome.append("Kategorie");

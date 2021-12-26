@@ -1,0 +1,32 @@
+/**
+
+
+ */
+html {
+    background: #e6e6e6;
+}
+h1 {
+    text-align: center;
+}
+p {
+    text-align: center;
+}
+
+table {
+    align-items: center;
+    margin: auto;
+}
+td {
+    background: aliceblue;
+    border: 0px solid #aaaaaa;
+    border-left: 2px solid;
+    border-right: 2px solid;
+    padding: 20px;
+}
+th {
+    background: aliceblue;
+    border: 1px solid #aaaaaa;
+    border-left: 2px solid;
+    border-right: 2px solid;
+    padding: 20px;
+}

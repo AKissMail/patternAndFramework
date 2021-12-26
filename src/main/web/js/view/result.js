@@ -6,7 +6,7 @@
  * @param nameB Name des RemodePalyer
  * @param result Boolean true -> localPlayer hat gewonnen. false -> localPlayer hat verloren
  */
-function displayResultWin(nameA, nameB, result){
+export function displayResultWin(nameA, nameB, result){
 
     let backHome = document.createElement("p");
     backHome.append("Kategorie");

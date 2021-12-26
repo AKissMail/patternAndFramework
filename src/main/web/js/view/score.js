@@ -1,10 +1,24 @@
+import {clearStage} from '../controler/base.js';
+/**
+ * @todo in die Init verschiben
+ * macht die Stage leer und ruft home auf
+ */
 
-function displaySore(){
-    let games = [[1, "User A", 650],[2, "User A", 650]]//apiGetHishscore();
+function backMainMenu() {
+    clearStage(displayHome);
+    //@todo
+}
 
-    let backHome = document.createElement("p");
-    backHome.append("Hauptmenü");
+/**
+ *
+ */
+export function displaySore(){
+    let games = [[1, "User A", 650],[2, "User A", 650]]//apiGetOwnHighscore();
+
+    let backHome = document.createElement("a");
+    backHome.append("< Hauptmenü");
     document.getElementsByTagName("nav")[0].appendChild(backHome);
+    document.getElementsByTagName("a")[0].addEventListener(onclick, backMainMenu());
 
     let highscoreHading = document.createElement("h1");
     highscoreHading.append("Highscore");
@@ -17,9 +31,12 @@ function displaySore(){
     let scoreTabel= document.createElement("table");
     scoreTabel.setAttribute("id", "scoreTabel");
     let scoreTabelHeading = document.createElement("tr");
-    let scoreTabelHeadingPlatz = document.createElement("Platz");
-    let scoreTabelHeadingUser = document.createElement("User");
-    let scoreTabelHeadingPunkte = document.createElement("Punkte");
+    let scoreTabelHeadingPlatz = document.createElement("th");
+    scoreTabelHeadingPlatz.append("Platz");
+    let scoreTabelHeadingUser = document.createElement("th");
+    scoreTabelHeadingUser.append("User");
+    let scoreTabelHeadingPunkte = document.createElement("th");
+    scoreTabelHeadingPunkte.append("Punkte");
     scoreTabelHeading.appendChild(scoreTabelHeadingPlatz);
     scoreTabelHeading.appendChild(scoreTabelHeadingUser);
     scoreTabelHeading.appendChild(scoreTabelHeadingPunkte);

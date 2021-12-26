@@ -1,5 +1,5 @@
 
-function displayLobby(){
+export function displayLobby(){
 
     let backHome = document.createElement("p");
     backHome.append("Kategorie");

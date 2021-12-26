@@ -4,7 +4,7 @@
  * Hier wird eine Tabelle ausgeben welche
  * @param node
  */
-function displaySHighscore(node) {
+export function displaySHighscore(node) {
     let games = [[1, "NameA", 650], [2, "NameB", 550], [3, "NameB", 450], [4, "NameB", 350], [5, "NameB", 250], [6, "NameB", 150], [7, "NameB", 50]]
 
     let backHome = document.createElement("p");
