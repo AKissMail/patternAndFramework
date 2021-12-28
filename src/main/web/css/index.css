@@ -1,32 +1,124 @@
-/**
-
-
- */
+/*//////////////////////////////////////////////////////////////////////////////////////////
+                                                Elemente
+//////////////////////////////////////////////////////////////////////////////////////////*/
 html {
-    background: #e6e6e6;
+    background-color:  #e6e6e6;
 }
-h1 {
+main {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 1em;
+}
+main > aside {
+    padding: 30px;
+    background-color: #008ae6;
     text-align: center;
+}
+main > aside > p {
+    font-size: x-large;
+    font-family: "JetBrains Mono", sans-serif;
+    color: #e6e6e6;
+}
+main > article >form {
+   padding: 30px;
+   text-align: center;
+}
+main > article {
+    text-align: center;
+}
+/*//////////////////////////////////////////////////////////////////////////////////////////
+                                                Typo
+//////////////////////////////////////////////////////////////////////////////////////////*/
+h1 {
+    font-size: x-large;
+    font-family: sans-serif;
 }
 p {
+    font-family: sans-serif;
+    font-size: x-large;
+}
+/*//////////////////////////////////////////////////////////////////////////////////////////
+                                                id
+//////////////////////////////////////////////////////////////////////////////////////////*/
+#thumbnail {
+    height: 100px;
+    width: 100px;
+    background-color: #008ae6;
+    border-radius: 50%;
+    display: inline-block;
+}
+#scoreTabel {
+    display: unset;
+}
+#scoreTabel > tr > td {
+    background: #008ae6;
+    color: #e6e6e6;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+#none {
+    display: none;
+}
+#rotation {
+    -webkit-animation: rotation 10s infinite cubic-bezier(.86,0,.07,1);
+    max-width: 50px;
+    max-height: 50px;
+}
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to{-webkit-transform: rotate(359deg);}
+}
+#wapper {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+#timer {
+ /*todo hier muss noch ein Counter umgesetzt werden*/
+}
+/*//////////////////////////////////////////////////////////////////////////////////////////
+                                                classes
+//////////////////////////////////////////////////////////////////////////////////////////*/
+.btn {
+    margin: 20px;
+}
+.btn > p {
+    color: #e6e6e6;
+    background-color: #008ae6;
     text-align: center;
+    display: initial;
+    box-shadow: 2px 2px 4px #d7caca;
+    padding: 5px;
+}
+.btn > p:hover {
+    color: #e6e6e6;
+    background-color: #0268ac;
+    text-align: center;
+    display: initial;
+    box-shadow: 2px 2px 4px #d7caca;
+    padding: 5px;
+}
+.question:hover{
+    color: #e6e6e6;
+    background-color: #0268ac;
+    text-align: center;
+    display: initial;
+    box-shadow: 2px 2px 4px #d7caca;
+    padding: 5px;
+    margin: 20px auto auto;
+}
+.question{
+    color: #e6e6e6;
+    background-color: #0089e5;
+    text-align: center;
+    display: initial;
+    box-shadow: 2px 2px 4px #d7caca;
+    padding: 5px;
+    margin: 20px auto auto;
 }
 
-table {
-    align-items: center;
-    margin: auto;
-}
-td {
-    background: aliceblue;
-    border: 0px solid #aaaaaa;
-    border-left: 2px solid;
-    border-right: 2px solid;
-    padding: 20px;
-}
-th {
-    background: aliceblue;
-    border: 1px solid #aaaaaa;
-    border-left: 2px solid;
-    border-right: 2px solid;
-    padding: 20px;
+.playerPic {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #008ae6;
 }
