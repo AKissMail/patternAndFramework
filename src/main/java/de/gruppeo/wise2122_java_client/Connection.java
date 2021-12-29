@@ -2,36 +2,43 @@ package de.gruppeo.wise2122_java_client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Connection {
-    private URL serverURL;
+    HttpURLConnection connection;
     private String privateToken;
-    private String requestMethod;
     private String serverResponse;
 
     /**
+     * GET-Konstruktor
      * Initialisiert globale Variablen und
      * führt Methode zur Anfrage einer JSON-
      * Zeichenkette aus.
      *
      * @param directory
-     * @param requestMethod
      * @param privateToken
-     * @throws MalformedURLException
+     * @throws Exception
      */
-    public Connection(String directory, String requestMethod, String privateToken) throws Exception {
-        this.serverURL = new URL("http://localhost:8080" + directory);
-        this.requestMethod = requestMethod;
+    public Connection(String directory, String privateToken) throws Exception {
         this.privateToken = privateToken;
+        connection = (HttpURLConnection) new URL("http://localhost:8080" + directory).openConnection();
+        getData();
+    }
 
-        //@TODO JSON-Struktur muss umgebaut werden
-        //requestServer();
-        readFile(); // TEST
+    /**
+     * POST-Konstruktor
+     * Initialisiert globale Variablen und
+     * führt Methode zur Übermittlung von Daten
+     * an den Server aus.
+     *
+     * @param directory
+     * @throws Exception
+     */
+    public Connection(String directory) throws Exception {
+        connection = (HttpURLConnection) new URL("http://localhost:8080" + directory).openConnection();
     }
 
     /**
@@ -42,14 +49,12 @@ public class Connection {
      *
      * @throws Exception
      */
-    private void requestServer() throws Exception {
-        HttpURLConnection conn = (HttpURLConnection) serverURL.openConnection();
+    private void getData() throws Exception {
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", "Bearer " + privateToken);
+        connection.setRequestProperty("Content-Type", "application/json");
 
-        conn.setRequestProperty("Authorization", "Bearer " + privateToken);
-        conn.setRequestProperty("Content-Type", "application/json");
-        conn.setRequestMethod(requestMethod);
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String output;
 
         StringBuffer response = new StringBuffer();
@@ -62,19 +67,32 @@ public class Connection {
         serverResponse = response.toString();
     }
 
-    public String getServerResponse() {
-        return serverResponse;
+    public void postData(String serverInput) throws Exception {
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Schreibt Server-Input
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = serverInput.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Liest die Server-Antwort vom Input Stream
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine = null;
+
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println("Server: " + response.toString());
+            serverResponse = response.toString();
+        }
     }
 
-    /**
-     * TESTMETHODE
-     * Statt das JSON über die Server-API zu laden,
-     * wird auf eine lokale JSON-Datei zurückgegriffen.
-     *
-     * @return Zeichenkette
-     * @throws Exception
-     */
-    public void readFile() throws Exception {
-        serverResponse = new String(Files.readAllBytes(Paths.get("src/main/resources/de/gruppeo/wise2122_java_client/test.json")));
+    public String getServerResponse() {
+        return serverResponse;
     }
 }

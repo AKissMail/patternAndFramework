@@ -1,8 +1,10 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.Connection;
 import de.gruppeo.wise2122_java_client.Validation;
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
+import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -12,8 +14,9 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 
 public class CSignUp extends Validation {
+    ViewLoader loader;
+    Connection connection;
 
-    private ViewLoader loader = new ViewLoader();
     ArrayList<Boolean> list =  new ArrayList<Boolean>();
     private int requiredFields = 3;
 
@@ -30,22 +33,27 @@ public class CSignUp extends Validation {
      * Reserviert drei Speicherplätze
      * im Zwischenspeicher.
      */
-    public CSignUp() {
+    public CSignUp() throws Exception {
+        loader = new ViewLoader();
+        connection = new Connection("/auth/register");
+
         for (int i = 1; i <= requiredFields; i++) {
             list.add(false);
         }
     }
 
     /**
-     * @TODO Datenbank-API
      * Klick auf "Registrieren"-Button
      * speichert Daten in Datenbank.
      */
-    public void onMouseClicked_signUp() {
-        // Code, der neuen Benutzer in DB speichert
-        // Code, der eine neue Session startet
-        // Code, der zum Hauptmenü leitet
+    public void onMouseClicked_signUp() throws Exception {
+        String username = textField_signUp_username.getText();
+        String password = textField_signUp_password1.getText();
 
+        // Registriert neuen Spieler
+        connection.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+
+        // Leitet zum Hauptmenü
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
         stage.show();

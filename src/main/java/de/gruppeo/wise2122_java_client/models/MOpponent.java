@@ -1,51 +1,38 @@
 package de.gruppeo.wise2122_java_client.models;
 
+import lombok.Getter;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import java.util.ArrayList;
 
+@Getter
 public class MOpponent {
-    private ArrayList<String> opponents;
 
-    /**
-     * Initialisiert die Kategorien-Liste und
-     * führt die Methode zur Konvertierung der
-     * JSON-Zeichenkette aus.
-     *
-     * @param serverResponse
-     * @throws JSONException
-     */
-    public MOpponent(String serverResponse) throws JSONException {
-        this.opponents = new ArrayList<>();
-        parseJSON(serverResponse);
+    private int playerid;
+    private String username;
+    private int currentscore;
+    private String currentstatus;
+
+    public MOpponent() {}
+
+    public MOpponent(int playerid, String username, int currentscore, String currentstatus) {
+        this.playerid = playerid;
+        this.username = username;
+        this.currentscore = currentscore;
+        this.currentstatus = currentstatus;
     }
 
-    /**
-     * Liest die übergebene JSON-Zeichenkette ein,
-     * iteriert über alle Kategorien und speichert
-     * sie in eine Liste.
-     *
-     * @param json
-     * @throws JSONException
-     */
-    private void parseJSON(String json) throws JSONException {
-        JSONObject obj = new JSONObject(json);
-        JSONArray arr = obj.getJSONArray("categories");
-
-        for (int i = 0; i < arr.length(); i++) {
-            opponents.add(arr.getJSONObject(i).getString("category_name"));
-        }
+    public String getUsername() {
+        return username;
     }
 
-    /**
-     * Gibt eine Liste aller
-     * Quiz-Gegner zurück.
-     *
-     * @return Liste aller Quiz-Gegner
-     */
-    public ArrayList<String> getOpponents() {
-        return opponents;
+    public int getCurrentscore() {
+        return currentscore;
+    }
+
+    public String getCurrentstatus() {
+        return currentstatus;
     }
 }

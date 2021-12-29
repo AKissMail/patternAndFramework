@@ -1,6 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.Connection;
+import de.gruppeo.wise2122_java_client.parsers.PCategory;
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MCategory;
 import javafx.fxml.FXML;
@@ -8,15 +9,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
 
 public class CCategory {
-
     ViewLoader loader;
-    MCategory category;
+    Connection connection;
+    PCategory mapper;
 
     @FXML private BorderPane mainPane;
     @FXML private ComboBox combo_category_selectedCategory;
@@ -32,19 +29,18 @@ public class CCategory {
      * @throws Exception
      */
     public CCategory() throws Exception {
-        this.loader = new ViewLoader();
-
-        Connection connection = new Connection("/category", "GET" ,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJNYXgiLCJpYXQiOjE2NDAwMDE3ODQsImV4cCI6MTY0MDYwNjU4NH0.nHm43HtiJdS3UG_ccxw-sg6DPsq-4LpQo8yYbMy4BMDCRHIbcqNECjlyl3Y2udL1bbhOQfLwQwgOy4epnN1NYQ");
-        this.category = new MCategory(connection.getServerResponse());
+        loader = new ViewLoader();
+        connection = new Connection("/category" ,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMaXNhIiwiaWF0IjoxNjQwNzc2ODU2LCJleHAiOjE2NDEzODE2NTZ9.K2rgEl5mS2AiZfuIDtXlHblcIGxxnqVNtiOlbpQ-Rr6S7KlDkXtcbF7HogYs3tH7eWIcURL_4KVnSVye09dk4Q");
+        mapper = new PCategory(connection);
     }
 
     /**
      * Wird beim Aufruf der aktuellen Maske
      * ausgeführt. Befüllt das Menü mit Kategorien.
      */
-    @FXML public void initialize() {
-        for (String category : category.getCategories()) {
-            combo_category_selectedCategory.getItems().add(category);
+    @FXML public void initialize() throws Exception {
+        for (MCategory category : mapper.getList()) {
+            combo_category_selectedCategory.getItems().add(category.getCategoryname());
         }
     }
 

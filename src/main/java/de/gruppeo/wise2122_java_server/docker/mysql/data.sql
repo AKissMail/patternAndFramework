@@ -5,11 +5,11 @@ INSERT INTO mibquizzz.player (playerid, username, password, currentscore, fk_qui
 VALUES (1, 'bree luce', 't0d35kr4113', 500, 0, null, 'offline');
 
 # 2. Beispielkategorien anlegen
-INSERT INTO mibquizzz.category (quizcategoryid, categoryname)
+INSERT INTO mibquizzz.MCategory (quizcategoryid, categoryname)
 VALUES (1, 'Entwicklung');
-INSERT INTO mibquizzz.category (quizcategoryid, categoryname)
+INSERT INTO mibquizzz.MCategory (quizcategoryid, categoryname)
 VALUES (2, 'Mediendesign');
-INSERT INTO mibquizzz.category (quizcategoryid, categoryname)
+INSERT INTO mibquizzz.MCategory (quizcategoryid, categoryname)
 VALUES (3, 'IT-Sicherheit');
 
 #3. Beispielfragen anlegen

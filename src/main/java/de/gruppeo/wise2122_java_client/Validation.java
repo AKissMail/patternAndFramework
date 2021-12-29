@@ -90,8 +90,11 @@ public abstract class Validation {
      * @param password
      * @return
      */
-    protected boolean isLoginDataValid(String username, String password) {
-        // Logik muss implementiert werden ...
+    protected boolean isLoginDataValid(String username, String password, Connection connection) throws Exception {
+
+        connection.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+        System.out.println("Server: " + connection.getServerResponse());
+
         return true;
     }
 

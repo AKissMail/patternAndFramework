@@ -1,27 +1,42 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.Connection;
+import de.gruppeo.wise2122_java_client.parsers.PCategory;
 import de.gruppeo.wise2122_java_client.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MCategory;
 import de.gruppeo.wise2122_java_client.models.MOpponent;
+import de.gruppeo.wise2122_java_client.parsers.POpponent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 
 public class COpponent {
-
     ViewLoader loader;
-    MOpponent opponent;
+    Connection connection;
+    POpponent mapper;
 
     @FXML private BorderPane mainPane;
     @FXML private ScrollPane scrollPane_opponent_opponents;
+    @FXML private Label label_opponent_foundOpponents;
 
     public COpponent() throws Exception {
-        this.loader = new ViewLoader();
+        loader = new ViewLoader();
+        connection = new Connection("/player/all" ,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMaXNhIiwiaWF0IjoxNjQwNzc2ODU2LCJleHAiOjE2NDEzODE2NTZ9.K2rgEl5mS2AiZfuIDtXlHblcIGxxnqVNtiOlbpQ-Rr6S7KlDkXtcbF7HogYs3tH7eWIcURL_4KVnSVye09dk4Q");
+        mapper = new POpponent(connection);
+    }
 
-        Connection connection = new Connection("/category", "GET" ,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJNYXgiLCJpYXQiOjE2NDAwMDE3ODQsImV4cCI6MTY0MDYwNjU4NH0.nHm43HtiJdS3UG_ccxw-sg6DPsq-4LpQo8yYbMy4BMDCRHIbcqNECjlyl3Y2udL1bbhOQfLwQwgOy4epnN1NYQ");
-        this.opponent = new MOpponent(connection.getServerResponse());
+    /**
+     * Wird beim Aufruf der aktuellen Maske
+     * ausgeführt. Befüllt das Menü mit Kategorien.
+     */
+    @FXML public void initialize() {
+        for (MOpponent opponent : mapper.getList()) {
+            System.out.println("Player: " + opponent.getUsername());
+        }
+
+        // Label zur Anzeige der Anzahl der gefundenen Spieler
+        label_opponent_foundOpponents.setText(mapper.getList().size() + " Spieler gefunden");
     }
 
     public void onMouseClicked_startQuiz() {
