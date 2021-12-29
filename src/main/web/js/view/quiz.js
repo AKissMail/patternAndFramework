@@ -1,34 +1,34 @@
-
+// quiz.js
 /**
- * @ todo in API
- * @param a1
- * @returns {undefined}
+ * Hier wird eine Frage angezeit sowie die Antwort vom nutzer entgegengenommen @todo 1. der Counddown, 2 Api
  */
-function sendAnser(a1) {
-    return true;
-}
+function quiz_show() {
+    base_clearStage();
+    let question = {
+        question: "Was ist Nass?",
+        a: "Annanass",
+        b: "Bananen",
+        c: "Kuchen",
+        d: "Wasser"
+    };
 
-/**
- * @todo In API!
- */
-function goHome() {
 
-}
+    let backHome = document.createElement("div");
+    let backHometext = document.createElement("p");
+    backHometext.append("Beenden");
+    backHome.appendChild(backHometext);
+    backHome.setAttribute("class", "btn");
+    document.getElementsByTagName("nav")[0].appendChild(backHome);
 
-/**
- *
- * @param question
- */
-export function displayQuestion(question) {
-
-    let backHome = document.createElement("p");
-    backHome.append("Beenden");
-    backHome.setAttribute("id", "backHome")
     let timer = document.createElement("div");
-    timer.setAttribute("id", "timer");
+
+    timer.setAttribute("id", "timer"); //todo fancy timer shit
     document.getElementsByTagName("nav")[0].appendChild(backHome);
     document.getElementsByTagName("nav")[0].appendChild(timer);
 
+    let frage = document.createElement("h2");
+    frage.append(question.question);
+    document.getElementsByTagName("article")[0].appendChild(frage);
 
 
     let wapper = document.createElement("div");
@@ -36,13 +36,19 @@ export function displayQuestion(question) {
     let a = document.createElement("p");
     a.append(question.a);
     a.setAttribute("id", "a");
+    a.setAttribute("class", "question");
     let b = document.createElement("p");
     b.append(question.b);
     b.setAttribute("id", "b");
+    b.setAttribute("class", "question");
     let c = document.createElement("p");
     c.append(question.c);
+    c.setAttribute("id", "c");
+    c.setAttribute("class", "question");
     let d = document.createElement("p");
     d.append(question.d);
+    d.setAttribute("id", "d");
+    d.setAttribute("class", "question");
     wapper.appendChild(a);
     wapper.appendChild(b);
     wapper.appendChild(c);
@@ -50,13 +56,27 @@ export function displayQuestion(question) {
     document.getElementsByTagName("article")[0].appendChild(wapper);
 
     let hr = document.createElement("hr");
-    let footerText= document.createElement("p");
+    let footerText = document.createElement("p");
     footerText.append(question.footerInfo);
-    document.
 
-    document.getElementById("a").addEventListener("click", sendAnser("a"));
-    document.getElementById("a").addEventListener("click", sendAnser("b"));
-    document.getElementById("a").addEventListener("click", sendAnser("c"));
-    document.getElementById("a").addEventListener("click", sendAnser("d"));
-    document.getElementsByIs("backHome").addEventListener("click", goHome);
+
+    document.getElementById("a").addEventListener("click", quiz_sendAnserA);
+    document.getElementById("b").addEventListener("click", quiz_sendAnserB);
+    document.getElementById("c").addEventListener("click", quiz_sendAnserC);
+    document.getElementById("d").addEventListener("click", quiz_sendAnserD);
+    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+    document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
+}
+// Antworten Senden
+function quiz_sendAnserA() { //todo mit dem server sprechen
+    result_show("Hans","","Dampf","", true);
+}
+function quiz_sendAnserB() { //todo mit dem server sprechen
+    result_show("Hans","","Dampf","", false);
+}
+function quiz_sendAnserC() { //todo mit dem server sprechen
+    result_show("Hans","","Dampf","", false);
+}
+function quiz_sendAnserD() { //todo mit dem server sprechen
+    result_show("Hans","","Dampf","", false);
 }
