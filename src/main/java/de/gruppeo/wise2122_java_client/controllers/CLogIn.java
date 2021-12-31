@@ -4,6 +4,8 @@ import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -48,8 +50,8 @@ public class CLogIn {
             stage.show();
 
         } catch (Exception e) {
-            // @TODO Fehlermeldung auf GUI anzeigen
-            System.out.println("Anmeldefehler");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Die eingegebenen Anmeldedaten sind nicht korrekt. Bitte versuche es erneut.", ButtonType.OK);
+            alert.showAndWait();
         }
     }
 

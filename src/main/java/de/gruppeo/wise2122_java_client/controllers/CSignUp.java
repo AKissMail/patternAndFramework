@@ -17,6 +17,7 @@ public class CSignUp {
     ViewLoader loader;
     Validation validation;
     Configuration config;
+    Alert alert;
 
     ArrayList<Boolean> list =  new ArrayList<Boolean>();
     private int requiredFields = 3;
@@ -59,7 +60,7 @@ public class CSignUp {
             // Registriert neuen Spieler
             signUp.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
-            // Sendet JSON-Anfrage mit Zugangsdaten an Server
+            // Meldet neuen Spieler an
             logIn.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
             // Speichert Token in Config-Datei
@@ -72,13 +73,19 @@ public class CSignUp {
         } catch (Exception e) {
             int responseCode = signUp.getConnection().getResponseCode();
 
-            // @TODO Fehlermeldungen auf GUI anzeigen
             switch (responseCode) {
                 case 400:
-                    System.out.println("Benutzername bereits vergeben: " + responseCode);
+                    System.out.println("Response Code: " + responseCode);
+                    alert = new Alert(Alert.AlertType.WARNING, "Der eingegebene Benutzername ist bereits vergeben. Bitte versuche es erneut.", ButtonType.OK);
+                    alert.showAndWait();
+                    textField_signUp_username.clear();
+                    textField_signUp_username.requestFocus();
+                    button_signUp_signUp.setDisable(true);
                     break;
                 case 401:
-                    System.out.println("Fehlermeldung: " + responseCode);
+                    System.out.println("Response Code: " + responseCode);
+                    alert = new Alert(Alert.AlertType.WARNING, "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es später erneut.", ButtonType.OK);
+                    alert.showAndWait();
                     break;
             }
         }
