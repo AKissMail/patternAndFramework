@@ -1,6 +1,6 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MTimer;
 import javafx.application.Platform;
 import javafx.scene.control.Button;

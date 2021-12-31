@@ -1,5 +1,6 @@
-package de.gruppeo.wise2122_java_client;
+package de.gruppeo.wise2122_java_client.helpers;
 
+import de.gruppeo.wise2122_java_client.Start;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

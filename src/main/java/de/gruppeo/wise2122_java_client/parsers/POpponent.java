@@ -3,7 +3,7 @@ package de.gruppeo.wise2122_java_client.parsers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.gruppeo.wise2122_java_client.Connection;
+import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.models.MOpponent;
 import java.util.Arrays;
 import java.util.List;

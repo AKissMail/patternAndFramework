@@ -1,4 +1,4 @@
-package de.gruppeo.wise2122_java_client;
+package de.gruppeo.wise2122_java_client.helpers;
 
 import java.io.*;
 import java.util.Properties;

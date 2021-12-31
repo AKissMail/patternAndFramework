@@ -1,9 +1,9 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.Configuration;
-import de.gruppeo.wise2122_java_client.Connection;
+import de.gruppeo.wise2122_java_client.helpers.Configuration;
+import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.parsers.PCategory;
-import de.gruppeo.wise2122_java_client.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MCategory;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;

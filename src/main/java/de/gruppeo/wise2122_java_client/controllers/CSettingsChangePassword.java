@@ -1,8 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.Validation;
-import de.gruppeo.wise2122_java_client.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MPlayer;
+import de.gruppeo.wise2122_java_client.helpers.Validation;
+import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

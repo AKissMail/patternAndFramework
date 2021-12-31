@@ -1,4 +1,4 @@
-package de.gruppeo.wise2122_java_client;
+package de.gruppeo.wise2122_java_client.helpers;
 
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import javafx.scene.control.Button;

@@ -1,7 +1,6 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.Configuration;
-import de.gruppeo.wise2122_java_client.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
