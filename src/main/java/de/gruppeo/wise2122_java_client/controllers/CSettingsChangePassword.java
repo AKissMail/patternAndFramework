@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 public class CSettingsChangePassword extends Validation {
 
     private ViewLoader loader = new ViewLoader();
-    private MPlayer player = new MPlayer();
     private int checkSum = 0;
 
     ArrayList<Boolean> list =  new ArrayList<Boolean>();

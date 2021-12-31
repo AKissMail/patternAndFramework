@@ -1,5 +1,6 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.Configuration;
 import de.gruppeo.wise2122_java_client.Connection;
 import de.gruppeo.wise2122_java_client.parsers.PCategory;
 import de.gruppeo.wise2122_java_client.ViewLoader;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 public class CCategory {
     ViewLoader loader;
     Connection connection;
+    Configuration config;
     PCategory mapper;
 
     @FXML private BorderPane mainPane;
@@ -30,7 +32,8 @@ public class CCategory {
      */
     public CCategory() throws Exception {
         loader = new ViewLoader();
-        connection = new Connection("/category" ,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMaXNhIiwiaWF0IjoxNjQwNzc2ODU2LCJleHAiOjE2NDEzODE2NTZ9.K2rgEl5mS2AiZfuIDtXlHblcIGxxnqVNtiOlbpQ-Rr6S7KlDkXtcbF7HogYs3tH7eWIcURL_4KVnSVye09dk4Q");
+        config = new Configuration();
+        connection = new Connection("/category", config.readProperty("privateToken"));
         mapper = new PCategory(connection);
     }
 

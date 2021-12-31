@@ -4,11 +4,13 @@ import de.gruppeo.wise2122_java_client.models.MPlayer;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Validation {
+public class Validation {
 
     /**
      * Benutzername muss mindestens eine Länge von 5 Zeichen haben
@@ -36,7 +38,7 @@ public abstract class Validation {
      * @param username
      * @return boolean
      */
-    protected boolean isValidUsername(final String username) {
+    public boolean isValidUsername(final String username) {
         Matcher matcher = patternUsername.matcher(username);
         return matcher.matches();
     }
@@ -48,7 +50,7 @@ public abstract class Validation {
      * @param password
      * @return boolean
      */
-    protected boolean isValidPassword(final String password) {
+    public boolean isValidPassword(final String password) {
         Matcher matcher = patternPassword.matcher(password);
         return matcher.matches();
     }
@@ -75,26 +77,8 @@ public abstract class Validation {
      * @param player
      * @return
      */
-    protected boolean isUsernameAvailable(MPlayer player) {
+    public boolean isUsernameAvailable(MPlayer player) {
         // Logik muss implementiert werden ...
-        return true;
-    }
-
-    /**
-     * @TODO Datenbank-API
-     * Baut Datenbankverbindng auf, übergibt Username und Password
-     * und prüft, ob die Benutzereingaben valide sind. Wenn gültige
-     * Daten gefunden wurden, wird true zurückgegeben.
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    protected boolean isLoginDataValid(String username, String password, Connection connection) throws Exception {
-
-        connection.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
-        System.out.println("Server: " + connection.getServerResponse());
-
         return true;
     }
 
@@ -103,12 +87,11 @@ public abstract class Validation {
      * drei Felder vollständig und korrekt ausgefüllt
      * wurden.
      */
-    protected void checkInputValidation(Label label, Color labelColor, ArrayList<Boolean> list, Button button) {
+    public void checkInputValidation(Label label, Color labelColor, ArrayList<Boolean> list, Button button) {
         int checkSum = 0;
 
         // Färbt das Label in rot/schwarz
         label.setTextFill(labelColor);
-        //System.out.println("Huhu");
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) == true) {

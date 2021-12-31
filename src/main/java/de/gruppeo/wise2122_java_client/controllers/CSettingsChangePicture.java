@@ -16,7 +16,6 @@ import java.net.MalformedURLException;
 public class CSettingsChangePicture {
 
     private ViewLoader loader = new ViewLoader();
-    private MPlayer player = new MPlayer();
     private FileChooser fileChooser;
     private File file;
 

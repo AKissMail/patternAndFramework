@@ -11,6 +11,7 @@ public class Connection {
     HttpURLConnection connection;
     private String privateToken;
     private String serverResponse;
+    private String baseURL = "http://localhost:8080";
 
     /**
      * GET-Konstruktor
@@ -24,7 +25,7 @@ public class Connection {
      */
     public Connection(String directory, String privateToken) throws Exception {
         this.privateToken = privateToken;
-        connection = (HttpURLConnection) new URL("http://localhost:8080" + directory).openConnection();
+        connection = (HttpURLConnection) new URL(baseURL + directory).openConnection();
         getData();
     }
 
@@ -38,7 +39,7 @@ public class Connection {
      * @throws Exception
      */
     public Connection(String directory) throws Exception {
-        connection = (HttpURLConnection) new URL("http://localhost:8080" + directory).openConnection();
+        connection = (HttpURLConnection) new URL(baseURL + directory).openConnection();
     }
 
     /**
@@ -62,11 +63,14 @@ public class Connection {
             response.append(output);
         }
         in.close();
-
-        System.out.println("Server: " + response.toString());
         serverResponse = response.toString();
     }
 
+    /**
+     *
+     * @param serverInput
+     * @throws Exception
+     */
     public void postData(String serverInput) throws Exception {
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
@@ -87,12 +91,26 @@ public class Connection {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            System.out.println("Server: " + response.toString());
             serverResponse = response.toString();
         }
     }
 
+    /**
+     * Gibt die Antwort des Servers zurück.
+     *
+     * @return Antwort des Servers
+     */
     public String getServerResponse() {
         return serverResponse;
+    }
+
+    /**
+     * Gibt das Verbindungs-Objekt mit
+     * all seinen Methoden zurück.
+     *
+     * @return Verbindungs-Objekt
+     */
+    public HttpURLConnection getConnection() {
+        return connection;
     }
 }

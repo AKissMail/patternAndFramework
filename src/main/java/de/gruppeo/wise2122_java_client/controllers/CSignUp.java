@@ -1,5 +1,6 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.Configuration;
 import de.gruppeo.wise2122_java_client.Connection;
 import de.gruppeo.wise2122_java_client.Validation;
 import de.gruppeo.wise2122_java_client.ViewLoader;
@@ -13,9 +14,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 
-public class CSignUp extends Validation {
+public class CSignUp {
     ViewLoader loader;
-    Connection connection;
+    Validation validation;
+    Configuration config;
 
     ArrayList<Boolean> list =  new ArrayList<Boolean>();
     private int requiredFields = 3;
@@ -35,7 +37,8 @@ public class CSignUp extends Validation {
      */
     public CSignUp() throws Exception {
         loader = new ViewLoader();
-        connection = new Connection("/auth/register");
+        validation = new Validation();
+        config = new Configuration();
 
         for (int i = 1; i <= requiredFields; i++) {
             list.add(false);
@@ -47,16 +50,39 @@ public class CSignUp extends Validation {
      * speichert Daten in Datenbank.
      */
     public void onMouseClicked_signUp() throws Exception {
+        Connection signUp = new Connection("/auth/register");
+        Connection logIn = new Connection("/auth/login");
+
         String username = textField_signUp_username.getText();
         String password = textField_signUp_password1.getText();
 
-        // Registriert neuen Spieler
-        connection.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+        try {
+            // Registriert neuen Spieler
+            signUp.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
-        // Leitet zum Hauptmenü
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("main"));
-        stage.show();
+            // Sendet JSON-Anfrage mit Zugangsdaten an Server
+            logIn.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+
+            // Speichert Token in Config-Datei
+            config.writeProperty("privateToken", logIn.getServerResponse());
+
+            // Leitet zum Hauptmenü
+            Stage stage = (Stage) mainPane.getScene().getWindow();
+            stage.setScene(loader.getScene("main"));
+            stage.show();
+        } catch (Exception e) {
+            int responseCode = signUp.getConnection().getResponseCode();
+
+            // @TODO Fehlermeldungen auf GUI anzeigen
+            switch (responseCode) {
+                case 400:
+                    System.out.println("Benutzername bereits vergeben: " + responseCode);
+                    break;
+                case 401:
+                    System.out.println("Fehlermeldung: " + responseCode);
+                    break;
+            }
+        }
     }
 
     /**
@@ -67,15 +93,14 @@ public class CSignUp extends Validation {
         String username = textField_signUp_username.getText();
         Color labelColor;
 
-        if (isValidUsername(username) && isUsernameAvailable(new MPlayer())) {
+        if (validation.isValidUsername(username) && validation.isUsernameAvailable(new MPlayer())) {
             list.set(0, true);
             labelColor = Color.BLACK;
-
         } else {
             list.set(0, false);
             labelColor = Color.RED;
         }
-        checkInputValidation(label_signUp_username, labelColor, list, button_signUp_signUp);
+        validation.checkInputValidation(label_signUp_username, labelColor, list, button_signUp_signUp);
     }
 
     /**
@@ -86,14 +111,14 @@ public class CSignUp extends Validation {
         String password1 = textField_signUp_password1.getText();
         Color labelColor;
 
-        if (isValidPassword(password1)) {
+        if (validation.isValidPassword(password1)) {
             list.set(1, true);
             labelColor = Color.BLACK;
         } else {
             list.set(1, false);
             labelColor = Color.RED;
         }
-        checkInputValidation(label_signUp_password1, labelColor, list, button_signUp_signUp);
+        validation.checkInputValidation(label_signUp_password1, labelColor, list, button_signUp_signUp);
     }
 
     /**
@@ -112,7 +137,7 @@ public class CSignUp extends Validation {
             list.set(2, false);
             labelColor = Color.RED;
         }
-        checkInputValidation(label_signUp_password2, labelColor, list, button_signUp_signUp);
+        validation.checkInputValidation(label_signUp_password2, labelColor, list, button_signUp_signUp);
     }
 
     /**

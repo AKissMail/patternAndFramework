@@ -1,7 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.Configuration;
 import de.gruppeo.wise2122_java_client.Connection;
-import de.gruppeo.wise2122_java_client.parsers.PCategory;
 import de.gruppeo.wise2122_java_client.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MOpponent;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 public class COpponent {
     ViewLoader loader;
     Connection connection;
+    Configuration config;
     POpponent mapper;
 
     @FXML private BorderPane mainPane;
@@ -22,7 +23,8 @@ public class COpponent {
 
     public COpponent() throws Exception {
         loader = new ViewLoader();
-        connection = new Connection("/player/all" ,"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJMaXNhIiwiaWF0IjoxNjQwNzc2ODU2LCJleHAiOjE2NDEzODE2NTZ9.K2rgEl5mS2AiZfuIDtXlHblcIGxxnqVNtiOlbpQ-Rr6S7KlDkXtcbF7HogYs3tH7eWIcURL_4KVnSVye09dk4Q");
+        config = new Configuration();
+        connection = new Connection("/player/all", config.readProperty("privateToken"));
         mapper = new POpponent(connection);
     }
 

@@ -1,39 +1,23 @@
 package de.gruppeo.wise2122_java_client.models;
 
-import javafx.scene.image.Image;
-
 public class MPlayer {
 
-    private Long playerid;
+    private String privateToken;
     private String username;
-    private int currentscore;
-    private int highscore;
 
-    public MPlayer() {
+    public MPlayer() {}
 
-    }
-
-    public MPlayer(String username) {
+    public MPlayer(String privateToken, String username) {
+        this.privateToken = privateToken;
         this.username = username;
     }
 
-    public MPlayer(Image picture) {
-        this.picture = picture;
+    public String getPrivateToken() {
+        return privateToken;
     }
 
-    public Image getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Image picture) {
-        this.picture = picture;
-    }
-
-    private Image picture;
-    //private enum currentstatus;
-
-    public Long getPlayerid() {
-        return playerid;
+    public void setPrivateToken(String privateToken) {
+        this.privateToken = privateToken;
     }
 
     public String getUsername() {
@@ -42,21 +26,5 @@ public class MPlayer {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public int getCurrentscore() {
-        return currentscore;
-    }
-
-    public void setCurrentscore(int currentscore) {
-        this.currentscore = currentscore;
-    }
-
-    public int getHighscore() {
-        return highscore;
-    }
-
-    public void setHighscore(int highscore) {
-        this.highscore = highscore;
     }
 }

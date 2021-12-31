@@ -1,7 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.Configuration;
 import de.gruppeo.wise2122_java_client.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MPlayer;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
@@ -14,7 +14,6 @@ import java.net.MalformedURLException;
 public class CMain {
 
     private ViewLoader loader = new ViewLoader();
-    private MPlayer player = new MPlayer();
 
     @FXML private BorderPane mainPane;
     @FXML private Circle circle_main_picture;
