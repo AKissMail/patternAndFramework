@@ -42,15 +42,23 @@ public class CHighscore implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Stimmt mit MPlayer-Objekt überein - baut Brücke, um Spalten zu befüllen
         column_highscore_rank.setCellValueFactory(new PropertyValueFactory<>("rank"));
         column_highscore_player.setCellValueFactory(new PropertyValueFactory<>("username"));
         column_highscore_points.setCellValueFactory(new PropertyValueFactory<>("currentscore"));
 
+        // Label zur Anzeige der Anzahl der gespielten Runden
+        label_highscore_gameRounds.setText("Du hast 0 Runden gespielt");
+
+        // Befüllt Spalten mit Werten des MPlayer-Objekts
         for (MPlayer opponent : mapper.getList()) {
             table_highscore_points.getItems().add(new MPlayer(1, opponent.getUsername(), opponent.getCurrentscore()));
         }
     }
 
+    /**
+     *
+     */
     public void onMouseClicked_showMain() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
