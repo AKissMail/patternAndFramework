@@ -7,9 +7,9 @@ import de.gruppeo.wise2122_java_client.models.MOpponent;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -21,9 +21,9 @@ public class COpponent {
     POpponent mapper;
 
     @FXML private BorderPane mainPane;
-    @FXML private ScrollPane scrollPane_opponent_opponents;
     @FXML private Label label_opponent_foundOpponents;
     @FXML private ListView listView_opponent_list;
+    @FXML private Button button_opponent_startQuiz;
 
     /**
      *
@@ -48,6 +48,11 @@ public class COpponent {
         listView_opponent_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue != null) {
+                    button_opponent_startQuiz.setDisable(false);
+                } else {
+                    button_opponent_startQuiz.setDisable(true);
+                }
                 System.out.println("Selected Item: " + newValue);
             }
         });
@@ -60,7 +65,9 @@ public class COpponent {
      *
      */
     public void onMouseClicked_startQuiz() {
-
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("quiz"));
+        stage.show();
     }
 
     /**

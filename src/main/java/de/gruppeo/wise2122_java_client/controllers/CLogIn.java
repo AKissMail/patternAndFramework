@@ -5,8 +5,10 @@ import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -20,6 +22,7 @@ public class CLogIn {
     @FXML private BorderPane mainPane;
     @FXML private TextField textField_logIn_username;
     @FXML private TextField textField_logIn_password;
+    @FXML private Button button_logIn_logIn;
 
     public CLogIn() throws Exception {
         loader = new ViewLoader();
@@ -52,6 +55,9 @@ public class CLogIn {
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Die eingegebenen Anmeldedaten sind nicht korrekt. Bitte versuche es erneut.", ButtonType.OK);
             alert.showAndWait();
+            textField_logIn_username.clear();
+            textField_logIn_password.clear();
+            button_logIn_logIn.setDisable(true);
         }
     }
 
@@ -62,5 +68,24 @@ public class CLogIn {
     public void onMouseClicked_signUp() {
         Pane pane = loader.getPane("signUp");
         mainPane.setRight(pane);
+    }
+
+    public void onKeyTyped_username() {
+        enableLogInButton();
+    }
+
+    public void onKeyTyped_password() {
+        enableLogInButton();
+    }
+
+    private void enableLogInButton() {
+        int usernameLength = textField_logIn_username.getText().length();
+        int passwordLength = textField_logIn_password.getText().length();
+
+        if (usernameLength > 0 && passwordLength > 0) {
+            button_logIn_logIn.setDisable(false);
+        } else {
+            button_logIn_logIn.setDisable(true);
+        }
     }
 }

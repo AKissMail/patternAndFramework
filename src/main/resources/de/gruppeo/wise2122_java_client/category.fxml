@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.gruppeo.wise2122_java_client.controllers.CCategory">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CCategory">
    <top>
       <BorderPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
@@ -52,7 +52,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <RadioButton fx:id="radio_category_10Questions" mnemonicParsing="false" text="10 Fragen">
+                  <RadioButton fx:id="radio_category_10Questions" mnemonicParsing="false" selected="true" text="10 Fragen">
                      <toggleGroup>
                         <ToggleGroup fx:id="radioGroup_category_questions" />
                      </toggleGroup>
@@ -69,7 +69,7 @@
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_category_chooseOpponent" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectOpponent" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Gegner wählen" textFill="WHITE">
+            <Button fx:id="button_category_chooseOpponent" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectOpponent" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Gegner wählen" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
@@ -77,7 +77,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="button_category_joinQuiz" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinQuiz" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz beitreten" textFill="WHITE">
+            <Button fx:id="button_category_joinQuiz" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinQuiz" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz beitreten" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>

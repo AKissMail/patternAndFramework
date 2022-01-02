@@ -5,11 +5,12 @@ import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.parsers.PCategory;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MCategory;
-import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.fxml.FXML;
 
 public class CCategory {
     ViewLoader loader;
@@ -19,8 +20,9 @@ public class CCategory {
 
     @FXML private BorderPane mainPane;
     @FXML private ComboBox combo_category_selectedCategory;
-    @FXML private RadioButton radio_category_10Questions;
-    @FXML private RadioButton radio_category_20Questions;
+    @FXML private ToggleGroup radioGroup_category_questions;
+    @FXML private Button button_category_chooseOpponent;
+    @FXML private Button button_category_joinQuiz;
 
     /**
      * Initialisiert das ViewLoader-Objekt für
@@ -41,10 +43,29 @@ public class CCategory {
      * Wird beim Aufruf der aktuellen Maske
      * ausgeführt. Befüllt das Menü mit Kategorien.
      */
-    @FXML public void initialize() throws Exception {
-        for (MCategory category : mapper.getList()) {
-            combo_category_selectedCategory.getItems().add(category.getCategoryname());
-        }
+    @FXML public void initialize() {
+        Thread thread = new Thread(() -> {
+            for (MCategory category : mapper.getList()) {
+                combo_category_selectedCategory.getItems().add(category.getCategoryname());
+            }
+        });
+        thread.start();
+
+        // Gibt die ausgewählte Kategorie zurück
+        combo_category_selectedCategory.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                button_category_chooseOpponent.setDisable(false);
+                button_category_joinQuiz.setDisable(false);
+            }
+            System.out.println(newValue);
+        });
+
+        // Gibt die ausgewählte Anzahl der zu spielenden Fragen zurück
+        radioGroup_category_questions.selectedToggleProperty().addListener((obserableValue, oldToggle, newToggle) -> {
+            if (radioGroup_category_questions.getSelectedToggle() != null) {
+                System.out.println("Value: " + radioGroup_category_questions.getSelectedToggle());
+            }
+        });
     }
 
     /**
