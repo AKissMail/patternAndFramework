@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.gruppeo.wise2122_java_client.controllers.CHighscore">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CHighscore">
    <top>
       <BorderPane prefHeight="50.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
@@ -39,11 +39,11 @@
             </VBox>
          </top>
          <center>
-            <TableView fx:id="table_highscore_points" BorderPane.alignment="CENTER">
+            <TableView fx:id="table_highscore_points" prefHeight="314.0" prefWidth="560.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Platz" />
-                <TableColumn maxWidth="1.7976931348623157E308" prefWidth="300.0" text="User" />
-                  <TableColumn maxWidth="1.7976931348623157E308" prefWidth="150.0" text="Punkte" />
+                <TableColumn fx:id="column_highscore_rank" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Platz" />
+                <TableColumn fx:id="column_highscore_player" maxWidth="1.7976931348623157E308" prefWidth="280.0" text="Spieler" />
+                  <TableColumn fx:id="column_highscore_points" maxWidth="1.7976931348623157E308" prefWidth="150.0" sortType="DESCENDING" text="Punkte" />
               </columns>
                <BorderPane.margin>
                   <Insets bottom="20.0" left="70.0" right="70.0" />

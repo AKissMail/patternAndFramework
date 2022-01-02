@@ -1,11 +1,9 @@
 package de.gruppeo.wise2122_java_client.helpers;
 
-import de.gruppeo.wise2122_java_client.models.MPlayer;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,10 +72,9 @@ public class Validation {
      * prüft, ob Benutzername des Players bereits vergeben ist. Wenn
      * nicht, wird true zurückgegeben.
      *
-     * @param player
      * @return
      */
-    public boolean isUsernameAvailable(MPlayer player) {
+    public boolean isUsernameAvailable() {
         // Logik muss implementiert werden ...
         return true;
     }

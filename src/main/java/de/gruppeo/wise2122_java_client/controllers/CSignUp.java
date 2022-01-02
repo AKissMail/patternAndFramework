@@ -4,7 +4,6 @@ import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MPlayer;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -99,7 +98,7 @@ public class CSignUp {
         String username = textField_signUp_username.getText();
         Color labelColor;
 
-        if (validation.isValidUsername(username) && validation.isUsernameAvailable(new MPlayer())) {
+        if (validation.isValidUsername(username) && validation.isUsernameAvailable()) {
             list.set(0, true);
             labelColor = Color.BLACK;
         } else {

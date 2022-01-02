@@ -4,14 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.models.MOpponent;
+import de.gruppeo.wise2122_java_client.models.MPlayer;
 import java.util.Arrays;
 import java.util.List;
 
 public class POpponent {
 
     Connection connection;
-    List<MOpponent> opponents;
+    List<MPlayer> opponents;
 
     public POpponent(Connection connection) throws JsonProcessingException {
         this.connection = connection;
@@ -25,14 +25,13 @@ public class POpponent {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
             // Konvertiert JSON-Zeichenkette in eine Liste mit 'Opponents'
-            this.opponents = Arrays.asList(mapper.readValue(connection.getServerResponse(), MOpponent[].class));
-
+            this.opponents = Arrays.asList(mapper.readValue(connection.getServerResponse(), MPlayer[].class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public List<MOpponent> getList() {
+    public List<MPlayer> getList() {
         return opponents;
     }
 }

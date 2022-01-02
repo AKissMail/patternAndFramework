@@ -3,7 +3,7 @@ package de.gruppeo.wise2122_java_client.controllers;
 import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MOpponent;
+import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -41,7 +41,7 @@ public class COpponent {
      * ausgeführt. Befüllt das Menü mit Kategorien.
      */
     @FXML public void initialize() {
-        for (MOpponent opponent : mapper.getList()) {
+        for (MPlayer opponent : mapper.getList()) {
             listView_opponent_list.getItems().addAll(opponent.getUsername());
         }
 
