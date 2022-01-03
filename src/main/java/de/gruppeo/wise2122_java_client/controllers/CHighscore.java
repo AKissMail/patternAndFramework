@@ -36,7 +36,7 @@ public class CHighscore implements Initializable {
     public CHighscore() throws Exception {
         loader = new ViewLoader();
         config = new Configuration();
-        connection = new Connection("/player/all", config.readProperty("privateToken"));
+        connection = new Connection("/player/all");
         mapper = new POpponent(connection);
     }
 
@@ -50,9 +50,12 @@ public class CHighscore implements Initializable {
         // Label zur Anzeige der Anzahl der gespielten Runden
         label_highscore_gameRounds.setText("Du hast 0 Runden gespielt");
 
+        int rank = 1;
+
         // Befüllt Spalten mit Werten des MPlayer-Objekts
         for (MPlayer opponent : mapper.getList()) {
-            table_highscore_points.getItems().add(new MPlayer(1, opponent.getUsername(), opponent.getCurrentscore()));
+            table_highscore_points.getItems().add(new MPlayer(rank, opponent.getUsername(), opponent.getCurrentscore()));
+            rank++;
         }
     }
 

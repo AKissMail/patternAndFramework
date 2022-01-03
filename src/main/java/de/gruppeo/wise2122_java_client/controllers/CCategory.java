@@ -14,8 +14,6 @@ import javafx.fxml.FXML;
 
 public class CCategory {
     ViewLoader loader;
-    Connection connection;
-    Configuration config;
     PCategory mapper;
 
     @FXML private BorderPane mainPane;
@@ -34,9 +32,7 @@ public class CCategory {
      */
     public CCategory() throws Exception {
         loader = new ViewLoader();
-        config = new Configuration();
-        connection = new Connection("/category", config.readProperty("privateToken"));
-        mapper = new PCategory(connection);
+        mapper = new PCategory(new Connection("/category"));
     }
 
     /**

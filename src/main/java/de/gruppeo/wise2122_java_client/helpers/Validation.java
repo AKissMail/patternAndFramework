@@ -54,32 +54,6 @@ public class Validation {
     }
 
     /**
-     * @TODO Datenbank-API
-     * Prüft, ob die Eingabe mit dem in der DB
-     * gespeicherten Passwort übereinstimmt.
-     *
-     * @param password
-     * @return true oder false
-     */
-    protected boolean isValidCurrentPassword(final String password) {
-        // Logik muss implementiert werden ...
-        return true;
-    }
-
-    /**
-     * @TODO Datenbank-API
-     * Baut Datenbankverbindung auf, übergibt das Player-Objekt und
-     * prüft, ob Benutzername des Players bereits vergeben ist. Wenn
-     * nicht, wird true zurückgegeben.
-     *
-     * @return
-     */
-    public boolean isUsernameAvailable() {
-        // Logik muss implementiert werden ...
-        return true;
-    }
-
-    /**
      * Aktiviert einen Button, wenn alle
      * drei Felder vollständig und korrekt ausgefüllt
      * wurden.

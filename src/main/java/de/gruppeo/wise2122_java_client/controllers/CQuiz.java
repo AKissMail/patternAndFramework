@@ -1,7 +1,12 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.helpers.Configuration;
+import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.models.MQuestion;
 import de.gruppeo.wise2122_java_client.models.MTimer;
+import de.gruppeo.wise2122_java_client.parsers.PCategory;
+import de.gruppeo.wise2122_java_client.parsers.PQuestion;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,34 +15,43 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javafx.fxml.FXML;
 
 public class CQuiz {
-
-    private ViewLoader loader = new ViewLoader();
-    private MTimer timer = new MTimer();
+    ViewLoader loader;
+    MTimer timer;
+    PQuestion mapper;
 
     @FXML private BorderPane mainPane;
-
-    // Countdown
     @FXML private ProgressBar progressBar_quiz_progress;
     @FXML private Label label_quiz_timer;
-
-    // Frage
     @FXML private Label label_quiz_numberQuestion;
     @FXML private Label label_quiz_question;
-
-    // Antworten
     @FXML private Button button_quiz_answerA;
     @FXML private Button button_quiz_answerB;
     @FXML private Button button_quiz_answerC;
     @FXML private Button button_quiz_answerD;
-
-    // Punkte
     @FXML private Label label_quiz_pointsOp1;
     @FXML private Label label_quiz_pointsOp2;
     @FXML private Label label_quiz_nameOp1;
     @FXML private Label label_quiz_nameOp2;
+
+    public CQuiz() throws Exception {
+        loader = new ViewLoader();
+        timer = new MTimer();
+        //mapper = new PQuestion(new Connection("/question"));
+
+        /**
+         * Leerer Konstruktor wird aktuell nur zu
+         * Testzwecken verwendet. Es wird auf die lokale
+         * JSON-Datei 'questions.JSON' zugegriffen.
+         */
+        mapper = new PQuestion();
+    }
 
     /**
      * Wird beim Maskenaufruf ausgeführt und initialisiert
@@ -48,8 +62,8 @@ public class CQuiz {
     @FXML public void initialize() throws MalformedURLException {
         startCountdown();
         setNumberQuestions();
-        setQuestion();
-        setAnswers();
+        setQuestion(0);
+        setAnswers(0);
         setPoints();
 
         /*while (isPlaying()) {
@@ -70,7 +84,6 @@ public class CQuiz {
     }
 
     private void setNumberQuestions() {
-
         label_quiz_numberQuestion.setText("Frage 1 von 10");
     }
 
@@ -79,9 +92,8 @@ public class CQuiz {
      * Fordert eine neue Frage beim Server an
      * und präsentiert sie auf der GUI.
      */
-    private void setQuestion() {
-
-        label_quiz_question.setText("Hier steht eine schwierige Frage ...");
+    private void setQuestion(int id) {
+        label_quiz_question.setText(mapper.getList().get(id).getQuestion());
     }
 
     /**
@@ -90,12 +102,31 @@ public class CQuiz {
      * drei falsche Antworten beim Server an und präsentiert
      * sie auf der GUI.
      */
-    private void setAnswers() {
+    private void setAnswers(int id) {
+        List<String> answers = new ArrayList<>();
+        String correctAnswer;
 
-        button_quiz_answerA.setText("Antwort A");
-        button_quiz_answerB.setText("Antwort B");
-        button_quiz_answerC.setText("Antwort C");
-        button_quiz_answerD.setText("Antwort D");
+        // Fordert Antworten vom Server an
+        String[] serverResponse = mapper.getList().get(id).getAnswers();
+
+        // Speichert Array in Liste
+        for(String item : serverResponse) {
+            answers.add(item);
+        }
+
+        // Speichert korrekte Antwort
+        correctAnswer = answers.get(0);
+
+        // Mischt die Antworten
+        Collections.shuffle(answers);
+
+        System.out.println("Richtig: " + correctAnswer);
+
+        // Zeigt Antworten auf GUI
+        button_quiz_answerA.setText(answers.get(0));
+        button_quiz_answerB.setText(answers.get(1));
+        button_quiz_answerC.setText(answers.get(2));
+        button_quiz_answerD.setText(answers.get(3));
     }
 
     /**
@@ -172,7 +203,7 @@ public class CQuiz {
 
     /**
      * TODO Antwort B an Server senden
-     * Wird bei Klick auf Antwort A ausgeführt.
+     * Wird bei Klick auf Antwort B ausgeführt.
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
@@ -183,7 +214,7 @@ public class CQuiz {
 
     /**
      * TODO Antwort C an Server senden
-     * Wird bei Klick auf Antwort A ausgeführt.
+     * Wird bei Klick auf Antwort C ausgeführt.
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
@@ -194,7 +225,7 @@ public class CQuiz {
 
     /**
      * TODO Antwort D an Server senden
-     * Wird bei Klick auf Antwort A ausgeführt.
+     * Wird bei Klick auf Antwort D ausgeführt.
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */

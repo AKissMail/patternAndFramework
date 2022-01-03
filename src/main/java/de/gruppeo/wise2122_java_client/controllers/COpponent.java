@@ -16,8 +16,6 @@ import javafx.fxml.FXML;
 
 public class COpponent {
     ViewLoader loader;
-    Connection connection;
-    Configuration config;
     POpponent mapper;
 
     @FXML private BorderPane mainPane;
@@ -31,9 +29,7 @@ public class COpponent {
      */
     public COpponent() throws Exception {
         loader = new ViewLoader();
-        config = new Configuration();
-        connection = new Connection("/player/all", config.readProperty("privateToken"));
-        mapper = new POpponent(connection);
+        mapper = new POpponent(new Connection("/player/all"));
     }
 
     /**

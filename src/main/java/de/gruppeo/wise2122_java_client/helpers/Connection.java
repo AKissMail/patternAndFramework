@@ -9,31 +9,15 @@ import java.net.URL;
 
 public class Connection {
     HttpURLConnection connection;
-    private String privateToken;
     private String serverResponse;
     private String baseURL = "http://localhost:8080";
+    private String privateToken = new Configuration().readProperty("privateToken");
 
     /**
      * GET-Konstruktor
      * Initialisiert globale Variablen und
      * führt Methode zur Anfrage einer JSON-
      * Zeichenkette aus.
-     *
-     * @param directory
-     * @param privateToken
-     * @throws Exception
-     */
-    public Connection(String directory, String privateToken) throws Exception {
-        this.privateToken = privateToken;
-        connection = (HttpURLConnection) new URL(baseURL + directory).openConnection();
-        getData();
-    }
-
-    /**
-     * POST-Konstruktor
-     * Initialisiert globale Variablen und
-     * führt Methode zur Übermittlung von Daten
-     * an den Server aus.
      *
      * @param directory
      * @throws Exception
@@ -50,7 +34,7 @@ public class Connection {
      *
      * @throws Exception
      */
-    private void getData() throws Exception {
+    public void getData() throws Exception {
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer " + privateToken);
         connection.setRequestProperty("Content-Type", "application/json");
@@ -100,7 +84,10 @@ public class Connection {
      *
      * @return Antwort des Servers
      */
-    public String getServerResponse() {
+    public String getServerResponse() throws Exception {
+        if (serverResponse == null) {
+            getData();
+        }
         return serverResponse;
     }
 

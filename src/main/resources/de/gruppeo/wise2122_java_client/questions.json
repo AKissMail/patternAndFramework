@@ -1,0 +1,24 @@
+[
+  {
+    "questionID":1,
+    "category":"IT",
+    "question":"Wie heißt die Firma hinter dem iPod?",
+    "answers":[
+      "Apple",
+      "Microsoft",
+      "Samsung",
+      "LG"
+    ]
+  },
+  {
+    "questionID":2,
+    "category":"Erdkunde",
+    "question":"Wie viele Bundesländer zählt Deutschland?",
+    "answers":[
+      "16",
+      "8",
+      "12",
+      "4"
+    ]
+  }
+]

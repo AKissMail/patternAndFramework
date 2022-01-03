@@ -98,7 +98,7 @@ public class CSignUp {
         String username = textField_signUp_username.getText();
         Color labelColor;
 
-        if (validation.isValidUsername(username) && validation.isUsernameAvailable()) {
+        if (validation.isValidUsername(username)) {
             list.set(0, true);
             labelColor = Color.BLACK;
         } else {
