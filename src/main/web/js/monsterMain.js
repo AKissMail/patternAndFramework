@@ -164,8 +164,6 @@ function register_show(){
     inputPasswordVerify.setAttribute("id", "passwordVerify");
     inputPasswordVerify.setAttribute("placeholder", "Password wiederholen");
 
-
-
     let button = document.createElement("input");
     button.setAttribute("type", "submit");
     button.setAttribute("value", "Senden");
@@ -183,7 +181,6 @@ function register_show(){
     document.getElementById("back home").addEventListener("click", choice_show);
     document.getElementById("button").addEventListener("click", base_createUser);
     console.log('addEventListener')
-
 }
 
 // choice.js
@@ -256,7 +253,6 @@ function mainMenu_show() {
     startGameText.append("Quiz starten")
     startGame.appendChild(startGameText);
 
-
     let settings = document.createElement("div");
     settings.setAttribute("id", "settings");
     settings.setAttribute("class", "btn");
@@ -280,13 +276,148 @@ function mainMenu_show() {
 
    // document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
-
     document.getElementById("logout").addEventListener("click", base_logout);
-    document.getElementById("startGame").addEventListener("click", category_show);
+    document.getElementById("startGame").addEventListener("click", gamemode_showPicker);
     document.getElementById("settings").addEventListener("click",settings_show);
     document.getElementById("highscore").addEventListener("click", highscore_show);
+}
+// gamemode
+function gamemode_showPicker(){
+    base_clearStage();
+
+    let backHome = document.createElement("div");
+    backHome.setAttribute("id", "back home");
+    backHome.setAttribute("class", "btn");
+    let backHometext = document.createElement("p");
+    backHometext.append("Hauptmenü");
+    backHome.appendChild(backHometext);
+    document.getElementsByTagName("nav")[0].appendChild(backHome);
+    document.getElementById("back home").addEventListener("click", mainMenu_show);
 
 
+    let btnA = document.createElement("div");
+    btnA.setAttribute("class","btn");
+    btnA.setAttribute("id", "newGame");
+    let btnAText = document.createElement("p");
+    btnAText.append("neues Spiel erstellen");
+    btnA.appendChild(btnAText); 
+
+    let btnB = document.createElement("div");
+    btnB.setAttribute("class","btn");
+    btnB.setAttribute("id", "enterGame");
+    let btnBText = document.createElement("p"); 
+    btnBText.append("eine Spiel beitreten");
+    btnB.appendChild(btnBText)
+
+    document.getElementsByTagName("article")[0].appendChild(btnA);
+    document.getElementsByTagName("article")[0].appendChild(btnB);
+
+    document.getElementById("newGame").addEventListener("click", gamemode_showNewGame); 
+    document.getElementById("enterGame").addEventListener("click", gamemode_showEnterGame);
+}
+
+function gamemode_showNewGame(){
+    base_clearStage(); 
+    let catigroy = ["DemoA", "DemoB", "DemoC"]; 
+    let backHome = document.createElement("div");
+    backHome.setAttribute("id", "back home");
+    backHome.setAttribute("class", "btn");
+    let backHometext = document.createElement("p");
+    backHometext.append("zurück");
+    backHome.appendChild(backHometext);
+    document.getElementsByTagName("nav")[0].appendChild(backHome);
+    document.getElementById("back home").addEventListener("click", gamemode_showPicker);
+
+    let brake1 = document.createElement("br");
+    let brake2 = document.createElement("br");
+    let brake3 = document.createElement("br");
+    let brake4 = document.createElement("br");
+    let from = document.createElement("form"); 
+    let labe = document.createElement("label");
+    labe.append("Wählen sie eine Kategorie");
+    from.appendChild(labe);
+    from.appendChild(brake1);
+
+    let select = document.createElement("select");
+
+    for(let i = 0; i < catigroy.length; i++){
+        let option = document.createElement("option"); 
+        option.setAttribute("value", catigroy[i]); 
+        option.append(catigroy[i])
+        select.appendChild(option);   
+    }
+    from.appendChild(select);
+    from.appendChild(brake3);
+    let label2 = document.createElement("label");
+    label2.append("Wählen sie die anzahl der Fragen");
+    from.appendChild(label2);
+    from.appendChild(brake2);
+
+    let select2 = document.createElement("select");
+
+    let option2 = document.createElement("option");
+    option2.setAttribute("value", "10"); 
+    option2.append("10");
+
+    let option3 = document.createElement("option");
+    option3.setAttribute("value", "20"); 
+    option3.append("20");
+
+    select2.appendChild(option2);
+    select2.appendChild(option3);
+
+    let input = document.createElement("input"); 
+    input.setAttribute("type", "button");
+    input.setAttribute("id", "submit");
+    input.setAttribute("value", "Senden");
+
+    from.appendChild(select2);
+    from.appendChild(brake4);
+    from.appendChild(input);
+
+    document.getElementsByTagName("article")[0].appendChild(from);
+}
+
+function gamemode_showEnterGame(){
+
+
+
+    let games =  [["Hans","DemoA",20],["Peter","DemoB",10],["Nina","DemoC",20],["Wurst","DemoD",10]]; //apiCalls_GetOpenGames;
+    console.log(games.length); 
+
+    base_clearStage(); 
+    let backHome = document.createElement("div");
+    backHome.setAttribute("id", "back home");
+    backHome.setAttribute("class", "btn");
+    let backHometext = document.createElement("p");
+    backHometext.append("zurück");
+    backHome.appendChild(backHometext);
+    document.getElementsByTagName("nav")[0].appendChild(backHome);
+    document.getElementById("back home").addEventListener("click", gamemode_showPicker);
+
+    /*
+
+        for(let i = 0; i<= games.length; i++){
+            let game = document.createElement("div");
+            game.setAttribute("class", "gameRow");
+            game.setAttribute("id", i);
+            let user = document.createElement("div");
+            user.append(this.games[i-1][0].toString);
+            let category  = document.createElement("div");
+            category.append(gemes[i-1][1].toString);
+            let question = document.createElement("div");
+            question.append(gemes[i-1][2].toString);
+            geme.appendChild(user);
+            game.appendChild(category);
+            game.appendChild(question);
+
+            document.getElementsByTagName("article")[0].appendChild(game);
+            document.getElementById(i).addEventListener("click", function(){
+                console.log(games[i]);
+            });
+
+        }
+    */
 }
 // category.js
 //todo
@@ -323,6 +454,7 @@ function highscore_show() {
     scoreTabelHeading.appendChild(scoreTabelHeadingUser);
     scoreTabelHeading.appendChild(scoreTabelHeadingPunkte);
     scoreTabel.appendChild(scoreTabelHeading);
+   
     for (let i = 1; i <= games.length; i++) {
         let row = document.createElement("tr");
         let ranking = document.createElement("td");
@@ -721,6 +853,13 @@ function statUp() {
     }
 }
 // apiCalls.js
+/**
+ * 
+ * @returns Die offen Spiel auf dem Server 
+ */
+function apiCalls_GetOpenGames(){
+    return  [["Hans","DemoA",20],["Peter","DemoB",10],["Nina","DemoC",20],["Wurst","DemoD",10]]; 
+}
 /**
  * holt die ID des Local Players
  * @param token
