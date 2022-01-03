@@ -9,12 +9,12 @@ main {
     grid-template-columns: auto auto;
     grid-gap: 1em;
 }
-main > aside {
+#aside {
     padding: 30px;
     background-color: #008ae6;
     text-align: center;
 }
-main > aside > p {
+#aside > p {
     font-size: x-large;
     font-family: "JetBrains Mono", sans-serif;
     color: #e6e6e6;
@@ -33,7 +33,7 @@ h1 {
     font-size: x-large;
     font-family: sans-serif;
 }
-p {
+p, #button {
     font-family: sans-serif;
     font-size: x-large;
 }
@@ -75,13 +75,25 @@ p {
 #timer {
  /*todo hier muss noch ein Counter umgesetzt werden*/
 }
+#button {
+    border-color: #e6e6e600;
+}
+#userName, #password, #passwordVerify{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 15px 0;
+    display: inline-block;
+    border: 3px solid #008ae6;
+    border-radius: 1px;
+    box-sizing: border-box;
+}
 /*//////////////////////////////////////////////////////////////////////////////////////////
                                                 classes
 //////////////////////////////////////////////////////////////////////////////////////////*/
-.btn {
+.btn, #button{
     margin: 20px;
 }
-.btn > p {
+.btn > p, #button {
     color: #e6e6e6;
     background-color: #008ae6;
     text-align: center;
@@ -89,7 +101,7 @@ p {
     box-shadow: 2px 2px 4px #d7caca;
     padding: 5px;
 }
-.btn > p:hover {
+.btn > p:hover, #button:hover {
     color: #e6e6e6;
     background-color: #0268ac;
     text-align: center;
@@ -97,7 +109,7 @@ p {
     box-shadow: 2px 2px 4px #d7caca;
     padding: 5px;
 }
-.question:hover{
+.question:hover, #button:hover{
     color: #e6e6e6;
     background-color: #0268ac;
     text-align: center;

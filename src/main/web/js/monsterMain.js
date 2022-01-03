@@ -13,6 +13,31 @@
  * Das ist die LogIn view. Sie stellt die login Maske dar.
  */
 function logIn_show() {
+    base_clearStage();
+
+    let backHome = document.createElement("div");
+    backHome.setAttribute("id", "back home");
+    backHome.setAttribute("class", "btn");
+    let backHometext = document.createElement("p");
+    backHometext.append("Zürck");
+    backHome.appendChild(backHometext);
+    document.getElementsByTagName("article")[0].appendChild(backHome);
+
+
+    let side = document.createElement("img");
+    side.setAttribute("src", "img/bulb.png");
+    side.setAttribute("id", "logInLamp");
+    let sideP = document.createElement("p");
+    sideP.append("Quizzz");
+
+    let aside = document.createElement("div");
+    aside.setAttribute("id", "aside");
+
+    document.getElementsByTagName("main")[0].appendChild(aside);
+    document.getElementById("aside").appendChild(side);
+    document.getElementById("aside").appendChild(sideP);
+
+
     let form = document.createElement("form");
 
     let inputServer = document.createElement("input");
@@ -56,24 +81,16 @@ function logIn_show() {
     button.setAttribute("type", "submit");
     button.setAttribute("value", "Senden");
     button.setAttribute("id", "button");
-    //  button.setAttribute("onClick", "runLogIn()");
+    button.setAttribute("onClick", "runLogIn");
 
-    form.appendChild(inputServer);
+    let brake = document.createElement("br");
+
     form.appendChild(inputUser);
     form.appendChild(inputPassword);
-
+    form.appendChild(brake);
     form.appendChild(button);
     document.getElementsByTagName("article")[0].appendChild(form);
-
-    let side = document.createElement("img");
-    side.setAttribute("src", "img/bulb.png");
-    side.setAttribute("id", "logInLamp");
-    let sideP = document.createElement("p");
-    sideP.append("Quizzz");
-
-    document.getElementsByTagName("aside")[0].appendChild(side);
-    document.getElementsByTagName("aside")[0].appendChild(sideP);
-
+    document.getElementById("back home").addEventListener("click", choice_show);
     document.getElementById("button").addEventListener("click", logIn_runLogIn);
     console.log('addEventListener')
 }
@@ -83,9 +100,9 @@ function logIn_show() {
 function logIn_runLogIn() {
     let password = document.getElementById("password").value;
     let userName = document.getElementById("userName").value;
-    let inputServer = document.getElementById("inputServer").value;
+    let inputServer = "http://localhost/"
 
-    if (password === "" || userName === "" || inputServer === "") {
+    if (password === "" || userName === "") {
         alert('Bitte geben Sie ALLE daten ein!');
     } else {
         let token = apiCalls_getToken(userName, password, inputServer);
@@ -100,6 +117,117 @@ function logIn_runLogIn() {
         }
     }
 }
+function register_show(){
+
+    base_clearStage();
+
+    let backHome = document.createElement("div");
+    backHome.setAttribute("id", "back home");
+    backHome.setAttribute("class", "btn");
+    let backHometext = document.createElement("p");
+    backHometext.append("Zürck");
+    backHome.appendChild(backHometext);
+    document.getElementsByTagName("article")[0].appendChild(backHome);
+
+
+    let side = document.createElement("img");
+    side.setAttribute("src", "img/bulb.png");
+    side.setAttribute("id", "logInLamp");
+    let sideP = document.createElement("p");
+    sideP.append("Quizzz");
+
+    let aside = document.createElement("div");
+    aside.setAttribute("id", "aside");
+
+    document.getElementsByTagName("main")[0].appendChild(aside);
+    document.getElementById("aside").appendChild(side);
+    document.getElementById("aside").appendChild(sideP);
+
+
+    let form = document.createElement("form");
+
+    let inputUser = document.createElement("input");
+    inputUser.setAttribute("type", "text");
+    inputUser.setAttribute("name", "userName");
+    inputUser.setAttribute("placeholder", "Nutzername");
+    inputUser.setAttribute("id", "userName")
+
+    let inputPassword = document.createElement("input");
+    inputPassword.setAttribute("type", "password");
+    inputPassword.setAttribute("name", "password");
+    inputPassword.setAttribute("id", "password");
+    inputPassword.setAttribute("placeholder", "Password");
+
+    let inputPasswordVerify = document.createElement("input");
+    inputPasswordVerify.setAttribute("type", "password");
+    inputPasswordVerify.setAttribute("name", "passwordVerify");
+    inputPasswordVerify.setAttribute("id", "passwordVerify");
+    inputPasswordVerify.setAttribute("placeholder", "Password wiederholen");
+
+
+
+    let button = document.createElement("input");
+    button.setAttribute("type", "submit");
+    button.setAttribute("value", "Senden");
+    button.setAttribute("id", "button");
+    button.setAttribute("onClick", "runLogIn");
+
+    let brake = document.createElement("br");
+
+    form.appendChild(inputUser);
+    form.appendChild(inputPassword);
+    form.appendChild(inputPasswordVerify);
+    form.appendChild(brake);
+    form.appendChild(button);
+    document.getElementsByTagName("article")[0].appendChild(form);
+    document.getElementById("back home").addEventListener("click", choice_show);
+    document.getElementById("button").addEventListener("click", base_createUser);
+    console.log('addEventListener')
+
+}
+
+// choice.js
+/**
+ * @todo
+ */
+function choice_show() {
+    base_clearStage();
+
+    let logIn = document.createElement("div");
+    logIn.setAttribute("id", "logIn");
+    logIn.setAttribute("class", "btn");
+    let logInText = document.createElement("p");
+    logInText.append("Log In");
+    logIn.appendChild(logInText);
+    document.getElementsByTagName("article")[0].appendChild(logIn);
+
+    let register = document.createElement("div");
+    register.setAttribute("id", "register");
+    register.setAttribute("class", "btn");
+    let registertext = document.createElement("p");
+    registertext.append("Registrieren");
+    register.appendChild(registertext);
+    document.getElementsByTagName("article")[0].appendChild(register);
+
+
+    let side = document.createElement("img");
+    side.setAttribute("src", "img/bulb.png");
+    side.setAttribute("id", "logInLamp");
+    let sideP = document.createElement("p");
+    sideP.append("Quizzz");
+
+    let aside = document.createElement("div");
+    aside.setAttribute("id", "aside");
+
+    document.getElementsByTagName("main")[0].appendChild(aside);
+    document.getElementById("aside").appendChild(side);
+    document.getElementById("aside").appendChild(sideP);
+
+    document.getElementById("logIn").addEventListener("click", logIn_show);
+    document.getElementById("register").addEventListener("click", register_show);
+    console.log('addEventListener');
+}
+
 //mainMenu.js
 /**
  * Diese Funktion zeigt das Hauptmenü an.
@@ -150,7 +278,7 @@ function mainMenu_show() {
     document.getElementsByTagName("article")[0].appendChild(settings);
     document.getElementsByTagName("article")[0].appendChild(highscore);
 
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+   // document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
 
     document.getElementById("logout").addEventListener("click", base_logout);
@@ -209,7 +337,7 @@ function highscore_show() {
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+    //document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementById("back home").addEventListener("click", mainMenu_show);
 
 }
@@ -239,7 +367,7 @@ function lobby_show() {
     document.getElementsByTagName("article")[0].appendChild(subHeadding);
     document.getElementsByTagName("article")[0].appendChild(icon);
     document.getElementsByTagName("article")[0].appendChild(button);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+   // document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show); // todo austauschen gegen katigorie...
 
@@ -278,7 +406,7 @@ function oponentView_show(nameA, nameB) {
     document.getElementsByTagName("article")[0].appendChild(iconOpponent);
     document.getElementsByTagName("article")[0].appendChild(name);
     document.getElementsByTagName("article")[0].appendChild(button);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+ //   document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
     document.getElementsByClassName("btn")[1].addEventListener("click", quiz_show);
@@ -348,7 +476,7 @@ function quiz_show() {
     document.getElementById("b").addEventListener("click", quiz_sendAnserB);
     document.getElementById("c").addEventListener("click", quiz_sendAnserC);
     document.getElementById("d").addEventListener("click", quiz_sendAnserD);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+   // document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
 }
 function quiz_sendAnserA() { //todo mit dem server sprechen
@@ -403,7 +531,7 @@ function result_show(nameA, picA, nameB, picB, result) {
     document.getElementsByTagName("article")[0].appendChild(iconOpponent);
     document.getElementsByTagName("article")[0].appendChild(name);
     document.getElementsByTagName("article")[0].appendChild(button);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+ //   document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
     document.getElementsByClassName("btn")[1].addEventListener("click", score_show);
@@ -458,7 +586,7 @@ function score_show() {
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+  //  document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
 }
@@ -505,7 +633,7 @@ function settings_show() {
     document.getElementById("updatePassword").addEventListener("click", settings_updatePassword);
     document.getElementById("deleteStatistics").addEventListener("click", settings_deleteStatistics);
     document.getElementById("backHome").addEventListener("click", mainMenu_show);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
+   // document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 }
 function settings_updatePicture() {
     alert("settings_updatePicture");
@@ -521,25 +649,35 @@ function settings_deleteStatistics() {
  */
 //base
 /**
+ * Das ist ein @todo
+ */
+function base_createUser(){
+    alert("Andy ist erfolgreich registiert");
+    base_clearStage();
+    logIn_show();
+}
+
+/**
  *
  */
 function base_clearStage() {
 
     document.querySelector("header").remove();
     document.querySelector("main").remove();
+   // document.querySelector("aside").remove();
     document.querySelector("footer").remove();
 
     let header = document.createElement("header");
     let nav = document.createElement("nav");
     let main = document.createElement("main");
     let article = document.createElement("article");
-    let aside = document.createElement("aside");
+    //let aside = document.createElement("aside");
     let footer = document.createElement("footer");
     header.appendChild(nav);
     main.appendChild(article);
     document.getElementsByTagName("body")[0].appendChild(header);
     document.getElementsByTagName("body")[0].appendChild(main);
-    document.getElementsByTagName("body")[0].appendChild(aside);
+    //document.getElementsByTagName("body")[0].appendChild(aside);
     document.getElementsByTagName("body")[0].appendChild(footer);
 }
 /**
@@ -548,7 +686,7 @@ function base_clearStage() {
 function base_logout() {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     base_clearStage();
-    logIn_show();
+    choice_show();
 }
 /**
  * src = https://www.w3schools.com/js/tryit.asp?filename=tryjs_cookie_username
@@ -579,7 +717,7 @@ function statUp() {
         console.log("mainMenu_show");
         mainMenu_show();
     } else {
-        logIn_show();
+        choice_show();
     }
 }
 // apiCalls.js
@@ -601,7 +739,7 @@ function apiCalls_checkToken(token) {
     let t = "demo";//base_getCookie(token);
     console.log(t);
     if (t === "demo") {
-        return true;
+        return true; //todo
 
     } else if(token.length !== 0){
         console.log("apiCalls_checkToken false");
@@ -610,7 +748,7 @@ function apiCalls_checkToken(token) {
     }
     else {
         console.log("apiCalls_checkToken true");
-        return true;
+        return false;
     }
 }
 /**
