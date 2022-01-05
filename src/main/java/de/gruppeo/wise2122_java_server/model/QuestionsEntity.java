@@ -1,10 +1,13 @@
 package de.gruppeo.wise2122_java_server.model;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "questions")
 @Table(name = "questions", schema = "mibquizzz")
+@Getter
 public class QuestionsEntity {
 
     @Id
@@ -31,53 +34,28 @@ public class QuestionsEntity {
     private String falseAnswer3;
 
     @Basic
-    @Column(name = "fk_quizcategory")
-    private Long fkQuizcategory;
-
-    @Basic
     @Column(name = "difficulty", nullable = false)
     private String difficulty;
 
-    public long getQuizquestionid() {
-        return quizquestionid;
-    }
+    //@Enumerated(EnumType.STRING)
+    //@Column(name = "category", length = 50)
+    @ManyToOne
+    private CategoryEntity category;
 
-    public String getQuestion() {
-        return question;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public String getFalseAnswer1() {
-        return falseAnswer1;
-    }
-
-    public String getFalseAnswer2() {
-        return falseAnswer2;
-    }
-
-    public String getFalseAnswer3() {
-        return falseAnswer3;
-    }
-
-    public Long getFkQuizcategory() {
-        return fkQuizcategory;
-    }
-
-    public String getDifficulty() {return difficulty;}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QuestionsEntity that = (QuestionsEntity) o;
-        return quizquestionid == that.quizquestionid && Objects.equals(question, that.question) && Objects.equals(correctAnswer, that.correctAnswer) && Objects.equals(falseAnswer1, that.falseAnswer1) && Objects.equals(falseAnswer2, that.falseAnswer2) && Objects.equals(falseAnswer3, that.falseAnswer3) && Objects.equals(fkQuizcategory, that.fkQuizcategory) && Objects.equals(difficulty, that.difficulty);
+        return quizquestionid == that.quizquestionid && Objects.equals(question, that.question) && Objects.equals(correctAnswer, that.correctAnswer) && Objects.equals(falseAnswer1, that.falseAnswer1) && Objects.equals(falseAnswer2, that.falseAnswer2) && Objects.equals(falseAnswer3, that.falseAnswer3) && Objects.equals(category, that.category) && Objects.equals(difficulty, that.difficulty);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quizquestionid, question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3, fkQuizcategory, difficulty);
+        return Objects.hash(quizquestionid, question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3, category, difficulty);
     }
 }
