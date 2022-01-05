@@ -1,14 +1,11 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.helpers.Configuration;
-import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.helpers.Validation;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.*;
+import de.gruppeo.wise2122_java_client.models.MConfiguration;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -17,17 +14,15 @@ import javafx.fxml.FXML;
 public class CLogIn {
     ViewLoader loader;
     Validation validation;
-    Configuration config;
 
     @FXML private BorderPane mainPane;
     @FXML private TextField textField_logIn_username;
     @FXML private TextField textField_logIn_password;
     @FXML private Button button_logIn_logIn;
 
-    public CLogIn() throws Exception {
+    public CLogIn() {
         loader = new ViewLoader();
         validation = new Validation();
-        config = new Configuration();
     }
 
     /**
@@ -45,11 +40,12 @@ public class CLogIn {
             connection.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
             // Speichert Token in Config-Datei
-            config.writeProperty("privateToken", connection.getServerResponse());
+            MConfiguration.getInstance().setPrivateToken(connection.getServerResponse());
+            new Configuration().writeConfiguration();
 
             // Lädt Hauptmenü
             Stage stage = (Stage) mainPane.getScene().getWindow();
-            stage.setScene(loader.getScene("main"));
+            stage.setScene(loader.getScene("fxml/main"));
             stage.show();
 
         } catch (Exception e) {
@@ -66,7 +62,7 @@ public class CLogIn {
      * navigiert auf die signUp-Maske.
      */
     public void onMouseClicked_signUp() {
-        Pane pane = loader.getPane("signUp");
+        Pane pane = loader.getPane("fxml/signUp");
         mainPane.setRight(pane);
     }
 

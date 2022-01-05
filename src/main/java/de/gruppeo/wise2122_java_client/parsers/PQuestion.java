@@ -26,7 +26,7 @@ public class PQuestion {
         String json = new String(Files.readAllBytes(Paths.get(file)));
 
         try {
-            // Erstellt eine Instanz von 'Object Mapper'
+            // Erstellt eine Instanz von 'ObjectMapper'
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 

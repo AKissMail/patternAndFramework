@@ -1,13 +1,10 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
-import org.springframework.data.relational.core.sql.In;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +19,6 @@ import java.util.ResourceBundle;
 public class CHighscore implements Initializable {
     ViewLoader loader;
     Connection connection;
-    Configuration config;
     POpponent mapper;
 
     @FXML private BorderPane mainPane;
@@ -35,7 +30,6 @@ public class CHighscore implements Initializable {
 
     public CHighscore() throws Exception {
         loader = new ViewLoader();
-        config = new Configuration();
         connection = new Connection("/player/all");
         mapper = new POpponent(connection);
     }
@@ -60,11 +54,11 @@ public class CHighscore implements Initializable {
     }
 
     /**
-     *
+     * Zeigt das Hauptmenü an.
      */
     public void onMouseClicked_showMain() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("main"));
+        stage.setScene(loader.getScene("fxml/main"));
         stage.show();
     }
 }

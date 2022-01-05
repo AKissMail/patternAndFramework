@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.prefs.Preferences;
 
 public class ViewLoader {
-
     // Objekt zum Speichern und Laden von lokalen Einstellungen
     Preferences pref = java.util.prefs.Preferences.userNodeForPackage(java.util.prefs.Preferences.class);
 
