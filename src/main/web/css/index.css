@@ -26,6 +26,16 @@ main > article >form {
 main > article {
     text-align: center;
 }
+select {
+    background-color: #008ae6;
+    color: #e6e6e6;
+    font-size: x-large;
+    margin: 10px;
+}
+form > label {
+
+}
+
 /*//////////////////////////////////////////////////////////////////////////////////////////
                                                 Typo
 //////////////////////////////////////////////////////////////////////////////////////////*/
@@ -33,7 +43,7 @@ h1 {
     font-size: x-large;
     font-family: sans-serif;
 }
-p, #button {
+p, #button, form > label {
     font-family: sans-serif;
     font-size: x-large;
 }
@@ -86,6 +96,20 @@ p, #button {
     border: 3px solid #008ae6;
     border-radius: 1px;
     box-sizing: border-box;
+}
+#submit {
+
+    background: #008ae6;
+    color: #fff;
+    font-size: x-large;
+    border-color: #fff0;
+}
+#submit:hover {
+
+    background: #0268ac;
+    color: #fff;
+    font-size: x-large;
+    border-color: #fff0;
 }
 /*//////////////////////////////////////////////////////////////////////////////////////////
                                                 classes

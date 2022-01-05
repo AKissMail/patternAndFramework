@@ -3,7 +3,7 @@
  */
 function score_show() {
     base_clearStage();
-    let games = [[1, "User A", 650], [2, "User A", 650]]//apiGetOwnHighscore(); <- todo!
+    let games = [[1, "User A", 650], [2, "User A", 650]]//apiGetOwnHighscore();
 
     let backHome = document.createElement("div");
     backHome.setAttribute("class", "btn")
@@ -48,6 +48,5 @@ function score_show() {
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
 }

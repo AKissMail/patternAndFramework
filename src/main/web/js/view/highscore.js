@@ -29,6 +29,7 @@ function highscore_show() {
     scoreTabelHeading.appendChild(scoreTabelHeadingUser);
     scoreTabelHeading.appendChild(scoreTabelHeadingPunkte);
     scoreTabel.appendChild(scoreTabelHeading);
+
     for (let i = 1; i <= games.length; i++) {
         let row = document.createElement("tr");
         let ranking = document.createElement("td");
@@ -43,7 +44,5 @@ function highscore_show() {
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementById("back home").addEventListener("click", mainMenu_show);
-
 }

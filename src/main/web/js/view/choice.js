@@ -1,5 +1,5 @@
 /**
- *
+ * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich regestrien möchte oder anmelden möchte.
  */
 function choice_show() {
     base_clearStage();
@@ -35,6 +35,6 @@ function choice_show() {
     document.getElementById("aside").appendChild(sideP);
 
     document.getElementById("logIn").addEventListener("click", logIn_show);
-    document.getElementById(register).addEventListener("click", );
+    document.getElementById("register").addEventListener("click", register_show);
     console.log('addEventListener');
 }

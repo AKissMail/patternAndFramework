@@ -12,7 +12,6 @@ function quiz_show() {
         d: "Wasser"
     };
 
-
     let backHome = document.createElement("div");
     let backHometext = document.createElement("p");
     backHometext.append("Beenden");
@@ -29,7 +28,6 @@ function quiz_show() {
     let frage = document.createElement("h2");
     frage.append(question.question);
     document.getElementsByTagName("article")[0].appendChild(frage);
-
 
     let wapper = document.createElement("div");
     wapper.setAttribute("id", "wapper");
@@ -59,12 +57,10 @@ function quiz_show() {
     let footerText = document.createElement("p");
     footerText.append(question.footerInfo);
 
-
     document.getElementById("a").addEventListener("click", quiz_sendAnserA);
     document.getElementById("b").addEventListener("click", quiz_sendAnserB);
     document.getElementById("c").addEventListener("click", quiz_sendAnserC);
     document.getElementById("d").addEventListener("click", quiz_sendAnserD);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
 }
 // Antworten Senden

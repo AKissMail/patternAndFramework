@@ -45,10 +45,9 @@ function mainMenu_show() {
     document.getElementsByTagName("article")[0].appendChild(startGame);
     document.getElementsByTagName("article")[0].appendChild(settings);
     document.getElementsByTagName("article")[0].appendChild(highscore);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
     document.getElementById("logout").addEventListener("click", base_logout);
-    document.getElementById("startGame").addEventListener("click", category_show);
+    document.getElementById("startGame").addEventListener("click", gamemode_showPicker);
     document.getElementById("settings").addEventListener("click",settings_show);
     document.getElementById("highscore").addEventListener("click", highscore_show);
 }
