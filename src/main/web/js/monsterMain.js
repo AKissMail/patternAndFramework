@@ -5,9 +5,8 @@
  * kommentare die mit // beginnen sind die einzeln Dateien.
  * Wer ist schuld? @andreas Kissmehl
  */
-/**
- * Das ist die View
- */
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Das ist die View
+
 // logIn.js
 /**
  * Das ist die LogIn view. Sie stellt die login Maske dar.
@@ -117,6 +116,10 @@ function logIn_runLogIn() {
         }
     }
 }
+
+/**
+ *
+ */
 function register_show(){
 
     base_clearStage();
@@ -185,7 +188,7 @@ function register_show(){
 
 // choice.js
 /**
- * @todo
+ * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich regestrien möchte oder anmelden möchte.
  */
 function choice_show() {
     base_clearStage();
@@ -273,8 +276,6 @@ function mainMenu_show() {
     document.getElementsByTagName("article")[0].appendChild(startGame);
     document.getElementsByTagName("article")[0].appendChild(settings);
     document.getElementsByTagName("article")[0].appendChild(highscore);
-
-    // document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
     document.getElementById("logout").addEventListener("click", base_logout);
     document.getElementById("startGame").addEventListener("click", gamemode_showPicker);
@@ -431,12 +432,6 @@ function gamemode_showEnterGame(){
 
 
 }
-// category.js
-//todo
-function category_show(){
-    alert("category_show  Sie haben mit Magie eine Kategorie gewählt");
-    lobby_show();
-}
 // highscore.js
 function highscore_show() {
     base_clearStage();
@@ -481,9 +476,7 @@ function highscore_show() {
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    //document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementById("back home").addEventListener("click", mainMenu_show);
-
 }
 // lobby.js
 function lobby_show() {
@@ -691,7 +684,6 @@ function score_show() {
     backHomeText.append("Hauptmenü");
     backHome.appendChild(backHomeText);
     document.getElementsByTagName("nav")[0].appendChild(backHome);
-    //document.getElementsByTagName("a")[0].addEventListener(onclick,);
 
     let highscoreHading = document.createElement("h1");
     highscoreHading.append("Highscore");
@@ -699,7 +691,6 @@ function score_show() {
     highscoreHadingDescription.append(games.length + " Spielrunden gefunden");
     document.getElementsByTagName("article")[0].appendChild(highscoreHading);
     document.getElementsByTagName("article")[0].appendChild(highscoreHadingDescription);
-
 
     let scoreTabel = document.createElement("table");
     scoreTabel.setAttribute("id", "scoreTabel");
@@ -730,8 +721,6 @@ function score_show() {
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    //  document.getElementsByTagName("aside")[0].setAttribute("id", "none");
-
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
 }
 // settings.js
@@ -791,7 +780,7 @@ function settings_deleteStatistics() {
 /**
  *  Das sind die function der controller
  */
-//base
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++base
 /**
  * Das ist ein @todo
  */
@@ -808,7 +797,6 @@ function base_clearStage() {
 
     document.querySelector("header").remove();
     document.querySelector("main").remove();
-    // document.querySelector("aside").remove();
     document.querySelector("footer").remove();
 
     let header = document.createElement("header");
@@ -864,7 +852,7 @@ function statUp() {
         choice_show();
     }
 }
-// apiCalls.js
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++apiCalls.js
 /**
  *
  * @returns Die offen Spiel auf dem Server
@@ -965,6 +953,7 @@ function apiCalls_getToken(user, password, url) {
  */
 function apiCalls_GetOwnHighscore(token) {
     return [[1, "User A", 650], [2, "User A", 650]]; //todo
+
 }
 /**
  *
@@ -972,10 +961,7 @@ function apiCalls_GetOwnHighscore(token) {
 function api_getLocalUser(s) {
     return [1, "Andy", "42", "42", "img/bulb.png", "online"];
 }
-/**
- * Das sind die function der model
- *
- // game.js
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++game.js
  /**
  * das ist die class die eine Spiel darstellt
  */
@@ -987,6 +973,7 @@ class game_GameClient {
         this.curLevel = curLevel;
         this.modus = modus;
     }
+
 }
 // player.js
 /**

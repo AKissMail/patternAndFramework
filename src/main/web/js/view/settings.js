@@ -1,10 +1,6 @@
 /**
  * Diese View stellt das einstellungsmenü dar. Außerdem werden die Dialoge zum Verändern eines nutzers aufgerufen.
  */
-
-/**
- * Diese function löscht den Inhalt aus der HTML heraus und setzt das Einstellung menü in das Grundgerüst.
- */
 function settings_show() {
     base_clearStage();
     let backHome = document.createElement("div");
@@ -16,7 +12,6 @@ function settings_show() {
     document.getElementsByTagName("nav")[0].appendChild(backHome);
 
     let form = document.createElement("div");
-
     let buttonPicture = document.createElement("div");
     buttonPicture.setAttribute("class", "btn");
     buttonPicture.setAttribute("id", "updatePicture");
@@ -37,6 +32,7 @@ function settings_show() {
     let buttonDeleteStatisticsText = document.createElement("p");
     buttonDeleteStatisticsText.append("Statistik löschen");
     buttonDeleteStatistics.appendChild(buttonDeleteStatisticsText);
+
     form.appendChild(buttonPicture);
     form.appendChild(buttonPassword);
     form.appendChild(buttonDeleteStatistics);
@@ -45,7 +41,6 @@ function settings_show() {
     document.getElementById("updatePassword").addEventListener("click", settings_updatePassword);
     document.getElementById("deleteStatistics").addEventListener("click", settings_deleteStatistics);
     document.getElementById("backHome").addEventListener("click", mainMenu_show);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 }
 
 /**

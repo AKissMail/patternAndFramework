@@ -26,10 +26,6 @@ function lobby_show() {
     document.getElementsByTagName("article")[0].appendChild(subHeadding);
     document.getElementsByTagName("article")[0].appendChild(icon);
     document.getElementsByTagName("article")[0].appendChild(button);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
-
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show); // todo austauschen gegen katigorie...
-
     setTimeout(oponentView_show("Hans","Dampf"),3000); // todo austauschen gegen logic
-
 }

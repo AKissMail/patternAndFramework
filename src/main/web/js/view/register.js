@@ -1,7 +1,8 @@
 /**
- * Das ist die LogIn view. Sie stellt die login Maske dar.
+ * Diese Funktion zeigt
  */
-function logIn_show() {
+function register_show() {
+
     base_clearStage();
 
     let backHome = document.createElement("div");
@@ -11,7 +12,6 @@ function logIn_show() {
     backHometext.append("Zürck");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("article")[0].appendChild(backHome);
-
 
     let side = document.createElement("img");
     side.setAttribute("src", "img/bulb.png");
@@ -26,14 +26,7 @@ function logIn_show() {
     document.getElementById("aside").appendChild(side);
     document.getElementById("aside").appendChild(sideP);
 
-
     let form = document.createElement("form");
-
-    let inputServer = document.createElement("input");
-    inputServer.setAttribute("type", "text");
-    inputServer.setAttribute("name", "inputServer");
-    inputServer.setAttribute("placeholder", "Server URL");
-    inputServer.setAttribute("id", "inputServer")
 
     let inputUser = document.createElement("input");
     inputUser.setAttribute("type", "text");
@@ -47,24 +40,11 @@ function logIn_show() {
     inputPassword.setAttribute("id", "password");
     inputPassword.setAttribute("placeholder", "Password");
 
-    let radioA = document.createElement("input");
-    radioA.setAttribute("type", "radio");
-    radioA.setAttribute("id", "newUser");
-    radioA.setAttribute("value", "newUser");
-    radioA.setAttribute("name", "modus");
-    let radioALabel = document.createElement("label");
-    radioALabel.setAttribute("for", "newUser");
-    radioALabel.innerHTML = "Neuen Account anlegen";
-
-    let radioB = document.createElement("input");
-    radioB.setAttribute("type", "radio");
-    radioB.setAttribute("id", "logIn");
-    radioB.setAttribute("value", "logIn");
-    radioB.setAttribute("name", "modus");
-    let radioBLabel = document.createElement("label");
-    radioBLabel.setAttribute("for", "logIn");
-    radioBLabel.innerHTML = "Nutzer einloggen"
-
+    let inputPasswordVerify = document.createElement("input");
+    inputPasswordVerify.setAttribute("type", "password");
+    inputPasswordVerify.setAttribute("name", "passwordVerify");
+    inputPasswordVerify.setAttribute("id", "passwordVerify");
+    inputPasswordVerify.setAttribute("placeholder", "Password wiederholen");
 
     let button = document.createElement("input");
     button.setAttribute("type", "submit");
@@ -76,34 +56,11 @@ function logIn_show() {
 
     form.appendChild(inputUser);
     form.appendChild(inputPassword);
+    form.appendChild(inputPasswordVerify);
     form.appendChild(brake);
     form.appendChild(button);
     document.getElementsByTagName("article")[0].appendChild(form);
     document.getElementById("back home").addEventListener("click", choice_show);
-    document.getElementById("button").addEventListener("click", logIn_runLogIn);
+    document.getElementById("button").addEventListener("click", base_createUser);
     console.log('addEventListener')
-}
-
-/**
- *  Das ist das bissen magic in der Login maske.
- */
-function logIn_runLogIn() {
-    let password = document.getElementById("password").value;
-    let userName = document.getElementById("userName").value;
-    let inputServer = "http://localhost/"
-
-    if (password === "" || userName === "") {
-        alert('Bitte geben Sie ALLE daten ein!');
-    } else {
-        let token = apiCalls_getToken(userName, password, inputServer);
-        if (apiCalls_checkToken(token)) {
-            console.log("Token: " + token + " ist valide");
-            document.cookie = "token =" + token;
-            base_clearStage();
-            mainMenu_show();
-        } else {
-            console.log("Token: " + token + " ist nicht valide");
-            alert('Die Eingeben daten sind nicht gültig!');
-        }
-    }
 }
