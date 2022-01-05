@@ -1,8 +1,10 @@
 /**
- * Hier ist noch richtig viel zu tun...
+ *
+ * @returns Die offen Spiel auf dem Server
  */
-
-// apiCalls.js
+function apiCalls_GetOpenGames(){
+    return  [["Hans","DemoA",20],["Peter","DemoB",10],["Nina","DemoC",20],["Wurst","DemoD",10]];
+}
 /**
  * holt die ID des Local Players
  * @param token
@@ -21,7 +23,7 @@ function apiCalls_checkToken(token) {
     let t = "demo";//base_getCookie(token);
     console.log(t);
     if (t === "demo") {
-        return true;
+        return true; //todo
 
     } else if(token.length !== 0){
         console.log("apiCalls_checkToken false");
@@ -30,7 +32,7 @@ function apiCalls_checkToken(token) {
     }
     else {
         console.log("apiCalls_checkToken true");
-        return true;
+        return false;
     }
 }
 /**
@@ -96,57 +98,11 @@ function apiCalls_getToken(user, password, url) {
  */
 function apiCalls_GetOwnHighscore(token) {
     return [[1, "User A", 650], [2, "User A", 650]]; //todo
+
 }
 /**
  *
  */
 function api_getLocalUser(s) {
     return [1, "Andy", "42", "42", "img/bulb.png", "online"];
-}
-/**
- * Das sind die function der model
- *
- // game.js
- /**
- * das ist die class die eine Spiel darstellt
- */
-class game_GameClient {
-    constructor(sessionID, playerLocal, playerRemote, curLevel, modus) {
-        this.sessionID = sessionID;
-        this.playerLocal = playerLocal;
-        this.playerRemode = playerRemote;
-        this.curLevel = curLevel;
-        this.modus = modus;
-    }
-}
-// player.js
-/**
- * Das ist die class die eine Player darstellt
- */
-class player_player {
-
-    constructor(playerIDid, userName, curScore, highScore, thumbnail, curStatus) {
-        this.playerIDid = playerIDid;
-        this.userName = userName;
-        this.curScore = curScore;
-        this.highScore = highScore;
-        this.thumbnail = thumbnail;
-        this.curStatus = curStatus;
-    }
-}
-// question.js
-/**
- * Das ist die class die eine Frage darstellt
- */
-class question_question {
-    // constructors
-    constructor(questionID, question, answerA, answerB, answerC, answerD, diffculty) {
-        this.questionID = questionID;
-        this.question = question;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
-        this.diffculty = diffculty;
-    }
 }

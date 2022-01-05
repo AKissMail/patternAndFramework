@@ -2,6 +2,7 @@ package de.gruppeo.wise2122_java_server.model;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 
@@ -16,8 +17,7 @@ public class CategoryEntity {
     @Column(name = "quizcategoryid", nullable = false)
     private Long quizcategoryid;
 
-    @ToString.Include
-    @Column(unique = true)
+    @Column(name = "categoryname", unique = true)
     public String categoryname;
 
 }

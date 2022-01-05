@@ -1,7 +1,7 @@
 /**
  * 
  */
-class DCMQuestion {
+class question_question {
     // constructors
     constructor(questionID, question, answerA, answerB, answerC, answerD, diffculty) {
         this.questionID = questionID;

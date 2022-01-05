@@ -34,7 +34,6 @@ function oponentView_show(nameA, nameB) {
     document.getElementsByTagName("article")[0].appendChild(iconOpponent);
     document.getElementsByTagName("article")[0].appendChild(name);
     document.getElementsByTagName("article")[0].appendChild(button);
-    document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
     document.getElementsByClassName("btn")[1].addEventListener("click", quiz_show);
 }

@@ -23,7 +23,7 @@ create table player
     comment 'Enthält die Spielerprofile';
 
 # 2. Kategorien der Fragen
-CREATE TABLE MCategory
+CREATE TABLE category
 (
     quizcategoryid bigint(20) auto_increment
         primary key,
@@ -43,12 +43,9 @@ create table questions
     falseanswer1    varchar(255)                                                not null,
     falseanswer2    varchar(255)                                                not null,
     falseanswer3    varchar(255)                                                not null,
-    fk_quizcategory bigint(20)                                                  null,
     difficulty      enum ('Fachkraft', 'Ingenieur', 'Prof') default 'Fachkraft' not null,
     constraint quizQuestions_quizQuestionID_uindex
-        unique (quizquestionid),
-    constraint quizQuestions_quizCategory_quizCategoryID_fk
-        foreign key (fk_quizcategory) references MCategory (quizcategoryid)
+        unique (quizquestionid)
 )
     comment 'Enthält die Quizfragen';
 
