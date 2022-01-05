@@ -397,11 +397,8 @@ function gamemode_showEnterGame(){
 
     let heading  = document.createElement("h1");
     heading.append("Es wurden "+games.length+" gefunden.");
-    let description = document.createElement("p");
-    description.append("Bitte wählen Sie ein Spiel aus");
 
     document.getElementsByTagName("article")[0].appendChild(heading);
-    document.getElementsByTagName("article")[0].appendChild(description);
 
     let form = document.createElement("form");
     let label = document.createElement("label");
@@ -425,6 +422,7 @@ function gamemode_showEnterGame(){
     let input = document.createElement("input");
     input.setAttribute("type", "button");
     input.setAttribute("value", "Spiel starten");
+    input.setAttribute("id", "submit");
     form.appendChild(input);
     document.getElementsByTagName("article")[0].appendChild(form);
 
