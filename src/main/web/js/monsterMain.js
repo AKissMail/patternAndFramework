@@ -6,7 +6,6 @@
  * Wer ist schuld? @andreas Kissmehl
  */
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Das ist die View
-
 // logIn.js
 /**
  * Das ist die LogIn view. Sie stellt die login Maske dar.
@@ -18,7 +17,7 @@ function logIn_show() {
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
     let backHometext = document.createElement("p");
-    backHometext.append("Zürck");
+    backHometext.append("Zurück");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("article")[0].appendChild(backHome);
 
@@ -94,7 +93,7 @@ function logIn_show() {
     console.log('addEventListener')
 }
 /**
- *  Das ist das bissen magic in der Login maske.
+ *  Das ist das bissen magic in der Login maske. @todo hier muss der Login umgesetzt werden und in Base verschoben werden.
  */
 function logIn_runLogIn() {
     let password = document.getElementById("password").value;
@@ -128,7 +127,7 @@ function register_show(){
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
     let backHometext = document.createElement("p");
-    backHometext.append("Zürck");
+    backHometext.append("Zurück");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("article")[0].appendChild(backHome);
 
@@ -183,12 +182,16 @@ function register_show(){
     document.getElementsByTagName("article")[0].appendChild(form);
     document.getElementById("back home").addEventListener("click", choice_show);
     document.getElementById("button").addEventListener("click", base_createUser);
-    console.log('addEventListener')
+    console.log('addEventListener');
+}
+
+function register_run (){
+    //todo hier muss analog zum log in eine anfrage an den Server rein.
 }
 
 // choice.js
 /**
- * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich regestrien möchte oder anmelden möchte.
+ * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich regestiren möchte oder anmelden möchte.
  */
 function choice_show() {
     base_clearStage();
@@ -214,7 +217,7 @@ function choice_show() {
     side.setAttribute("src", "img/bulb.png");
     side.setAttribute("id", "logInLamp");
     let sideP = document.createElement("p");
-    sideP.append("Quizzz");
+    sideP.append("Quizz");
 
     let aside = document.createElement("div");
     aside.setAttribute("id", "aside");
@@ -234,11 +237,11 @@ function choice_show() {
  */
 function mainMenu_show() {
     base_clearStage();
-    let user = api_getLocalUser(base_getCookie("token"));
+    let user = api_getLocalUser(base_getCookie("token")); // @todo hier muss der Player geholt werden!
 
     let profilePic = document.createElement("img");
     profilePic.setAttribute("id", "thumbnail");
-    profilePic.setAttribute("src", user[4]);
+    profilePic.setAttribute("src", user[4]); // @todo hier muss das bild heruntergeladen werde und eingebaut werden.
     let name = document.createElement("h2");
     name.append(user[1]);
 
@@ -317,9 +320,11 @@ function gamemode_showPicker(){
     document.getElementById("enterGame").addEventListener("click", gamemode_showEnterGame);
 }
 
-function gamemode_showNewGame(){
+function gamemode_showNewGame() {
     base_clearStage();
-    let catigroy = ["DemoA", "DemoB", "DemoC"];
+    let catigroy = ["DemoA", "DemoB", "DemoC"]; // todo hier muss die funkion alle katigurie hin.
+    let lenght = [10, 20]; // todo hier muss die funkion alle längen abzufragen hin.
+
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
@@ -341,7 +346,7 @@ function gamemode_showNewGame(){
 
     let select = document.createElement("select");
 
-    for(let i = 0; i < catigroy.length; i++){
+    for (let i = 0; i < catigroy.length; i++) {
         let option = document.createElement("option");
         option.setAttribute("value", catigroy[i]);
         option.append(catigroy[i])
@@ -356,16 +361,12 @@ function gamemode_showNewGame(){
 
     let select2 = document.createElement("select");
 
-    let option2 = document.createElement("option");
-    option2.setAttribute("value", "10");
-    option2.append("10");
-
-    let option3 = document.createElement("option");
-    option3.setAttribute("value", "20");
-    option3.append("20");
-
-    select2.appendChild(option2);
-    select2.appendChild(option3);
+    for (let i = 0; i < lenght.length; i++){
+        let option2 = document.createElement("option");
+        option2.setAttribute("value", lenght[i].toString());
+        option2.append(lenght[i].toString());
+        select2.appendChild(option2);
+    }
 
     let input = document.createElement("input");
     input.setAttribute("type", "button");
@@ -381,7 +382,7 @@ function gamemode_showNewGame(){
 }
 
 function gamemode_showEnterGame(){
-    let games =  [["Hans","DemoA",20,1],["Peter","DemoB",10,2],["Nina","DemoC",20,3],["Wurst","DemoD",10,4]]; //apiCalls_GetOpenGames;
+    let games =  [["Hans","DemoA",20,1],["Peter","DemoB",10,2],["Nina","DemoC",20,3],["Wurst","DemoD",10,4]]; // todo apiCalls_GetOpenGames;
     console.log(games.length);
     console.log(games[1][1]);
 
@@ -428,12 +429,12 @@ function gamemode_showEnterGame(){
 
     document.getElementsByTagName("input")[0].addEventListener("click",lobby_show);
 
-
+    // todo hier muss der Api beschied gegeben werde das das man den dem Spiel teilnehmen möchte.
 }
 // highscore.js
 function highscore_show() {
     base_clearStage();
-    let games = apiCalls_GetOwnHighscore(base_getCookie("token"));
+    let games = apiCalls_GetOwnHighscore(base_getCookie("token")); //todo Hier muss der hightscore geholt werden
 
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
@@ -476,7 +477,7 @@ function highscore_show() {
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
     document.getElementById("back home").addEventListener("click", mainMenu_show);
 }
-// lobby.js
+// lobby.js todo eventuell umbauen zu ende sceen
 function lobby_show() {
     base_clearStage();
     let backHome = document.createElement("div");
@@ -506,10 +507,10 @@ function lobby_show() {
 
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show); // todo austauschen gegen katigorie...
 
-    setTimeout(oponentView_show("Hans","Dampf"),3000); // todo austauschen gegen logic
+    setTimeout(oponentView_show("Hans","Dampf"),30000); // todo austauschen gegen logic
 
 }
-// oponentView.js
+// oponentView.js //todo hier muss umbegabit werden um am ende gegen ein
 function oponentView_show(nameA, nameB) {
     base_clearStage();
     let backHome = document.createElement("div");
@@ -544,21 +545,14 @@ function oponentView_show(nameA, nameB) {
     //   document.getElementsByTagName("aside")[0].setAttribute("id", "none");
 
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
-    document.getElementsByClassName("btn")[1].addEventListener("click", quiz_show);
+    document.getElementsByClassName("btn")[1].addEventListener("click", function (){
+        quiz_show({question: "Was ist Nass?",a: "Annanass",b: "Bananen",c: "Kuchen",d: "Wasser"})}); //todo hier muss 1. Das Spil regesiert werden, 2 im controler ein spil angemdet werden mit enprechndenden Schleifenddurchläufen
 
 
 }
 // quiz.js
-function quiz_show() {
+function quiz_show(question) {
     base_clearStage();
-    let question = {
-        question: "Was ist Nass?",
-        a: "Annanass",
-        b: "Bananen",
-        c: "Kuchen",
-        d: "Wasser"
-    };
-
 
     let backHome = document.createElement("div");
     let backHometext = document.createElement("p");
@@ -602,16 +596,10 @@ function quiz_show() {
     wapper.appendChild(d);
     document.getElementsByTagName("article")[0].appendChild(wapper);
 
-    let hr = document.createElement("hr");
-    let footerText = document.createElement("p");
-    footerText.append(question.footerInfo);
-
-
     document.getElementById("a").addEventListener("click", quiz_sendAnserA);
     document.getElementById("b").addEventListener("click", quiz_sendAnserB);
     document.getElementById("c").addEventListener("click", quiz_sendAnserC);
     document.getElementById("d").addEventListener("click", quiz_sendAnserD);
-    // document.getElementsByTagName("aside")[0].setAttribute("id", "none");
     document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
 }
 function quiz_sendAnserA() { //todo mit dem server sprechen
@@ -627,7 +615,7 @@ function quiz_sendAnserD() { //todo mit dem server sprechen
     result_show("Hans","","Dampf","", false);
 }
 // result.js
-function result_show(nameA, picA, nameB, picB, result) {
+function result_show(nameA, picA, nameB, picB, result) { //hier muss in dem Aufruf todo noch die Namen und die Spile umgesetzt werden.
     base_clearStage();
     let backHome = document.createElement("div");
     let backHometext = document.createElement("p");
@@ -674,7 +662,7 @@ function result_show(nameA, picA, nameB, picB, result) {
 // score.js
 function score_show() {
     base_clearStage();
-    let games = [[1, "User A", 650], [2, "User A", 650]]//apiGetOwnHighscore();
+    let games = [[1, "User A", 650], [2, "User A", 650]]//todo apiGetOwnHighscore();
 
     let backHome = document.createElement("div");
     backHome.setAttribute("class", "btn")
@@ -768,12 +756,15 @@ function settings_show() {
 }
 function settings_updatePicture() {
     alert("settings_updatePicture");
+    //todo
 }
 function settings_updatePassword() {
     alert("settings_updatePassword");
+    //todo
 }
 function settings_deleteStatistics() {
     alert("settings_deleteStatistics");
+    //todo
 }
 /**
  *  Das sind die function der controller
@@ -783,35 +774,36 @@ function settings_deleteStatistics() {
  * Das ist ein @todo
  */
 function base_createUser(){
+    //todo
     alert("Andy ist erfolgreich registiert");
     base_clearStage();
     logIn_show();
 }
 
-/**
- *
+/** --- Done ---
+ * Diese function macht den DOM Leer und setzt ein minimal gerüst in den DOM ein. Dieses gerüst wird von
+ * den _show function erwartet. Das letztendliche resultat schaut wie die ursprüngliche index.html aus.
+ * Lediglich der onload event lissner ist nicht enthalten.
  */
 function base_clearStage() {
-
+    //alle element im body werden entfernt
     document.querySelector("header").remove();
     document.querySelector("main").remove();
     document.querySelector("footer").remove();
-
+    // die struktur wir neu aufgebaut
     let header = document.createElement("header");
     let nav = document.createElement("nav");
     let main = document.createElement("main");
     let article = document.createElement("article");
-    //let aside = document.createElement("aside");
     let footer = document.createElement("footer");
     header.appendChild(nav);
     main.appendChild(article);
     document.getElementsByTagName("body")[0].appendChild(header);
     document.getElementsByTagName("body")[0].appendChild(main);
-    //document.getElementsByTagName("body")[0].appendChild(aside);
     document.getElementsByTagName("body")[0].appendChild(footer);
 }
 /**
- *
+ * @todo hier muss nochmal nachgedacht werdne!
  */
 function base_logout() {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
@@ -819,6 +811,7 @@ function base_logout() {
     choice_show();
 }
 /**
+ * @todo hier muss nochmal nachgedacht werdne!
  * src = https://www.w3schools.com/js/tryit.asp?filename=tryjs_cookie_username
  * @param token Name des Cookies
  * @returns {string} inhalt des Cookies
@@ -839,6 +832,7 @@ function base_getCookie(token) {
     return "";
 }
 /**
+ * @todo hier muss nochmal nachgedacht werdne!
  *  Das ist die Start function
  */
 function statUp() {
@@ -852,7 +846,7 @@ function statUp() {
 }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++apiCalls.js
 /**
- *
+ * todo
  * @returns Die offen Spiel auf dem Server
  */
 function apiCalls_GetOpenGames(){
@@ -860,6 +854,7 @@ function apiCalls_GetOpenGames(){
 }
 /**
  * holt die ID des Local Players
+ * todo
  * @param token
  * @returns {number}
  */
@@ -867,6 +862,7 @@ function apiCalls_getLocalPlayerID(token) {
     return 1;
 }
 /**
+ * todo
  * Hier soll geprüft werden ob ein Token valid ist
  * @param token
  * @returns {boolean}
@@ -889,6 +885,7 @@ function apiCalls_checkToken(token) {
     }
 }
 /**
+ * // todo
  * holt den Namen des LocalPlayers
  * @param token
  * @returns {string}
@@ -897,6 +894,7 @@ function apiCalls_getLocalPlayerName(token) {
     return "Andy"; //todo
 }
 /**
+ * todo
  * holt den aktuellen Punktestand
  * @param token
  * @returns {number}
@@ -905,6 +903,7 @@ function apiCalls_getLocalPlayerCurScore(token) {
     return 42; //todo
 }
 /**
+ * todo
  * holt den highScore
  * @param token
  * @returns {number}
@@ -913,6 +912,7 @@ function apiCalls_getLocalPlayerHighScore(token) {
     return 4242;
 }
 /**
+ * todo
  * Hier wird das Profil bild
  * @returns {string}
  */
@@ -920,15 +920,7 @@ function apiCalls_getProfilePic(token) {
     return "/img/bulb.png"; //todo
 }
 /**
- * Das gibt den Status
- * @param token
- * @returns {string}
- */
-function apiCalls_getCurStatus(token) {
-    return "online"; //todo
-}
-/**
- * Diese Funktion
+ * Diese Funktion soll den nutzer einloggen. // todo
  * @param user
  * @param password
  * @param url
@@ -954,53 +946,8 @@ function apiCalls_GetOwnHighscore(token) {
 
 }
 /**
- *
+ * Mit dieser function werden die Daten des Eingeloggten Users aus einem Cookie geholt.
  */
-function api_getLocalUser(s) {
+function api_getLocalUser() {
     return [1, "Andy", "42", "42", "img/bulb.png", "online"];
-}
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++game.js
- /**
- * das ist die class die eine Spiel darstellt
- */
-class game_GameClient {
-    constructor(sessionID, playerLocal, playerRemote, curLevel, modus) {
-        this.sessionID = sessionID;
-        this.playerLocal = playerLocal;
-        this.playerRemode = playerRemote;
-        this.curLevel = curLevel;
-        this.modus = modus;
-    }
-
-}
-// player.js
-/**
- * Das ist die class die eine Player darstellt
- */
-class player_player {
-
-    constructor(playerIDid, userName, curScore, highScore, thumbnail, curStatus) {
-        this.playerIDid = playerIDid;
-        this.userName = userName;
-        this.curScore = curScore;
-        this.highScore = highScore;
-        this.thumbnail = thumbnail;
-        this.curStatus = curStatus;
-    }
-}
-// question.js
-/**
- * Das ist die class die eine Frage darstellt
- */
-class question_question {
-    // constructors
-    constructor(questionID, question, answerA, answerB, answerC, answerD, diffculty) {
-        this.questionID = questionID;
-        this.question = question;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
-        this.diffculty = diffculty;
-    }
 }
