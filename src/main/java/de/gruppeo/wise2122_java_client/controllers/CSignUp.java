@@ -1,9 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.helpers.Configuration;
-import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.helpers.Validation;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.*;
+import de.gruppeo.wise2122_java_client.models.MConfiguration;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -34,7 +32,7 @@ public class CSignUp {
      * Reserviert drei Speicherplätze
      * im Zwischenspeicher.
      */
-    public CSignUp() throws Exception {
+    public CSignUp() {
         loader = new ViewLoader();
         validation = new Validation();
         config = new Configuration();
@@ -63,11 +61,12 @@ public class CSignUp {
             logIn.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
             // Speichert Token in Config-Datei
-            config.writeProperty("privateToken", logIn.getServerResponse());
+            MConfiguration.getInstance().setPrivateToken(logIn.getServerResponse());
+            config.writeConfiguration();
 
             // Leitet zum Hauptmenü
             Stage stage = (Stage) mainPane.getScene().getWindow();
-            stage.setScene(loader.getScene("main"));
+            stage.setScene(loader.getScene("fxml/main"));
             stage.show();
         } catch (Exception e) {
             int responseCode = signUp.getConnection().getResponseCode();
@@ -150,7 +149,7 @@ public class CSignUp {
      * navigiert auf die logIn-Maske.
      */
     public void onMouseClicked_back() {
-        Pane pane = loader.getPane("logIn");
+        Pane pane = loader.getPane("fxml/logIn");
         mainPane.setRight(pane);
     }
 }

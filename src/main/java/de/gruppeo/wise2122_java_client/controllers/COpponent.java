@@ -3,6 +3,7 @@ package de.gruppeo.wise2122_java_client.controllers;
 import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.models.MConfiguration;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.beans.value.ChangeListener;
@@ -17,6 +18,7 @@ import javafx.fxml.FXML;
 public class COpponent {
     ViewLoader loader;
     POpponent mapper;
+    Configuration config;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_opponent_foundOpponents;
@@ -30,6 +32,7 @@ public class COpponent {
     public COpponent() throws Exception {
         loader = new ViewLoader();
         mapper = new POpponent(new Connection("/player/all"));
+        config = new Configuration();
     }
 
     /**
@@ -49,7 +52,11 @@ public class COpponent {
                 } else {
                     button_opponent_startQuiz.setDisable(true);
                 }
-                System.out.println("Selected Item: " + newValue);
+                System.out.println("Selected Player: " + newValue);
+
+                // Schreibt ausgewählte Anzahl in Config
+                MConfiguration.getInstance().setPlayer(newValue);
+                new Configuration().writeConfiguration();
             }
         });
 
@@ -58,29 +65,29 @@ public class COpponent {
     }
 
     /**
-     *
+     * Zeigt das Quiz an.
      */
     public void onMouseClicked_startQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("quiz"));
+        stage.setScene(loader.getScene("fxml/quiz"));
         stage.show();
     }
 
     /**
-     *
+     * Zeigt die Maske zur Wahl der Kategorie an.
      */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("category"));
+        stage.setScene(loader.getScene("fxml/category"));
         stage.show();
     }
 
     /**
-     *
+     * Zeigt den Wartebereich an.
      */
     public void onMouseClicked_joinQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("lobby"));
+        stage.setScene(loader.getScene("fxml/lobby"));
         stage.show();
     }
 }

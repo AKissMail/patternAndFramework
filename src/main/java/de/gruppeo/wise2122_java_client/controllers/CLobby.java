@@ -15,19 +15,19 @@ public class CLobby {
 
     public void onMouseClicked_startQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("quiz"));
+        stage.setScene(loader.getScene("fxml/quiz"));
         stage.show();
     }
 
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("category"));
+        stage.setScene(loader.getScene("fxml/category"));
         stage.show();
     }
 
     public void onMouseClicked_chooseOpponent() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("opponent"));
+        stage.setScene(loader.getScene("fxml/opponent"));
         stage.show();
     }
 }

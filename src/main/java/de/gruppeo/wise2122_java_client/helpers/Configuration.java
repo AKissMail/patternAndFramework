@@ -1,71 +1,78 @@
 package de.gruppeo.wise2122_java_client.helpers;
 
-import java.io.*;
-import java.util.Properties;
+import de.gruppeo.wise2122_java_client.models.MConfiguration;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+import java.io.IOException;
 
 public class Configuration {
-    File configFile;
-    Properties props;
+    JAXBContext jaxbContext;
+    Marshaller marshaller;
+    Unmarshaller unmarshaller;
+    MConfiguration config;
+    String filePath = "src/main/resources/de/gruppeo/wise2122_java_client/configurations/config.xml";
+    File file;
 
     /**
-     * Initialisiert die globalen Klassen-Objekte.
+     * Initialisiert Objekte und legt
+     * Pfad zur XML-Config fest.
      */
     public Configuration() {
-        this.configFile = new File("src/main/resources/de/gruppeo/wise2122_java_client/configurations/config.properties");
-        this.props = new Properties();
+        this.config = MConfiguration.getInstance();
+        this.file = new File(filePath);
+
+        try {
+            jaxbContext = JAXBContext.newInstance(MConfiguration.class);
+            marshaller = jaxbContext.createMarshaller();
+            unmarshaller = jaxbContext.createUnmarshaller();
+        } catch (JAXBException e) {
+            System.out.println("Fehler bei Objekterzeugung: " + e);
+        }
     }
 
     /**
-     * Liest den mit dem übergebenen Schlüssel
-     * verknüpften Wert aus der Konfigurationsdatei
-     * und gibt ihn zurück.
-     *
-     * @param key
-     * @return Schlüsselwert
+     * Schreibt Modelldaten in die XML-Config.
      */
-    public String readProperty(String key) {
-        String property = null;
+    public void writeConfiguration() {
         try {
-            FileReader reader = null;
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(config, file);
+        } catch (JAXBException ew) {
+            System.out.println("Fehler beim Schreiben: " + ew);
+        }
+    }
 
+    /**
+     * Liest XML-Config und gibt Objekt zurück.
+     *
+     * @return MConfig-Objekt
+     */
+    public MConfiguration readConfiguration() {
+        try {
+            config = (MConfiguration) unmarshaller.unmarshal(file);
+        } catch (JAXBException er) {
+            //System.out.println("Fehler beim Lesen: " + e);
+        } catch (IllegalArgumentException e) {
+            File file = new File(filePath);
             try {
-                reader = new FileReader(configFile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                if (file.createNewFile()) {
+                    System.out.println("XML-Datei erzeugt: " + file.getName());
+                }
+            } catch (IOException io) {
+                System.out.println(io);
             }
-
-            props.load(reader);
-            property = props.getProperty(key);
-
-            reader.close();
-        } catch (FileNotFoundException fnfe) {
-            // file does not exist
-        } catch (IOException ioe) {
-            // I/O error
         }
-        return property;
+        return config;
     }
 
     /**
-     * Schreibt den übergebenen Wert in die
-     * Konfigurationsdatei. Der Wert ist über
-     * den ebenfalls übergebenen Schlüssel
-     * ansprechbar.
-     *
-     * @param key
-     * @param value
+     * Löscht die XML-Config.
      */
-    public void writeProperty(String key, String value) {
-        try {
-            props.setProperty(key, value);
-            FileWriter writer = new FileWriter(configFile);
-            props.store(writer, "Server Properties");
-            writer.close();
-        } catch (FileNotFoundException fnfe) {
-            // file does not exist
-            System.out.println("Datei existiert nicht!");
-        } catch (IOException ioe) {
-            ioe.getMessage();
-        }
+    public void deleteFile() {
+        this.file.delete();
+        System.out.println("Datei wurde erfolgreich gelöscht");
     }
 }

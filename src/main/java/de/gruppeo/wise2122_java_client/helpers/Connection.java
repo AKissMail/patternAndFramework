@@ -4,14 +4,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Connection {
     HttpURLConnection connection;
     private String serverResponse;
-    private String baseURL = "http://localhost:8080";
-    private String privateToken = new Configuration().readProperty("privateToken");
+    private String privateToken;
 
     /**
      * GET-Konstruktor
@@ -23,7 +21,8 @@ public class Connection {
      * @throws Exception
      */
     public Connection(String directory) throws Exception {
-        connection = (HttpURLConnection) new URL(baseURL + directory).openConnection();
+        connection = (HttpURLConnection) new URL(new Configuration().readConfiguration().getBaseURL() + directory).openConnection();
+        privateToken = new Configuration().readConfiguration().getPrivateToken();
     }
 
     /**

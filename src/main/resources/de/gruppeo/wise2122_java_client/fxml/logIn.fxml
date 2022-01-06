@@ -23,7 +23,7 @@
             </Label>
             <ImageView fitHeight="171.0" fitWidth="105.0" layoutX="85.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/bulb.png" />
+                  <Image url="@../images/bulb.png" />
                </image>
             </ImageView>
             <Label fx:id="label_startpageTitle" layoutX="90.0" layoutY="327.0" text="Quizzz" textFill="WHITE">

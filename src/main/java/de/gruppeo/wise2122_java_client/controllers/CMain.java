@@ -1,7 +1,6 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Configuration;
-import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -34,7 +33,7 @@ public class CMain {
      */
     public void onMouseClicked_startQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("category"));
+        stage.setScene(loader.getScene("fxml/category"));
         stage.show();
     }
 
@@ -43,7 +42,7 @@ public class CMain {
      */
     public void onMouseClicked_showSettings() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("settings"));
+        stage.setScene(loader.getScene("fxml/settings"));
         stage.show();
     }
 
@@ -52,7 +51,7 @@ public class CMain {
      */
     public void onMouseClicked_showHighscore() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("highscore"));
+        stage.setScene(loader.getScene("fxml/highscore"));
         stage.show();
     }
 
@@ -60,13 +59,11 @@ public class CMain {
      * Beendet die aktuell laufende
      * Session und navigiert zur Anmeldung.
      */
-    public void onMouseClicked_logOut() throws MalformedURLException {
-        // Überschreibt Token in Config-Datei mit leerer Zeichenkette
-        config.writeProperty("privateToken", "");
+    public void onMouseClicked_logOut() {
+        config.deleteFile();
 
-        // Wechselt zur LogIn-Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("logIn"));
+        stage.setScene(loader.getScene("fxml/logIn"));
         stage.show();
     }
 }
