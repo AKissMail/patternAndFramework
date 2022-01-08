@@ -58,7 +58,7 @@ public class CHighscore implements Initializable {
      */
     public void onMouseClicked_showMain() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/main"));
+        stage.setScene(loader.getScene("main"));
         stage.show();
     }
 }

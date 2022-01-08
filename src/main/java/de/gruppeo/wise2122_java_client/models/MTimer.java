@@ -1,5 +1,12 @@
 package de.gruppeo.wise2122_java_client.models;
 
+import lombok.Getter;
+
+/**
+ *
+ */
+
+@Getter
 public class MTimer {
     public double defaultSeconds = 10.0;
     private double seconds;
@@ -20,15 +27,5 @@ public class MTimer {
      */
     public void decreaseSeconds(double seconds) {
         this.seconds -= seconds;
-    }
-
-    /**
-     * Gibt die aktuelle Sekundenzahl
-     * des Timers zurück.
-     *
-     * @return aktuellen Sekundenwert
-     */
-    public double getSeconds() {
-        return this.seconds;
     }
 }

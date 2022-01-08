@@ -45,12 +45,12 @@
          <center>
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox fx:id="combo_category_selectedCategory" prefHeight="40.0" prefWidth="270.0" promptText="Kategorie wählen ...">
+                  <ComboBox fx:id="combo_category_selectedCategory" prefHeight="40.0" prefWidth="240.0" promptText="Kategorie wählen ...">
                      <VBox.margin>
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <ComboBox fx:id="combo_category_selectedRounds" prefHeight="40.0" prefWidth="190.0" promptText="Spielrunden wählen ..." />
+                  <ComboBox fx:id="combo_category_selectedRounds" prefHeight="40.0" prefWidth="240.0" promptText="Spielrunden wählen ..." />
                </children>
             </VBox>
          </center>

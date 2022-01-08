@@ -1,5 +1,7 @@
 package de.gruppeo.wise2122_java_client.helpers;
 
+import de.gruppeo.wise2122_java_client.models.MConfig;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -12,17 +14,16 @@ public class Connection {
     private String privateToken;
 
     /**
-     * GET-Konstruktor
-     * Initialisiert globale Variablen und
-     * führt Methode zur Anfrage einer JSON-
-     * Zeichenkette aus.
+     * Initialisiert Objekt zum Aufbau einer
+     * HTTP-Verbindung und stellt privaten Token
+     * zur Verfügung.
      *
      * @param directory
      * @throws Exception
      */
     public Connection(String directory) throws Exception {
-        connection = (HttpURLConnection) new URL(new Configuration().readConfiguration().getBaseURL() + directory).openConnection();
-        privateToken = new Configuration().readConfiguration().getPrivateToken();
+        connection = (HttpURLConnection) new URL(MConfig.getInstance().getBaseURL() + directory).openConnection();
+        privateToken = MConfig.getInstance().getPrivateToken();
     }
 
     /**
@@ -34,6 +35,7 @@ public class Connection {
      * @throws Exception
      */
     public void getData() throws Exception {
+        // Konfiguriert HTTP-Verbindung
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer " + privateToken);
         connection.setRequestProperty("Content-Type", "application/json");
@@ -50,11 +52,16 @@ public class Connection {
     }
 
     /**
+     * Sendet dem Server Daten über
+     * eine strukturierte JSON-Datei
+     * und speichert Antwort in globaler
+     * Variable 'serverResponse'.
      *
      * @param serverInput
      * @throws Exception
      */
     public void postData(String serverInput) throws Exception {
+        // Konfiguriert HTTP-Verbindung
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");

@@ -8,9 +8,6 @@ import javafx.stage.Stage;
 
 public class Start extends Application {
 
-    // Ermöglicht Zugriff auf Löschmethode
-    Configuration config = new Configuration();
-
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("fxml/logIn.fxml"));
@@ -22,7 +19,7 @@ public class Start extends Application {
 
         // Wird nach Programmende ausgeführt
         stage.setOnCloseRequest(event ->
-                config.deleteFile()
+                System.out.println("Programm wurde beendet")
         );
     }
 

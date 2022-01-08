@@ -1,26 +1,35 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.models.MConfig;
+import de.gruppeo.wise2122_java_client.models.MQuestion;
 import de.gruppeo.wise2122_java_client.models.MTimer;
 import de.gruppeo.wise2122_java_client.parsers.PQuestion;
 import javafx.application.Platform;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
-public class CQuiz {
+public class CQuiz implements Initializable {
     ViewLoader loader;
     MTimer timer;
     PQuestion mapper;
+
+    private int questionID;
+    private int points;
+    private String correctAnswer;
+    private ArrayList<MQuestion> questions;
+    private ArrayList<String> answers;
 
     @FXML private BorderPane mainPane;
     @FXML private ProgressBar progressBar_quiz_progress;
@@ -39,99 +48,54 @@ public class CQuiz {
     public CQuiz() throws Exception {
         loader = new ViewLoader();
         timer = new MTimer();
-        //mapper = new PQuestion(new Connection("/question"));
+        mapper = new PQuestion(new Connection("/questions?category=" + MConfig.getInstance().getCategory().toString()));
+        points = 0;
 
-        /**
-         * Leerer Konstruktor wird aktuell nur zu
-         * Testzwecken verwendet. Es wird auf die lokale
-         * JSON-Datei 'questions.JSON' zugegriffen.
-         */
-        mapper = new PQuestion();
+        questions = new ArrayList<>();
+        for(MQuestion question : mapper.getList()) {
+            questions.add(question);
+        }
     }
 
-    /**
-     * Wird beim Maskenaufruf ausgeführt und initialisiert
-     * den Ladebalken und die zugehörige Beschriftung mit Startwerten.
-     *
-     * @throws MalformedURLException
-     */
-    @FXML public void initialize() throws MalformedURLException {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        questionID = 0;
+
         startCountdown();
         setNumberQuestions();
-        setQuestion(0);
-        setAnswers(0);
-        setPoints();
-
-        /*while (isPlaying()) {
-
-        }*/
+        setQuestion();
+        setAnswers();
     }
 
     /**
-     * TODO Status vom Server erhalten, ob noch eine Frage gespielt wird
-     * Fordert den Status, ob noch eine Frage gespielt wird,
-     * vom Server an und gibt den boolschen Wert zurück.
+     * Prüft, ob die angeklickte Antwort korrekt
+     * ist und sendet das Ergebnis, zusammen mit
+     * der berechneten Punkzahl, an den Server.
      *
-     * @return Status
+     * @param button
      */
-    private boolean isPlaying() {
-        // Serveranfrage implementieren ...
-        return true;
-    }
+    private void checkAnswer(Button button) {
+        try {
+            // Etabliert neue Serververbindung
+            Connection connection = new Connection("/auth/login");
 
-    private void setNumberQuestions() {
-        label_quiz_numberQuestion.setText("Frage 1 von 10");
-    }
+            // Status der Beantwortung
+            boolean isCorrect = false;
 
-    /**
-     * TODO Neue Frage beim Server anfragen
-     * Fordert eine neue Frage beim Server an
-     * und präsentiert sie auf der GUI.
-     */
-    private void setQuestion(int id) {
-        label_quiz_question.setText(mapper.getList().get(id).getQuestion());
-    }
+            if (button.getText().equals(correctAnswer)) {
+                isCorrect = true;
+            } else {
+                isCorrect = false;
+            }
 
-    /**
-     * TODO Vier Antworten beim Server anfragen
-     * Fordert insgesamt vier Antworten, eine Lösung und
-     * drei falsche Antworten beim Server an und präsentiert
-     * sie auf der GUI.
-     */
-    private void setAnswers(int id) {
-        List<String> answers = new ArrayList<>();
-        String correctAnswer;
+            System.out.println("isCorrect: " + isCorrect);
 
-        // Fordert Antworten vom Server an
-        String[] serverResponse = mapper.getList().get(id).getAnswers();
-
-        // Speichert Array in Liste
-        for(String item : serverResponse) {
-            answers.add(item);
+            // Sendet JSON-Anfrage mit Zugangsdaten an Server
+            connection.postData("{ \"isCorrect\": \"" + isCorrect + "\", \"points\": \"" + points + "\" }");
+            disableAnswers();
+        } catch (Exception e) {
+            System.out.println("Fehler beim Senden der Antwort: " + e);
         }
-
-        // Speichert korrekte Antwort
-        correctAnswer = answers.get(0);
-
-        // Mischt die Antworten
-        Collections.shuffle(answers);
-
-        System.out.println("Richtig: " + correctAnswer);
-
-        // Zeigt Antworten auf GUI
-        button_quiz_answerA.setText(answers.get(0));
-        button_quiz_answerB.setText(answers.get(1));
-        button_quiz_answerC.setText(answers.get(2));
-        button_quiz_answerD.setText(answers.get(3));
-    }
-
-    /**
-     * TODO Punkte eines Spielers beim Server anfragen
-     * Fordert die aktuelle Gesamtpunktzahl eines Spielers
-     * beim Server an und präsentiert sie auf der GUI.
-     */
-    private void setPoints() {
-
     }
 
     /**
@@ -177,6 +141,49 @@ public class CQuiz {
     }
 
     /**
+     * Setzt die aktuelle Fragennummer.
+     */
+    private void setNumberQuestions() {
+        int number = 1;
+        label_quiz_numberQuestion.setText("Frage " + questionID + 1 + " von " + number);
+    }
+
+    /**
+     * Fordert eine neue Frage beim Server an
+     * und präsentiert sie auf der GUI.
+     */
+    private void setQuestion() {
+        label_quiz_question.setText(questions.get(questionID).getQuestion());
+    }
+
+    /**
+     * Fordert insgesamt vier Antworten, eine Lösung und
+     * drei falsche Antworten beim Server an und präsentiert
+     * sie auf der GUI.
+     */
+    private void setAnswers() {
+        answers = new ArrayList<>();
+
+        // Speichert Antworten der übergebenen Frage
+        answers.add(questions.get(questionID).getCorrectAnswer());
+        answers.add(questions.get(questionID).getFalseAnswer1());
+        answers.add(questions.get(questionID).getFalseAnswer2());
+        answers.add(questions.get(questionID).getFalseAnswer3());
+
+        // Speichert korrekte Antwort in globaler Variable
+        correctAnswer = questions.get(questionID).getCorrectAnswer();
+
+        // Mischt die Liste aller Antworten
+        Collections.shuffle(answers);
+
+        // Zeigt Antworten auf GUI an
+        button_quiz_answerA.setText(answers.get(0));
+        button_quiz_answerB.setText(answers.get(1));
+        button_quiz_answerC.setText(answers.get(2));
+        button_quiz_answerD.setText(answers.get(3));
+    }
+
+    /**
      * Deaktiviert alle Antworten.
      */
     private void disableAnswers() {
@@ -187,47 +194,39 @@ public class CQuiz {
     }
 
     /**
-     * TODO Antwort A an Server senden
      * Wird bei Klick auf Antwort A ausgeführt.
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerA() {
-        // Serververbindung muss implementiert werden ...
-        System.out.println("Answer A was klicked");
+        checkAnswer(this.button_quiz_answerA);
     }
 
     /**
-     * TODO Antwort B an Server senden
      * Wird bei Klick auf Antwort B ausgeführt.
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerB() {
-        // Serververbindung muss implementiert werden ...
-        System.out.println("Answer B was klicked");
+        checkAnswer(this.button_quiz_answerB);
     }
 
     /**
-     * TODO Antwort C an Server senden
      * Wird bei Klick auf Antwort C ausgeführt.
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerC() {
-        // Serververbindung muss implementiert werden ...
-        System.out.println("Answer C was klicked");
+        checkAnswer(this.button_quiz_answerC);
     }
 
     /**
-     * TODO Antwort D an Server senden
      * Wird bei Klick auf Antwort D ausgeführt.
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerD() {
-        // Serververbindung muss implementiert werden ...
-        System.out.println("Answer D was klicked");
+        checkAnswer(this.button_quiz_answerD);
     }
 
     /**
@@ -237,7 +236,7 @@ public class CQuiz {
      */
     public void onMouseClicked_quitGame() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/main"));
+        stage.setScene(loader.getScene("main"));
         stage.show();
     }
 }

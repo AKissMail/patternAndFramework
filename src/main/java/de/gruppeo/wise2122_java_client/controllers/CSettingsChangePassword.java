@@ -1,20 +1,20 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import de.gruppeo.wise2122_java_client.models.MConfig;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 
 public class CSettingsChangePassword extends Validation {
 
-    private ViewLoader loader = new ViewLoader();
-    private int checkSum = 0;
-
-    ArrayList<Boolean> list =  new ArrayList<Boolean>();
+    private ViewLoader loader;
+    private int checkSum;
+    private ArrayList<Boolean> list;
 
     @FXML private Label label_settings_currentPassword;
     @FXML private Label label_settings_newPassword1;
@@ -29,20 +29,25 @@ public class CSettingsChangePassword extends Validation {
      * im Zwischenspeicher.
      */
     public CSettingsChangePassword() {
+        loader = new ViewLoader();
+        checkSum = 0;
+        list =  new ArrayList<Boolean>();
+
         for (int i = 1; i <= 3; i++) {
             list.add(false);
         }
     }
 
     /**
-     * Wird bei jeder Tastatureingabe in das Feld "Aktuelles Passwort"
-     * ausgeführt und prüft, ob das eingegebene Password den Richtlinien entspricht.
+     * Wird bei jeder Tastatureingabe in das Feld
+     * "Aktuelles Passwort" ausgeführt. Überprüft,
+     * ob etwas eingegen wurde.
      */
     public void onKeyTyped_currentPassword() {
         String currentPassword = textField_settings_currentPassword.getText();
         Color labelColor;
 
-        if (isValidPassword(currentPassword)) {
+        if (!currentPassword.isEmpty()) {
             list.set(0, true);
             labelColor = Color.BLACK;
         } else {
@@ -53,7 +58,9 @@ public class CSettingsChangePassword extends Validation {
     }
 
     /**
-     *
+     * Wird bei jeder Tastatureingabe in das Feld
+     * "Neues Passwort" ausgeführt und prüft, ob das
+     * eingegebene Password den Richtlinien entspricht.
      */
     public void onKeyTyped_newPassword() {
         String password1 = textField_settings_newPassword1.getText();
@@ -70,7 +77,10 @@ public class CSettingsChangePassword extends Validation {
     }
 
     /**
-     *
+     * Wird bei jeder Tastatureingabe in das Feld
+     * "Neues Passwort" ausgeführt und prüft, ob das
+     * eingegebene Password mit dem neuen Passwort
+     * übereinstimmt.
      */
     public void onKeyTyped_confirmedPassword() {
         String password2 = textField_settings_newPassword2.getText();
@@ -91,6 +101,27 @@ public class CSettingsChangePassword extends Validation {
      * Speichert neues Passwort in der Datenbank
      */
     public void onMouseClicked_changePassword() {
+        String username = MConfig.getInstance().getUsername();
+        String currentPassword = textField_settings_currentPassword.getText();
+        String newPassword = textField_settings_newPassword2.getText();
 
+        try {
+            // Etabliert neue Serververbindung
+            Connection connection = new Connection("/auth/changepassword");
+
+            // Sendet JSON-Anfrage mit Zugangsdaten an Server
+            connection.postData("{ \"username\": \"" + username + "\", \"currentPassword\": \"" + currentPassword + "\", \"newPassword\": \"" + newPassword + "\" }");
+
+            // Speichert Token in Config-Objekt
+            MConfig.getInstance().setPrivateToken(connection.getServerResponse());
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Das Password für " + username + " wurde erfolgreich geändert.", ButtonType.OK);
+            alert.showAndWait();
+
+            textField_settings_newPassword1.clear();
+            textField_settings_newPassword2.clear();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

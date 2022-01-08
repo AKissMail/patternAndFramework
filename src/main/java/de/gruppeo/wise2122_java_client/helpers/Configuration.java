@@ -1,6 +1,6 @@
 package de.gruppeo.wise2122_java_client.helpers;
 
-import de.gruppeo.wise2122_java_client.models.MConfiguration;
+import de.gruppeo.wise2122_java_client.models.MConfig;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -12,8 +12,8 @@ public class Configuration {
     JAXBContext jaxbContext;
     Marshaller marshaller;
     Unmarshaller unmarshaller;
-    MConfiguration config;
-    String filePath = "src/main/resources/de/gruppeo/wise2122_java_client/configurations/config.xml";
+    MConfig config;
+    String filePath = "src/main/resources/de/gruppeo/wise2122_java_client/configs/config.xml";
     File file;
 
     /**
@@ -21,11 +21,11 @@ public class Configuration {
      * Pfad zur XML-Config fest.
      */
     public Configuration() {
-        this.config = MConfiguration.getInstance();
+        this.config = MConfig.getInstance();
         this.file = new File(filePath);
 
         try {
-            jaxbContext = JAXBContext.newInstance(MConfiguration.class);
+            jaxbContext = JAXBContext.newInstance(MConfig.class);
             marshaller = jaxbContext.createMarshaller();
             unmarshaller = jaxbContext.createUnmarshaller();
         } catch (JAXBException e) {
@@ -50,9 +50,9 @@ public class Configuration {
      *
      * @return MConfig-Objekt
      */
-    public MConfiguration readConfiguration() {
+    public MConfig readConfiguration() {
         try {
-            config = (MConfiguration) unmarshaller.unmarshal(file);
+            config = (MConfig) unmarshaller.unmarshal(file);
         } catch (JAXBException er) {
             //System.out.println("Fehler beim Lesen: " + e);
         } catch (IllegalArgumentException e) {
