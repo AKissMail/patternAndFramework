@@ -1,5 +1,12 @@
 package de.gruppeo.wise2122_java_client.models;
 
+import lombok.Getter;
+
+/**
+ *
+ */
+
+@Getter
 public class MPlayer {
 
     private int playerid;
@@ -43,41 +50,5 @@ public class MPlayer {
         this.rank = rank;
         this.username = username;
         this.currentscore = currentscore;
-    }
-
-    /**
-     * Gibt die Platzierung eines Spielers zurück.
-     *
-     * @return Platzierung
-     */
-    public int getRank() {
-        return rank;
-    }
-
-    /**
-     * Gibt den Benutzernamen eines Spielers zurück.
-     *
-     * @return Benutzername
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Gibt den aktuellen Punktestand eines Spielers zurück.
-     *
-     * @return Punktestand
-     */
-    public int getCurrentscore() {
-        return currentscore;
-    }
-
-    /**
-     * Gibt den aktuellen Spielstatus eines Spielers zurück.
-     *
-     * @return Spielstatus
-     */
-    public String getCurrentstatus() {
-        return currentstatus;
     }
 }

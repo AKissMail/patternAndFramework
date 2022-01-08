@@ -1,30 +1,35 @@
 package de.gruppeo.wise2122_java_client.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ *
+ */
+
+@Getter
+@Setter
 public class MQuestion {
 
-    private int questionID;
-    private String category;
+    private int quizquestionid;
     private String question;
-    private String[] answers;
+    private String correctAnswer;
+    private String falseAnswer1;
+    private String falseAnswer2;
+    private String falseAnswer3;
+    private String difficulty;
+    private MCategory category;
 
     public MQuestion() {}
 
-    public MQuestion(int questionID, String category, String question, String[] answers) {
-        this.questionID = questionID;
-        this.category = category;
+    public MQuestion(int quizquestionid, String question, String correctAnswer, String falseAnswer1, String falseAnswer2, String falseAnswer3, String difficulty, MCategory category) {
+        this.quizquestionid = quizquestionid;
         this.question = question;
-        this.answers = answers;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public String[] getAnswers() {
-        return answers;
+        this.correctAnswer = correctAnswer;
+        this.falseAnswer1 = falseAnswer1;
+        this.falseAnswer2 = falseAnswer2;
+        this.falseAnswer3 = falseAnswer3;
+        this.difficulty = difficulty;
+        this.category = category;
     }
 }

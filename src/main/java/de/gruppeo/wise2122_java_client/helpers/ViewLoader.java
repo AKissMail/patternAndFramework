@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+
+import javax.swing.text.View;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,6 +20,11 @@ public class ViewLoader {
     private Pane pane;
     private Scene scene;
     private File file;
+    private String location;
+
+    public ViewLoader() {
+        location = "fxml/";
+    }
 
     /**
      * Gibt die Pane der übergebenen
@@ -30,7 +37,7 @@ public class ViewLoader {
      */
     public Pane getPane(String filename) {
         try {
-            URL fileURL = Start.class.getResource(filename + ".fxml");
+            URL fileURL = Start.class.getResource(location + filename + ".fxml");
 
             if (fileURL == null) {
                 throw new java.io.FileNotFoundException("FXML File can't be found.");
@@ -54,7 +61,7 @@ public class ViewLoader {
      */
     public Scene getScene(String filename) {
         try {
-            FXMLLoader loader = new FXMLLoader(Start.class.getResource(filename + ".fxml"));
+            FXMLLoader loader = new FXMLLoader(Start.class.getResource(location + filename + ".fxml"));
 
             Parent root = loader.load();
             scene = new Scene(root);

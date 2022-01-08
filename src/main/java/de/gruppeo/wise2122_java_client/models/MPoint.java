@@ -1,5 +1,12 @@
 package de.gruppeo.wise2122_java_client.models;
 
+import lombok.Getter;
+
+/**
+ *
+ */
+
+@Getter
 public class MPoint {
     public int value;
     private double currentScore;
@@ -8,13 +15,9 @@ public class MPoint {
         value = 10;
     }
 
-    /**
-     * Gibt den aktuellen Punktestand zurück.
-     *
-     * @return aktueller Punktestand
-     */
-    public double getCurrentScore() {
-        return currentScore;
+    public MPoint(int value, double currentScore) {
+        this.value = value;
+        this.currentScore = currentScore;
     }
 
     /**

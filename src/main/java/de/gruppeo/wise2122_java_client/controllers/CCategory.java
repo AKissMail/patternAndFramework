@@ -1,20 +1,25 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.models.MConfiguration;
+import de.gruppeo.wise2122_java_client.models.MConfig;
+import de.gruppeo.wise2122_java_client.models.MRounds;
 import de.gruppeo.wise2122_java_client.parsers.PCategory;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MCategory;
+import de.gruppeo.wise2122_java_client.parsers.PRounds;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class CCategory {
+public class CCategory implements Initializable {
     ViewLoader loader;
-    PCategory mapper;
+    PCategory mapperCategory;
+    PRounds mapperRounds;
 
     @FXML private BorderPane mainPane;
     @FXML private ComboBox combo_category_selectedCategory;
@@ -32,63 +37,77 @@ public class CCategory {
      */
     public CCategory() throws Exception {
         loader = new ViewLoader();
-        mapper = new PCategory(new Connection("/category"));
+        mapperCategory = new PCategory(new Connection("/category"));
+        mapperRounds = new PRounds(new Connection("/rounds"));
     }
 
     /**
      * Wird beim Aufruf der aktuellen Maske
-     * ausgeführt. Befüllt das Menü mit Kategorien.
+     * ausgeführt. Befüllt das Menü mit Kategorien
+     * und Spielrunden.
      */
-    @FXML public void initialize() {
-        // Deaktiviert Buttons
-        disableButtons(false);
-
-        // Liest die XML-Config aus und versucht Werte zu setzen
-        Object categoryCombo = new Configuration().readConfiguration().getCategory();
-        Object roundsCombo = new Configuration().readConfiguration().getRounds();
-
-        if (categoryCombo != null || roundsCombo != null) {
-            combo_category_selectedCategory.getSelectionModel().select(categoryCombo);
-            combo_category_selectedRounds.getSelectionModel().select(roundsCombo);
-        } else {
-            disableButtons(true);
-        }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Aktiviert oder deaktiviert Buttons
+        disableButtons(new Button[] {button_category_joinQuiz, button_category_chooseOpponent}, setLoadedValues());
 
         // Befüllt Auswahlmenü mit Kategorien
-        for (MCategory category : mapper.getList()) {
+        for (MCategory category : mapperCategory.getList()) {
             combo_category_selectedCategory.getItems().add(category.getCategoryname());
         }
 
-        // Befüllt Auswahlmenü mit Rundenzahlen und setzt Standardwert
-        combo_category_selectedRounds.getItems().add("10 Runden");
-        combo_category_selectedRounds.getItems().add("20 Runden");
+        // Befüllt Auswahlmenü mit Rundenzahlen
+        for (MRounds rounds : mapperRounds.getList()) {
+            combo_category_selectedRounds.getItems().add(rounds.getRounds() + " Runden");
+        }
 
-        combo_category_selectedRounds.getSelectionModel().selectFirst();
-
-        // Schreibt ausgewählte Kategorie in Config
-        MConfiguration.getInstance().setRounds(combo_category_selectedRounds.getSelectionModel().getSelectedItem());
-        new Configuration().writeConfiguration();
+        // Setzt Startwert für Anzahl der Spielrunden
+        combo_category_selectedRounds.getSelectionModel().select(MConfig.getInstance().getIndexRounds());
 
         // Gibt die ausgewählte Kategorie zurück
         combo_category_selectedCategory.getSelectionModel().selectedItemProperty().addListener((options, oldCategory, newCategory) -> {
-            disableButtons(false);
-
-            // Schreibt ausgewählte Kategorie in Config
-            MConfiguration.getInstance().setCategory(newCategory);
-            new Configuration().writeConfiguration();
+            // Schreibt ausgewählte Kategorie in Objekt
+            MConfig.getInstance().setCategory(newCategory);
+            disableButtons(new Button[] {button_category_joinQuiz, button_category_chooseOpponent}, false);
         });
 
         // Gibt die ausgewählte Anzahl der zu spielenden Fragen zurück
         combo_category_selectedRounds.getSelectionModel().selectedItemProperty().addListener((options, oldRounds, newRounds) -> {
-            // Schreibt ausgewählte Rundenzahl in Config
-            MConfiguration.getInstance().setRounds(newRounds);
-            new Configuration().writeConfiguration();
+            // Schreibt ausgewählte Rundenzahl in Objekt
+            MConfig.getInstance().setIndexRounds(combo_category_selectedRounds.getSelectionModel().getSelectedIndex());
+            MConfig.getInstance().setRounds(newRounds);
         });
     }
 
-    private void disableButtons(Boolean disable) {
-        button_category_joinQuiz.setDisable(disable);
-        button_category_chooseOpponent.setDisable(disable);
+    /**
+     * Aktiviert oder deaktiviert
+     * die übergebenen Buttons.
+     *
+     * @param buttons
+     * @param disable
+     */
+    private void disableButtons(Button[] buttons, boolean disable) {
+        for (Button button : buttons) {
+            button.setDisable(disable);
+        }
+    }
+
+    /**
+     * Liest das Config-Objekt aus und
+     * versucht GUI-Zustände zu setzen.
+     */
+    private boolean setLoadedValues() {
+        boolean disableButton = true;
+
+        Object comboCategory = MConfig.getInstance().getCategory();
+        Object comboRounds = MConfig.getInstance().getRounds();
+
+        if (comboCategory != null && comboRounds != null) {
+            combo_category_selectedCategory.getSelectionModel().select(comboCategory);
+            combo_category_selectedRounds.getSelectionModel().select(comboRounds);
+            disableButton = false;
+        }
+        return disableButton;
     }
 
     /**
@@ -97,7 +116,7 @@ public class CCategory {
      */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/main"));
+        stage.setScene(loader.getScene("main"));
         stage.show();
     }
 
@@ -107,7 +126,7 @@ public class CCategory {
      */
     public void onMouseClicked_selectOpponent() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/opponent"));
+        stage.setScene(loader.getScene("opponent"));
         stage.show();
     }
 
@@ -117,7 +136,7 @@ public class CCategory {
      */
     public void onMouseClicked_joinQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/lobby"));
+        stage.setScene(loader.getScene("lobby"));
         stage.show();
     }
 }

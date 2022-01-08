@@ -1,13 +1,13 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MConfiguration;
+import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -15,10 +15,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 
-public class COpponent {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class COpponent implements Initializable {
     ViewLoader loader;
     POpponent mapper;
-    Configuration config;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_opponent_foundOpponents;
@@ -26,37 +28,32 @@ public class COpponent {
     @FXML private Button button_opponent_startQuiz;
 
     /**
+     * Initialisiert globale Objekte.
      *
      * @throws Exception
      */
     public COpponent() throws Exception {
         loader = new ViewLoader();
-        mapper = new POpponent(new Connection("/player/all"));
-        config = new Configuration();
+        mapper = new POpponent(new Connection("/player?status=online"));
     }
 
-    /**
-     * Wird beim Aufruf der aktuellen Maske
-     * ausgeführt. Befüllt das Menü mit Kategorien.
-     */
-    @FXML public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Befüllt Auswahlmenü mit Spielern, die online sind
         for (MPlayer opponent : mapper.getList()) {
             listView_opponent_list.getItems().addAll(opponent.getUsername());
         }
 
         listView_opponent_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue != null) {
+            public void changed(ObservableValue<? extends String> observable, String oldOpponent, String newOpponent) {
+                if (newOpponent != null) {
                     button_opponent_startQuiz.setDisable(false);
                 } else {
                     button_opponent_startQuiz.setDisable(true);
                 }
-                System.out.println("Selected Player: " + newValue);
-
-                // Schreibt ausgewählte Anzahl in Config
-                MConfiguration.getInstance().setPlayer(newValue);
-                new Configuration().writeConfiguration();
+                // Schreibt ausgewählte Anzahl in Objekt
+                MConfig.getInstance().setOpponent(listView_opponent_list.getSelectionModel().getSelectedItem());
             }
         });
 
@@ -69,7 +66,7 @@ public class COpponent {
      */
     public void onMouseClicked_startQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/quiz"));
+        stage.setScene(loader.getScene("quiz"));
         stage.show();
     }
 
@@ -78,7 +75,7 @@ public class COpponent {
      */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/category"));
+        stage.setScene(loader.getScene("category"));
         stage.show();
     }
 
@@ -87,7 +84,7 @@ public class COpponent {
      */
     public void onMouseClicked_joinQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/lobby"));
+        stage.setScene(loader.getScene("lobby"));
         stage.show();
     }
 }

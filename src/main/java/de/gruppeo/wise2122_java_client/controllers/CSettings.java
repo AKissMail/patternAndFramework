@@ -8,40 +8,44 @@ import javafx.fxml.FXML;
 
 public class CSettings {
 
-    private ViewLoader loader = new ViewLoader();
+    private ViewLoader loader;
 
     @FXML private BorderPane mainPane;
 
+    public CSettings() {
+        loader = new ViewLoader();
+    }
+
     /**
-     *
+     * Zeigt die Maske zur Änderung des Profilbildes an.
      */
     public void onMouseClicked_showPicturePane() {
-        Pane pane = loader.getPane("fxml/settings_changePicture");
+        Pane pane = loader.getPane("settings_changePicture");
         mainPane.setRight(pane);
     }
 
     /**
-     *
+     * Zeigt die Maske zur Änderung des Passwortes an.
      */
     public void onMouseClicked_showPasswordPane() {
-        Pane pane = loader.getPane("fxml/settings_changePassword");
+        Pane pane = loader.getPane("settings_changePassword");
         mainPane.setRight(pane);
     }
 
     /**
-     *
+     * Zeigt die Maske zum Zurücksetzen des Scores an.
      */
     public void onMouseClicked_showScorePane() {
-        Pane pane = loader.getPane("fxml/settings_resetScore");
+        Pane pane = loader.getPane("settings_resetScore");
         mainPane.setRight(pane);
     }
 
     /**
-     *
+     * Zeigt das Hauptmenü an.
      */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("fxml/main"));
+        stage.setScene(loader.getScene("main"));
         stage.show();
     }
 }
