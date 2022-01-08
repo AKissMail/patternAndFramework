@@ -63,8 +63,6 @@ public class COpponent implements Initializable {
         });
     }
 
-
-
     /**
      * Zeigt das Quiz an.
      */
