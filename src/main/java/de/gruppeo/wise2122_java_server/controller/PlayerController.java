@@ -2,6 +2,7 @@ package de.gruppeo.wise2122_java_server.controller;
 
 import de.gruppeo.wise2122_java_server.model.PlayerEntity;
 import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
+import de.gruppeo.wise2122_java_server.request.StatusRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,19 +42,16 @@ public class PlayerController {
     }
 
     @PostMapping("/changeplayerstatus")
-    public ResponseEntity<PlayerEntity> changePlayerStatus(@RequestParam Map<String, String> requestParams) throws Exception {
-        String status = requestParams.get("status");
-        String token = requestParams.get("token");
-
-        if (status == null) {
+    public ResponseEntity<PlayerEntity> changePlayerStatus(@RequestBody StatusRequest statusRequest) throws Exception {
+        if (statusRequest.getStatus() == null) {
             return ResponseEntity.badRequest().build();
         } else {
-            String username = jwtTokenProvider.getUsernameFromToken(token);
+            String username = jwtTokenProvider.getUsernameFromToken(statusRequest.getToken());
             Optional<PlayerEntity> player = playerRepository.findByUsername(username);
 
             if (player.isPresent()) {
                 PlayerEntity playerToUpdate = player.get();
-                playerToUpdate.setCurrentstatus(status);
+                playerToUpdate.setCurrentstatus(statusRequest.getStatus());
                 PlayerEntity updated = playerRepository.save(playerToUpdate);
 
                 return ResponseEntity.ok(updated);
