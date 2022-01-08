@@ -10,7 +10,7 @@
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.COpponent">
    <bottom>
-      <Button fx:id="button_opponent_startQuiz" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz starten" textFill="WHITE" BorderPane.alignment="CENTER">
+      <Button fx:id="button_opponent_startQuiz" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Gegner herausfordern" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
             <Font size="30.0" />
          </font>
@@ -28,13 +28,6 @@
                </BorderPane.margin>
             </Button>
          </left>
-         <right>
-            <Button fx:id="button_opponent_joinQuiz" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinQuiz" prefHeight="25.0" prefWidth="90.0" text="Beitreten" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets left="15.0" right="15.0" />
-               </BorderPane.margin>
-            </Button>
-         </right>
       </BorderPane>
    </top>
    <center>
@@ -47,7 +40,7 @@
                         <Font size="35.0" />
                      </font>
                   </Label>
-                  <Label fx:id="label_opponent_foundOpponents" alignment="CENTER" contentDisplay="CENTER" text="0 Spieler sind online" textAlignment="CENTER" />
+                  <Label fx:id="label_opponent_foundOpponents" alignment="CENTER" contentDisplay="CENTER" text="0 Spieler warten" textAlignment="CENTER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="20.0" top="10.0" />

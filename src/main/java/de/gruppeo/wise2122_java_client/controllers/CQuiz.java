@@ -22,8 +22,8 @@ import javafx.fxml.FXML;
 
 public class CQuiz implements Initializable {
     ViewLoader loader;
-    MTimer timer;
     PQuestion mapper;
+    MTimer timer;
 
     private int questionID;
     private int points;

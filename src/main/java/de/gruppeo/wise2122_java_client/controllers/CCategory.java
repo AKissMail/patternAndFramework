@@ -25,7 +25,6 @@ public class CCategory implements Initializable {
     @FXML private ComboBox combo_category_selectedCategory;
     @FXML private ComboBox combo_category_selectedRounds;
     @FXML private Button button_category_chooseOpponent;
-    @FXML private Button button_category_joinQuiz;
 
     /**
      * Initialisiert das ViewLoader-Objekt für
@@ -39,6 +38,9 @@ public class CCategory implements Initializable {
         loader = new ViewLoader();
         mapperCategory = new PCategory(new Connection("/category"));
         mapperRounds = new PRounds(new Connection("/rounds"));
+
+        // Ändert Status auf 'Online'
+        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("online"));
     }
 
     /**
@@ -49,7 +51,7 @@ public class CCategory implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Aktiviert oder deaktiviert Buttons
-        disableButtons(new Button[] {button_category_joinQuiz, button_category_chooseOpponent}, setLoadedValues());
+        disableButtons(new Button[] {button_category_chooseOpponent}, setLoadedValues());
 
         // Befüllt Auswahlmenü mit Kategorien
         for (MCategory category : mapperCategory.getList()) {
@@ -66,13 +68,15 @@ public class CCategory implements Initializable {
 
         // Gibt die ausgewählte Kategorie zurück
         combo_category_selectedCategory.getSelectionModel().selectedItemProperty().addListener((options, oldCategory, newCategory) -> {
+
             // Schreibt ausgewählte Kategorie in Objekt
             MConfig.getInstance().setCategory(newCategory);
-            disableButtons(new Button[] {button_category_joinQuiz, button_category_chooseOpponent}, false);
+            disableButtons(new Button[] {button_category_chooseOpponent}, false);
         });
 
         // Gibt die ausgewählte Anzahl der zu spielenden Fragen zurück
         combo_category_selectedRounds.getSelectionModel().selectedItemProperty().addListener((options, oldRounds, newRounds) -> {
+
             // Schreibt ausgewählte Rundenzahl in Objekt
             MConfig.getInstance().setIndexRounds(combo_category_selectedRounds.getSelectionModel().getSelectedIndex());
             MConfig.getInstance().setRounds(newRounds);
@@ -102,10 +106,7 @@ public class CCategory implements Initializable {
         Object comboCategory = MConfig.getInstance().getCategory();
         Object comboRounds = MConfig.getInstance().getRounds();
 
-        System.out.println("Kategorie: " + comboCategory);
-        System.out.println("Runden: " + comboRounds);
-
-        if (comboCategory != null && comboRounds != null) {
+        if (comboCategory != null || comboRounds != null) {
             combo_category_selectedCategory.getSelectionModel().select(comboCategory);
             combo_category_selectedRounds.getSelectionModel().select(comboRounds);
             disableButton = false;
@@ -130,16 +131,6 @@ public class CCategory implements Initializable {
     public void onMouseClicked_selectOpponent() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("opponent"));
-        stage.show();
-    }
-
-    /**
-     * Wird beim Klick auf "Quiz beitreten" ausgeführt
-     * und wechselt die Maske zur Lobby.
-     */
-    public void onMouseClicked_joinQuiz() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("lobby"));
         stage.show();
     }
 }

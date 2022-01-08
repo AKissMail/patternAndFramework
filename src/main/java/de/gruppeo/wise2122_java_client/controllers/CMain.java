@@ -1,6 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Configuration;
+import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
@@ -8,6 +9,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -35,9 +37,14 @@ public class CMain implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            // Ändert Status auf 'Online'
+            System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("online"));
+
             circle_main_picture.setFill(new ImagePattern(loader.loadImage("PICTURE")));
         } catch (MalformedURLException e) {
             e.printStackTrace();
+        } catch (Exception es) {
+            es.printStackTrace();
         }
 
         // Setzt den Playernamen
@@ -49,7 +56,7 @@ public class CMain implements Initializable {
      */
     public void onMouseClicked_startQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("category"));
+        stage.setScene(loader.getScene("lobby"));
         stage.show();
     }
 
@@ -72,10 +79,22 @@ public class CMain implements Initializable {
     }
 
     /**
+     * Zeigt die Maske zur Auswahl der Kategorie an.
+     */
+    public void onMouseClicked_selectCategory() {
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("category"));
+        stage.show();
+    }
+
+    /**
      * Zeigt die LogIn-Maske an und
      * überschreibt das private Token.
      */
-    public void onMouseClicked_logOut() {
+    public void onMouseClicked_logOut() throws Exception {
+        // Ändert Status auf 'Offline'
+        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("offline"));
+
         // Überschreibt Token mit leerem String
         MConfig.getInstance().setPrivateToken("");
 

@@ -2,7 +2,6 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.beans.value.ChangeListener;
@@ -14,7 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,15 +32,21 @@ public class COpponent implements Initializable {
      */
     public COpponent() throws Exception {
         loader = new ViewLoader();
-        mapper = new POpponent(new Connection("/player?status=online"));
+        mapper = new POpponent(new Connection("/player?status=waiting"));
+
+        // Ändert Status auf 'Searching'
+        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("searching"));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Befüllt Auswahlmenü mit Spielern, die online sind
+        // Befüllt Auswahlmenü mit Spielern, die auf 'Waiting' gestellt sind
         for (MPlayer opponent : mapper.getList()) {
             listView_opponent_list.getItems().addAll(opponent.getUsername());
         }
+
+        // Label zur Anzeige der Anzahl der gefundenen Spieler
+        label_opponent_foundOpponents.setText(mapper.getList().size() + " Spieler warten");
 
         listView_opponent_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -52,14 +56,14 @@ public class COpponent implements Initializable {
                 } else {
                     button_opponent_startQuiz.setDisable(true);
                 }
+
                 // Schreibt ausgewählte Anzahl in Objekt
-                MConfig.getInstance().setOpponent(listView_opponent_list.getSelectionModel().getSelectedItem());
+                button_opponent_startQuiz.setText(listView_opponent_list.getSelectionModel().getSelectedItem() + " herausfordern");
             }
         });
-
-        // Label zur Anzeige der Anzahl der gefundenen Spieler
-        label_opponent_foundOpponents.setText(mapper.getList().size() + " Spieler sind online");
     }
+
+
 
     /**
      * Zeigt das Quiz an.
@@ -76,15 +80,6 @@ public class COpponent implements Initializable {
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("category"));
-        stage.show();
-    }
-
-    /**
-     * Zeigt den Wartebereich an.
-     */
-    public void onMouseClicked_joinQuiz() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("lobby"));
         stage.show();
     }
 }

@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.gruppeo.wise2122_java_client.controllers.CMain">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CMain">
    <top>
       <BorderPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
@@ -43,15 +44,24 @@
                   <Insets bottom="30.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="button_main_startQuiz" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Quiz starten" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="button_main_highscore" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHighscore" prefHeight="30.0" prefWidth="350.0" style="-fx-background-color: #a6a6a6#a6a6a6 #a6a6a6;" text="Highscore" textFill="WHITE">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="700.0">
+               <children>
+                  <Button fx:id="button_main_inviteOpponent" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectCategory" prefHeight="80.0" prefWidth="222.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Herausfordern" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="button_main_startQuiz" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="222.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Quiz starten" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Button fx:id="button_main_highscore" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHighscore" prefHeight="40.0" prefWidth="455.0" style="-fx-background-color: #a6a6a6#a6a6a6 #a6a6a6;" text="Highscore" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>

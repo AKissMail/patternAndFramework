@@ -63,6 +63,11 @@ public class Connection {
     public void postData(String serverInput) throws Exception {
         // Konfiguriert HTTP-Verbindung
         connection.setRequestMethod("POST");
+
+        if (MConfig.getInstance().getPrivateToken() != null) {
+            connection.setRequestProperty("Authorization", "Bearer " + privateToken);
+        }
+
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -105,5 +110,19 @@ public class Connection {
      */
     public HttpURLConnection getConnection() {
         return connection;
+    }
+
+    /**
+     * Baut Verbindung zum Server auf und
+     * versucht den Status des Players auf
+     * den übergebenen Status zu setzen.
+     */
+    public String changePlayerStatus(String status) {
+        try {
+            postData("{ \"status\": \"" + status + "\", \"token\": \"" + privateToken + "\" }");
+        } catch (Exception e) {
+            System.out.println("Fehler beim Aktualisieren des Status: " + e);
+        }
+        return "Status auf '" + status + "' geändert: " + serverResponse;
     }
 }

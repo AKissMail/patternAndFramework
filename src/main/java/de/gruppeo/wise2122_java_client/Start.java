@@ -1,10 +1,13 @@
 package de.gruppeo.wise2122_java_client;
 
 import de.gruppeo.wise2122_java_client.helpers.Configuration;
+import de.gruppeo.wise2122_java_client.helpers.Connection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.net.ConnectException;
 
 public class Start extends Application {
 

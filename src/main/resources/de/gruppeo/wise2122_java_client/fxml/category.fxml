@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -57,25 +56,13 @@
       </BorderPane>
    </center>
    <bottom>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="button_category_chooseOpponent" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectOpponent" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Gegner wählen" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="button_category_joinQuiz" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinQuiz" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Quiz beitreten" textFill="WHITE">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-         </children>
+      <Button fx:id="button_category_chooseOpponent" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectOpponent" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Gegner wählen" textFill="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="25.0" />
+         </font>
          <BorderPane.margin>
             <Insets bottom="20.0" top="20.0" />
          </BorderPane.margin>
-      </HBox>
+      </Button>
    </bottom>
 </BorderPane>
