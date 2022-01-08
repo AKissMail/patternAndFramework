@@ -24,8 +24,10 @@ public class CLobby implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             // Etabliert neue Serververbindungen zum Ändern des Playerstatus
-            Connection changeStatus = new Connection("/player/changeplayerstatus?status=searching&token=" + MConfig.getInstance().getPrivateToken());
-            changeStatus.postData("");
+            Connection changeStatus = new Connection("/player/changeplayerstatus");
+
+            // Sendet JSON-Anfrage mit neuem Status an Server
+            changeStatus.postData("{ \"status\": \"" + "searching" + "\", \"token\": \"" + MConfig.getInstance().getPrivateToken() + "\" }");
         } catch (Exception e) {
             e.printStackTrace();
         }

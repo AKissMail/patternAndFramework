@@ -102,6 +102,9 @@ public class CCategory implements Initializable {
         Object comboCategory = MConfig.getInstance().getCategory();
         Object comboRounds = MConfig.getInstance().getRounds();
 
+        System.out.println("Kategorie: " + comboCategory);
+        System.out.println("Runden: " + comboRounds);
+
         if (comboCategory != null && comboRounds != null) {
             combo_category_selectedCategory.getSelectionModel().select(comboCategory);
             combo_category_selectedRounds.getSelectionModel().select(comboRounds);
