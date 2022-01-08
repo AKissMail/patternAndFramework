@@ -1,12 +1,14 @@
 package de.gruppeo.wise2122_java_client.models;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  */
 
 @Getter
+@Setter
 public class MPlayer {
 
     private int playerid;
