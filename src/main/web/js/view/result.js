@@ -1,13 +1,15 @@
+import * as base from '../controler/base.js';
+import * as mainMenu from './mainMenu.js';
+import * as statistic from './statistic.js';
+
+
 /**
- * Hier wird das ergebnis aus einer Runde angegeigt.
- * @param nameA string User Name
- * @param picA string Pfad zum Bild
- * @param nameB string Gegner Name
- * @param picB string Pfad zum Bild
- * @param result bool true = user hat gewonnen
+ * Stellt das ergebnis eines Spiel da.
+ * @param id datenobjekt von der Api
  */
-function result_show(nameA, picA, nameB, picB, result) {
-    base_clearStage();
+export function show(id) {
+    base.clearStage();
+    console.log(id);
     let backHome = document.createElement("div");
     let backHometext = document.createElement("p");
     backHometext.append("Hauptmenü");
@@ -16,22 +18,18 @@ function result_show(nameA, picA, nameB, picB, result) {
     document.getElementsByTagName("nav")[0].appendChild(backHome);
 
     let heading = document.createElement("h1");
-    if (result === true) {
+    if (id.localPoint > id.remodePoint) {
         heading.append("Du hast gewonnen!");
         heading.classList.add("green");
-    } else {
+    } else if(id.localPoint < id.remodePoint){
         heading.append("Du hast verloren!");
         heading.classList.add("red");
+    }else{
+        heading.append("Es ist unenschiden ausgegengen!");
     }
 
-    let iconPlayer = document.createElement("img");
-    iconPlayer.setAttribute("src", picA);
-    iconPlayer.setAttribute("class", "playerPic")
-    let iconOpponent = document.createElement("img");
-    iconOpponent.setAttribute("src", picB);
-    iconOpponent.setAttribute("class", "playerPic");
     let name = document.createElement("p");
-    name.append(nameA + " vs. " + nameB);
+    name.append("Du vs. " + id.nameOponent);
 
     let button = document.createElement("div");
     button.setAttribute("id", "centerBtn");
@@ -41,10 +39,8 @@ function result_show(nameA, picA, nameB, picB, result) {
     button.appendChild(buttonText);
 
     document.getElementsByTagName("article")[0].appendChild(heading);
-    document.getElementsByTagName("article")[0].appendChild(iconPlayer);
-    document.getElementsByTagName("article")[0].appendChild(iconOpponent);
     document.getElementsByTagName("article")[0].appendChild(name);
     document.getElementsByTagName("article")[0].appendChild(button);
-    document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
-    document.getElementsByClassName("btn")[1].addEventListener("click", score_show);
+    document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu.show);
+    document.getElementsByClassName("btn")[1].addEventListener("click", statistic.show);
 }

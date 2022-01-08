@@ -16,7 +16,7 @@ public class CSettings {
      *
      */
     public void onMouseClicked_showPicturePane() {
-        Pane pane = loader.getPane("settings_changePicture");
+        Pane pane = loader.getPane("fxml/settings_changePicture");
         mainPane.setRight(pane);
     }
 
@@ -24,7 +24,7 @@ public class CSettings {
      *
      */
     public void onMouseClicked_showPasswordPane() {
-        Pane pane = loader.getPane("settings_changePassword");
+        Pane pane = loader.getPane("fxml/settings_changePassword");
         mainPane.setRight(pane);
     }
 
@@ -32,7 +32,7 @@ public class CSettings {
      *
      */
     public void onMouseClicked_showScorePane() {
-        Pane pane = loader.getPane("settings_resetScore");
+        Pane pane = loader.getPane("fxml/settings_resetScore");
         mainPane.setRight(pane);
     }
 
@@ -41,7 +41,7 @@ public class CSettings {
      */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("main"));
+        stage.setScene(loader.getScene("fxml/main"));
         stage.show();
     }
 }

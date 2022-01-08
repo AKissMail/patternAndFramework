@@ -1,15 +1,24 @@
+import * as base from '../controler/base.js';
+import * as apiCalls from '../controler/apiCalls.js';
+
+import * as gamemode from './gamemode.js';
+import * as settings from './settings.js';
+import * as highscore from './highscore.js';
+import * as statistic from './statistic.js';
 /**
- * Diese Funktion zeigt das Hauptmenü an.
+ * Diese function zeigt das Haubtmenü an.
+ *
  */
-function mainMenu_show() {
-    base_clearStage();
-    let user = api_getLocalUser(base_getCookie("token"));
+export function show() {
+    console.log("show");
+    base.clearStage();
+    let user = apiCalls.getLocalUser();
 
     let profilePic = document.createElement("img");
     profilePic.setAttribute("id", "thumbnail");
     profilePic.setAttribute("src", user[4]);
     let name = document.createElement("h2");
-    name.append(user[1]);
+    name.append("Hallo "+user[1] +" :)");
 
     let logout = document.createElement("div");
     let logoutText = document.createElement("p");
@@ -39,15 +48,31 @@ function mainMenu_show() {
     highscoreText.append("Highscore")
     highscore.appendChild(highscoreText);
 
+    let statistic = document.createElement("div");
+    statistic.setAttribute("id", "statistic");
+    statistic.setAttribute("class", "btn");
+    let statisticText = document.createElement("p")
+    statisticText.append("Spielstatistik")
+    statistic.appendChild(statisticText);
+
     document.getElementsByTagName("article")[0].appendChild(profilePic);
     document.getElementsByTagName("article")[0].appendChild(name);
     document.getElementsByTagName("article")[0].appendChild(logout);
     document.getElementsByTagName("article")[0].appendChild(startGame);
     document.getElementsByTagName("article")[0].appendChild(settings);
     document.getElementsByTagName("article")[0].appendChild(highscore);
+    document.getElementsByTagName("article")[0].appendChild(statistic);
+    addEventListener();
+}
 
-    document.getElementById("logout").addEventListener("click", base_logout);
-    document.getElementById("startGame").addEventListener("click", gamemode_showPicker);
-    document.getElementById("settings").addEventListener("click",settings_show);
-    document.getElementById("highscore").addEventListener("click", highscore_show);
+/**
+ * kleine helfer function, welch die eventListener setzt.
+ */
+function addEventListener(){
+    document.getElementById("logout").addEventListener("click", apiCalls.logout);
+    document.getElementById("startGame").addEventListener("click", gamemode.show);
+    document.getElementById("settings").addEventListener("click",settings.show);
+    document.getElementById("highscore").addEventListener("click", highscore.show);
+    document.getElementById("statistic").addEventListener("click", statistic.show);
+    console.log("addEventListener");
 }

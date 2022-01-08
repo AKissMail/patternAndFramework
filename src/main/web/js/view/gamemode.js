@@ -1,5 +1,14 @@
-function gamemode_showPicker(){
-    base_clearStage();
+import * as base from '../controler/base.js';
+import * as apiCalls from '../controler/apiCalls.js';
+
+import * as mainMenu from './mainMenu.js';
+
+let openGames = "";
+let catigroy = "";
+let lenght  = 0;
+
+export function show(){
+    base.clearStage();
 
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
@@ -8,7 +17,7 @@ function gamemode_showPicker(){
     backHometext.append("Hauptmenü");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("nav")[0].appendChild(backHome);
-    document.getElementById("back home").addEventListener("click", mainMenu_show);
+    document.getElementById("back home").addEventListener("click", mainMenu.show);
 
     let btnA = document.createElement("div");
     btnA.setAttribute("class","btn");
@@ -26,14 +35,18 @@ function gamemode_showPicker(){
 
     document.getElementsByTagName("article")[0].appendChild(btnA);
     document.getElementsByTagName("article")[0].appendChild(btnB);
-
-    document.getElementById("newGame").addEventListener("click", gamemode_showNewGame);
-    document.getElementById("enterGame").addEventListener("click", gamemode_showEnterGame);
+    addShowEventListener();
 }
+function addShowEventListener() {
+    document.getElementById("newGame").addEventListener("click", showNewGame);
+    document.getElementById("enterGame").addEventListener("click", showEnterGame);
+};
 
-function gamemode_showNewGame(){
-    base_clearStage();
-    let catigroy = ["DemoA", "DemoB", "DemoC"];
+function showNewGame() {
+    base.clearStage();
+    catigroy = apiCalls.getCatigroy();
+    lenght = apiCalls.getGameSize();
+
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
@@ -41,7 +54,7 @@ function gamemode_showNewGame(){
     backHometext.append("zurück");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("nav")[0].appendChild(backHome);
-    document.getElementById("back home").addEventListener("click", gamemode_showPicker);
+    document.getElementById("back home").addEventListener("click", show);
 
     let brake1 = document.createElement("br");
     let brake2 = document.createElement("br");
@@ -54,8 +67,9 @@ function gamemode_showNewGame(){
     from.appendChild(brake1);
 
     let select = document.createElement("select");
+    select.setAttribute("id", "category");
 
-    for(let i = 0; i < catigroy.length; i++){
+    for (let i = 0; i < catigroy.length; i++) {
         let option = document.createElement("option");
         option.setAttribute("value", catigroy[i]);
         option.append(catigroy[i])
@@ -69,15 +83,14 @@ function gamemode_showNewGame(){
     from.appendChild(brake2);
 
     let select2 = document.createElement("select");
-    let option2 = document.createElement("option");
-    option2.setAttribute("value", "10");
-    option2.append("10");
-    let option3 = document.createElement("option");
-    option3.setAttribute("value", "20");
-    option3.append("20");
+    select2.setAttribute("id", "lenth");
 
-    select2.appendChild(option2);
-    select2.appendChild(option3);
+    for (let i = 0; i < lenght.length; i++){
+        let option2 = document.createElement("option");
+        option2.setAttribute("value", lenght[i].toString());
+        option2.append(lenght[i].toString());
+        select2.appendChild(option2);
+    }
 
     let input = document.createElement("input");
     input.setAttribute("type", "button");
@@ -89,15 +102,18 @@ function gamemode_showNewGame(){
     from.appendChild(input);
 
     document.getElementsByTagName("article")[0].appendChild(from);
-    document.getElementsByTagName("input")[0].addEventListener("click",lobby_show);
+    document.getElementsByTagName("input")[0].addEventListener("click",()=>{
+        console.log(document.getElementById("category").value, document.getElementById("lenth").value);
+        base.startGame(document.getElementById("category").value, document.getElementById("lenth").value);
+    });
 }
 
-function gamemode_showEnterGame(){
-    let games =  [["Hans","DemoA",20,1],["Peter","DemoB",10,2],["Nina","DemoC",20,3],["Wurst","DemoD",10,4]]; //apiCalls_GetOpenGames;
-    console.log(games.length);
-    console.log(games[1][1]);
+function showEnterGame(){
+    this.games = apiCalls.getOpenGames();
+    console.log(this.games.length);
+    console.log(this.games[1][1]);
 
-    base_clearStage();
+    base.clearStage();
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
@@ -105,13 +121,12 @@ function gamemode_showEnterGame(){
     backHometext.append("zurück");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("nav")[0].appendChild(backHome);
-    document.getElementById("back home").addEventListener("click", gamemode_showPicker);
+    document.getElementById("back home").addEventListener("click", show);
 
     let heading  = document.createElement("h1");
-    heading.append("Es wurden "+games.length+" gefunden.");
+    heading.append("Es wurden "+this.games.length+" gefunden.");
 
     document.getElementsByTagName("article")[0].appendChild(heading);
-
 
     let form = document.createElement("form");
     let label = document.createElement("label");
@@ -120,11 +135,14 @@ function gamemode_showEnterGame(){
     form.appendChild(label);
     let select = document.createElement("select");
     select.setAttribute("name", "gameDropdown");
-    for(let i = 0; i< games.length; i++){
+    select.setAttribute("id", "selectGame")
+    for(let i = 0; i< this.games.length; i++){
+
         let option = document.createElement("option");
-        option.setAttribute("value", games[i][3]);
-        option.setAttribute("id", games[i][3]);
-        option.append("Thema: "+games[i][1]+", Fragen: "+games[i][2]+", gegen: "+games[i][0]);
+        option.setAttribute("value", i);
+        option.setAttribute("id", this.games[i][3]);
+        option.append("Thema: "+this.games[i][1]+", Fragen: "+this.games[i][2]+", gegen: "+this.games[i][0]);
+
         select.appendChild(option);
     }
     form.appendChild(select);
@@ -136,5 +154,10 @@ function gamemode_showEnterGame(){
     input.setAttribute("id", "submit");
     form.appendChild(input);
     document.getElementsByTagName("article")[0].appendChild(form);
-    document.getElementsByTagName("input")[0].addEventListener("click",lobby_show);
+
+    document.getElementsByTagName("input")[0].addEventListener("click",()=>{
+        let data = this.games[document.getElementById("selectGame").value]
+        console.log(data);
+        base.joinGame(data);
+    });
 }

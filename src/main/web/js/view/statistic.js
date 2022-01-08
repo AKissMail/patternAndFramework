@@ -1,36 +1,44 @@
+import * as base from '../controler/base.js';
+import * as apiCalls from '../controler/apiCalls.js';
+
+import * as mainMenu from './mainMenu.js';
+
 /**
- * Diese function zeigt die Spiele des Eingeloggten users.
+ * Diese function holt die Statistic von Server ab und hängt sie in den DOM. 
  */
-function score_show() {
-    base_clearStage();
-    let games = [[1, "User A", 650], [2, "User A", 650]]//apiGetOwnHighscore();
+export function show (){
+    base.clearStage();
+    let games = apiCalls.getStatistic();
 
     let backHome = document.createElement("div");
-    backHome.setAttribute("class", "btn")
-    let backHomeText = document.createElement("p");
-    backHomeText.append("Hauptmenü");
-    backHome.appendChild(backHomeText);
-    document.getElementsByTagName("nav")[0].appendChild(backHome);
+    backHome.setAttribute("id", "back home");
+    backHome.setAttribute("class", "btn");
+    let backHometext = document.createElement("p");
+    backHometext.append("Statistik");
+    backHome.appendChild(backHometext);
 
+    document.getElementsByTagName("nav")[0].appendChild(backHome);
     let highscoreHading = document.createElement("h1");
     highscoreHading.append("Highscore");
     let highscoreHadingDescription = document.createElement("p");
     highscoreHadingDescription.append(games.length + " Spielrunden gefunden");
     document.getElementsByTagName("article")[0].appendChild(highscoreHading);
     document.getElementsByTagName("article")[0].appendChild(highscoreHadingDescription);
-
     let scoreTabel = document.createElement("table");
     scoreTabel.setAttribute("id", "scoreTabel");
     let scoreTabelHeading = document.createElement("tr");
     let scoreTabelHeadingPlatz = document.createElement("th");
-    scoreTabelHeadingPlatz.append("Platz");
+    scoreTabelHeadingPlatz.append("Rundennummer");
     let scoreTabelHeadingUser = document.createElement("th");
-    scoreTabelHeadingUser.append("User");
+    scoreTabelHeadingUser.append("Gegner");
     let scoreTabelHeadingPunkte = document.createElement("th");
-    scoreTabelHeadingPunkte.append("Punkte");
+    scoreTabelHeadingPunkte.append("Deine Punkte");
+    let scoreTabelHeadingPunkteOpponent = document.createElement("th");
+    scoreTabelHeadingPunkteOpponent.append("Die Punkte des Gegners");
     scoreTabelHeading.appendChild(scoreTabelHeadingPlatz);
     scoreTabelHeading.appendChild(scoreTabelHeadingUser);
     scoreTabelHeading.appendChild(scoreTabelHeadingPunkte);
+    scoreTabelHeading.appendChild(scoreTabelHeadingPunkteOpponent);
     scoreTabel.appendChild(scoreTabelHeading);
 
     for (let i = 1; i <= games.length; i++) {
@@ -38,15 +46,17 @@ function score_show() {
         let ranking = document.createElement("td");
         let user = document.createElement("td");
         let score = document.createElement("td");
+        let scoreOppnent = document.createElement("td");
         ranking.append(i.toString());
-        user.append(games[i - 1][1].toString());
-        score.append((games[i - 1][2]).toString());
-
+        user.append(games[i - 1][0].toString());
+        score.append(games[i - 1][1].toString());
+        scoreOppnent.append(games[i-1][2].toString());
         row.appendChild(ranking);
         row.appendChild(user);
         row.appendChild(score);
+        row.appendChild(scoreOppnent);
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
+    document.getElementById("back home").addEventListener("click", mainMenu.show);
 }

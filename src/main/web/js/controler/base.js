@@ -1,16 +1,25 @@
-/**
- * Mit dieser funtion wird das Grundgerüst leer geräumt und wieder aufgebeut
+import * as apiCalls from './apiCalls.js';
+
+import * as quiz from '../view/quiz.js';
+
+
+export let killTimeOut = null;
+
+/** --- Done ---
+ * Diese function macht den DOM Leer und setzt ein minimal gerüst in den DOM ein. Dieses gerüst wird von
+ * den _show function erwartet. Das letztendliche resultat schaut wie die ursprüngliche index.html aus.
+ * Lediglich der onload event lissner ist nicht enthalten.
  */
-function base_clearStage() {
+export function clearStage() {
+    //alle element im body werden entfernt
     document.querySelector("header").remove();
     document.querySelector("main").remove();
     document.querySelector("footer").remove();
-
+    // die struktur wir neu aufgebaut
     let header = document.createElement("header");
     let nav = document.createElement("nav");
     let main = document.createElement("main");
     let article = document.createElement("article");
-    //let aside = document.createElement("aside");
     let footer = document.createElement("footer");
     header.appendChild(nav);
     main.appendChild(article);
@@ -18,44 +27,19 @@ function base_clearStage() {
     document.getElementsByTagName("body")[0].appendChild(main);
     document.getElementsByTagName("body")[0].appendChild(footer);
 }
-/**
- * Hier wird der login token ungültig gemacht
- */
-function base_logout() {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
-    base_clearStage();
-    choice_show();
+
+export function joinGame(game){
+    let gameID    = game[3];
+    let size      = game[2];
+    let category  = game[1];
+    let oponet    = game[0];
+    let question = apiCalls.getMyQuestions(category, size);
+    quiz.show(gameID, question, size, category, oponet);
 }
-/**
- * src = https://www.w3schools.com/js/tryit.asp?filename=tryjs_cookie_username
- * @param token Name des Cookies
- * @returns {string} inhalt des Cookies
- * @todo hier ist noch irgend wie ein bug dinn
- */
-function base_getCookie(token) {
-    let name = token + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-/**
- *  Das ist die Start function
- */
-function statUp() {
-    console.log("startUp");
-    if (apiCalls_checkToken("token")) {
-        console.log("mainMenu_show");
-        mainMenu_show();
-    } else {
-        choice_show();
-    }
+export function startGame(category, size){
+    console.log('Test');
+    let gameID = apiCalls.createGame(category, size);
+    let question = apiCalls.getMyQuestions(category, size);
+    killTimeOut = null;
+    quiz.show(gameID, question, size,category);
 }

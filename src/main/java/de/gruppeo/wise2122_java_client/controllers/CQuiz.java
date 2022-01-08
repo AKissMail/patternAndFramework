@@ -1,11 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.helpers.Configuration;
-import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
-import de.gruppeo.wise2122_java_client.models.MQuestion;
 import de.gruppeo.wise2122_java_client.models.MTimer;
-import de.gruppeo.wise2122_java_client.parsers.PCategory;
 import de.gruppeo.wise2122_java_client.parsers.PQuestion;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -241,7 +237,7 @@ public class CQuiz {
      */
     public void onMouseClicked_quitGame() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("main"));
+        stage.setScene(loader.getScene("fxml/main"));
         stage.show();
     }
 }
