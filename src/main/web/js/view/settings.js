@@ -1,8 +1,12 @@
+import * as base from '../controler/base.js';
+import * as apiCalls from '../controler/apiCalls.js';
+import * as mainMenu from './mainMenu.js';
+
 /**
- * Diese View stellt das einstellungsmenü dar. Außerdem werden die Dialoge zum Verändern eines nutzers aufgerufen.
+ * Hier wird das einstellungsmenü in den DOM gehängt
  */
-function settings_show() {
-    base_clearStage();
+export function show(){
+    base.clearStage();
     let backHome = document.createElement("div");
     let backHomeText = document.createElement("p");
     backHomeText.append("Hauptmenü");
@@ -12,6 +16,7 @@ function settings_show() {
     document.getElementsByTagName("nav")[0].appendChild(backHome);
 
     let form = document.createElement("div");
+
     let buttonPicture = document.createElement("div");
     buttonPicture.setAttribute("class", "btn");
     buttonPicture.setAttribute("id", "updatePicture");
@@ -37,29 +42,68 @@ function settings_show() {
     form.appendChild(buttonPassword);
     form.appendChild(buttonDeleteStatistics);
     document.getElementsByTagName("article")[0].appendChild(form);
-    document.getElementById("updatePicture").addEventListener("click", settings_updatePicture);
-    document.getElementById("updatePassword").addEventListener("click", settings_updatePassword);
-    document.getElementById("deleteStatistics").addEventListener("click", settings_deleteStatistics);
-    document.getElementById("backHome").addEventListener("click", mainMenu_show);
+    document.getElementById("updatePicture").addEventListener("click", updatePicture);
+    document.getElementById("updatePassword").addEventListener("click", updatePassword);
+    document.getElementById("deleteStatistics").addEventListener("click", deleteStatistics);
+    document.getElementById("backHome").addEventListener("click", mainMenu.show);
 }
 
 /**
- * @todo diese Funktion öffnet den generic Browser Dialog um ein Bild hochzuladen.
+ * kleine Helfer function für den upload von Bildern
  */
-function settings_updatePicture() {
-    alert("settings_updatePicture");
-}
+function updatePicture() {
+    base.clearStage();
 
-/**
- * @todo diese Funktion öffnet den generic Browser Dialog um ein neues Passwort zu setzen.
- */
-function settings_updatePassword() {
-    alert("settings_updatePassword");
-}
+    let backHome = document.createElement("div");
+    let backHomeText = document.createElement("p");
+    backHomeText.append("Abbrechen");
+    backHome.appendChild(backHomeText);
+    backHome.setAttribute("class", "btn");
+    backHome.setAttribute("id", "backHome");
+    document.getElementsByTagName("nav")[0].appendChild(backHome);
 
+    let from = document.createElement("form");
+    from.setAttribute("id", "uploadFrom");
+    let input = document.createElement("input");
+    input.setAttribute("id","inputFile");
+    input.setAttribute("type", "file");
+    let button = document.createElement("button");
+    button.setAttribute("class", "btn");
+    button.setAttribute("id", "button");
+    button.append("Hochladen");
+    from.appendChild(input);
+    from.appendChild(button);
+    document.getElementsByTagName("article")[0].appendChild(from);
+
+    const htmlForm = document.getElementById("uploadFrom");
+    const inputFile = document.getElementById("inputFile");
+
+    htmlForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("newPicture", inputFile.files[0]);
+        apiCalls.updatePicture(formData);
+    })
+
+    document.getElementById("backHome").addEventListener("click", show);
+}
 /**
- * @todo deise Funktion löscht die Statistik auf dem Server.
+ * kleine Helfer function für das Ändern eines Passwortes.
  */
-function settings_deleteStatistics() {
-    alert("settings_deleteStatistics");
+function updatePassword() {
+    let newPassword = prompt("Bitte geben Sie ein neues Passwort ein.");
+    let newPassword2 = prompt("Bitte geben Sie das Passwort erneut ein.");
+    if(newPassword === newPassword2){
+        apiCalls.updatePassword(newPassword);
+    }else{
+        alert("Die Passwörter stimmen nicht überein!");
+    }
+}
+/**
+ * kleine Helfer function für das Zurücksetzen der Spielstatistik.
+ */
+function deleteStatistics() {
+    if(confirm("Möchten Sie wirklich alle daten Löchen?")){
+        apiCalls.deleteStatistics();
+    }
 }

@@ -1,15 +1,19 @@
-/**
- * Diese Funktion zeigt
- */
-function register_show() {
+import * as base from "../controler/base.js";
+import * as choice from "./choice.js";
+import * as apiCalls from "../controler/apiCalls.js";
 
-    base_clearStage();
+/**
+ * Diese function setzt das Formular für die regestrirung in den DOM
+ */
+export function show(){
+    console.log('show');
+    base.clearStage();
 
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
     let backHometext = document.createElement("p");
-    backHometext.append("Zürck");
+    backHometext.append("Zurück");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("article")[0].appendChild(backHome);
 
@@ -47,10 +51,9 @@ function register_show() {
     inputPasswordVerify.setAttribute("placeholder", "Password wiederholen");
 
     let button = document.createElement("input");
-    button.setAttribute("type", "submit");
+    button.setAttribute("type", "button");
     button.setAttribute("value", "Senden");
     button.setAttribute("id", "button");
-    button.setAttribute("onClick", "runLogIn");
 
     let brake = document.createElement("br");
 
@@ -60,7 +63,26 @@ function register_show() {
     form.appendChild(brake);
     form.appendChild(button);
     document.getElementsByTagName("article")[0].appendChild(form);
-    document.getElementById("back home").addEventListener("click", choice_show);
-    document.getElementById("button").addEventListener("click", base_createUser);
-    console.log('addEventListener')
+    addEvetLissner();
+}
+/**
+ * Kleine helfer function die EventListener setzt.
+ */
+function addEvetLissner(){
+    document.getElementById("back home").addEventListener("click", choice.show);
+    document.getElementById("button").addEventListener("click", run);
+    console.log('addEventListener');
+}
+
+/**
+ * Kleine helfer function die prüft ob das Passwort und Passwortwiederholung gelich sind.
+ */
+function run(){
+    if(document.getElementById("password").value === document.getElementById("passwordVerify").value){
+        apiCalls.createUser(document.getElementById("userName").value,document.getElementById("password").value);
+
+        choice.show();
+    }else{
+        alert("Die Passwörter stimmen nicht über ein!");
+    }
 }

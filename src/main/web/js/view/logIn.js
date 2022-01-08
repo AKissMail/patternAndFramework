@@ -1,17 +1,21 @@
+import * as base from '../controler/base.js';
+import * as choice from './choice.js';
+import * as apiCalls from '../controler/apiCalls.js';
+import * as mainMenu from './mainMenu.js';
+
 /**
  * Das ist die LogIn view. Sie stellt die login Maske dar.
  */
-function logIn_show() {
-    base_clearStage();
+export function show() {
+    base.clearStage();
 
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
     let backHometext = document.createElement("p");
-    backHometext.append("Zürck");
+    backHometext.append("Zurück");
     backHome.appendChild(backHometext);
     document.getElementsByTagName("article")[0].appendChild(backHome);
-
 
     let side = document.createElement("img");
     side.setAttribute("src", "img/bulb.png");
@@ -25,7 +29,6 @@ function logIn_show() {
     document.getElementsByTagName("main")[0].appendChild(aside);
     document.getElementById("aside").appendChild(side);
     document.getElementById("aside").appendChild(sideP);
-
 
     let form = document.createElement("form");
 
@@ -65,12 +68,11 @@ function logIn_show() {
     radioBLabel.setAttribute("for", "logIn");
     radioBLabel.innerHTML = "Nutzer einloggen"
 
-
     let button = document.createElement("input");
     button.setAttribute("type", "submit");
     button.setAttribute("value", "Senden");
     button.setAttribute("id", "button");
-    button.setAttribute("onClick", "runLogIn");
+    //button.setAttribute("onClick", "runLogIn");
 
     let brake = document.createElement("br");
 
@@ -79,31 +81,27 @@ function logIn_show() {
     form.appendChild(brake);
     form.appendChild(button);
     document.getElementsByTagName("article")[0].appendChild(form);
-    document.getElementById("back home").addEventListener("click", choice_show);
-    document.getElementById("button").addEventListener("click", logIn_runLogIn);
-    console.log('addEventListener')
+    addEventListener();
 }
-
 /**
- *  Das ist das bissen magic in der Login maske.
+ * Kleine helferfunction um dei Evnetlissner zu setzten.
  */
-function logIn_runLogIn() {
+function addEventListener(){
+    document.getElementById("back home").addEventListener("click", choice.show);
+    document.getElementById("button").addEventListener("click", runLogIn);
+    console.log('addEventListener')
+
+}
+/**
+ *  Das ist das bissen magic in der Login maske. @todo hier muss der Login umgesetzt werden und in Base verschoben werden.
+ */
+function runLogIn() {
     let password = document.getElementById("password").value;
     let userName = document.getElementById("userName").value;
-    let inputServer = "http://localhost/"
-
-    if (password === "" || userName === "") {
-        alert('Bitte geben Sie ALLE daten ein!');
-    } else {
-        let token = apiCalls_getToken(userName, password, inputServer);
-        if (apiCalls_checkToken(token)) {
-            console.log("Token: " + token + " ist valide");
-            document.cookie = "token =" + token;
-            base_clearStage();
-            mainMenu_show();
-        } else {
-            console.log("Token: " + token + " ist nicht valide");
-            alert('Die Eingeben daten sind nicht gültig!');
-        }
+    let bool = apiCalls.logInUser(userName, password);
+    if(bool){
+        mainMenu.show();
+    }else{
+        alert("Log In ist fehlgeschlagen!");
     }
 }

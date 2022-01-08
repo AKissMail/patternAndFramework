@@ -1,8 +1,16 @@
+import * as base from "../controler/base.js";
+import * as logIn from "./logIn.js";
+import * as register from "./register.js";
+
+
 /**
- * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich regestrien möchte oder anmelden möchte.
+ * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich
+ * regestiren möchte oder anmelden möchte.
  */
-function choice_show() {
-    base_clearStage();
+export function show() {
+    console.log("show");
+
+    base.clearStage();
 
     let logIn = document.createElement("div");
     logIn.setAttribute("id", "logIn");
@@ -20,12 +28,11 @@ function choice_show() {
     register.appendChild(registertext);
     document.getElementsByTagName("article")[0].appendChild(register);
 
-
     let side = document.createElement("img");
     side.setAttribute("src", "img/bulb.png");
     side.setAttribute("id", "logInLamp");
     let sideP = document.createElement("p");
-    sideP.append("Quizzz");
+    sideP.append("Quizz");
 
     let aside = document.createElement("div");
     aside.setAttribute("id", "aside");
@@ -33,8 +40,13 @@ function choice_show() {
     document.getElementsByTagName("main")[0].appendChild(aside);
     document.getElementById("aside").appendChild(side);
     document.getElementById("aside").appendChild(sideP);
-
-    document.getElementById("logIn").addEventListener("click", logIn_show);
-    document.getElementById("register").addEventListener("click", register_show);
-    console.log('addEventListener');
+    addEvetLissner();
+}
+/**
+ * Kleine helfer function die EventListener setzt.
+ */
+function addEvetLissner(){
+    document.getElementById("logIn").addEventListener("click", logIn.show);
+    document.getElementById("register").addEventListener("click", register.show);
+    console.log('addEventListener, show done');
 }

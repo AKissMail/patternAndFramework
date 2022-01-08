@@ -1,9 +1,13 @@
+import * as base from '../controler/base.js';
+import * as apiCalls from '../controler/apiCalls.js';
+import * as mainMenu from './mainMenu.js';
+
 /**
- * Hier wird der highscore angezeigt
+ * Zeigt den Highscore aller Spiele an.
  */
-function highscore_show() {
-    base_clearStage();
-    let games = apiCalls_GetOwnHighscore(base_getCookie("token"));
+export function show (){
+    base.clearStage();
+    let games = apiCalls.getHighscore();
 
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
@@ -36,13 +40,13 @@ function highscore_show() {
         let user = document.createElement("td");
         let score = document.createElement("td");
         ranking.append(i.toString());
-        user.append(games[i - 1][1].toString());
-        score.append((games[i - 1][2].toString()));
+        user.append(games[i - 1][0].toString());
+        score.append((games[i - 1][1].toString()));
         row.appendChild(ranking);
         row.appendChild(user);
         row.appendChild(score);
         scoreTabel.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTabel);
-    document.getElementById("back home").addEventListener("click", mainMenu_show);
+    document.getElementById("back home").addEventListener("click", mainMenu.show);
 }

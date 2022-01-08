@@ -1,78 +1,98 @@
-// quiz.js
+import * as base from '../controler/base.js';
+import * as apiCalls from '../controler/apiCalls.js';
+import * as mainMenu from './mainMenu.js';
+import * as lobby from './lobby.js';
+
 /**
- * Hier wird eine Frage angezeit sowie die Antwort vom nutzer entgegengenommen @todo 1. der Counddown, 2 Api
+ * Hier werden die Fragen dargestellt.
+ * @param gameID
+ * @param question
+ * @param size
+ * @param category
+ * @param oponet
  */
-function quiz_show() {
-    base_clearStage();
-    let question = {
-        question: "Was ist Nass?",
-        a: "Annanass",
-        b: "Bananen",
-        c: "Kuchen",
-        d: "Wasser"
-    };
+export function show(gameID, question, size, category, oponet) {
+    let check = question[size-1]
+    console.log(question[size-1]);
+    if(check == null && check == undefined) {
+        let result = apiCalls.getResult(gameID);
+        if(result.done){
+            lobby.show(result.gameID);
+        }else{
+            result.show(result);
+        }
 
-    let backHome = document.createElement("div");
-    let backHometext = document.createElement("p");
-    backHometext.append("Beenden");
-    backHome.appendChild(backHometext);
-    backHome.setAttribute("class", "btn");
-    document.getElementsByTagName("nav")[0].appendChild(backHome);
+    }else {
+        var start = new Date();
+        base.clearStage();
 
-    let timer = document.createElement("div");
+        let backHome = document.createElement("div");
+        let backHometext = document.createElement("p");
+        backHometext.append("Beenden");
+        backHome.appendChild(backHometext);
+        backHome.setAttribute("class", "btn");
+        document.getElementsByTagName("nav")[0].appendChild(backHome);
 
-    timer.setAttribute("id", "timer"); //todo fancy timer shit
-    document.getElementsByTagName("nav")[0].appendChild(backHome);
-    document.getElementsByTagName("nav")[0].appendChild(timer);
+        let timer = document.createElement("div");
 
-    let frage = document.createElement("h2");
-    frage.append(question.question);
-    document.getElementsByTagName("article")[0].appendChild(frage);
+        timer.setAttribute("id", "timer");
+        document.getElementsByTagName("nav")[0].appendChild(backHome);
+        document.getElementsByTagName("nav")[0].appendChild(timer);
 
-    let wapper = document.createElement("div");
-    wapper.setAttribute("id", "wapper");
-    let a = document.createElement("p");
-    a.append(question.a);
-    a.setAttribute("id", "a");
-    a.setAttribute("class", "question");
-    let b = document.createElement("p");
-    b.append(question.b);
-    b.setAttribute("id", "b");
-    b.setAttribute("class", "question");
-    let c = document.createElement("p");
-    c.append(question.c);
-    c.setAttribute("id", "c");
-    c.setAttribute("class", "question");
-    let d = document.createElement("p");
-    d.append(question.d);
-    d.setAttribute("id", "d");
-    d.setAttribute("class", "question");
-    wapper.appendChild(a);
-    wapper.appendChild(b);
-    wapper.appendChild(c);
-    wapper.appendChild(d);
-    document.getElementsByTagName("article")[0].appendChild(wapper);
+        let frage = document.createElement("h2");
+        frage.append(question[size-1].question);
+        document.getElementsByTagName("article")[0].appendChild(frage);
 
-    let hr = document.createElement("hr");
-    let footerText = document.createElement("p");
-    footerText.append(question.footerInfo);
 
-    document.getElementById("a").addEventListener("click", quiz_sendAnserA);
-    document.getElementById("b").addEventListener("click", quiz_sendAnserB);
-    document.getElementById("c").addEventListener("click", quiz_sendAnserC);
-    document.getElementById("d").addEventListener("click", quiz_sendAnserD);
-    document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu_show);
-}
-// Antworten Senden
-function quiz_sendAnserA() { //todo mit dem server sprechen
-    result_show("Hans","","Dampf","", true);
-}
-function quiz_sendAnserB() { //todo mit dem server sprechen
-    result_show("Hans","","Dampf","", false);
-}
-function quiz_sendAnserC() { //todo mit dem server sprechen
-    result_show("Hans","","Dampf","", false);
-}
-function quiz_sendAnserD() { //todo mit dem server sprechen
-    result_show("Hans","","Dampf","", false);
+        let wapper = document.createElement("div");
+        wapper.setAttribute("id", "wapper");
+        let a = document.createElement("p");
+        a.append(question[size-1].a);
+        a.setAttribute("id", "a");
+        a.setAttribute("class", "question");
+        let b = document.createElement("p");
+        b.append(question[size-1].b);
+        b.setAttribute("id", "b");
+        b.setAttribute("class", "question");
+        let c = document.createElement("p");
+        c.append(question[size-1].c);
+        c.setAttribute("id", "c");
+        c.setAttribute("class", "question");
+        let d = document.createElement("p");
+        d.append(question[size-1].d);
+        d.setAttribute("id", "d");
+        d.setAttribute("class", "question");
+        wapper.appendChild(a);
+        wapper.appendChild(b);
+        wapper.appendChild(c);
+        wapper.appendChild(d);
+        document.getElementsByTagName("article")[0].appendChild(wapper);
+
+        document.getElementById("a").addEventListener("click", ()=> {
+            let now = new Date();
+            let time = now - start;
+            apiCalls.submitAnswer(true, time, gameID);
+            show(gameID, question, size-1, category, oponet);
+        });
+        document.getElementById("b").addEventListener("click", ()=> {
+            let now = new Date();
+            let time = now - start;
+            apiCalls.submitAnswer(true, time, gameID);
+            show(gameID, question, size-1, category, oponet);
+        });
+        document.getElementById("c").addEventListener("click",()=> {
+            let now = new Date();
+            let time = now - start;
+            apiCalls.submitAnswer(true, time, gameID);
+            show(gameID, question, size-1, category, oponet);
+        });
+        document.getElementById("d").addEventListener("click", ()=> {
+            let now = new Date();
+            let time = now - start;
+            apiCalls.submitAnswer(true, time, gameID);
+            show(gameID, question, size-1, category, oponet);
+        });
+
+        document.getElementsByClassName("btn")[0].addEventListener("click", mainMenu.show);
+    }
 }
