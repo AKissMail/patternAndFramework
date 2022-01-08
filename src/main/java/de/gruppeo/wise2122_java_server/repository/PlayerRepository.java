@@ -14,4 +14,6 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
 
     List<PlayerEntity> findByCurrentstatusAllIgnoreCase(String CurrentStatus);
 
+    PlayerEntity findByPlayerid(Long PlayerId);
+
 }
