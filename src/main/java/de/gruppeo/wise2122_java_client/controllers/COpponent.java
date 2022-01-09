@@ -4,6 +4,7 @@ import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import java.net.URL;
@@ -25,11 +27,6 @@ public class COpponent implements Initializable {
     @FXML private ListView listView_opponent_list;
     @FXML private Button button_opponent_startQuiz;
 
-    /**
-     * Initialisiert globale Objekte.
-     *
-     * @throws Exception
-     */
     public COpponent() throws Exception {
         loader = new ViewLoader();
         mapper = new POpponent(new Connection("/player?status=waiting"));
@@ -40,13 +37,30 @@ public class COpponent implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        /*Thread thread = new Thread(() -> {
+            while (true) {
+                try {
+                    System.out.println("HEy hey");
+
+
+                    listView_opponent_list.getItems().clear();
+
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }
+            }
+        });
+        thread.start();*/
+
         // Befüllt Auswahlmenü mit Spielern, die auf 'Waiting' gestellt sind
         for (MPlayer opponent : mapper.getList()) {
             listView_opponent_list.getItems().addAll(opponent.getUsername());
         }
 
-        // Label zur Anzeige der Anzahl der gefundenen Spieler
-        label_opponent_foundOpponents.setText(mapper.getList().size() + " Spieler warten");
+        // Setzt Labeltext
+        setLabelWaitingPlayers();
 
         listView_opponent_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -61,6 +75,24 @@ public class COpponent implements Initializable {
                 button_opponent_startQuiz.setText(listView_opponent_list.getSelectionModel().getSelectedItem() + " herausfordern");
             }
         });
+    }
+
+    /**
+     * Setzt den Labeltext für die Anzahl
+     * der wartenden Spieler.
+     */
+    private void setLabelWaitingPlayers() {
+        String status;
+        int players = mapper.getList().size();
+
+        if (players == 0) {
+            status = "Keine wartenden Spieler gefunden";
+        } else if (players == 1) {
+            status = "Einen wartenden Spieler gefunden";
+        } else {
+            status = players + " wartende Spieler gefunden";
+        }
+        label_opponent_foundOpponents.setText(status);
     }
 
     /**

@@ -39,7 +39,7 @@ public class CCategory implements Initializable {
         mapperCategory = new PCategory(new Connection("/category"));
         mapperRounds = new PRounds(new Connection("/rounds"));
 
-        // Ändert Status auf 'Online'
+        // Ändert Status auf ONLINE
         System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("online"));
     }
 

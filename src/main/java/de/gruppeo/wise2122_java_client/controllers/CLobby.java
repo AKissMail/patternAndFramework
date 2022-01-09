@@ -17,7 +17,7 @@ public class CLobby implements Initializable {
     public CLobby() throws Exception {
         loader = new ViewLoader();
 
-        // Ändert Status auf 'Waiting'
+        // Ändert Status auf WAITING
         System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("waiting"));
     }
 

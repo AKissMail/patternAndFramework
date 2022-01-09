@@ -21,8 +21,14 @@ public class Start extends Application {
         stage.show();
 
         // Wird nach Programmende ausgeführt
-        stage.setOnCloseRequest(event ->
-                System.out.println("Programm wurde beendet")
+        stage.setOnCloseRequest(event -> {
+                    try {
+                        // Ändert Status auf 'offline'
+                        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("offline"));
+                    } catch (Exception e) {
+                        System.out.println("Status konnte nicht geändert werden, da es keine gültige Session gab");
+                    }
+                }
         );
     }
 
