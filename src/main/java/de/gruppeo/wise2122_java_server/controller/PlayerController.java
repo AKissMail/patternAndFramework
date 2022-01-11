@@ -1,5 +1,6 @@
 package de.gruppeo.wise2122_java_server.controller;
 
+import de.gruppeo.wise2122_java_server.config.CaseInsensitiveEnumEditor;
 import de.gruppeo.wise2122_java_server.model.Currentstatus;
 import de.gruppeo.wise2122_java_server.model.PlayerEntity;
 import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
@@ -7,6 +8,7 @@ import de.gruppeo.wise2122_java_server.request.StatusRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +39,7 @@ public class PlayerController {
         if (status == null) {
             return playerRepository.findAll();
         } else {
-            return playerRepository.findByCurrentstatusAllIgnoreCase(status);
+            return playerRepository.findByCurrentstatus(status);
         }
     }
 
@@ -60,5 +62,10 @@ public class PlayerController {
             }
         }
 
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Currentstatus.class, new CaseInsensitiveEnumEditor(Currentstatus.class));
     }
 }

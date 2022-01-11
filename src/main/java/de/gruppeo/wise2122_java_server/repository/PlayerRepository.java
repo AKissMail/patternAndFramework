@@ -13,7 +13,7 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
 
     Optional<PlayerEntity> findByUsername(String Username);
 
-    List<PlayerEntity> findByCurrentstatusAllIgnoreCase(Currentstatus currentstatus);
+    List<PlayerEntity> findByCurrentstatus(Currentstatus currentstatus);
 
     PlayerEntity findByPlayerid(Long PlayerId);
 
