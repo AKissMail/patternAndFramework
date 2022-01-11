@@ -40,6 +40,7 @@ public class QuestionsEntity {
     //@Enumerated(EnumType.STRING)
     //@Column(name = "category", length = 50)
     @ManyToOne
+    @JoinColumn
     private CategoryEntity category;
 
     public void setCategory(CategoryEntity category) {
