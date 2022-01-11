@@ -43,13 +43,11 @@ public class COpponent implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        List<String> temp = new ArrayList<>();
-
-
         /**
          * TimerTask fragt den Server kontinuierlich nach neuen Gegnern.
-         * Wenn neue Gegner gefunden wurden, werden sie der Liste hinzugefügt
-         * und die GUI aktualisiert. Die Refreshrate wird im Config-Objekt gespeichert.
+         * Wenn neue Gegner gefunden wurden, werden sie der Liste hinzugefügt.
+         * Wenn ein angezeigter Gegner die Lobby (Wartebereich) verlässt, wird
+         * er von der Liste entfernt. Die Refreshrate wird im Config-Objekt gespeichert.
          */
         TimerTask task = new TimerTask() {
             @Override
@@ -73,42 +71,27 @@ public class COpponent implements Initializable {
                         serverOpponents.add(opponent.getUsername());
                     }
 
-                    System.out.println("Server: " + serverOpponents);
-
                     for (String item : serverOpponents) {
 
-                        // Wenn der aktuelle Username noch nicht in der Liste enthalten ist ...
+                        // Wennn Username nicht in Liste enthalten ist
                         if (!listView_opponent_list.getItems().contains(item)) {
 
-                            // ... dann füge den Username des aktuellen Gegners hinzu
+                            // Dann füge neuen Username hinzu
                             listView_opponent_list.getItems().add(item);
-                            temp.add(item);
                         }
                     }
-                    System.out.println("Temp: " + temp + " -- ListView: " + listView_opponent_list.getItems().toString());
-                    System.out.println("Anzahl Server: " + serverOpponents.size() + " - Anzahl ListView: " + listView_opponent_list.getItems().size());
 
                     if (serverOpponents.size() != listView_opponent_list.getItems().size()) {
 
                         int index = 0;
 
-                        for (int a = 0; a < listView_opponent_list.getItems().size(); a++) {
-
-                            if (!serverOpponents.contains(listView_opponent_list.getItems().get(a))) {
-                                System.out.println("index: " + a);
-
-                                index = a;
+                        for (int i = 0; i < listView_opponent_list.getItems().size(); i++) {
+                            if (!serverOpponents.contains(listView_opponent_list.getItems().get(i))) {
+                                index = i;
                             }
                         }
-
-                            //temp.removeAll(serverOpponents);
-                            //System.out.println("Removed: " + temp);
-
-                            listView_opponent_list.getItems().remove(listView_opponent_list.getItems().get(index));
+                        listView_opponent_list.getItems().remove(listView_opponent_list.getItems().get(index));
                     }
-
-                    System.out.println("==============");
-
                 });
             }
         };
