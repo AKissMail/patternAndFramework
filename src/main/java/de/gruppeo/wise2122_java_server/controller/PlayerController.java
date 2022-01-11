@@ -1,5 +1,6 @@
 package de.gruppeo.wise2122_java_server.controller;
 
+import de.gruppeo.wise2122_java_server.model.Currentstatus;
 import de.gruppeo.wise2122_java_server.model.PlayerEntity;
 import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
 import de.gruppeo.wise2122_java_server.request.StatusRequest;
@@ -42,7 +43,7 @@ public class PlayerController {
     }
 
     @PostMapping("/changeplayerstatus")
-    public ResponseEntity<PlayerEntity> changePlayerStatus(@RequestBody StatusRequest statusRequest) throws Exception {
+    public ResponseEntity<PlayerEntity> changePlayerStatus(@RequestBody StatusRequest statusRequest) {
         if (statusRequest.getStatus() == null) {
             return ResponseEntity.badRequest().build();
         } else {
@@ -51,7 +52,7 @@ public class PlayerController {
 
             if (player.isPresent()) {
                 PlayerEntity playerToUpdate = player.get();
-                playerToUpdate.setCurrentstatus(statusRequest.getStatus());
+                playerToUpdate.setCurrentstatus(Currentstatus.valueOf(statusRequest.getStatus()));
                 PlayerEntity updated = playerRepository.save(playerToUpdate);
 
                 return ResponseEntity.ok(updated);

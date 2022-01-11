@@ -35,10 +35,9 @@ public class PlayerEntity {
 
     // private Image thumbnail;
 
-    // public enum currentstatus {offline, online, quizzing, searching}
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "currentstatus")
-    public String currentstatus;
+    public Currentstatus currentstatus;
 
     @Override
     public boolean equals(Object o) {
