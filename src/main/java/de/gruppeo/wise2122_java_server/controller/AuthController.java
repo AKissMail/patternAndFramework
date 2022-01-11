@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+import static de.gruppeo.wise2122_java_server.model.Currentstatus.ONLINE;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -47,7 +49,7 @@ public class AuthController {
         player.setUsername(authRequest.getUsername());
         player.setPassword(passwordEncoder.encode(authRequest.getPassword()));
         player.setCurrentscore(0);
-        player.setCurrentstatus("online");
+        player.setCurrentstatus(ONLINE);
 
         PlayerEntity created = playerRepository.save(player);
         return ResponseEntity.ok(created);
