@@ -33,3 +33,11 @@ VALUES (1, 500, '2021-12-08 12:16:45');
 INSERT INTO mibquizzz.highscore (quizHighscoreID, highscorepoints, lastUpdate)
 VALUES (2, 350, '2021-12-10 22:25:08');
 
+#5. Rundenanzahl anlegen
+INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
+VALUES (1, 5);
+INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
+VALUES (2, 10);
+INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
+VALUES (3, 20);
+

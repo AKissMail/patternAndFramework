@@ -7,14 +7,13 @@ CREATE DATABASE IF NOT EXISTS mibquizzz CHARACTER SET utf8mb4 COLLATE utf8mb4_un
 # 1. Spielerprofile
 create table player
 (
-    playerid         bigint(20) auto_increment
+    playerid      bigint(20) auto_increment
         primary key,
-    username         varchar(20)                                                           not null,
-    password         varchar(100)                                                          not null,
-    currentscore     int                                                 default 0         null,
-    fk_quizhighscore bigint(20)                                          default 0         null,
-    thumbnail        binary(1)                                                             null,
-    currentstatus    enum ('offline', 'online', 'quizzing', 'searching') default 'offline' not null,
+    username      varchar(20)                                                                      not null,
+    password      varchar(100)                                                                     not null,
+    currentscore  int                                                            default 0         null,
+    thumbnail     binary(1)                                                                        null,
+    currentstatus enum ('OFFLINE', 'ONLINE', 'QUIZZING', 'SEARCHING', 'WAITING') default 'OFFLINE' not null,
     constraint player_playerid_uindex
         unique (playerid),
     constraint player_username_uindex
