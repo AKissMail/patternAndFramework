@@ -22,7 +22,6 @@ import java.util.*;
 public class COpponent implements Initializable {
     ViewLoader loader;
     POpponent mapper;
-    List<String> newOpponents;
 
     public static Timer timer;
 
@@ -34,7 +33,6 @@ public class COpponent implements Initializable {
     public COpponent() throws Exception {
         loader = new ViewLoader();
         timer = new Timer();
-        newOpponents = new ArrayList<>();
 
         // Ändert Status auf 'searching'
         System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("searching"));
