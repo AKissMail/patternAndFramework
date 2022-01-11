@@ -46,7 +46,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="700.0">
                <children>
-                  <Button fx:id="button_main_inviteOpponent" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectCategory" prefHeight="80.0" prefWidth="222.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Herausfordern" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="button_main_inviteOpponent" mnemonicParsing="false" onMouseClicked="#onMouseClicked_inviteOpponents" prefHeight="80.0" prefWidth="222.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Herausfordern" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>

@@ -26,7 +26,7 @@ public class MConfig {
     private Object category;
     private Object rounds;
     private Object opponent;
-
+    private int refreshrateOpponents;
     private int indexRounds;
 
     /**
@@ -40,6 +40,7 @@ public class MConfig {
     private MConfig() {
         this.baseURL = "http://localhost:8080";
         this.jwtSecret = "IchbineinfurchtbargeheimesGeheimnisvonThomas";
+        this.refreshrateOpponents = 2000; // 2 Sekunden
         this.indexRounds = 0;
     }
 

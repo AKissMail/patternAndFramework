@@ -51,6 +51,9 @@ public class CQuiz implements Initializable {
         mapper = new PQuestion(new Connection("/questions?category=" + MConfig.getInstance().getCategory().toString()));
         points = 0;
 
+        // Ändert Status auf WAITING
+        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("quizzing"));
+
         questions = new ArrayList<>();
         for(MQuestion question : mapper.getList()) {
             questions.add(question);
@@ -65,6 +68,19 @@ public class CQuiz implements Initializable {
         setNumberQuestions();
         setQuestion();
         setAnswers();
+
+        test(new Button[] {button_quiz_answerA, button_quiz_answerB, button_quiz_answerC, button_quiz_answerD});
+    }
+
+    private void test(Button[] buttons) {
+        for (Button button : buttons) {
+            if (button.getText().equals(correctAnswer)) {
+                System.out.println(button.getText());
+                button.setStyle("-fx-background-color: #047b06; ");
+            } else {
+                button.setStyle("-fx-background-color: #ff0000; ");
+            }
+        }
     }
 
     /**
@@ -77,7 +93,7 @@ public class CQuiz implements Initializable {
     private void checkAnswer(Button button) {
         try {
             // Etabliert neue Serververbindung
-            Connection connection = new Connection("/auth/login");
+            Connection connection = new Connection("");
 
             // Status der Beantwortung
             boolean isCorrect = false;
@@ -88,14 +104,15 @@ public class CQuiz implements Initializable {
                 isCorrect = false;
             }
 
-            System.out.println("isCorrect: " + isCorrect);
-
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.postData("{ \"isCorrect\": \"" + isCorrect + "\", \"points\": \"" + points + "\" }");
+            connection.postData("{ \"iscorrect\": \"" + isCorrect + "\", \"points\": \"" + points + "\" }");
             disableAnswers();
         } catch (Exception e) {
             System.out.println("Fehler beim Senden der Antwort: " + e);
         }
+
+        // Färbt Buttons
+
     }
 
     /**

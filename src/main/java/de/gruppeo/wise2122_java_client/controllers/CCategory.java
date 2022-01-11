@@ -10,6 +10,7 @@ import de.gruppeo.wise2122_java_client.parsers.PRounds;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ public class CCategory implements Initializable {
     @FXML private BorderPane mainPane;
     @FXML private ComboBox combo_category_selectedCategory;
     @FXML private ComboBox combo_category_selectedRounds;
-    @FXML private Button button_category_chooseOpponent;
+    @FXML private Button button_category_showLobby;
 
     /**
      * Initialisiert das ViewLoader-Objekt für
@@ -51,7 +52,7 @@ public class CCategory implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Aktiviert oder deaktiviert Buttons
-        disableButtons(new Button[] {button_category_chooseOpponent}, setLoadedValues());
+        disableButtons(new Button[] {button_category_showLobby}, setLoadedValues());
 
         // Befüllt Auswahlmenü mit Kategorien
         for (MCategory category : mapperCategory.getList()) {
@@ -71,7 +72,7 @@ public class CCategory implements Initializable {
 
             // Schreibt ausgewählte Kategorie in Objekt
             MConfig.getInstance().setCategory(newCategory);
-            disableButtons(new Button[] {button_category_chooseOpponent}, false);
+            disableButtons(new Button[] {button_category_showLobby}, false);
         });
 
         // Gibt die ausgewählte Anzahl der zu spielenden Fragen zurück
@@ -115,22 +116,21 @@ public class CCategory implements Initializable {
     }
 
     /**
+     * Zeigt den Wartebereich an.
+     */
+    public void onMouseClicked_showLobby() {
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("lobby"));
+        stage.show();
+    }
+
+    /**
      * Wird beim Klick auf "Zurück"-Button ausgeführt
      * und wechselt die Maske zum Hauptmenü.
      */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
-        stage.show();
-    }
-
-    /**
-     * Wird beim Klick auf "Gegner wählen" ausgeführt
-     * und wechselt die Maske zur Gegnerwahl.
-     */
-    public void onMouseClicked_selectOpponent() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("opponent"));
         stage.show();
     }
 }

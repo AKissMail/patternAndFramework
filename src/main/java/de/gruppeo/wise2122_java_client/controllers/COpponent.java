@@ -2,6 +2,7 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.POpponent;
 import javafx.application.Platform;
@@ -16,11 +17,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class COpponent implements Initializable {
     ViewLoader loader;
     POpponent mapper;
+    List<String> newOpponents;
+
+    public static Timer timer;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_opponent_foundOpponents;
@@ -29,39 +33,92 @@ public class COpponent implements Initializable {
 
     public COpponent() throws Exception {
         loader = new ViewLoader();
-        mapper = new POpponent(new Connection("/player?status=waiting"));
+        timer = new Timer();
+        newOpponents = new ArrayList<>();
 
-        // Ändert Status auf 'Searching'
+        // Ändert Status auf 'searching'
         System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("searching"));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /*Thread thread = new Thread(() -> {
-            while (true) {
-                try {
-                    System.out.println("HEy hey");
+        List<String> temp = new ArrayList<>();
 
 
-                    listView_opponent_list.getItems().clear();
+        /**
+         * TimerTask fragt den Server kontinuierlich nach neuen Gegnern.
+         * Wenn neue Gegner gefunden wurden, werden sie der Liste hinzugefügt
+         * und die GUI aktualisiert. Die Refreshrate wird im Config-Objekt gespeichert.
+         */
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
 
-                    Thread.sleep(2000);
-                } catch (Exception e) {
-                    System.out.println("Error: " + e);
-                }
+                    try {
+                        // Lädt neue Gegner vom Server
+                        mapper = new POpponent(new Connection("/player?status=waiting"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    // Setzt Labeltext
+                    setLabelWaitingPlayers();
+
+                    List<String> serverOpponents = new ArrayList<>();
+
+                    // Befüllt Auswahlliste mit Spielern, die auf 'waiting' gestellt sind
+                    for (MPlayer opponent : mapper.getList()) {
+                        serverOpponents.add(opponent.getUsername());
+                    }
+
+                    System.out.println("Server: " + serverOpponents);
+
+                    for (String item : serverOpponents) {
+
+                        // Wenn der aktuelle Username noch nicht in der Liste enthalten ist ...
+                        if (!listView_opponent_list.getItems().contains(item)) {
+
+                            // ... dann füge den Username des aktuellen Gegners hinzu
+                            listView_opponent_list.getItems().add(item);
+                            temp.add(item);
+                        }
+                    }
+                    System.out.println("Temp: " + temp + " -- ListView: " + listView_opponent_list.getItems().toString());
+                    System.out.println("Anzahl Server: " + serverOpponents.size() + " - Anzahl ListView: " + listView_opponent_list.getItems().size());
+
+                    if (serverOpponents.size() != listView_opponent_list.getItems().size()) {
+
+                        int index = 0;
+
+                        for (int a = 0; a < listView_opponent_list.getItems().size(); a++) {
+
+                            if (!serverOpponents.contains(listView_opponent_list.getItems().get(a))) {
+                                System.out.println("index: " + a);
+
+                                index = a;
+                            }
+                        }
+
+                            //temp.removeAll(serverOpponents);
+                            //System.out.println("Removed: " + temp);
+
+                            listView_opponent_list.getItems().remove(listView_opponent_list.getItems().get(index));
+                    }
+
+                    System.out.println("==============");
+
+                });
             }
-        });
-        thread.start();*/
+        };
+        timer.scheduleAtFixedRate(task, 0, MConfig.getInstance().getRefreshrateOpponents());
 
-        // Befüllt Auswahlmenü mit Spielern, die auf 'Waiting' gestellt sind
-        for (MPlayer opponent : mapper.getList()) {
-            listView_opponent_list.getItems().addAll(opponent.getUsername());
-        }
-
-        // Setzt Labeltext
-        setLabelWaitingPlayers();
-
+        /**
+         * ChangeListener wacht über die Gegnerliste, registriert, wenn
+         * ein Item ausgewählt wurde und sorgt sich um das Aktivieren
+         * und Deaktivieren des Buttons.
+         */
         listView_opponent_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldOpponent, String newOpponent) {
@@ -96,20 +153,22 @@ public class COpponent implements Initializable {
     }
 
     /**
-     * Zeigt das Quiz an.
+     * @TODO Kontaktaufnahme mit Gegner muss implementiert werden
+     * Fordert den ausgewählten Gegner heraus.
      */
     public void onMouseClicked_startQuiz() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("quiz"));
-        stage.show();
+        timer.cancel();
+
     }
 
     /**
-     * Zeigt die Maske zur Wahl der Kategorie an.
+     * Zeigt das Hauptmenü an.
      */
     public void onMouseClicked_back() {
+        timer.cancel();
+
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("category"));
+        stage.setScene(loader.getScene("main"));
         stage.show();
     }
 }

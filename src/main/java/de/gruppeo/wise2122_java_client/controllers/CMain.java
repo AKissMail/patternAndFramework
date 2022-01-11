@@ -56,7 +56,16 @@ public class CMain implements Initializable {
      */
     public void onMouseClicked_startQuiz() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("lobby"));
+        stage.setScene(loader.getScene("category"));
+        stage.show();
+    }
+
+    /**
+     * Zeigt die Liste der wartendne Gegner an.
+     */
+    public void onMouseClicked_inviteOpponents() {
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("opponent"));
         stage.show();
     }
 
@@ -75,15 +84,6 @@ public class CMain implements Initializable {
     public void onMouseClicked_showHighscore() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("highscore"));
-        stage.show();
-    }
-
-    /**
-     * Zeigt die Maske zur Auswahl der Kategorie an.
-     */
-    public void onMouseClicked_selectCategory() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("category"));
         stage.show();
     }
 

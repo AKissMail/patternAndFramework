@@ -56,9 +56,9 @@
       </BorderPane>
    </center>
    <bottom>
-      <Button fx:id="button_category_chooseOpponent" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_selectOpponent" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Gegner wählen" textFill="WHITE" BorderPane.alignment="CENTER">
+      <Button fx:id="button_category_showLobby" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showLobby" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6;" text="Quiz starten" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
-            <Font size="25.0" />
+            <Font size="28.0" />
          </font>
          <BorderPane.margin>
             <Insets bottom="20.0" top="20.0" />

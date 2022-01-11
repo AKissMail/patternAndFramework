@@ -36,11 +36,11 @@ public class CLobby implements Initializable {
     }
 
     /**
-     * Zeigt das Hauptmenü an.
+     * Zeigt die Quiz-Kategorien an.
      */
     public void onMouseClicked_back() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("main"));
+        stage.setScene(loader.getScene("category"));
         stage.show();
     }
 }
