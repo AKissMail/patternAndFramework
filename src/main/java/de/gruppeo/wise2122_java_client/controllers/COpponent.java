@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import java.net.URL;
@@ -109,8 +108,14 @@ public class COpponent implements Initializable {
                     button_opponent_startQuiz.setDisable(true);
                 }
 
+                Object selection = listView_opponent_list.getSelectionModel().getSelectedItem();
+
                 // Schreibt ausgewählte Anzahl in Objekt
-                button_opponent_startQuiz.setText(listView_opponent_list.getSelectionModel().getSelectedItem() + " herausfordern");
+                if (selection == null) {
+                    button_opponent_startQuiz.setText("Gegner herausfordern");
+                } else {
+                    button_opponent_startQuiz.setText(selection + " herausfordern");
+                }
             }
         });
     }

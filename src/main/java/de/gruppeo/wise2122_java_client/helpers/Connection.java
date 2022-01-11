@@ -119,7 +119,7 @@ public class Connection {
      */
     public String changePlayerStatus(String status) {
         try {
-            postData("{ \"status\": \"" + status + "\", \"token\": \"" + privateToken + "\" }");
+            postData("{ \"status\": \"" + status.toUpperCase() + "\", \"token\": \"" + privateToken + "\" }");
         } catch (Exception e) {
             System.out.println("Fehler beim Aktualisieren des Status: " + e);
         }

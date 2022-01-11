@@ -68,58 +68,35 @@ public class CQuiz implements Initializable {
         setNumberQuestions();
         setQuestion();
         setAnswers();
-
-        test(new Button[] {button_quiz_answerA, button_quiz_answerB, button_quiz_answerC, button_quiz_answerD});
-    }
-
-    private void test(Button[] buttons) {
-        for (Button button : buttons) {
-            if (button.getText().equals(correctAnswer)) {
-                System.out.println(button.getText());
-                button.setStyle("-fx-background-color: #047b06; ");
-            } else {
-                button.setStyle("-fx-background-color: #ff0000; ");
-            }
-        }
     }
 
     /**
      * Prüft, ob die angeklickte Antwort korrekt
      * ist und sendet das Ergebnis, zusammen mit
      * der berechneten Punkzahl, an den Server.
-     *
-     * @param button
      */
-    private void checkAnswer(Button button) {
+    private void checkAnswer() {
+        Button[] buttons = new Button[] {button_quiz_answerA, button_quiz_answerB, button_quiz_answerC, button_quiz_answerD};
+
         try {
             // Etabliert neue Serververbindung
             Connection connection = new Connection("");
 
-            // Status der Beantwortung
-            boolean isCorrect = false;
-
-            if (button.getText().equals(correctAnswer)) {
-                isCorrect = true;
-            } else {
-                isCorrect = false;
+            for (Button button : buttons) {
+                if (button.getText().equals(correctAnswer)) {
+                    System.out.println(button.getText());
+                    button.setStyle("-fx-background-color: #047b06; ");
+                } else {
+                    button.setStyle("-fx-background-color: #ff0000; ");
+                }
             }
 
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.postData("{ \"iscorrect\": \"" + isCorrect + "\", \"points\": \"" + points + "\" }");
+            connection.postData("{ \"iscorrect\": \"" + correctAnswer + "\", \"points\": \"" + points + "\" }");
             disableAnswers();
         } catch (Exception e) {
             System.out.println("Fehler beim Senden der Antwort: " + e);
         }
-
-        // Färbt Buttons
-
-    }
-
-    /**
-     *
-     */
-    private void calculatePoints() {
-
     }
 
     /**
@@ -216,7 +193,7 @@ public class CQuiz implements Initializable {
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerA() {
-        checkAnswer(this.button_quiz_answerA);
+        checkAnswer();
     }
 
     /**
@@ -225,7 +202,7 @@ public class CQuiz implements Initializable {
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerB() {
-        checkAnswer(this.button_quiz_answerB);
+        checkAnswer();
     }
 
     /**
@@ -234,7 +211,7 @@ public class CQuiz implements Initializable {
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerC() {
-        checkAnswer(this.button_quiz_answerC);
+        checkAnswer();
     }
 
     /**
@@ -243,7 +220,7 @@ public class CQuiz implements Initializable {
      * der Lösung der aktuellen Frage vergleicht.
      */
     public void onMouseClicked_answerD() {
-        checkAnswer(this.button_quiz_answerD);
+        checkAnswer();
     }
 
     /**
