@@ -39,6 +39,10 @@ public class PlayerEntity {
     @Column(name = "currentstatus")
     public Currentstatus currentstatus;
 
+    @OneToOne
+    @JoinColumn
+    private HighscoreEntity highscore;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

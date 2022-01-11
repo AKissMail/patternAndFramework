@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -33,7 +32,7 @@ public class PlayerController {
 
     @GetMapping
     public List<PlayerEntity> findByCurrentstatusAllIgnoreCase(
-            @RequestParam("status") String status) {
+            @RequestParam("status") Currentstatus status) {
 
         if (status == null) {
             return playerRepository.findAll();
