@@ -17,7 +17,9 @@ public class RoundsEntity {
     @Column(name = "quizroundsid", nullable = false)
     private Long quizroundsid;
 
-    @Column(name = "rounds", unique = true)
+    //@Enumerated(EnumType.ORDINAL)
+    //@Column(name = "rounds", unique = true)
+    //public Rounds rounds;
     public Integer rounds;
 
 }

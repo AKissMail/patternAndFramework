@@ -22,12 +22,12 @@ public class RoundsController {
 
         Integer[] roundsArray = new Integer[]{10, 15, 20};
 
-        for (Integer integer : roundsArray) {
+/*        for (Integer integer : roundsArray) {
             if (!integer.equals(roundsRepository.findByRounds(integer))) {
                 RoundsEntity newRounds = new RoundsEntity();
                 newRounds.setRounds(integer);
             }
-        }
+        }*/
 
     }
 
