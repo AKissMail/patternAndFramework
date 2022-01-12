@@ -21,9 +21,13 @@ public class Start extends Application {
 
         // Wird nach Programmende ausgeführt
         stage.setOnCloseRequest(event -> {
-                // Beendet alle Timer
-                CGame.gameTimer.cancel();
-                CLobby.lobbyTimer.cancel();
+                try {
+                    // Beendet alle Timer
+                    CGame.gameTimer.cancel();
+                    CLobby.lobbyTimer.cancel();
+                } catch (Exception e) {
+                    System.out.println("Keine laufende Timer");
+                }
             }
         );
     }

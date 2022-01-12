@@ -82,9 +82,6 @@ public class CMain implements Initializable {
      * überschreibt das private Token.
      */
     public void onMouseClicked_logOut() throws Exception {
-        // Ändert Status auf 'Offline'
-        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("offline"));
-
         // Überschreibt Token mit leerem String
         MConfig.getInstance().setPrivateToken("");
 
