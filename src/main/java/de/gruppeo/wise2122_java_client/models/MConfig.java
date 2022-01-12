@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 
 /**
  * Modell wird zum Speichern und Lesen wichtiger
@@ -19,15 +18,15 @@ import java.util.ArrayList;
 public class MConfig {
     private static final MConfig OBJ = new MConfig();
 
-    private String jwtSecret;
-    private String privateToken;
-    private String username;
-    private String baseURL;
-    private Object category;
-    private Object rounds;
-    private Object opponent;
-    private int refreshrateOpponents;
-    private int indexRounds;
+    private String jwtSecret;       // Tokenschlüssel
+    private String privateToken;    // Authentifizierungsschlüssel
+    private String username;        // Benutername
+    private String baseURL;         // Standard Host-URL
+    private Object category;        // Ausgewählte Kategorie
+    private Object rounds;          // Ausgewählte Rundenzahl
+    private Object opponent;        // Ausgewählter Gegner
+    private int refreshrate;        // Aktualisierungsrate in Millisekunden
+    private int indexRounds;        // Index Standard-Rundenzahl
 
     /**
      * Um sicherzustellen, dass nur eine Instanz des Config-Modells
@@ -40,7 +39,7 @@ public class MConfig {
     private MConfig() {
         this.baseURL = "http://localhost:8080";
         this.jwtSecret = "IchbineinfurchtbargeheimesGeheimnisvonThomas";
-        this.refreshrateOpponents = 2000; // 2 Sekunden
+        this.refreshrate = 2000; // 2 Sekunden
         this.indexRounds = 0;
     }
 

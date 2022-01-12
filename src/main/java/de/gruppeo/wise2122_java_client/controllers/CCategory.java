@@ -1,6 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
+import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MRounds;
 import de.gruppeo.wise2122_java_client.parsers.PCategory;
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
 
 public class CCategory implements Initializable {
     ViewLoader loader;
+    Validation validation;
     PCategory mapperCategory;
     PRounds mapperRounds;
 
@@ -37,11 +39,9 @@ public class CCategory implements Initializable {
      */
     public CCategory() throws Exception {
         loader = new ViewLoader();
+        validation = new Validation();
         mapperCategory = new PCategory(new Connection("/category"));
         mapperRounds = new PRounds(new Connection("/rounds"));
-
-        // Ändert Status auf ONLINE
-        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("online"));
     }
 
     /**
@@ -52,15 +52,15 @@ public class CCategory implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Aktiviert oder deaktiviert Buttons
-        disableButtons(new Button[] {button_category_showLobby}, setLoadedValues());
+        validation.disableButtons(new Button[] {button_category_showLobby}, setLoadedValues());
 
         // Befüllt Auswahlmenü mit Kategorien
-        for (MCategory category : mapperCategory.getList()) {
+        for (MCategory category : mapperCategory.getCategories()) {
             combo_category_selectedCategory.getItems().add(category.getCategoryname());
         }
 
         // Befüllt Auswahlmenü mit Rundenzahlen
-        for (MRounds rounds : mapperRounds.getList()) {
+        for (MRounds rounds : mapperRounds.getRounds()) {
             combo_category_selectedRounds.getItems().add(rounds.getRounds() + " Runden");
         }
 
@@ -72,7 +72,7 @@ public class CCategory implements Initializable {
 
             // Schreibt ausgewählte Kategorie in Objekt
             MConfig.getInstance().setCategory(newCategory);
-            disableButtons(new Button[] {button_category_showLobby}, false);
+            validation.disableButtons(new Button[] {button_category_showLobby}, false);
         });
 
         // Gibt die ausgewählte Anzahl der zu spielenden Fragen zurück
@@ -82,19 +82,6 @@ public class CCategory implements Initializable {
             MConfig.getInstance().setIndexRounds(combo_category_selectedRounds.getSelectionModel().getSelectedIndex());
             MConfig.getInstance().setRounds(newRounds);
         });
-    }
-
-    /**
-     * Aktiviert oder deaktiviert
-     * die übergebenen Buttons.
-     *
-     * @param buttons
-     * @param disable
-     */
-    private void disableButtons(Button[] buttons, boolean disable) {
-        for (Button button : buttons) {
-            button.setDisable(disable);
-        }
     }
 
     /**

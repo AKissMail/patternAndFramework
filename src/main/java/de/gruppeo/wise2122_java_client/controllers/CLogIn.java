@@ -2,6 +2,7 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.*;
 import de.gruppeo.wise2122_java_client.models.MConfig;
+import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -20,6 +21,7 @@ import java.util.ResourceBundle;
 public class CLogIn implements Initializable {
     ViewLoader loader;
     Validation validation;
+    JwtTokenProvider tokenProvider;
 
     @FXML private BorderPane mainPane;
     @FXML private TextField textField_logIn_username;
@@ -29,6 +31,7 @@ public class CLogIn implements Initializable {
     public CLogIn() {
         loader = new ViewLoader();
         validation = new Validation();
+        tokenProvider = new JwtTokenProvider();
     }
 
     @Override
@@ -113,13 +116,14 @@ public class CLogIn implements Initializable {
 
         try {
             // Etabliert neue Serververbindung
-            Connection connection = new Connection("/auth/login");
+            Connection logIn = new Connection("/auth/login");
 
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            logIn.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
-            // Speichert Token in Config-Objekt
-            MConfig.getInstance().setPrivateToken(connection.getServerResponse());
+            // Speichert Token und Usernamen in Config-Objekt
+            MConfig.getInstance().setPrivateToken(logIn.getServerResponse());
+            MConfig.getInstance().setUsername(tokenProvider.getUsernameFromToken(logIn.getServerResponse(), MConfig.getInstance().getJwtSecret()));
 
             // Lädt Hauptmenü
             Stage stage = (Stage) mainPane.getScene().getWindow();

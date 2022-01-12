@@ -51,11 +51,11 @@ public class CQuiz implements Initializable {
         mapper = new PQuestion(new Connection("/questions?category=" + MConfig.getInstance().getCategory().toString()));
         points = 0;
 
-        // Ändert Status auf WAITING
-        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("quizzing"));
+        // Ändert Spielerstatus
+        //System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("QUIZZING"));
 
         questions = new ArrayList<>();
-        for(MQuestion question : mapper.getList()) {
+        for(MQuestion question : mapper.getQuestions()) {
             questions.add(question);
         }
     }
@@ -92,7 +92,7 @@ public class CQuiz implements Initializable {
             }
 
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.postData("{ \"iscorrect\": \"" + correctAnswer + "\", \"points\": \"" + points + "\" }");
+            connection.postData("{ \"iscorrect\": \"" + correctAnswer + "\", \"time\": \"" + points + "\" }");
             disableAnswers();
         } catch (Exception e) {
             System.out.println("Fehler beim Senden der Antwort: " + e);

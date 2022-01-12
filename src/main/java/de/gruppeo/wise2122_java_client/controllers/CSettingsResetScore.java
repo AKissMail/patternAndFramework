@@ -12,7 +12,7 @@ public class CSettingsResetScore {
         if (alert.getResult() == ButtonType.YES) {
             System.out.println("Es wurde auf JA geklickt");
 
-            // Code, der den Highscore zurücksetzt implementieren
+            // @TODO Code, der den Highscore zurücksetzt implementieren
         }
     }
 }

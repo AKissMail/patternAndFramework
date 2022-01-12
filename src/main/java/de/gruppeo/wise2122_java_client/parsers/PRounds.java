@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.models.MRounds;
+import lombok.Getter;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public class PRounds {
     List<MRounds> rounds;
 
@@ -16,15 +18,11 @@ public class PRounds {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-            // Konvertiert JSON-Zeichenkette in eine Liste mit Kategorien
+            // Konvertiert JSON-Zeichenkette in eine Liste mit Runden-Objekten
             this.rounds = Arrays.asList(mapper.readValue(connection.getServerResponse(), MRounds[].class));
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    public List<MRounds> getList() {
-        return rounds;
     }
 }

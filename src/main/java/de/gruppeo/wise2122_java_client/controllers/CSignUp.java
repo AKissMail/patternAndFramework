@@ -2,6 +2,7 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.*;
 import de.gruppeo.wise2122_java_client.models.MConfig;
+import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -22,6 +23,7 @@ import javafx.fxml.FXML;
 public class CSignUp {
     ViewLoader loader;
     Validation validation;
+    JwtTokenProvider tokenProvider;
     Alert alert;
 
     ArrayList<Boolean> list;
@@ -44,6 +46,7 @@ public class CSignUp {
         loader = new ViewLoader();
         validation = new Validation();
         list =  new ArrayList<Boolean>();
+        tokenProvider = new JwtTokenProvider();
 
         for (int i = 1; i <= requiredFields; i++) {
             list.add(false);
@@ -69,8 +72,9 @@ public class CSignUp {
             // Meldet neuen Spieler an
             logIn.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
-            // Speichert Token in Config-Objekt
+            // Speichert Token und Usernamen in Config-Objekt
             MConfig.getInstance().setPrivateToken(logIn.getServerResponse());
+            MConfig.getInstance().setUsername(tokenProvider.getUsernameFromToken(logIn.getServerResponse(), MConfig.getInstance().getJwtSecret()));
 
             // Leitet zum Hauptmenü
             Stage stage = (Stage) mainPane.getScene().getWindow();

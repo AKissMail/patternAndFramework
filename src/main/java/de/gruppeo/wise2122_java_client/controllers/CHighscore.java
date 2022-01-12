@@ -3,7 +3,7 @@ package de.gruppeo.wise2122_java_client.controllers;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
-import de.gruppeo.wise2122_java_client.parsers.POpponent;
+import de.gruppeo.wise2122_java_client.parsers.PPlayer;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class CHighscore implements Initializable {
     ViewLoader loader;
     Connection connection;
-    POpponent mapper;
+    PPlayer mapper;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_highscore_gameRounds;
@@ -31,7 +31,7 @@ public class CHighscore implements Initializable {
     public CHighscore() throws Exception {
         loader = new ViewLoader();
         connection = new Connection("/player/all");
-        mapper = new POpponent(connection);
+        mapper = new PPlayer(connection);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CHighscore implements Initializable {
         int rank = 1;
 
         // Befüllt Spalten mit Werten des MPlayer-Objekts
-        for (MPlayer opponent : mapper.getList()) {
+        for (MPlayer opponent : mapper.getPlayers()) {
             table_highscore_points.getItems().add(new MPlayer(rank, opponent.getUsername(), opponent.getCurrentscore()));
             rank++;
         }

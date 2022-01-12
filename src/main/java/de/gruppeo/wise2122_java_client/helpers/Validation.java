@@ -76,4 +76,17 @@ public class Validation {
             button.setDisable(true);
         }
     }
+
+    /**
+     * Aktiviert oder deaktiviert
+     * die übergebenen Buttons.
+     *
+     * @param buttons
+     * @param disable
+     */
+    public void disableButtons(Button[] buttons, boolean disable) {
+        for (Button button : buttons) {
+            button.setDisable(disable);
+        }
+    }
 }

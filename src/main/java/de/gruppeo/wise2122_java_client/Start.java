@@ -1,14 +1,12 @@
 package de.gruppeo.wise2122_java_client;
 
-import de.gruppeo.wise2122_java_client.controllers.COpponent;
-import de.gruppeo.wise2122_java_client.helpers.Configuration;
+import de.gruppeo.wise2122_java_client.controllers.CLobby;
+import de.gruppeo.wise2122_java_client.controllers.CGame;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.net.ConnectException;
 
 public class Start extends Application {
 
@@ -23,14 +21,10 @@ public class Start extends Application {
 
         // Wird nach Programmende ausgeführt
         stage.setOnCloseRequest(event -> {
-                    try {
-                        // Ändert Status auf 'offline'
-                        System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("offline"));
-                        COpponent.timer.cancel();
-                    } catch (Exception e) {
-                        System.out.println("Status konnte nicht geändert werden, da es keine gültige Session gab");
-                    }
-                }
+                // Beendet alle Timer
+                CGame.gameTimer.cancel();
+                CLobby.lobbyTimer.cancel();
+            }
         );
     }
 

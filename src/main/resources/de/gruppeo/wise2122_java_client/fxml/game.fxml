@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.COpponent">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CGame">
    <bottom>
-      <Button fx:id="button_opponent_startQuiz" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Gegner herausfordern" textFill="WHITE" BorderPane.alignment="CENTER">
+      <Button fx:id="button_game_joinGame" disable="true" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinGame" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6 #008ae6#008ae6 #008ae6#008ae6 #008ae6#008ae6;" text="Spiel beitreten" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
             <Font size="28.0" />
          </font>
@@ -22,7 +22,7 @@
    <top>
       <BorderPane prefHeight="50.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
-            <Button fx:id="button_opponent_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="90.0" text="Zurück" BorderPane.alignment="CENTER">
+            <Button fx:id="button_game_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="90.0" text="Zurück" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>
@@ -35,12 +35,12 @@
          <top>
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Wähle einen Gegner" textAlignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Wähle ein Spiel" textAlignment="CENTER">
                      <font>
                         <Font size="35.0" />
                      </font>
                   </Label>
-                  <Label fx:id="label_opponent_foundOpponents" alignment="CENTER" contentDisplay="CENTER" text="Keine wartenden Spieler gefunden" textAlignment="CENTER" />
+                  <Label fx:id="label_game_foundGames" alignment="CENTER" contentDisplay="CENTER" text="Kein Spiel gefunden" textAlignment="CENTER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="20.0" top="10.0" />
@@ -48,7 +48,7 @@
             </VBox>
          </top>
          <center>
-            <ListView fx:id="listView_opponent_list" BorderPane.alignment="CENTER">
+            <ListView fx:id="listView_game_gamelist" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="200.0" right="200.0" />
                </BorderPane.margin></ListView>

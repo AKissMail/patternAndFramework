@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.models.MQuestion;
+import lombok.Getter;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public class PQuestion {
     List<MQuestion> questions;
 
@@ -16,14 +18,10 @@ public class PQuestion {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-            // Konvertiert JSON-Zeichenkette in eine Liste mit Fragen
+            // Konvertiert JSON-Zeichenkette in eine Liste mit Frage-Objekten
             this.questions = Arrays.asList(mapper.readValue(connection.getServerResponse(), MQuestion[].class));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    public List<MQuestion> getList() {
-        return questions;
     }
 }
