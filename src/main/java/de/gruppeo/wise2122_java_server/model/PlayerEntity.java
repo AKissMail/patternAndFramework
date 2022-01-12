@@ -1,6 +1,7 @@
 package de.gruppeo.wise2122_java_server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.format.annotation.NumberFormat;
@@ -39,8 +40,8 @@ public class PlayerEntity {
     @Column(name = "currentstatus")
     public Currentstatus currentstatus;
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JsonManagedReference
     private HighscoreEntity highscore;
 
     @Override
@@ -55,4 +56,6 @@ public class PlayerEntity {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
 }
