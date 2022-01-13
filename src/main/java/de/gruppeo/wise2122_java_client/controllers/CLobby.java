@@ -40,7 +40,7 @@ public class CLobby implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Registriert neues Spiel beim Server
-        //registerNewGame();
+        registerNewGame();
 
         TimerTask task = new TimerTask() {
             @Override

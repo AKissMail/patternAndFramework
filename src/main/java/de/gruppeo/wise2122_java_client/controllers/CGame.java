@@ -3,7 +3,9 @@ package de.gruppeo.wise2122_java_client.controllers;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
+import de.gruppeo.wise2122_java_client.models.MGame;
 import de.gruppeo.wise2122_java_client.models.MPlayer;
+import de.gruppeo.wise2122_java_client.parsers.PGame;
 import de.gruppeo.wise2122_java_client.parsers.PPlayer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -20,9 +22,10 @@ import java.util.*;
 
 public class CGame implements Initializable {
     ViewLoader loader;
-    PPlayer mapper;
+    PGame mapper;
 
     public static Timer gameTimer;
+    List<String> serverGames;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_game_foundGames;
@@ -50,7 +53,7 @@ public class CGame implements Initializable {
 
                     try {
                         // Lädt neue Spiele vom Server
-                        mapper = new PPlayer(new Connection("/player?status=WAITING"));
+                        mapper = new PGame(new Connection("/games/open"));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -58,29 +61,32 @@ public class CGame implements Initializable {
                     // Setzt Labeltext
                     setLabelAvailableGames();
 
-                    List<String> serverOpponents = new ArrayList<>();
+                    serverGames = new ArrayList<>();
 
-                    // Befüllt Auswahlliste mit Spielern, die auf 'WAITING' gestellt sind
-                    for (MPlayer opponent : mapper.getPlayers()) {
-                        serverOpponents.add(opponent.getUsername());
+                    // Befüllt Auswahlliste mit offenen Spielen
+                    for (MGame game : mapper.getGames()) {
+                        String username = game.getPlayerone().getUsername().toUpperCase();
+                        String category = game.getCategory().getCategoryname();
+                        int rounds = game.getRounds().getRounds();
+
+                        serverGames.add(username + " (" + category + " - " + rounds + " Runden)");
                     }
 
-                    for (String item : serverOpponents) {
-
+                    for (String item : serverGames) {
                         // Wennn Username nicht in Liste enthalten ist
                         if (!listView_game_gamelist.getItems().contains(item)) {
-
                             // Dann füge neuen Username hinzu
                             listView_game_gamelist.getItems().add(item);
                         }
                     }
 
-                    if (serverOpponents.size() != listView_game_gamelist.getItems().size()) {
+                    // Verringert Auswahlliste, wenn Spiele nicht mehr existieren
+                    if (serverGames.size() != listView_game_gamelist.getItems().size()) {
 
                         int index = 0;
 
                         for (int i = 0; i < listView_game_gamelist.getItems().size(); i++) {
-                            if (!serverOpponents.contains(listView_game_gamelist.getItems().get(i))) {
+                            if (!serverGames.contains(listView_game_gamelist.getItems().get(i))) {
                                 index = i;
                             }
                         }
@@ -98,8 +104,8 @@ public class CGame implements Initializable {
          */
         listView_game_gamelist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldOpponent, String newOpponent) {
-                if (newOpponent != null) {
+            public void changed(ObservableValue<? extends String> observable, String oldGame, String newGame) {
+                if (newGame != null) {
                     button_game_joinGame.setDisable(false);
                 } else {
                     button_game_joinGame.setDisable(true);
@@ -116,14 +122,18 @@ public class CGame implements Initializable {
     public void onMouseClicked_joinGame() {
         gameTimer.cancel();
 
-        System.out.println("Selected Game: " + listView_game_gamelist.getSelectionModel().getSelectedItem());
+        int index = listView_game_gamelist.getSelectionModel().getSelectedIndex();
+        String username = mapper.getGames().get(index).getPlayerone().getUsername();
+        int gamesID = mapper.getGames().get(index).getId();
+
+        System.out.println("Username: " + username + " - ID: " + gamesID);
 
         try {
             // Etabliert neue Serververbindung
             Connection game = new Connection("/games/update");
 
             // Sendet JSON-Anfrage mit zweitem Spieler an Server
-            game.postData("{ \"gamesid\": \"" + "PLATZHALTER" + "\", \"username\": \"" + "PLATZHALTER" + "\", \"status\": \"" + "PLATZHALTER" + "\" }");
+            game.postData("{ \"gamesid\": \"" + gamesID + "\", \"username\": \"" + username + "\", \"status\": \"" + "JOINED" + "\" }");
         } catch (Exception e) {
             System.out.println("Spiel konnte nicht aktualisiert werden: " + e);
         }
@@ -135,14 +145,14 @@ public class CGame implements Initializable {
      */
     private void setLabelAvailableGames() {
         String status;
-        int players = mapper.getPlayers().size();
+        int games = mapper.getGames().size();
 
-        if (players == 0) {
+        if (games == 0) {
             status = "Keine offenen Spiele gefunden";
-        } else if (players == 1) {
+        } else if (games == 1) {
             status = "Ein offenes Spiel gefunden";
         } else {
-            status = players + " offene Spiele gefunden";
+            status = games + " offene Spiele gefunden";
         }
         label_game_foundGames.setText(status);
     }
