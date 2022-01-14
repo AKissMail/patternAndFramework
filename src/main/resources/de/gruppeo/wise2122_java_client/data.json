@@ -1,0 +1,41 @@
+{
+  "id":1,
+  "gamestatus":"JOINED",
+  "playerone":{
+    "playerid":1,
+    "username":"Schnuffi",
+    "currentscore":0,
+    "currentstatus":"OFFLINE",
+    "highscore":{
+      "quizhighscoreid":1,
+      "highscorepoints":800,
+      "lastupdate":"2022-01-13T15:35:43.332142"
+    }
+  },
+  "playeronescore":0,
+  "playeroneround":0,
+  "playertwo":{
+    "playerid":3,
+    "username":"Jan",
+    "currentscore":0,
+    "currentstatus":"OFFLINE",
+    "highscore":{
+      "quizhighscoreid":2,
+      "highscorepoints":300,
+      "lastupdate":"2022-01-13T15:39:24.537845"
+    }
+  },
+  "playertwoscore":0,
+  "playertworound":0,
+  "category":{
+    "quizcategoryid":1,
+    "categoryname":"Medieninformatik"
+  },
+  "rounds":{
+    "quizroundsid":1,
+    "rounds":5
+  },
+  "questions":[
+
+  ]
+}

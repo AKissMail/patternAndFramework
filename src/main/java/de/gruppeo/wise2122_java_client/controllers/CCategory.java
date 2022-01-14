@@ -61,11 +61,12 @@ public class CCategory implements Initializable {
 
         // Befüllt Auswahlmenü mit Rundenzahlen
         for (MRounds rounds : mapperRounds.getRounds()) {
-            combo_category_selectedRounds.getItems().add(rounds.getRounds() + " Runden");
+            combo_category_selectedRounds.getItems().add(rounds.getRounds());
         }
 
         // Setzt Startwert für Anzahl der Spielrunden
         combo_category_selectedRounds.getSelectionModel().select(MConfig.getInstance().getIndexRounds());
+        MConfig.getInstance().setRounds(combo_category_selectedRounds.getItems().get(MConfig.getInstance().getIndexRounds()));
 
         // Gibt die ausgewählte Kategorie zurück
         combo_category_selectedCategory.getSelectionModel().selectedItemProperty().addListener((options, oldCategory, newCategory) -> {
@@ -81,6 +82,7 @@ public class CCategory implements Initializable {
             // Schreibt ausgewählte Rundenzahl in Objekt
             MConfig.getInstance().setIndexRounds(combo_category_selectedRounds.getSelectionModel().getSelectedIndex());
             MConfig.getInstance().setRounds(newRounds);
+
         });
     }
 

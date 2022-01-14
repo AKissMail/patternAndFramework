@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -20,15 +21,18 @@ import java.util.*;
 public class CLobby implements Initializable {
     ViewLoader loader;
     Validation validation;
-    PGame mapper;
-    Alert alert;
 
     public static Timer lobbyTimer;
-    private int gameIndex;
     private String playerTwo;
+
+    // Spielkonfiguration
+    String username = MConfig.getInstance().getUsername();
+    String category = MConfig.getInstance().getCategory().toString();
+    int rounds = (int) MConfig.getInstance().getRounds();
 
     @FXML private BorderPane mainPane;
     @FXML private Button button_lobby_startQuiz;
+    @FXML private Label label_lobby_searchingNetwork;
 
     public CLobby() {
         loader = new ViewLoader();
@@ -38,7 +42,6 @@ public class CLobby implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // Registriert neues Spiel beim Server
         registerNewGame();
 
@@ -49,14 +52,14 @@ public class CLobby implements Initializable {
 
                     // Prüft nach Verfügbarkeit des Gegners
                     if (isChallengerAvailable()) {
-                        alert = new Alert(Alert.AlertType.CONFIRMATION, "Einladung von " + playerTwo + " annehmen?", ButtonType.YES, ButtonType.NO);
-                        alert.showAndWait();
+                        label_lobby_searchingNetwork.setText(playerTwo + " ist deinem Spiel beigetreten");
 
-                        if (alert.getResult() == ButtonType.YES) {
-                            button_lobby_startQuiz.setDisable(false);
-                        } else {
-                            button_lobby_startQuiz.setDisable(true);
-                        }
+
+
+                        button_lobby_startQuiz.setDisable(false);
+                    } else {
+                        label_lobby_searchingNetwork.setText(category + " (" + rounds + " Runden) bereitgestellt");
+                        button_lobby_startQuiz.setDisable(true);
                     }
                 });
             }
@@ -72,27 +75,12 @@ public class CLobby implements Initializable {
      * das Spiel gestartet hat.
      */
     private void registerNewGame() {
-
-        String username = MConfig.getInstance().getUsername();
-        String category = MConfig.getInstance().getCategory().toString();
-        String rounds = MConfig.getInstance().getRounds().toString();
-
         try {
-            // Etabliert neue Serververbindungen
-            Connection game = new Connection("/games/create");
+            Connection create = new Connection("/games/create");
+            create.createGame("{ \"username\": \"" + username + "\", \"category\": \"" + category + "\", \"rounds\": \"" + rounds + "\" }");
 
-            // Sendet JSON-Anfrage mit Spielkonfiguration an Server
-            game.postData("{ \"username\": \"" + username + "\", \"category\": \"" + category + "\", \"rounds\": \"" + rounds + "\" }");
-
-            System.out.println("Response: " + game.getServerResponse());
-            mapper = new PGame(game.getServerResponse());
-
-            for (MGame item : mapper.getGames()) {
-                System.out.println("Spielindex: " + item.getId());
-                gameIndex = item.getId();
-                playerTwo = item.getPlayertwo().getUsername();
-            }
-
+            PGame mapperCreate = new PGame(create.getServerResponse());
+            MConfig.getInstance().setRegisteredGameID(mapperCreate.getGames().get(0).getId());
         } catch (Exception e) {
             System.out.println("Neues Spiel konnte nicht registriert werden: " + e);
         }
@@ -105,23 +93,24 @@ public class CLobby implements Initializable {
      * wurde. Es wird geprüft, ob ein Heraus-
      * forderer gefunden wurde.
      *
-     * PlayerONE = Spielerzeuger (Lobby)
-     * PlayerTWO = Herausforderer (Gegnerliste)
+     * PlayerONE = Spielerzeuger (CLobby)
+     * PlayerTWO = Beitretender Spieler (CGame)
      */
     private boolean isChallengerAvailable() {
         boolean isChallengerAvailable = false;
 
-        /*try {
-            mapper = new PGame(new Connection("/games/" + gameIndex));
+        try {
+            PGame mapperGame = new PGame(new Connection("/games/" + MConfig.getInstance().getRegisteredGameID()));
 
-            for (MGame game : mapper.getGames()) {
+            for (MGame game : mapperGame.getGames()) {
                 if (game.getPlayertwo() != null) {
                     isChallengerAvailable = true;
+                    playerTwo = game.getPlayertwo().getUsername();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
         return isChallengerAvailable;
     }
 

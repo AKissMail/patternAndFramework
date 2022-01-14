@@ -119,7 +119,7 @@ public class CLogIn implements Initializable {
             Connection logIn = new Connection("/auth/login");
 
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            logIn.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            logIn.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
             // Speichert Token und Usernamen in Config-Objekt
             MConfig.getInstance().setPrivateToken(logIn.getServerResponse());

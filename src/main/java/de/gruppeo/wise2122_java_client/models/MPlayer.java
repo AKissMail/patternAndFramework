@@ -15,6 +15,8 @@ public class MPlayer {
     private String username;
     private int currentscore;
     private String currentstatus;
+    private MHighscore highscore;
+
     private int rank;
 
     /**
@@ -32,25 +34,17 @@ public class MPlayer {
      * @param currentscore
      * @param currentstatus
      */
-    public MPlayer(int playerid, String username, int currentscore, String currentstatus) {
+    public MPlayer(int playerid, String username, int currentscore, String currentstatus, MHighscore highscore) {
         this.playerid = playerid;
         this.username = username;
         this.currentscore = currentscore;
         this.currentstatus = currentstatus;
+        this.highscore = highscore;
     }
 
-    /**
-     * Wird zur Initialisierung eines neuen Player-Objekts
-     * benötigt, das für die Befüllung des Highscores
-     * Verwendung findet.
-     *
-     * @param rank
-     * @param username
-     * @param currentscore
-     */
-    public MPlayer(int rank, String username, int currentscore) {
+    public MPlayer(int rank, String username, MHighscore highscore) {
         this.rank = rank;
         this.username = username;
-        this.currentscore = currentscore;
+        this.highscore = highscore;
     }
 }

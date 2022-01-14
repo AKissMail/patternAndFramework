@@ -92,7 +92,7 @@ public class CQuiz implements Initializable {
             }
 
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.postData("{ \"iscorrect\": \"" + correctAnswer + "\", \"time\": \"" + points + "\" }");
+            connection.sendData("POST", "{ \"iscorrect\": \"" + correctAnswer + "\", \"time\": \"" + points + "\" }");
             disableAnswers();
         } catch (Exception e) {
             System.out.println("Fehler beim Senden der Antwort: " + e);
