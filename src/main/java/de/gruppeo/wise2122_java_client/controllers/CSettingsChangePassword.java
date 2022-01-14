@@ -5,7 +5,6 @@ import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
@@ -110,7 +109,7 @@ public class CSettingsChangePassword extends Validation {
             Connection connection = new Connection("/auth/changepassword");
 
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.postData("{ \"username\": \"" + username + "\", \"password\": \"" + currentPassword + "\", \"newpassword\": \"" + newPassword + "\" }");
+            connection.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + currentPassword + "\", \"newpassword\": \"" + newPassword + "\" }");
 
             // Speichert Token in Config-Objekt
             MConfig.getInstance().setPrivateToken(connection.getServerResponse());

@@ -23,10 +23,12 @@ public class MConfig {
     private String username;        // Benutername
     private String baseURL;         // Standard Host-URL
     private Object category;        // Ausgewählte Kategorie
-    private Object rounds;          // Ausgewählte Rundenzahl
     private Object opponent;        // Ausgewählter Gegner
-    private int refreshrate;        // Aktualisierungsrate in Millisekunden
+    private Object rounds;          // Objekt der ausgewählten Rundenzahl
     private int indexRounds;        // Index Standard-Rundenzahl
+    private int joinedGameID;       // ID des beigetretenen Spiels
+    private int registeredGameID;   // ID des registrierten Spiels
+    private int refreshrate;        // Aktualisierungsrate in Millisekunden
 
     /**
      * Um sicherzustellen, dass nur eine Instanz des Config-Modells

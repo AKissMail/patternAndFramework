@@ -60,9 +60,9 @@ public class Connection {
      * @param serverInput
      * @throws Exception
      */
-    public void postData(String serverInput) throws Exception {
+    public void sendData(String requestMethod, String serverInput) throws Exception {
         // Konfiguriert HTTP-Verbindung
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod(requestMethod);
 
         if (MConfig.getInstance().getPrivateToken() != null) {
             connection.setRequestProperty("Authorization", "Bearer " + privateToken);
@@ -112,17 +112,21 @@ public class Connection {
         return connection;
     }
 
-    /**
-     * Baut Verbindung zum Server auf und
-     * versucht den Status des Players auf
-     * den übergebenen Status zu setzen.
-     */
-    public String changePlayerStatus(String status) {
+    public void updateGame(String request) {
         try {
-            postData("{ \"status\": \"" + status.toUpperCase() + "\", \"token\": \"" + privateToken + "\" }");
+            sendData("PUT", request);
+            getServerResponse();
         } catch (Exception e) {
-            System.out.println("Fehler beim Aktualisieren des Status: " + e);
+            System.out.println("Spiel konnte nicht aktualisiert werden: " + e);
         }
-        return "Status auf '" + status + "' geändert: " + serverResponse;
+    }
+
+    public void createGame(String reguest) {
+        try {
+            sendData("POST", reguest);
+            System.out.println("Neues Spiel registriert");
+        } catch (Exception e) {
+            System.out.println("Spiel konnte nicht erstellt werden: " + e);
+        }
     }
 }

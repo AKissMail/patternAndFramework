@@ -3,20 +3,13 @@ package de.gruppeo.wise2122_java_client.controllers;
 import de.gruppeo.wise2122_java_client.helpers.*;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 
@@ -67,10 +60,10 @@ public class CSignUp {
 
         try {
             // Registriert neuen Spieler
-            signUp.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            signUp.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
             // Meldet neuen Spieler an
-            logIn.postData("{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            logIn.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
 
             // Speichert Token und Usernamen in Config-Objekt
             MConfig.getInstance().setPrivateToken(logIn.getServerResponse());

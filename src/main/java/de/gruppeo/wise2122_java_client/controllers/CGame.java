@@ -4,9 +4,7 @@ import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MGame;
-import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.PGame;
-import de.gruppeo.wise2122_java_client.parsers.PPlayer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,7 +23,6 @@ public class CGame implements Initializable {
     PGame mapper;
 
     public static Timer gameTimer;
-    List<String> serverGames;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_game_foundGames;
@@ -61,7 +58,7 @@ public class CGame implements Initializable {
                     // Setzt Labeltext
                     setLabelAvailableGames();
 
-                    serverGames = new ArrayList<>();
+                    List<String> serverGames = new ArrayList<>();
 
                     // Befüllt Auswahlliste mit offenen Spielen
                     for (MGame game : mapper.getGames()) {
@@ -71,6 +68,7 @@ public class CGame implements Initializable {
 
                         serverGames.add(username + " (" + category + " - " + rounds + " Runden)");
                     }
+                    System.out.println("Server: " + serverGames);
 
                     for (String item : serverGames) {
                         // Wennn Username nicht in Liste enthalten ist
@@ -115,28 +113,16 @@ public class CGame implements Initializable {
     }
 
     /**
-     * @TODO Muss implementiert werden
      * Fügt den Username des Beitretenden dem
      * ausgewählten Spiel (PlayerTwo) hinzu.
      */
-    public void onMouseClicked_joinGame() {
-        gameTimer.cancel();
+    public void onMouseClicked_joinGame() throws Exception {
+        MConfig.getInstance().setJoinedGameID(mapper.getGames().get(listView_game_gamelist.getSelectionModel().getSelectedIndex()).getId());
+        String username = MConfig.getInstance().getUsername();
 
-        int index = listView_game_gamelist.getSelectionModel().getSelectedIndex();
-        String username = mapper.getGames().get(index).getPlayerone().getUsername();
-        int gamesID = mapper.getGames().get(index).getId();
-
-        System.out.println("Username: " + username + " - ID: " + gamesID);
-
-        try {
-            // Etabliert neue Serververbindung
-            Connection game = new Connection("/games/update");
-
-            // Sendet JSON-Anfrage mit zweitem Spieler an Server
-            game.postData("{ \"gamesid\": \"" + gamesID + "\", \"username\": \"" + username + "\", \"status\": \"" + "JOINED" + "\" }");
-        } catch (Exception e) {
-            System.out.println("Spiel konnte nicht aktualisiert werden: " + e);
-        }
+        // Aktualisiert das ausgewählte Spiel
+        Connection update = new Connection("/games/update");
+        update.updateGame("{ \"gamesid\": \"" + MConfig.getInstance().getJoinedGameID() + "\", \"username\": \"" + username + "\", \"status\": \"" + "JOINED" + "\" }");
     }
 
     /**
