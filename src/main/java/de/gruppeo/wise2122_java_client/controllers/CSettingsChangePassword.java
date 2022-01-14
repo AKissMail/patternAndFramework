@@ -117,6 +117,7 @@ public class CSettingsChangePassword extends Validation {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Das Password für " + username + " wurde erfolgreich geändert.", ButtonType.OK);
             alert.showAndWait();
 
+            textField_settings_currentPassword.clear();
             textField_settings_newPassword1.clear();
             textField_settings_newPassword2.clear();
         } catch (Exception e) {

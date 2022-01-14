@@ -112,19 +112,41 @@ public class Connection {
         return connection;
     }
 
-
-    public void updateGame(int gamesID, String username, String status) {
+    /**
+     * Kann den Benutzernamen des Spieler 1
+     * und Spieler 2 in ein erstelltes Spiel
+     * schreiben und den Spielstatus ändern.
+     * Eine leere Zeichenkette überschreibt
+     * den entsprechenden Benutzernamen nicht.
+     *
+     * @param gamesID
+     * @param playerOne
+     * @param playerTwo
+     * @param status
+     */
+    public void updateGame(int gamesID, String playerOne, String playerTwo, String status) {
         try {
-            sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"username\": \"" + username + "\", \"status\": \"" + status + "\" }");
-            getServerResponse();
+            sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"playerone\": \"" + playerOne + "\", \"playertwo\": \"" + playerTwo + "\", \"status\": \"" + status + "\" }");
+            System.out.println("Spiel " + gamesID + " aktualisiert");
         } catch (Exception e) {
             System.out.println("Spiel konnte nicht aktualisiert werden: " + e);
         }
     }
 
-    public void createGame(String reguest) {
+    /**
+     * Registriert ein neues Spiel mit Benuternamen
+     * des Initiators, der ausgewählten Quiz-Kategorie
+     * und der Rundenzahl. Der Spielstatus eines neuen
+     * Spiels wird automatisch auf OPEN gestellt und
+     * in der Liste der verfügbaren Spiele angezeigt.
+     *
+     * @param playerOne
+     * @param category
+     * @param rounds
+     */
+    public void createGame(String playerOne, String category, int rounds) {
         try {
-            sendData("POST", reguest);
+            sendData("POST", "{ \"username\": \"" + playerOne + "\", \"category\": \"" + category + "\", \"rounds\": \"" + rounds + "\" }");
             System.out.println("Neues Spiel registriert");
         } catch (Exception e) {
             System.out.println("Spiel konnte nicht erstellt werden: " + e);

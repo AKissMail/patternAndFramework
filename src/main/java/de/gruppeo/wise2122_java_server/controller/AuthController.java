@@ -66,7 +66,7 @@ public class AuthController {
         return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
     }
 
-    @PostMapping("/updatePassword")
+    @PostMapping("/updatepassword")
     @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @ResponseBody
     public ResponseEntity<String> updatePlayerPassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
@@ -92,9 +92,7 @@ public class AuthController {
             updatedPlayer.setPassword(passwordEncoder.encode(newPassword));
             playerRepository.save(updatedPlayer);
 
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body("Passwort erfolgreich geändert!");
+            return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
         }
 
         return ResponseEntity.badRequest().build();

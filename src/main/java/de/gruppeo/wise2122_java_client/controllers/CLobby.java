@@ -8,9 +8,7 @@ import de.gruppeo.wise2122_java_client.models.MGame;
 import de.gruppeo.wise2122_java_client.parsers.PGame;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,17 +16,16 @@ import javafx.fxml.FXML;
 import java.net.URL;
 import java.util.*;
 
-public class CLobby implements Initializable {
+public class CLobby {
     ViewLoader loader;
     Validation validation;
 
     public static Timer lobbyTimer;
     private String playerTwo;
 
-    // Spielkonfiguration
-    String username = MConfig.getInstance().getUsername();
-    String category = MConfig.getInstance().getCategory().toString();
-    int rounds = (int) MConfig.getInstance().getRounds();
+    private String playerOne = MConfig.getInstance().getUsername();
+    private String category = MConfig.getInstance().getCategory().toString();
+    private int rounds = (int) MConfig.getInstance().getRounds();
 
     @FXML private BorderPane mainPane;
     @FXML private Button button_lobby_startQuiz;
@@ -40,8 +37,7 @@ public class CLobby implements Initializable {
         lobbyTimer = new Timer();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() throws Exception {
         registerNewGame();
 
         TimerTask task = new TimerTask() {
@@ -49,11 +45,11 @@ public class CLobby implements Initializable {
             public void run() {
                 Platform.runLater(() -> {
 
-                    // Prüft nach Verfügbarkeit des Gegners
+                    // Prüft Verfügbarkeit des Gegners
                     if (isChallengerAvailable()) {
                         label_lobby_searchingNetwork.setText(playerTwo + " ist deinem Spiel beigetreten");
 
-
+                        // @TODO Profilbild und Username des beigetretenen Gegners auf GUI anzeigen
 
                         button_lobby_startQuiz.setDisable(false);
                     } else {
@@ -73,16 +69,14 @@ public class CLobby implements Initializable {
      * der Rundenzahl und dem Benutzer, der
      * das Spiel gestartet hat.
      */
-    private void registerNewGame() {
-        try {
-            Connection create = new Connection("/games/create");
-            create.createGame("{ \"username\": \"" + username + "\", \"category\": \"" + category + "\", \"rounds\": \"" + rounds + "\" }");
+    private void registerNewGame() throws Exception {
+        // Erstellt neues Spiel
+        Connection con = new Connection("/games/create");
+        con.createGame(playerOne, category, rounds);
 
-            PGame mapperCreate = new PGame(create.getServerResponse());
-            MConfig.getInstance().setRegisteredGameID(mapperCreate.getGames().get(0).getId());
-        } catch (Exception e) {
-            System.out.println("Neues Spiel konnte nicht registriert werden: " + e);
-        }
+        // Speichert SpielID in Config-Objekt
+        PGame mapperCreate = new PGame(con.getServerResponse());
+        MConfig.getInstance().setRegisteredGameID(mapperCreate.getGames().get(0).getId());
     }
 
     /**
@@ -116,12 +110,19 @@ public class CLobby implements Initializable {
      * RUNNING, damit es nicht mehr in der
      * List der offenen Spiele angezeigt wird.
      */
-    public void onMouseClicked_startQuiz() {
+    public void onMouseClicked_startQuiz() throws Exception {
+        // Beendet den Timer
         lobbyTimer.cancel();
 
-        // Ändere Spielstatus auf 'RUNNING'
+        // Speichert Congig-Daten in lokalen Variablen
+        String username = MConfig.getInstance().getUsername();
+        int registeredGameID = MConfig.getInstance().getRegisteredGameID();
 
+        // Aktualisiert den Status des Spiels
+        Connection con = new Connection("/games/update");
+        con.updateGame(registeredGameID, username, "", "RUNNING");
 
+        // Welchselt die Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("quiz"));
         stage.show();
@@ -136,7 +137,7 @@ public class CLobby implements Initializable {
     public void onMouseClicked_back() {
         lobbyTimer.cancel();
 
-        // Lösche Spiel
+        // @TODO Methode zum Löschen eines übergebenen Spiels
 
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("category"));

@@ -51,9 +51,6 @@ public class CQuiz implements Initializable {
         mapper = new PQuestion(new Connection("/questions?category=" + MConfig.getInstance().getCategory().toString()));
         points = 0;
 
-        // Ändert Spielerstatus
-        //System.out.println(new Connection("/player/changeplayerstatus").changePlayerStatus("QUIZZING"));
-
         questions = new ArrayList<>();
         for(MQuestion question : mapper.getQuestions()) {
             questions.add(question);

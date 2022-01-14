@@ -114,15 +114,20 @@ public class CGame implements Initializable {
 
     /**
      * Fügt den Username des Beitretenden dem
-     * ausgewählten Spiel (PlayerTwo) hinzu.
+     * ausgewählten Spiel (PlayerTwo) hinzu und
+     * ändert den Spielstatus auf 'beigetreten'.
      */
     public void onMouseClicked_joinGame() throws Exception {
+        // Speichert SpielID des ausgewählten Spiels in Config-Objekt
         MConfig.getInstance().setJoinedGameID(mapper.getGames().get(listView_game_gamelist.getSelectionModel().getSelectedIndex()).getId());
+
+        // Speichert Config-Daten in lokalen Variablen
+        int joinedGameID = MConfig.getInstance().getJoinedGameID();
         String username = MConfig.getInstance().getUsername();
 
         // Aktualisiert das ausgewählte Spiel
-        Connection update = new Connection("/games/update");
-        update.updateGame(MConfig.getInstance().getJoinedGameID(), username, "JOINED");
+        Connection con = new Connection("/games/update");
+        con.updateGame(joinedGameID, "", username, "JOINED");
     }
 
     /**
@@ -147,8 +152,10 @@ public class CGame implements Initializable {
      * Zeigt das Hauptmenü an.
      */
     public void onMouseClicked_back() {
+        // Beendet den Timer
         gameTimer.cancel();
 
+        // Wechselt die Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
         stage.show();
