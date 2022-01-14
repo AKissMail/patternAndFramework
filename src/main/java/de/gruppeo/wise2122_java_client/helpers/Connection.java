@@ -113,6 +113,23 @@ public class Connection {
     }
 
     /**
+     * Aktualisiert das Passwort
+     * des angemeldeten Benutzers.
+     *
+     * @param username
+     * @param currentPassword
+     * @param newPassword
+     */
+    public void updatePassword(String username, String currentPassword, String newPassword) {
+        try {
+            sendData("POST", "{ \"playername\": \"" + username + "\", \"oldpassword\": \"" + currentPassword + "\", \"newpassword\": \"" + newPassword + "\" }");
+            System.out.println("Passwort wurde aktualisiert");
+        } catch (Exception e) {
+            System.out.println("Passwort konnte nicht aktualisiert werden: " + e);
+        }
+    }
+
+    /**
      * Kann den Benutzernamen des Spieler 1
      * und Spieler 2 in ein erstelltes Spiel
      * schreiben und den Spielstatus ändern.
@@ -150,6 +167,24 @@ public class Connection {
             System.out.println("Neues Spiel registriert");
         } catch (Exception e) {
             System.out.println("Spiel konnte nicht erstellt werden: " + e);
+        }
+    }
+
+    /**
+     * Sendet Daten einer
+     * Beantwortung an den Server.
+     *
+     * @param gameID
+     * @param playerOne
+     * @param answer
+     * @param timer
+     */
+    public void dropAnswer(int gameID, boolean playerOne, boolean answer, int timer) {
+        try {
+            sendData("PUT", "{ \"gamesid\": \"" + gameID + "\", \"playerone\": \"" + playerOne + "\", \"answer\": \"" + answer + "\", \"timer\": \"" + timer + "\" }");
+            System.out.println("Antwort zu Spiel " + gameID + " wurde gesendet");
+        } catch (Exception e) {
+            System.out.println("Antwort konnte nicht gesendet werden: " + e);
         }
     }
 }

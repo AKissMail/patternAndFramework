@@ -72,28 +72,28 @@ public class CQuiz implements Initializable {
      * ist und sendet das Ergebnis, zusammen mit
      * der berechneten Punkzahl, an den Server.
      */
-    private void checkAnswer() {
+    private void checkAnswer() throws Exception {
         Button[] buttons = new Button[] {button_quiz_answerA, button_quiz_answerB, button_quiz_answerC, button_quiz_answerD};
 
-        try {
-            // Etabliert neue Serververbindung
-            Connection connection = new Connection("");
+        // Speichert Config-Daten in lokale Variablen
 
-            for (Button button : buttons) {
-                if (button.getText().equals(correctAnswer)) {
-                    System.out.println(button.getText());
-                    button.setStyle("-fx-background-color: #047b06; ");
-                } else {
-                    button.setStyle("-fx-background-color: #ff0000; ");
-                }
+
+        // Färbt Antworten
+        for (Button button : buttons) {
+            if (button.getText().equals(correctAnswer)) {
+                System.out.println(button.getText());
+                button.setStyle("-fx-background-color: #047b06; ");
+            } else {
+                button.setStyle("-fx-background-color: #ff0000; ");
             }
-
-            // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.sendData("POST", "{ \"iscorrect\": \"" + correctAnswer + "\", \"time\": \"" + points + "\" }");
-            disableAnswers();
-        } catch (Exception e) {
-            System.out.println("Fehler beim Senden der Antwort: " + e);
         }
+
+        // Sendet Antwort an Server
+        Connection con = new Connection("/dropAnswer");
+        //con.dropAnswer(gameID, playerOne, answer, timer);
+
+        // Deaktiviert Antworten
+        disableAnswers();
     }
 
     /**
@@ -189,7 +189,7 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerA() {
+    public void onMouseClicked_answerA() throws Exception {
         checkAnswer();
     }
 
@@ -198,7 +198,7 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerB() {
+    public void onMouseClicked_answerB() throws Exception {
         checkAnswer();
     }
 
@@ -207,7 +207,7 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerC() {
+    public void onMouseClicked_answerC() throws Exception {
         checkAnswer();
     }
 
@@ -216,7 +216,7 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerD() {
+    public void onMouseClicked_answerD() throws Exception {
         checkAnswer();
     }
 

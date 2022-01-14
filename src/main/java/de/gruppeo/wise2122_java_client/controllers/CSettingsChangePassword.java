@@ -96,32 +96,29 @@ public class CSettingsChangePassword extends Validation {
     }
 
     /**
-     * @TODO Datenbank-API
-     * Speichert neues Passwort in der Datenbank
+     * Aktualisiert das Passwort des angemeldeten Benutzers
+     * und speichert den neuen Token in Config-Objekt.
      */
-    public void onMouseClicked_changePassword() {
+    public void onMouseClicked_changePassword() throws Exception {
+        // Speichert Config-Daten in lokale Variablen
         String username = MConfig.getInstance().getUsername();
         String currentPassword = textField_settings_currentPassword.getText();
         String newPassword = textField_settings_newPassword2.getText();
 
-        try {
-            // Etabliert neue Serververbindung
-            Connection connection = new Connection("/auth/updatepassword");
+        // Aktualisiert das Passwort des Users
+        Connection con = new Connection("/auth/updatepassword");
+        con.updatePassword(username, currentPassword, newPassword);
 
-            // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.sendData("POST", "{ \"playername\": \"" + username + "\", \"oldpassword\": \"" + currentPassword + "\", \"newpassword\": \"" + newPassword + "\" }");
+        // Speichert neuen Token in Config-Objekt
+        MConfig.getInstance().setPrivateToken(con.getServerResponse());
 
-            // Speichert Token in Config-Objekt
-            MConfig.getInstance().setPrivateToken(connection.getServerResponse());
+        // Zeigt Erfolgsmeldung an
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Das Password für " + username + " wurde erfolgreich geändert.", ButtonType.OK);
+        alert.showAndWait();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Das Password für " + username + " wurde erfolgreich geändert.", ButtonType.OK);
-            alert.showAndWait();
-
-            textField_settings_currentPassword.clear();
-            textField_settings_newPassword1.clear();
-            textField_settings_newPassword2.clear();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        // Leert alle Eingabefelder
+        textField_settings_currentPassword.clear();
+        textField_settings_newPassword1.clear();
+        textField_settings_newPassword2.clear();
     }
 }
