@@ -47,8 +47,8 @@ public class GamesController {
             newGame.setPlayertworound(0);
             newGame.setCategory(gameCategory.get());
             newGame.setRounds(gameRound.get());
-            GamesEntity createGame = gamesRepository.save(newGame);
-            return ResponseEntity.ok(createGame);
+            GamesEntity createdGame = gamesRepository.save(newGame);
+            return ResponseEntity.ok(createdGame);
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -57,20 +57,29 @@ public class GamesController {
     // ein Game updaten
     @PutMapping("/update")
     public ResponseEntity<GamesEntity> updateGame(@RequestBody UpdateGameRequest updateGameRequest) {
-        Optional<PlayerEntity> playerTow = playerRepository.findByUsername(updateGameRequest.getUsername());
+        Optional<PlayerEntity> playerOne = playerRepository.findByUsername(updateGameRequest.getPlayerone());
+        Optional<PlayerEntity> playerTwo = playerRepository.findByUsername(updateGameRequest.getPlayertwo());
         Optional<GamesEntity> updateGame = gamesRepository.findById(updateGameRequest.getGamesid());
 
-        if (playerTow.isPresent()) {
+        if (playerOne.isPresent()) {
             updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
-            updateGame.get().setPlayertwo(playerTow.get());
+            updateGame.get().setPlayerone(playerOne.get());
 
-            GamesEntity createGame = gamesRepository.save(updateGame.get());
-            return ResponseEntity.ok(createGame);
+            GamesEntity updatedGame = gamesRepository.save(updateGame.get());
+            return ResponseEntity.ok(updatedGame);
+        } else if (playerTwo.isPresent()) {
+            updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
+            updateGame.get().setPlayertwo(playerTwo.get());
+
+            GamesEntity updatedGame = gamesRepository.save(updateGame.get());
+            return ResponseEntity.ok(updatedGame);
         } else {
             return ResponseEntity.badRequest().build();
+
         }
     }
-    /* @todo hier ist noch ein Bug mit dem ich nicht weiter kommen + eine vergelich der checkt ob beide alle antwoten gegen hat und den Status updatet...
+    /* @todo hier ist noch ein Bug bei dem ich nicht weiter komme: Ein Vergleich, der checkt ob beide Spieler Antworten gegeben
+          haben hat und den Status aktualisiert...
     // eine Antwort in ein Game eintragen
     @PutMapping("/dropAnswer")
     public ResponseEntity<GamesEntity> dropAnswer(@RequestBody DropAnswerRequest dropAnswerRequest){
@@ -78,7 +87,7 @@ public class GamesController {
         Optional<GamesEntity> updateGame = gamesRepository.findById(dropAnswerRequest.getGamesid());
 
         if (player.isPresent() && updateGame.isPresent()) {
-          if (true){ //<- wie kann ich hier den player 1 von player 2 unterscheiden? Mir ist nichts eingefallen was auch funktioniert hat.
+         // if (true){ <- wie kann ich hier den player 1 von player 2 unterscheiden? Mir ist nichts eingefallen was auch funktioniert hat.
                if (!dropAnswerRequest.isAnswers()){ // mach die if condition so sinn?
                    updateGame.get().setPlayeronescore(updateGame.get().getPlayeronescore()+ scoreCalculator(dropAnswerRequest.getTime()));
                    updateGame.get().setPlayeroneround(updateGame.get().getPlayeroneround()+1);

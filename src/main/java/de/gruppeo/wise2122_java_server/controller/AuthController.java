@@ -3,16 +3,16 @@ package de.gruppeo.wise2122_java_server.controller;
 import de.gruppeo.wise2122_java_server.model.PlayerEntity;
 import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
 import de.gruppeo.wise2122_java_server.request.AuthRequest;
+import de.gruppeo.wise2122_java_server.request.UpdatePasswordRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -63,8 +63,40 @@ public class AuthController {
                         authRequest.getPassword()
                 )
         );
-
         return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
     }
 
+    @PostMapping("/updatePassword")
+    @PreAuthorize("hasRole('READ_PRIVILEGE')")
+    @ResponseBody
+    public ResponseEntity<String> updatePlayerPassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
+        String playername = updatePasswordRequest.getPlayername();
+        String oldPassword = updatePasswordRequest.getOldpassword();
+        String newPassword = updatePasswordRequest.getNewpassword();
+        Optional<PlayerEntity> userOptional = playerRepository.findByUsername(updatePasswordRequest.getPlayername());
+
+        // Prüfen ob Spieler existiert
+        if (userOptional.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Spieler existiert nicht!");
+        }
+
+        // Passwortüberprüfung erfolgt, indem der Nutzer eingeloggt wird
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(playername, oldPassword));
+
+        // Ändere das Passwort nur, wenn der Spieler authentifiziert werden konnte
+        if (authentication.isAuthenticated()) {
+            PlayerEntity updatedPlayer = userOptional.get();
+            updatedPlayer.setPassword(passwordEncoder.encode(newPassword));
+            playerRepository.save(updatedPlayer);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body("Passwort erfolgreich geändert!");
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
 }

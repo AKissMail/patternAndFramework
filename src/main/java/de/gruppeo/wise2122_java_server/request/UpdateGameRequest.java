@@ -8,7 +8,9 @@ public class UpdateGameRequest {
 
     private Long gamesid;
 
-    private String username;
+    private String playerone;
+
+    private String playertwo;
 
     private String status;
 
