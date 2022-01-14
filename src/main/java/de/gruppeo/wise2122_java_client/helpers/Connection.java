@@ -112,9 +112,10 @@ public class Connection {
         return connection;
     }
 
-    public void updateGame(String request) {
+
+    public void updateGame(int gamesID, String username, String status) {
         try {
-            sendData("PUT", request);
+            sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"username\": \"" + username + "\", \"status\": \"" + status + "\" }");
             getServerResponse();
         } catch (Exception e) {
             System.out.println("Spiel konnte nicht aktualisiert werden: " + e);

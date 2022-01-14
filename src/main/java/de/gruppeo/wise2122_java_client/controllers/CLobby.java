@@ -42,7 +42,6 @@ public class CLobby implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Registriert neues Spiel beim Server
         registerNewGame();
 
         TimerTask task = new TimerTask() {
@@ -92,9 +91,6 @@ public class CLobby implements Initializable {
      * Lobby wartenden Spieler registriert
      * wurde. Es wird geprüft, ob ein Heraus-
      * forderer gefunden wurde.
-     *
-     * PlayerONE = Spielerzeuger (CLobby)
-     * PlayerTWO = Beitretender Spieler (CGame)
      */
     private boolean isChallengerAvailable() {
         boolean isChallengerAvailable = false;
@@ -115,10 +111,16 @@ public class CLobby implements Initializable {
     }
 
     /**
-     * Startet das Quiz.
+     * Startet das Quiz und ändert den Status
+     * des von Spieler 1 erstellten Spiels auf
+     * RUNNING, damit es nicht mehr in der
+     * List der offenen Spiele angezeigt wird.
      */
     public void onMouseClicked_startQuiz() {
         lobbyTimer.cancel();
+
+        // Ändere Spielstatus auf 'RUNNING'
+
 
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("quiz"));
@@ -126,10 +128,15 @@ public class CLobby implements Initializable {
     }
 
     /**
-     * Zeigt die Quiz-Kategorien an.
+     * Zeigt die Quiz-Kategorien an und
+     * löscht das von Spieler 1 erstellte
+     * Spiel wieder, damit eine neue Spiel-
+     * Konfiguration vorgenommen werden kann.
      */
     public void onMouseClicked_back() {
         lobbyTimer.cancel();
+
+        // Lösche Spiel
 
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("category"));

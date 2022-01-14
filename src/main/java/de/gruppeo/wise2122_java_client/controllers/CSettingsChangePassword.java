@@ -106,10 +106,10 @@ public class CSettingsChangePassword extends Validation {
 
         try {
             // Etabliert neue Serververbindung
-            Connection connection = new Connection("/auth/changepassword");
+            Connection connection = new Connection("/auth/updatepassword");
 
             // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            connection.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + currentPassword + "\", \"newpassword\": \"" + newPassword + "\" }");
+            connection.sendData("POST", "{ \"playername\": \"" + username + "\", \"oldpassword\": \"" + currentPassword + "\", \"newpassword\": \"" + newPassword + "\" }");
 
             // Speichert Token in Config-Objekt
             MConfig.getInstance().setPrivateToken(connection.getServerResponse());

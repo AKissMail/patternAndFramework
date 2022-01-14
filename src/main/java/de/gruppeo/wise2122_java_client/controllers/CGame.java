@@ -122,7 +122,7 @@ public class CGame implements Initializable {
 
         // Aktualisiert das ausgewählte Spiel
         Connection update = new Connection("/games/update");
-        update.updateGame("{ \"gamesid\": \"" + MConfig.getInstance().getJoinedGameID() + "\", \"username\": \"" + username + "\", \"status\": \"" + "JOINED" + "\" }");
+        update.updateGame(MConfig.getInstance().getJoinedGameID(), username, "JOINED");
     }
 
     /**
