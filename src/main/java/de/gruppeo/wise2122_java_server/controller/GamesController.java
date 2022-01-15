@@ -54,28 +54,61 @@ public class GamesController {
         }
     }
 
-    // ein Game updaten
+    /**
+     * Aktualisiere ein Spiel in der Datenbank
+     * <p>
+     * Mit dieser Methode kann ein Spiel in der Datenbank aktualisiert werden.
+     *
+     * @param updateGameRequest Man kann folgende Param übergeben: gamesid, playerone, playertwo, status
+     * @return GamesEntity
+     */
     @PutMapping("/update")
     public ResponseEntity<GamesEntity> updateGame(@RequestBody UpdateGameRequest updateGameRequest) {
-        Optional<PlayerEntity> playerOne = playerRepository.findByUsername(updateGameRequest.getPlayerone());
-        Optional<PlayerEntity> playerTwo = playerRepository.findByUsername(updateGameRequest.getPlayertwo());
         Optional<GamesEntity> updateGame = gamesRepository.findById(updateGameRequest.getGamesid());
-
-        if (playerOne.isPresent()) {
-            updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
-            updateGame.get().setPlayerone(playerOne.get());
-
-            GamesEntity updatedGame = gamesRepository.save(updateGame.get());
-            return ResponseEntity.ok(updatedGame);
-        } else if (playerTwo.isPresent()) {
-            updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
-            updateGame.get().setPlayertwo(playerTwo.get());
-
-            GamesEntity updatedGame = gamesRepository.save(updateGame.get());
-            return ResponseEntity.ok(updatedGame);
-        } else {
+        // Prüfe, ob übergebene Gamesid überhaupt existiert
+        if (updateGame.isEmpty()) {
             return ResponseEntity.badRequest().build();
+        }
+        // Var vom Typ GamesEntity initiieren
+        GamesEntity updatedGame;
 
+        // Setze Spielerstatus oder, wenn null, werfe den Spieler aus dem Spiel
+        switch (updateGameRequest.getPlayerone() + "-" + updateGameRequest.getPlayertwo()) {
+            case "null-":
+                updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
+                updateGame.get().setPlayerone(null);
+                updatedGame = gamesRepository.save(updateGame.get());
+                return ResponseEntity.ok(updatedGame);
+            case "-null":
+                updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
+                updateGame.get().setPlayertwo(null);
+                updatedGame = gamesRepository.save(updateGame.get());
+                return ResponseEntity.ok(updatedGame);
+            case "null-null":
+                gamesRepository.delete(updateGame.get());
+                if (gamesRepository.existsById(updateGame.get().getId())) {
+                    GamesEntity deletedGAme = new GamesEntity();
+                    return ResponseEntity.ok(deletedGAme);
+                }
+                return ResponseEntity.badRequest().build();
+            default:
+                Optional<PlayerEntity> playerOne = playerRepository.findByUsername(updateGameRequest.getPlayerone());
+                Optional<PlayerEntity> playerTwo = playerRepository.findByUsername(updateGameRequest.getPlayertwo());
+                if (playerOne.isPresent()) {
+                    updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
+                    updateGame.get().setPlayerone(playerOne.get());
+
+                    updatedGame = gamesRepository.save(updateGame.get());
+                    return ResponseEntity.ok(updatedGame);
+                } else if (playerTwo.isPresent()) {
+                    updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
+                    updateGame.get().setPlayertwo(playerTwo.get());
+
+                    updatedGame = gamesRepository.save(updateGame.get());
+                    return ResponseEntity.ok(updatedGame);
+                } else {
+                    return ResponseEntity.badRequest().build();
+                }
         }
     }
     /* @todo hier ist noch ein Bug bei dem ich nicht weiter komme: Ein Vergleich, der checkt ob beide Spieler Antworten gegeben
