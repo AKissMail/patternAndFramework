@@ -113,6 +113,38 @@ public class Connection {
     }
 
     /**
+     * Registriert einen neuen Spieler mit
+     * einem Benuternamen und Passwort.
+     *
+     * @param username
+     * @param password
+     */
+    public void signUpPlayer(String username, String password) {
+        try {
+            sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            System.out.println("Spieler wurde registriert");
+        } catch (Exception e) {
+            System.out.println("Spieler konnte nicht registriert werden: " + e);
+        }
+    }
+
+    /**
+     * Meldet einen registrierten Spieler mit
+     * einem Benutzernamen und Passwort an.
+     *
+     * @param username
+     * @param password
+     */
+    public void logInPlayer(String username, String password) {
+        try {
+            sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            System.out.println("Spieler wurde angemeldet");
+        } catch (Exception e) {
+            System.out.println("Spieler konnte nicht angemeldet werden: " + e);
+        }
+    }
+
+    /**
      * Aktualisiert das Passwort
      * des angemeldeten Benutzers.
      *
