@@ -5,9 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/**
+ * Interface für die Abfrage der Tabelle questions
+ */
 @Repository
 public interface QuestionsRepository extends JpaRepository<QuestionsEntity, Long> {
-    //    List<PlayerEntity> findByCurrentstatusAllIgnoreCase(String CurrentStatus);
+    /**
+     * Hier werden die Fragen nach einer Kategorie gesucht und zurückgegeben.
+     * @param Category die Kategorie
+     * @return all gefunden fragen als array
+     */
     List<QuestionsEntity> findByCategory_CategorynameAllIgnoreCase(String Category);
 }

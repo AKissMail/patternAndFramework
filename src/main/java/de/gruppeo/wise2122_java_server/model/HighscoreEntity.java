@@ -21,6 +21,9 @@ public class HighscoreEntity {
     @Column(name = "quizhighscoreid", nullable = false, updatable = false)
     private Long quizhighscoreid;
 
+    @Column(name = "playername", nullable = false, updatable = false)
+    private String playername;
+
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "player_playerid", unique = true)
     @JsonBackReference

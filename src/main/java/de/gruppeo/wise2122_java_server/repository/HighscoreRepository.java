@@ -7,8 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Interface für die Abfrage der Tabelle highscore
+ */
 @Repository
 public interface HighscoreRepository extends JpaRepository<HighscoreEntity, Long> {
+    /**
+     * Finde den Highscore zu einem Nutzernamen.
+     * @param Username der name
+     * @return der gefundene Score.
+     */
     Optional<HighscoreEntity> findByPlayer_Username(String Username);
-
 }

@@ -219,4 +219,19 @@ public class Connection {
             System.out.println("Antwort konnte nicht gesendet werden: " + e);
         }
     }
+
+    /**
+     * Setzt den Highscore des Spielers zurück
+     * Der Spieler wird von der Api anhand des Tokens ermittelt.
+     */
+    public void resetHighscore() {
+        try {
+            sendData("PUT", "{ \"playerHighscore\": \"0\", \"token\": \"" + privateToken + "\" }");
+            System.out.println("Highscore des Spielers zurückgesetzt.");
+        } catch (Exception e) {
+            System.out.println("Antwort konnte nicht gesendet werden: " + e);
+        }
+    }
+
+
 }

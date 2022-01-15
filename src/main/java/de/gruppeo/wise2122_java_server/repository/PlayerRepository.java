@@ -7,12 +7,23 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Interface für die Abfrage der Tabelle player
+ */
 @Repository
 public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
-
+    /**
+     * Hier wird ein User nach name gesucht
+     * @param Username der name des gesuchten
+     * @return den User
+     */
     Optional<PlayerEntity> findByUsername(String Username);
 
+    /**
+     * Hier werden Spiel nach ihren Staus gesucht
+     * @param currentstatus Status
+     * @return die User
+     */
     List<PlayerEntity> findByCurrentstatus(Currentstatus currentstatus);
 
     PlayerEntity findByPlayerid(Long PlayerId);
