@@ -9,9 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -21,8 +19,10 @@ import java.util.*;
 public class CGame implements Initializable {
     ViewLoader loader;
     PGame mapper;
+    Alert alert;
 
     public static Timer gameTimer;
+    public static Timer waitingTimer;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_game_foundGames;
@@ -123,11 +123,72 @@ public class CGame implements Initializable {
 
         // Speichert Config-Daten in lokalen Variablen
         int joinedGameID = MConfig.getInstance().getJoinedGameID();
-        String username = MConfig.getInstance().getUsername();
+        String playerTwo = MConfig.getInstance().getUsername();
 
         // Aktualisiert das ausgewählte Spiel
         Connection con = new Connection("/games/update");
-        con.updateGame(joinedGameID, "", username, "JOINED");
+        con.updateGame(joinedGameID, "", playerTwo, "JOINED");
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    if (isSelectedGameRunning()) {
+                        gameTimer.cancel();
+                        alert.close();
+
+                        System.out.println("Quiz startet ...");
+
+                        // Wechselt die Maske
+                        Stage stage = (Stage) mainPane.getScene().getWindow();
+                        stage.setScene(loader.getScene("main"));
+                        stage.show();
+                    }
+                });
+            }
+        };
+        gameTimer.scheduleAtFixedRate(task, 0, MConfig.getInstance().getRefreshrate());
+
+        // Zeigt Meldung an
+        ButtonType RELOAD = new ButtonType("Spiel wechseln");
+        alert = new Alert(Alert.AlertType.CONFIRMATION, "Warte auf den Start des Spiels", RELOAD);
+        alert.showAndWait();
+
+        /**
+         * Wenn sich Spieler 2 entscheidet, nicht auf
+         * Spieler 1 zu warten, wird der Status des
+         * ausgewählten Spiels auf OFFEN gestellt und
+         * der eingetragene PlayerTwo entfernt.
+         */
+        if (alert.getResult() == RELOAD) {
+            // @TODO PlayerTwo mit null überschreiben muss Serverseitig implementiert werden
+            con.updateGame(joinedGameID, "", null, "OPEN");
+        }
+    }
+
+    /**
+     * Prüft, ob der Spielstatus des ausgewählten Spiels
+     * auf RUNNING geändert wurde. Wenn Spieler 1 das
+     * Spiel startet, wird der Status von JOINED auf
+     * RUNNING gewechselt.
+     *
+     * @return boolean
+     */
+    private boolean isSelectedGameRunning() {
+        boolean isSelectedGameRunning = false;
+
+        try {
+            PGame mapperGame = new PGame(new Connection("/games/" + MConfig.getInstance().getJoinedGameID()));
+
+            for (MGame game : mapperGame.getGames()) {
+                if (game.getGamestatus().equals("RUNNING")) {
+                    isSelectedGameRunning = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isSelectedGameRunning;
     }
 
     /**

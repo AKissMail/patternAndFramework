@@ -76,7 +76,7 @@ public class CQuiz implements Initializable {
         Button[] buttons = new Button[] {button_quiz_answerA, button_quiz_answerB, button_quiz_answerC, button_quiz_answerD};
 
         // Speichert Config-Daten in lokale Variablen
-
+        int gameID = MConfig.getInstance().getRegisteredGameID();
 
         // Färbt Antworten
         for (Button button : buttons) {
