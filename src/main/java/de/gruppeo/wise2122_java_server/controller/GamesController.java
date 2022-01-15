@@ -86,7 +86,7 @@ public class GamesController {
                 return ResponseEntity.ok(updatedGame);
             case "null-null":
                 gamesRepository.delete(updateGame.get());
-                if (gamesRepository.existsById(updateGame.get().getId())) {
+                if (!gamesRepository.existsById(updateGame.get().getId())) {
                     GamesEntity deletedGAme = new GamesEntity();
                     return ResponseEntity.ok(deletedGAme);
                 }
