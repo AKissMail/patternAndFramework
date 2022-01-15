@@ -17,25 +17,16 @@ INSERT INTO mibquizzz.category (quizcategoryid, categoryname)
 VALUES (5, 'Erdkunde');
 INSERT INTO mibquizzz.category (quizcategoryid, categoryname)
 VALUES (6, 'Kommunikationsnetze');
+INSERT INTO mibquizzz.category (quizcategoryid, categoryname)
+VALUES (7, 'Einführung in die Informatik');
 
-#3. Beispielfragen anlegen
-INSERT INTO mibquizzz.questions (quizquestionid, question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,
-                                 difficulty, category_quizcategoryid)
-VALUES (1, 'Wo werden Laptops am häufigsten gestohlen?', 'An Bushaltestellen und Flughäfen', 'in Hotels',
-        'in Konferenzräumen', 'in der Mensa', 'Fachkraft', 1);
-INSERT INTO mibquizzz.questions (quizquestionid, question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,
-                                 difficulty, category_quizcategoryid)
-VALUES (2, 'Woran erkennt man eine sichere Webseite?', 'Am kleinen Schloss neben der URL',
-        'Am optischen Gesamteindruck des Seite', 'Am Impressum: Der Firmensitz sollte in Deutschland sein',
-        'Wie aktuell die Seite ist', 'Fachkraft', 4);
-
-#4. HighscoreEntity Beispieldaten
+#3. HighscoreEntity Beispieldaten
 INSERT INTO mibquizzz.highscore (quizHighscoreID, highscorepoints, lastUpdate)
 VALUES (1, 500, '2021-12-08 12:16:45');
 INSERT INTO mibquizzz.highscore (quizHighscoreID, highscorepoints, lastUpdate)
 VALUES (2, 350, '2021-12-10 22:25:08');
 
-#5. Rundenanzahl anlegen
+#4. Rundenanzahl anlegen
 INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
 VALUES (1, 5);
 INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
@@ -43,8 +34,16 @@ VALUES (2, 10);
 INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
 VALUES (3, 20);
 
-#6. Fragen anlegen
-
+#5. Fragen anlegen
+INSERT INTO mibquizzz.questions (question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,
+                                 difficulty, category_quizcategoryid)
+VALUES ('Wo werden Laptops am häufigsten gestohlen?', 'An Bushaltestellen und Flughäfen', 'in Hotels',
+        'in Konferenzräumen', 'in der Mensa', 'Fachkraft', 1);
+INSERT INTO mibquizzz.questions (question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,
+                                 difficulty, category_quizcategoryid)
+VALUES ('Woran erkennt man eine sichere Webseite?', 'Am kleinen Schloss neben der URL',
+        'Am optischen Gesamteindruck des Seite', 'Am Impressum: Der Firmensitz sollte in Deutschland sein',
+        'Wie aktuell die Seite ist', 'Fachkraft', 4);
 INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
                                  category_quizcategoryid)
 VALUES ('Portnummer', 'Fachkraft', 'MAC-Adresse', 'Hardwareadresse', 'IPv6-Adresse',
@@ -266,5 +265,118 @@ VALUES ('Cookies heben das zustandslose Prinzip von HTTP auf', 'Fachkraft',
         'Cookies enthalten Code, der auf der Seite des Nutzers ausgeführt wird',
         'Cookies sind Informationen über besuchte Webseiten, die den Nutzer identifizierbar machen und auf dem PC des Nutzers in einer Datei oder eine Datenbank gespeichert sind.',
         'Welche Eigenschaften haben Cookies?', 6);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('post office protocol', 'Fachkraft', 'popular computer protocol', 'post order protocol',
+        'partner online protocol', 'Was versteht man unter CAPI?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Intel', 'Fachkraft', 'Sony', 'IBM', 'Apple',
+        'Welches Unternehmen präsentierte 1971 den ersten Mikroprozessor?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('T-DSL', 'Fachkraft', 'A-DSL', 'B-DSL', 'Q-DSL',
+        'Unter welchem Markennamen vertreibt die Deutsche Telekom DSL-Produkte?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('World wide web', 'Fachkraft', 'World wide waiting', 'We want woman', 'World wide wish', 'Wofür steht www ?',
+        7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Disclaimer', 'Fachkraft', 'Disorder', 'Dispute-Eintrag', 'Domaingrabbing',
+        'Wie nennt man einen Haftungsausschluss im Internet?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Perl', 'Fachkraft', 'ASP', 'VB', 'JAVA', 'Welche der gennanten Programmier Sprachen ist die älteste?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('ARPAnet', 'Fachkraft', 'Intranet', 'Transnet', 'ARIAnet',
+        'Wie hieß der Vorläufer des Internet, der 1969 in Betrieb ging?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Ja', 'Fachkraft', 'Nein', 'Manchmal', 'Ja, von Apple', 'Treten bei sehr langen USB-Kabeln Störungen auf?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('LISP', 'Fachkraft', 'FORTRAN', 'PASCAL', 'COBOL',
+        'Wie heißt eine applikative Programmiersprache, deren wichtigste Datenstruktur lineare Listen sind?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Hacker', 'Fachkraft', 'Cracker', 'Becker', 'Spanner',
+        'Wie nennt man Computerexperten im Allgemeinen, die sich unerlaubten Zugang zu fremden Rechnern verschaffen?',
+        7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Dekompilierung', 'Fachkraft', 'Disclaimer', 'Dispute', 'Defragmentierung',
+        'Wie nennt man eine Rückübersetzung aus dem Objekt- in den Quellcode?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('fake', 'Fachkraft', 'lurker', 'trash', 'warez', 'Was bedeutet "Lug, Betrug, Täuschung"?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Atrac3', 'Fachkraft', 'OLED', 'MPEG-DivX', 'Attack4',
+        'Von Sony entwickelte Technik zum platzsparenden Speichern von Musik', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Sasser', 'Fachkraft', 'Wasser', 'Nasser', 'Lasser',
+        'Welchen Computerwurm entwickelte im Jahr 2004 ein deutscher Jugendlicher?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Apple', 'Fachkraft', 'Pear', 'Microsoft', 'Google', 'Steve Jobs begründete die Computer-Firma ...', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('WLAN', 'Fachkraft', 'OLAF', 'LAN', 'ADSL', 'Was steht für ein Funknetzwerk zwischen Computern?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Windows XP', 'Fachkraft', 'Windows 2000', 'Windows ME', 'Windows NT',
+        'Welches Betriebssystem stellte Microsoft im Jahre 2001 vor?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Urheberrecht', 'Fachkraft', 'Kopierrecht', 'Haftungsausschluss', 'Vervielfältigungsrecht',
+        'Was bedeutet Copyright?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Maus', 'Fachkraft', 'Ratte', 'Wanze', 'Floh', 'Welches Tier gab einem beliebten Eingabegerät seinen Namen?',
+        7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('NHTML', 'Fachkraft', 'DHTML', 'XHTML', 'SHTML', 'Welche dieser HTML-Arten gibt es nicht?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('practical extraction and reporting language', 'Fachkraft', 'professional expression reporter language',
+        'premium expressive reporter language', 'proudly expressive reported language', 'Was bedeutet PERL?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('ISDN-Programmierschnittstelle', 'Fachkraft', 'Gehäuseverschönerung', 'ein Mediaplayer',
+        'Programm zur Darstellung von PDF-Dateien', 'Was versteht man unter CAPI?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Podcast', 'Fachkraft', 'Podfast', 'Broadcast', 'Downstream',
+        'Wie nennt man rundfunkähnliche Hörbeiträge aus dem Internet?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Domaingrabbing', 'Fachkraft', 'Boykott', 'Domainstopping', 'Dispute-Eintrag',
+        'Wie nennt man vorsätzliches Registrieren und Blockieren von Domains, an denen Rechte Dritter bestehen?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('hu', 'Fachkraft', 'hun', 'ur', 'un', 'Welche Internetkennung hat Ungarn?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('1968', 'Fachkraft', '1972', '1970', '1966',
+        'Wann wurde der Öffentlichkeit die erste Computermaus vorgestellt?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('EmbeddedSort', 'Fachkraft', 'InsertionSort', 'QuickSort', 'BubbleSort',
+        'Was ist KEIN Algorithmus zum Sortieren von Werten?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('warez', 'Fachkraft', 'warex', 'nerds', 'geeks', 'Wie nennt man im Netjargon Raubkopien von Software?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Windows', 'Fachkraft', 'Photoshop', 'Excel', 'Netscape Navigator',
+        'Welches dieser Begriffe ist ein Betriebssystem?', 7);
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
+                                 category_quizcategoryid)
+VALUES ('Netscape Navigator', 'Fachkraft', 'Windows', 'OS/2', 'Unix',
+        'Welches dieser Begriffe ist ein Internet-Browser?', 7);
 
 
