@@ -21,10 +21,10 @@ INSERT INTO mibquizzz.category (quizcategoryid, categoryname)
 VALUES (7, 'Einführung in die Informatik');
 
 #3. HighscoreEntity Beispieldaten
-INSERT INTO mibquizzz.highscore (quizHighscoreID, highscorepoints, lastUpdate)
-VALUES (1, 500, '2021-12-08 12:16:45');
-INSERT INTO mibquizzz.highscore (quizHighscoreID, highscorepoints, lastUpdate)
-VALUES (2, 350, '2021-12-10 22:25:08');
+INSERT INTO mibquizzz.highscore (highscorepoints, lastupdate, playername, player_playerid)
+VALUES (500, '2021-12-08 12:16:45', 'bree luce', 88);
+INSERT INTO mibquizzz.highscore (highscorepoints, lastupdate, playername, player_playerid)
+VALUES (350, '2021-12-10 22:25:08','todeskralle',99);
 
 #4. Rundenanzahl anlegen
 INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
@@ -35,22 +35,18 @@ INSERT INTO mibquizzz.rounds (quizroundsid, rounds)
 VALUES (3, 20);
 
 #5. Fragen anlegen
-INSERT INTO mibquizzz.questions (question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,
-                                 difficulty, category_quizcategoryid)
+INSERT INTO mibquizzz.questions (question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,difficulty, category_quizcategoryid)
 VALUES ('Wo werden Laptops am häufigsten gestohlen?', 'An Bushaltestellen und Flughäfen', 'in Hotels',
         'in Konferenzräumen', 'in der Mensa', 'Fachkraft', 1);
-INSERT INTO mibquizzz.questions (question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,
-                                 difficulty, category_quizcategoryid)
+INSERT INTO mibquizzz.questions (question, correctAnswer, falseAnswer1, falseAnswer2, falseAnswer3,difficulty, category_quizcategoryid)
 VALUES ('Woran erkennt man eine sichere Webseite?', 'Am kleinen Schloss neben der URL',
         'Am optischen Gesamteindruck des Seite', 'Am Impressum: Der Firmensitz sollte in Deutschland sein',
         'Wie aktuell die Seite ist', 'Fachkraft', 4);
-INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
-                                 category_quizcategoryid)
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,category_quizcategoryid)
 VALUES ('Portnummer', 'Fachkraft', 'MAC-Adresse', 'Hardwareadresse', 'IPv6-Adresse',
         'Wie heißt die Adressierung auf der Transportschicht?', 6);
 
-INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
-                                 category_quizcategoryid)
+INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,category_quizcategoryid)
 VALUES ('Eine Vereinbarung, welche Portnummern auf der Serverseite standardmäßig für welche Anwendungen verwendet werden',
         'Fachkraft',
         'Einen Teil einer Implementierung, mit der Portnummern auf der Serverseite standardmäßig zu bestimmten Anwendungen zugewiesen sind',
