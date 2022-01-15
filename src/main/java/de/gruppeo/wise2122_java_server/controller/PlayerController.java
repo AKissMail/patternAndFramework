@@ -71,7 +71,7 @@ public class PlayerController {
 
     }
 
-    @PutMapping("/setPlayerHighscore")
+    @PutMapping("/setplayerhighscore")
     public ResponseEntity<HighscoreEntity> setPlayerHighscore(@RequestBody HighscoreRequest highscoreRequest) {
         if (highscoreRequest.getPlayerHighscore() == null) {
             return ResponseEntity.badRequest().build();
@@ -89,13 +89,15 @@ public class PlayerController {
                     newPlayerHighscore.setPlayer(player.get());
                     newPlayerHighscore.setHighscorepoints(highscoreRequest.getPlayerHighscore());
                     highscoreRepository.save(newPlayerHighscore);
-                    newPlayerHighscore = highscoreRepository.findByPlayer_Username(username).get();
+
+                    Optional<HighscoreEntity> newHighscoreEntry = highscoreRepository.findByPlayer_Username(username);
+                    if (newHighscoreEntry.isEmpty()) {
+                        return ResponseEntity.badRequest().build();
+                    }
 
                     PlayerEntity playerToUpdate = player.get();
-                    playerToUpdate.setHighscore(newPlayerHighscore);
-
-                    playerToUpdate = playerRepository.save(playerToUpdate);
-
+                    playerToUpdate.setHighscore(newHighscoreEntry.get());
+                    playerRepository.save(playerToUpdate);
 
                     return ResponseEntity.ok(newPlayerHighscore);
                 }

@@ -1,6 +1,8 @@
 package de.gruppeo.wise2122_java_server.controller;
 
+import de.gruppeo.wise2122_java_server.model.HighscoreEntity;
 import de.gruppeo.wise2122_java_server.model.PlayerEntity;
+import de.gruppeo.wise2122_java_server.repository.HighscoreRepository;
 import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
 import de.gruppeo.wise2122_java_server.request.AuthRequest;
 import de.gruppeo.wise2122_java_server.request.UpdatePasswordRequest;
@@ -23,20 +25,25 @@ import static de.gruppeo.wise2122_java_server.model.Currentstatus.ONLINE;
 public class AuthController {
 
     private final PlayerRepository playerRepository;
-
     private final PasswordEncoder passwordEncoder;
-
     private final AuthenticationManager authenticationManager;
-
     private final JwtTokenProvider jwtTokenProvider;
+    private final HighscoreRepository highscoreRepository;
 
-    public AuthController(PlayerRepository playerRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    public AuthController(PlayerRepository playerRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, HighscoreRepository highscoreRepository) {
         this.playerRepository = playerRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.highscoreRepository = highscoreRepository;
     }
 
+    /**
+     * Methode zum Erstellen eines neuen Spielers
+     *
+     * @param authRequest Enthält Nutzernamen und Passwort des zu registrierenden Spielers
+     * @return Ein Spielerobjekt als JSON
+     */
     @PostMapping(value = "/register")
     public ResponseEntity<PlayerEntity> register(@RequestBody AuthRequest authRequest) {
         Optional<PlayerEntity> userOptional = playerRepository.findByUsername(authRequest.getUsername());
@@ -45,13 +52,30 @@ public class AuthController {
             return ResponseEntity.badRequest().build();
         }
 
+        // Beim Erstellen eines Spielers soll zeitgleich ein Eintrag in der Highscore-Tabelle angelegt werden
+        HighscoreEntity highscoreEntry = new HighscoreEntity();
         PlayerEntity player = new PlayerEntity();
+
         player.setUsername(authRequest.getUsername());
         player.setPassword(passwordEncoder.encode(authRequest.getPassword()));
         player.setCurrentscore(0);
         player.setCurrentstatus(ONLINE);
 
+        // Eintrag in Spielertabelle wird angelegt (insert)
         PlayerEntity created = playerRepository.save(player);
+
+        userOptional = playerRepository.findByUsername(authRequest.getUsername());
+
+        // Prüfung ob Spieler wirklich angelegt worden ist
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        highscoreEntry.setPlayer(userOptional.get());
+        highscoreEntry.setHighscorepoints(0);
+
+        // Der leere Highscoreeintrag des Spielers wird gespeichert bzw. angelegt (insert)
+        highscoreRepository.save(highscoreEntry);
+
         return ResponseEntity.ok(created);
     }
 
