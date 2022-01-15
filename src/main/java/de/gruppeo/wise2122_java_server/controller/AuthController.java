@@ -70,6 +70,7 @@ public class AuthController {
         if (userOptional.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
+        highscoreEntry.setPlayername(authRequest.getUsername());
         highscoreEntry.setPlayer(userOptional.get());
         highscoreEntry.setHighscorepoints(0);
 
