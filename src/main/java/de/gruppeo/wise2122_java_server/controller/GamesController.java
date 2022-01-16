@@ -15,12 +15,14 @@ import java.util.Optional;
 import static de.gruppeo.wise2122_java_server.model.Gamestatus.CLOSE;
 import static de.gruppeo.wise2122_java_server.model.Gamestatus.RUNNING;
 
+
 /**
  * Das ist der GamesController hier werden alle api schnittstellen rund um ein Spiel behandelt.
  * Hier gibt es:
  * /games/create → ein Spiel erstellen
  * /games/update → ein Spiel updaten (beitreten oder löschen)
  * /games/dropAnswer → eine antwort abgeben
+ * /games/history → die Spielhistorie eines Spielers abzurufen
  * /games/{id} → ein bestimmte spiel finden
  * /games/all → all spiele finden
  */
@@ -144,19 +146,8 @@ public class GamesController {
                     }
                     updateGame.get().setPlayeroneround(updateGame.get().getPlayeroneround() + 1);
                     if (checkGameCount(updateGame)) {
-
-                        // Hier wird ein abgeschlossenes Spiel geschlossen
                         updateGame.get().setGamestatus(CLOSE);
-
-                        // ...und anschließend das Spiel in die History Tabelle geschrieben
-                        // History für Spieler 1
-                        GamesHistoryEntity newGameHistoryEntryOne = new GamesHistoryEntity();
-                        newGameHistoryEntryOne.setPlayername(updateGame.get().getPlayerone());
-                        // History für Spieler 2
-                        GamesHistoryEntity newGameHistoryEntryTwo = new GamesHistoryEntity();
-
-                        //////////// <-- Hier geht es weiter
-
+                        setAndAaveHistory(updateGame);
                         int currentScore = updateGame.get().getPlayeronescore();
                         int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
                         if (currentScore > highscore) {
@@ -173,6 +164,7 @@ public class GamesController {
                     updateGame.get().setPlayertworound(updateGame.get().getPlayertworound() + 1);
                     if (checkGameCount(updateGame)) {
                         updateGame.get().setGamestatus(CLOSE);
+                        setAndAaveHistory(updateGame);
                         int currentScore = updateGame.get().getPlayertwoscore();
                         int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
                         if (currentScore > highscore) {
@@ -230,13 +222,42 @@ public class GamesController {
         }
     }
 
+    /**
+     * Diese Methode schreibt Spiele, welche Beendet wurde in die games_history tabelle.
+     * @param updateGame das Spiel was beendet wurde
+     */
+    private void setAndAaveHistory(Optional<GamesEntity> updateGame){
+        if(updateGame.isPresent()){
+        // History für Spieler 1
+        GamesHistoryEntity newGameHistoryEntryOne = new GamesHistoryEntity();
+        newGameHistoryEntryOne.setRounds(updateGame.get().getRounds());
+        newGameHistoryEntryOne.setPlayername(updateGame.get().getPlayerone());
+        newGameHistoryEntryOne.setCategory(updateGame.get().getCategory());
+        newGameHistoryEntryOne.setPlayerscore(updateGame.get().getPlayeronescore());
+        newGameHistoryEntryOne.setOpponentscore(updateGame.get().getPlayertwoscore());
+        gamesHistoryRepository.save(newGameHistoryEntryOne);
+        // History für Spieler 2
+        GamesHistoryEntity newGameHistoryEntryTwo = new GamesHistoryEntity();
+        newGameHistoryEntryTwo.setRounds(updateGame.get().getRounds());
+        newGameHistoryEntryTwo.setPlayername(updateGame.get().getPlayertwo());
+        newGameHistoryEntryTwo.setCategory(updateGame.get().getCategory());
+        newGameHistoryEntryTwo.setPlayerscore(updateGame.get().getPlayertwoscore());
+        newGameHistoryEntryTwo.setOpponentscore(updateGame.get().getPlayeronescore());
+        gamesHistoryRepository.save(newGameHistoryEntryTwo);
+        }
+    }
+
+    /**
+     * Das ist der Get um die Spielhistorie eines Spielers abzurufen
+     * @param playername der Spielername
+     * @return die liste der beendeten Spiele
+     */
     @GetMapping("/history")
     public ResponseEntity<GamesHistoryEntity> showGamesHistory(@RequestParam String playername) {
         Optional<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayername_Username(playername);
 
         return gamesHistory.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
     }
-
 
     /**
      * Diese Methode überprüft, ob das Spiel zu Ende ist.
