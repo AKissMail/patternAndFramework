@@ -29,6 +29,7 @@ import static de.gruppeo.wise2122_java_server.model.Gamestatus.RUNNING;
 public class GamesController {
 
     private final GamesRepository gamesRepository;
+    private final GamesHistoryRepository gamesHistoryRepository;
     private final PlayerRepository playerRepository;
     private final CategoryRepository categoryRepository;
     private final RoundsRepository roundsRepository;
@@ -38,14 +39,16 @@ public class GamesController {
     /**
      * Constructor
      */
-    public GamesController(GamesRepository gamesRepository, PlayerRepository playerRepository, CategoryRepository categoryRepository, RoundsRepository roundsRepository, QuestionsRepository questionsRepository, HighscoreRepository highscoreRepository) {
+    public GamesController(GamesRepository gamesRepository, GamesHistoryRepository gamesHistoryRepository, PlayerRepository playerRepository, CategoryRepository categoryRepository, RoundsRepository roundsRepository, QuestionsRepository questionsRepository, HighscoreRepository highscoreRepository) {
         this.gamesRepository = gamesRepository;
+        this.gamesHistoryRepository = gamesHistoryRepository;
         this.playerRepository = playerRepository;
         this.categoryRepository = categoryRepository;
         this.roundsRepository = roundsRepository;
         this.questionsRepository = questionsRepository;
         this.highscoreRepository = highscoreRepository;
     }
+
     /**
      * Diese Methode nimmt eine Anfrage für ein neues Spiel an und erstellt und gibt diese zurück.
      * @param newGameRequest Das ist das Request mapping
@@ -141,7 +144,19 @@ public class GamesController {
                     }
                     updateGame.get().setPlayeroneround(updateGame.get().getPlayeroneround() + 1);
                     if (checkGameCount(updateGame)) {
+
+                        // Hier wird ein abgeschlossenes Spiel geschlossen
                         updateGame.get().setGamestatus(CLOSE);
+
+                        // ...und anschließend das Spiel in die History Tabelle geschrieben
+                        // History für Spieler 1
+                        GamesHistoryEntity newGameHistoryEntryOne = new GamesHistoryEntity();
+                        newGameHistoryEntryOne.setPlayername(updateGame.get().getPlayerone());
+                        // History für Spieler 2
+                        GamesHistoryEntity newGameHistoryEntryTwo = new GamesHistoryEntity();
+
+                        //////////// <-- Hier geht es weiter
+
                         int currentScore = updateGame.get().getPlayeronescore();
                         int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
                         if (currentScore > highscore) {
@@ -188,6 +203,7 @@ public class GamesController {
      * @param id die ID des zu suchen
      * @return das gesuchte Spiel
      */
+
     @GetMapping("/{id}")
     public Optional<GamesEntity> findById(@PathVariable Long id) {
         return gamesRepository.findById(id);
@@ -196,6 +212,7 @@ public class GamesController {
      * Mit dieser Methode werden alle Spiele gefunden und zurück übermittelt
      * @return die Spiele
      */
+
     @GetMapping("/all")
     public List<GamesEntity> index() {
         return gamesRepository.findAll();
@@ -212,8 +229,18 @@ public class GamesController {
             return time / 100;
         }
     }
+
+    @GetMapping("/history")
+    public ResponseEntity<GamesHistoryEntity> showGamesHistory(@RequestParam String playername) {
+        Optional<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayername_Username(playername);
+
+        return gamesHistory.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+
     /**
      * Diese Methode überprüft, ob das Spiel zu Ende ist.
+     *
      * @param gamesRepository das zu prüfende Spiel
      * @return true - Spiel ist zu Ende | false - Spiel noch nicht zu Ende
      */
@@ -226,6 +253,7 @@ public class GamesController {
         }
         return false;
     }
+
     /**
      * Wählt aus ein Set von Fragen, eine bestimme anzahl an Fragen zufällig aus.
      * @param questions         das Set an Fragen
