@@ -130,12 +130,12 @@ public class GamesController {
      * @param dropAnswerRequest das ist das mapping
      * @return den Aktuellen stand, solange diese auf RUNNING steht.
      */
-    @PutMapping("/dropAnswer")
+    @PutMapping("/dropanswer")
     public ResponseEntity<GamesEntity> dropAnswer(@RequestBody DropAnswerRequest dropAnswerRequest) {
         Optional<GamesEntity> updateGame = gamesRepository.findById(dropAnswerRequest.getGamesid());
         if (updateGame.isPresent()) {
             if (updateGame.get().getGamestatus() == RUNNING) {
-                if (dropAnswerRequest.isPlayerone()) {
+                if (dropAnswerRequest.isIsplayerone()) {
                     if (dropAnswerRequest.isAnswers()) {
                         updateGame.get().setPlayeronescore(updateGame.get().getPlayeronescore() + scoreCalculator(dropAnswerRequest.getTime()));
                     }
