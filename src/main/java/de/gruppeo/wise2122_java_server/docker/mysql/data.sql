@@ -283,7 +283,7 @@ VALUES ('Disclaimer', 'Fachkraft', 'Disorder', 'Dispute-Eintrag', 'Domaingrabbin
         'Wie nennt man einen Haftungsausschluss im Internet?', 7);
 INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
                                  category_quizcategoryid)
-VALUES ('Perl', 'Fachkraft', 'ASP', 'VB', 'JAVA', 'Welche der gennanten Programmier Sprachen ist die älteste?', 7);
+VALUES ('Perl', 'Fachkraft', 'ASP', 'VB', 'JAVA', 'Welche der genannten Programmiersprachen ist die älteste?', 7);
 INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falseanswer2, falseanswer3, question,
                                  category_quizcategoryid)
 VALUES ('ARPAnet', 'Fachkraft', 'Intranet', 'Transnet', 'ARIAnet',

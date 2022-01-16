@@ -113,10 +113,6 @@ public class AuthController {
 
         // Ändere das Passwort nur, wenn der Spieler authentifiziert werden konnte
         if (authentication.isAuthenticated()) {
-            // Nutzer mit dem neuen Passwort authentifizieren
-            authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(playername, newPassword));
-
             PlayerEntity updatedPlayer = userOptional.get();
             updatedPlayer.setPassword(passwordEncoder.encode(newPassword));
             playerRepository.save(updatedPlayer);
