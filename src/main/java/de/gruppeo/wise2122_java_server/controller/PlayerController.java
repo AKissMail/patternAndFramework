@@ -10,13 +10,16 @@ import de.gruppeo.wise2122_java_server.request.HighscoreRequest;
 import de.gruppeo.wise2122_java_server.request.StatusRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/player")
@@ -105,6 +108,46 @@ public class PlayerController {
                 return ResponseEntity.badRequest().build();
             }
         }
+    }
+
+    @PostMapping(value = "/uploadthumbnail",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> uploadThumbnail(
+            @RequestParam("playername") String playername,
+            @RequestParam("file") MultipartFile file) {
+        Optional<PlayerEntity> playerOptional = playerRepository.findByUsername(playername);
+
+        if (playerOptional.isPresent()) {
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            if (fileName.contains("..")) {
+                System.out.println("Keine valide Datei!");
+            }
+            try {
+                playerOptional.get().setThumbnail(Base64.getEncoder().encodeToString(file.getBytes()));
+                playerRepository.save(playerOptional.get());
+                return ResponseEntity
+                        .status(HttpStatus.CREATED)
+                        .body("Thumbnail wurde in der Datenbank gespeichert!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Thumbnail konnte nicht gespeichert werden!");
+        }
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("Spieler konnte nicht gefunden werden!");
+    }
+
+    @GetMapping(value = "/getthumbnailbyname")
+    public ResponseEntity<String> getthumbnailbyid(@RequestParam("playername") String name) {
+        Optional<PlayerEntity> playerOptional = playerRepository.findByUsername((name));
+        return playerOptional.map(playerEntity ->
+                ResponseEntity.ok(playerEntity.getThumbnail())).orElseGet(() ->
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body("Spieler konnte nicht gefunden werden!"));
+
     }
 
     @InitBinder
