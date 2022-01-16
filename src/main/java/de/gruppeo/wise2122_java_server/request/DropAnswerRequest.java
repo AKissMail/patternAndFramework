@@ -12,7 +12,7 @@ import lombok.Data;
 public class DropAnswerRequest {
 
     private Long gamesid;
-    private boolean playerone;
+    private boolean isplayerone;
     private boolean answers;
     private int time;
 
