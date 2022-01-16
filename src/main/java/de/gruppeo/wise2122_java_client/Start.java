@@ -3,6 +3,7 @@ package de.gruppeo.wise2122_java_client;
 import de.gruppeo.wise2122_java_client.controllers.CLobby;
 import de.gruppeo.wise2122_java_client.controllers.CGame;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
+import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,6 +26,10 @@ public class Start extends Application {
                     // Beendet alle Timer
                     CGame.gameTimer.cancel();
                     CLobby.lobbyTimer.cancel();
+
+                    // Löscht das erstellte Spiel
+                    Connection con = new Connection("/games/update");
+                    con.deleteGame(MConfig.getInstance().getRegisteredGameID());
                 } catch (Exception e) {
                     System.out.println("Keine laufende Timer");
                 }

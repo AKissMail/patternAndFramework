@@ -115,11 +115,9 @@ public class CLogIn implements Initializable {
         String password = textField_logIn_password.getText();
 
         try {
-            // Etabliert neue Serververbindung
+            // Meldet einen Spieler an
             Connection logIn = new Connection("/auth/login");
-
-            // Sendet JSON-Anfrage mit Zugangsdaten an Server
-            logIn.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            logIn.logInPlayer(username, password);
 
             // Speichert Token und Usernamen in Config-Objekt
             MConfig.getInstance().setPrivateToken(logIn.getServerResponse());
@@ -129,12 +127,16 @@ public class CLogIn implements Initializable {
             Stage stage = (Stage) mainPane.getScene().getWindow();
             stage.setScene(loader.getScene("main"));
             stage.show();
-
         } catch (Exception e) {
+            // Zeigt Warnmeldung an
             Alert alert = new Alert(Alert.AlertType.WARNING, "Die eingegebenen Anmeldedaten sind nicht korrekt. Bitte versuche es erneut.", ButtonType.OK);
             alert.showAndWait();
+
+            // Setzt Textfelder zurück
             textField_logIn_username.clear();
             textField_logIn_password.clear();
+
+            // Deaktiviert LogIn-Button
             button_logIn_logIn.setDisable(true);
         }
     }

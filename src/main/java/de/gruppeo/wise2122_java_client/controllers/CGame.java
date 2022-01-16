@@ -126,8 +126,8 @@ public class CGame implements Initializable {
         String playerTwo = MConfig.getInstance().getUsername();
 
         // Aktualisiert das ausgewählte Spiel
-        Connection con = new Connection("/games/update");
-        con.updateGame(joinedGameID, "", playerTwo, "JOINED");
+        Connection addPlayerTwo = new Connection("/games/update");
+        addPlayerTwo.updateGame(joinedGameID, "", playerTwo, "JOINED");
 
         TimerTask task = new TimerTask() {
             @Override
@@ -137,11 +137,9 @@ public class CGame implements Initializable {
                         gameTimer.cancel();
                         alert.close();
 
-                        System.out.println("Quiz startet ...");
-
                         // Wechselt die Maske
                         Stage stage = (Stage) mainPane.getScene().getWindow();
-                        stage.setScene(loader.getScene("main"));
+                        stage.setScene(loader.getScene("quiz"));
                         stage.show();
                     }
                 });
@@ -161,8 +159,8 @@ public class CGame implements Initializable {
          * der eingetragene PlayerTwo entfernt.
          */
         if (alert.getResult() == RELOAD) {
-            // @TODO PlayerTwo mit null überschreiben muss Serverseitig implementiert werden
-            con.updateGame(joinedGameID, "", null, "OPEN");
+            Connection removePlayerTwo = new Connection("/games/update");
+            removePlayerTwo.updateGame(joinedGameID, "", "null", "OPEN");
         }
     }
 
@@ -210,11 +208,17 @@ public class CGame implements Initializable {
     }
 
     /**
-     * Zeigt das Hauptmenü an.
+     * Zeigt das Hauptmenü an, entfernt Spieler 2
+     * aus dem beigetretenen Spiel und öffnet das
+     * Spiel wieder für andere Herausforderer.
      */
-    public void onMouseClicked_back() {
+    public void onMouseClicked_back() throws Exception {
         // Beendet den Timer
         gameTimer.cancel();
+
+        // Entfernt Spieler 2 aus dem beigetretenen Spiel
+        Connection removePlayerTwo = new Connection("/games/update");
+        removePlayerTwo.updateGame(MConfig.getInstance().getJoinedGameID(), "", "null", "OPEN");
 
         // Wechselt die Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();

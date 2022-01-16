@@ -81,7 +81,7 @@ public class CMain implements Initializable {
      * Zeigt die LogIn-Maske an und
      * überschreibt das private Token.
      */
-    public void onMouseClicked_logOut() throws Exception {
+    public void onMouseClicked_logOut() {
         // Überschreibt Token mit leerem String
         MConfig.getInstance().setPrivateToken("");
 

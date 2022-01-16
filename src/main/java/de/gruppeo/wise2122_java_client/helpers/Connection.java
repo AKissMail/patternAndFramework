@@ -34,7 +34,7 @@ public class Connection {
      *
      * @throws Exception
      */
-    public void getData() throws Exception {
+    private void getData() throws Exception {
         // Konfiguriert HTTP-Verbindung
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer " + privateToken);
@@ -60,7 +60,7 @@ public class Connection {
      * @param serverInput
      * @throws Exception
      */
-    public void sendData(String requestMethod, String serverInput) throws Exception {
+    private void sendData(String requestMethod, String serverInput) throws Exception {
         // Konfiguriert HTTP-Verbindung
         connection.setRequestMethod(requestMethod);
 
@@ -203,6 +203,20 @@ public class Connection {
     }
 
     /**
+     * Löscht das übergebene Spiel.
+     *
+     * @param gamesID
+     */
+    public void deleteGame(int gamesID) {
+        try {
+            sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"playerone\": \"" + "null" + "\", \"playertwo\": \"" + "null" + "\", \"status\": \"" + "OPEN" + "\" }");
+            System.out.println("Spiel " + gamesID + " wurde gelöscht");
+        } catch (Exception e) {
+            System.out.println("Spiel konnte nicht gelöscht werden: " + e);
+        }
+    }
+
+    /**
      * Sendet Daten einer
      * Beantwortung an den Server.
      *
@@ -221,7 +235,7 @@ public class Connection {
     }
 
     /**
-     * Setzt den Highscore des Spielers zurück
+     * Setzt den Highscore des Spielers zurück.
      * Der Spieler wird von der Api anhand des Tokens ermittelt.
      */
     public void resetHighscore() {
@@ -229,9 +243,7 @@ public class Connection {
             sendData("PUT", "{ \"playerHighscore\": \"0\", \"token\": \"" + privateToken + "\" }");
             System.out.println("Highscore des Spielers zurückgesetzt.");
         } catch (Exception e) {
-            System.out.println("Antwort konnte nicht gesendet werden: " + e);
+            System.out.println("Highscore konnte nicht zurückgesetzt werden: " + e);
         }
     }
-
-
 }

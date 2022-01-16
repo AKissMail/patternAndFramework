@@ -48,7 +48,7 @@ public class CQuiz implements Initializable {
     public CQuiz() throws Exception {
         loader = new ViewLoader();
         timer = new MTimer();
-        mapper = new PQuestion(new Connection("/questions?category=" + MConfig.getInstance().getCategory().toString()));
+        //mapper = new PQuestion(new Connection("/questions?category=" + MConfig.getInstance().getCategory().toString()));
         points = 0;
 
         questions = new ArrayList<>();
@@ -61,10 +61,10 @@ public class CQuiz implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         questionID = 0;
 
-        startCountdown();
+        /*startCountdown();
         setNumberQuestions();
         setQuestion();
-        setAnswers();
+        setAnswers();*/
     }
 
     /**
