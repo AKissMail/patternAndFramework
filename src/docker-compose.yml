@@ -1,19 +1,13 @@
 version: '3.9'
 services:
-  quizzzapi:
-    image: openjdk:17-alpine
-    depends_on:
-      - mariadb
-    restart: 'always'
+  nginx-webclient:
+    image: nginx:latest
+    container_name: webserver
+    restart: unless-stopped
     ports:
-      - "80:8080"
+      - "80:80"
     volumes:
-      - .:/app
-    working_dir: /app
-    #command: ./mvnw spring-boot:run
-    environment:
-      DATASOURCE: jdbc:mariadb://db:5555/mibquizzz
-
+      - ./main/web:/usr/share/nginx/html/
   mariadb:
     image: mariadb:latest
     container_name: mariadb
@@ -26,7 +20,7 @@ services:
     ports:
       - "5555:3306"
     volumes:
-      - ./docker/mysql:/docker-entrypoint-initdb.d
+      - ./main/java/de/gruppeo/wise2122_java_server/docker/mysql:/docker-entrypoint-initdb.d
 
   adminer:
       image: adminer:latest
