@@ -26,7 +26,7 @@ public class QuestionsController {
     }
 
     @GetMapping
-    public List<QuestionsEntity> findByCategory_Categoryname(
+    public List<QuestionsEntity> findByCategory_CategorynameAllIgnoreCase(
             @RequestParam("category") String category) {
 
         if (category == null) {
