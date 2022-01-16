@@ -44,7 +44,8 @@ public class PlayerEntity {
     public Currentstatus currentstatus;
 
     @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JsonManagedReference
+    @JsonManagedReference
+    @ToString.Exclude
     private HighscoreEntity highscore;
 
     @Override

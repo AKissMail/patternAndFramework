@@ -142,11 +142,19 @@ public class PlayerController {
     }
 
     @GetMapping(value = "/getthumbnailbyname")
-    public ResponseEntity<String> getthumbnailbyid(@RequestParam("playername") String name) {
-        Optional<PlayerEntity> playerOptional = playerRepository.findByUsername((name));
-        return playerOptional.map(playerEntity ->
-                ResponseEntity.ok(playerEntity.getThumbnail())).orElseGet(() ->
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body("Spieler konnte nicht gefunden werden!"));
+    public ResponseEntity<String> getThumbnailByName(@RequestParam("playername") String playername) {
+        Optional<PlayerEntity> playerOptional = playerRepository.findByUsername(playername);
+
+        if (playerOptional.isPresent()) {
+            PlayerEntity player = playerOptional.get();
+            if (player.getThumbnail().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Spieler hat kein Thumbnail");
+            } else {
+                return ResponseEntity.ok(player.getThumbnail());
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Spieler konnte nicht gefunden werden!");
+        }
 
     }
 
