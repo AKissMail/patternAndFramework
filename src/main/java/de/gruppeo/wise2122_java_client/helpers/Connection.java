@@ -34,7 +34,7 @@ public class Connection {
      *
      * @throws Exception
      */
-    public void getData() throws Exception {
+    private void getData() throws Exception {
         // Konfiguriert HTTP-Verbindung
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer " + privateToken);
@@ -60,7 +60,7 @@ public class Connection {
      * @param serverInput
      * @throws Exception
      */
-    public void sendData(String requestMethod, String serverInput) throws Exception {
+    private void sendData(String requestMethod, String serverInput) throws Exception {
         // Konfiguriert HTTP-Verbindung
         connection.setRequestMethod(requestMethod);
 
@@ -110,6 +110,38 @@ public class Connection {
      */
     public HttpURLConnection getConnection() {
         return connection;
+    }
+
+    /**
+     * Registriert einen neuen Spieler mit
+     * einem Benuternamen und Passwort.
+     *
+     * @param username
+     * @param password
+     */
+    public void signUpPlayer(String username, String password) {
+        try {
+            sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            System.out.println("Spieler wurde registriert");
+        } catch (Exception e) {
+            System.out.println("Spieler konnte nicht registriert werden: " + e);
+        }
+    }
+
+    /**
+     * Meldet einen registrierten Spieler mit
+     * einem Benutzernamen und Passwort an.
+     *
+     * @param username
+     * @param password
+     */
+    public void logInPlayer(String username, String password) {
+        try {
+            sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            System.out.println("Spieler wurde angemeldet");
+        } catch (Exception e) {
+            System.out.println("Spieler konnte nicht angemeldet werden: " + e);
+        }
     }
 
     /**
@@ -171,6 +203,20 @@ public class Connection {
     }
 
     /**
+     * Löscht das übergebene Spiel.
+     *
+     * @param gamesID
+     */
+    public void deleteGame(int gamesID) {
+        try {
+            sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"playerone\": \"" + "null" + "\", \"playertwo\": \"" + "null" + "\", \"status\": \"" + "OPEN" + "\" }");
+            System.out.println("Spiel " + gamesID + " wurde gelöscht");
+        } catch (Exception e) {
+            System.out.println("Spiel konnte nicht gelöscht werden: " + e);
+        }
+    }
+
+    /**
      * Sendet Daten einer
      * Beantwortung an den Server.
      *
@@ -189,7 +235,7 @@ public class Connection {
     }
 
     /**
-     * Setzt den Highscore des Spielers zurück
+     * Setzt den Highscore des Spielers zurück.
      * Der Spieler wird von der Api anhand des Tokens ermittelt.
      */
     public void resetHighscore() {
@@ -197,9 +243,7 @@ public class Connection {
             sendData("PUT", "{ \"playerHighscore\": \"0\", \"token\": \"" + privateToken + "\" }");
             System.out.println("Highscore des Spielers zurückgesetzt.");
         } catch (Exception e) {
-            System.out.println("Antwort konnte nicht gesendet werden: " + e);
+            System.out.println("Highscore konnte nicht zurückgesetzt werden: " + e);
         }
     }
-
-
 }

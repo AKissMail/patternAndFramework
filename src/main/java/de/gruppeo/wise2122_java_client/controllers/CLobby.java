@@ -134,11 +134,15 @@ public class CLobby {
      * Spiel wieder, damit eine neue Spiel-
      * Konfiguration vorgenommen werden kann.
      */
-    public void onMouseClicked_back() {
+    public void onMouseClicked_back() throws Exception {
+        // Beendet den Timer
         lobbyTimer.cancel();
 
-        // @TODO Methode zum Löschen eines übergebenen Spiels
+        // Löscht das erstellte Spiel
+        Connection con = new Connection("/games/update");
+        con.deleteGame(MConfig.getInstance().getRegisteredGameID());
 
+        // Wechselt die Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("category"));
         stage.show();

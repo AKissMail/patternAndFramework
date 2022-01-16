@@ -51,7 +51,6 @@ public class CSignUp {
      * speichert Daten in Datenbank.
      */
     public void onMouseClicked_signUp() throws Exception {
-        // Etabliert neue Serververbindungen zum Registrieren und Anmelden
         Connection signUp = new Connection("/auth/register");
         Connection logIn = new Connection("/auth/login");
 
@@ -60,10 +59,10 @@ public class CSignUp {
 
         try {
             // Registriert neuen Spieler
-            signUp.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            signUp.signUpPlayer(username, password);
 
             // Meldet neuen Spieler an
-            logIn.sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
+            logIn.logInPlayer(username, password);
 
             // Speichert Token und Usernamen in Config-Objekt
             MConfig.getInstance().setPrivateToken(logIn.getServerResponse());
