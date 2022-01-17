@@ -40,12 +40,13 @@ export function show() {
     document.getElementsByTagName("main")[0].appendChild(aside);
     document.getElementById("aside").appendChild(side);
     document.getElementById("aside").appendChild(sideP);
-    addEvetLissner();
+    addEventListener();
 }
+
 /**
  * Kleine helfer function die EventListener setzt.
  */
-function addEvetLissner(){
+function addEventListener() {
     document.getElementById("logIn").addEventListener("click", logIn.show);
     document.getElementById("register").addEventListener("click", register.show);
     console.log('addEventListener, show done');

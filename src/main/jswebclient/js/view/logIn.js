@@ -103,6 +103,6 @@ function runLogIn() {
     if(bool){
         mainMenu.show();
     }else{
-        alert("Log In ist fehlgeschlagen!");
+        alert("Login ist fehlgeschlagen!");
     }
 }
