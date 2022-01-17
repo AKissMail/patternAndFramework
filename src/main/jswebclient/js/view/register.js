@@ -1,6 +1,6 @@
-import * as base from "../controler/base.js";
+import * as base from "../controller/base.js";
 import * as choice from "./choice.js";
-import * as apiCalls from "../controler/apiCalls.js";
+import * as apiCalls from "../controller/apiCalls.js";
 
 /**
  * Diese function setzt das Formular für die regestrirung in den DOM
@@ -79,7 +79,7 @@ function addEvetLissner(){
  */
 function run(){
     if(document.getElementById("password").value === document.getElementById("passwordVerify").value){
-        apiCalls.createUser(document.getElementById("userName").value,document.getElementById("password").value);
+        apiCalls.createPlayer(document.getElementById("userName").value, document.getElementById("password").value);
 
         choice.show();
     }else{

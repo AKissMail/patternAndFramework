@@ -1,11 +1,11 @@
-import * as base from "../controler/base.js";
+import * as base from "../controller/base.js";
 import * as logIn from "./logIn.js";
 import * as register from "./register.js";
 
 
 /**
  * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich
- * regestiren möchte oder anmelden möchte.
+ * registrieren möchte oder anmelden möchte.
  */
 export function show() {
     console.log("show");

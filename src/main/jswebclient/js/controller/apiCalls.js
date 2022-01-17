@@ -1,17 +1,18 @@
 import * as choice from '../view/choice.js';
 
 /**
- * Diese function erstellt einen nutzeracount.
+ * Diese Methode erstellt einen neuen Spieler.
  * @param {*} user
  * @param {*} password
  */
-export function createUser(user, password){
+export function createPlayer(user, password) {
     alert("todo");
     //@todo
-    return;
+    return true;
 }
+
 /**
- * Diese function log den nutzer ein.
+ * Diese Methode loggt den Spieler ein.
  * @param {*} user
  * @param {*} password
  * @returns
@@ -20,22 +21,25 @@ export function logInUser (user, password){
     alert("todo");
     return true;
 }
+
 /**
- * Diese function retuniert die Daten des Lokalen nutzers.
+ * Diese Methode gibt die Daten eines lokalen Spielers zurück.
  */
 export function getLocalUser(){
     return [1, "Andy", "42", "42", "https://hub.dummyapis.com/image?text=Test&height=120&width=120", "online"];
 
 }
+
 /**
- * Diese function loggt den User aus.
+ * Diese Methode loggt den User aus.
  */
 export function logout (){
     //todo
     choice.show();
 }
+
 /**
- * Diese function läd die katigurien vom Server und gib diese zurück.
+ * Diese Methode läd die katigurien vom Server und gib diese zurück.
  */
 export function getCatigroy(){
     return ["DemoA", "DemoB", "DemoC"]; // todo hier muss die funkion alle katigurie hin.

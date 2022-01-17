@@ -1,6 +1,6 @@
-import * as base from '../controler/base.js';
+import * as base from '../controller/base.js';
 import * as choice from './choice.js';
-import * as apiCalls from '../controler/apiCalls.js';
+import * as apiCalls from '../controller/apiCalls.js';
 import * as mainMenu from './mainMenu.js';
 
 /**
@@ -12,9 +12,9 @@ export function show() {
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
-    let backHometext = document.createElement("p");
-    backHometext.append("Zurück");
-    backHome.appendChild(backHometext);
+    let backHomeText = document.createElement("p");
+    backHomeText.append("Zurück");
+    backHome.appendChild(backHomeText);
     document.getElementsByTagName("article")[0].appendChild(backHome);
 
     let side = document.createElement("img");
@@ -83,8 +83,9 @@ export function show() {
     document.getElementsByTagName("article")[0].appendChild(form);
     addEventListener();
 }
+
 /**
- * Kleine helferfunction um dei Evnetlissner zu setzten.
+ * Kleine Helferfunktion um die EventListener zu setzten.
  */
 function addEventListener(){
     document.getElementById("back home").addEventListener("click", choice.show);
@@ -96,8 +97,8 @@ function addEventListener(){
  *  Das ist das bissen magic in der Login maske. @todo hier muss der Login umgesetzt werden und in Base verschoben werden.
  */
 function runLogIn() {
-    let password = document.getElementById("password").value;
     let userName = document.getElementById("userName").value;
+    let password = document.getElementById("password").value;
     let bool = apiCalls.logInUser(userName, password);
     if(bool){
         mainMenu.show();

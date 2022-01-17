@@ -1,10 +1,11 @@
-import * as base from '../controler/base.js';
-import * as apiCalls from '../controler/apiCalls.js';
+import * as base from '../controller/base.js';
+import * as apiCalls from '../controller/apiCalls.js';
 
 import * as gamemode from './gamemode.js';
 import * as settings from './settings.js';
 import * as highscore from './highscore.js';
 import * as statistic from './statistic.js';
+
 /**
  * Diese function zeigt das Haubtmenü an.
  *
