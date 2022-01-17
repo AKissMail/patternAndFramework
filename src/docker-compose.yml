@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./main/web:/usr/share/nginx/html/
+      - ./main/jswebclient:/usr/share/nginx/html/
   mariadb:
     image: mariadb:latest
     container_name: mariadb
