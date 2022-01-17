@@ -147,7 +147,7 @@ public class GamesController {
                     updateGame.get().setPlayeroneround(updateGame.get().getPlayeroneround() + 1);
                     if (checkGameCount(updateGame)) {
                         updateGame.get().setGamestatus(CLOSE);
-                        setAndAaveHistory(updateGame);
+                        createAndSaveGamesHistory(updateGame);
                         int currentScore = updateGame.get().getPlayeronescore();
                         int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
                         if (currentScore > highscore) {
@@ -164,7 +164,7 @@ public class GamesController {
                     updateGame.get().setPlayertworound(updateGame.get().getPlayertworound() + 1);
                     if (checkGameCount(updateGame)) {
                         updateGame.get().setGamestatus(CLOSE);
-                        setAndAaveHistory(updateGame);
+                        createAndSaveGamesHistory(updateGame);
                         int currentScore = updateGame.get().getPlayertwoscore();
                         int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
                         if (currentScore > highscore) {
@@ -223,27 +223,28 @@ public class GamesController {
     }
 
     /**
-     * Diese Methode schreibt Spiele, welche Beendet wurde in die games_history tabelle.
-     * @param updateGame das Spiel was beendet wurde
+     * Diese Methode schreibt Spiele, welche beendet wurden in die games_history Tabelle.
+     *
+     * @param updateGame das Spiel, welches beendet wurde
      */
-    private void setAndAaveHistory(Optional<GamesEntity> updateGame){
-        if(updateGame.isPresent()){
-        // History für Spieler 1
-        GamesHistoryEntity newGameHistoryEntryOne = new GamesHistoryEntity();
-        newGameHistoryEntryOne.setRounds(updateGame.get().getRounds());
-        newGameHistoryEntryOne.setPlayername(updateGame.get().getPlayerone());
-        newGameHistoryEntryOne.setCategory(updateGame.get().getCategory());
-        newGameHistoryEntryOne.setPlayerscore(updateGame.get().getPlayeronescore());
-        newGameHistoryEntryOne.setOpponentscore(updateGame.get().getPlayertwoscore());
-        gamesHistoryRepository.save(newGameHistoryEntryOne);
-        // History für Spieler 2
-        GamesHistoryEntity newGameHistoryEntryTwo = new GamesHistoryEntity();
-        newGameHistoryEntryTwo.setRounds(updateGame.get().getRounds());
-        newGameHistoryEntryTwo.setPlayername(updateGame.get().getPlayertwo());
-        newGameHistoryEntryTwo.setCategory(updateGame.get().getCategory());
-        newGameHistoryEntryTwo.setPlayerscore(updateGame.get().getPlayertwoscore());
-        newGameHistoryEntryTwo.setOpponentscore(updateGame.get().getPlayeronescore());
-        gamesHistoryRepository.save(newGameHistoryEntryTwo);
+    private void createAndSaveGamesHistory(Optional<GamesEntity> updateGame) {
+        if (updateGame.isPresent()) {
+            // History für Spieler 1
+            GamesHistoryEntity newGameHistoryEntryOne = new GamesHistoryEntity();
+            newGameHistoryEntryOne.setRounds(updateGame.get().getRounds());
+            newGameHistoryEntryOne.setPlayername(updateGame.get().getPlayerone());
+            newGameHistoryEntryOne.setCategory(updateGame.get().getCategory());
+            newGameHistoryEntryOne.setPlayerscore(updateGame.get().getPlayeronescore());
+            newGameHistoryEntryOne.setOpponentscore(updateGame.get().getPlayertwoscore());
+            gamesHistoryRepository.save(newGameHistoryEntryOne);
+            // History für Spieler 2
+            GamesHistoryEntity newGameHistoryEntryTwo = new GamesHistoryEntity();
+            newGameHistoryEntryTwo.setRounds(updateGame.get().getRounds());
+            newGameHistoryEntryTwo.setPlayername(updateGame.get().getPlayertwo());
+            newGameHistoryEntryTwo.setCategory(updateGame.get().getCategory());
+            newGameHistoryEntryTwo.setPlayerscore(updateGame.get().getPlayertwoscore());
+            newGameHistoryEntryTwo.setOpponentscore(updateGame.get().getPlayeronescore());
+            gamesHistoryRepository.save(newGameHistoryEntryTwo);
         }
     }
 
