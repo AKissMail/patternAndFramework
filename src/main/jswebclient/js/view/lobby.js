@@ -4,7 +4,7 @@ import * as mainMenu from './mainMenu.js';
 import * as resultView from './result.js';
 
 /**
- * Hier wir die Lobby angezeigt, welche während der suche nach einem Gegner angezeigt wird.
+ * Hier wird die Lobby angezeigt, welche während der Suche nach einem Gegner angezeigt wird.
  */
 export function show(gameID) {
     base.clearStage();

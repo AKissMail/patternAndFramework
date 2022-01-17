@@ -44,7 +44,7 @@ function addShowEventListener() {
 
 function showNewGame() {
     base.clearStage();
-    catigroy = apiCalls.getCatigroy();
+    catigroy = apiCalls.getCategory();
     lenght = apiCalls.getGameSize();
 
     let backHome = document.createElement("div");

@@ -17,8 +17,8 @@ export function createPlayer(user, password) {
 
 /**
  * Diese Methode loggt den Spieler ein.
- * @param {*} user
- * @param {*} password
+ * @param playername Spielername
+ * @param password Passwort
  * @returns
  */
 export function logInUser(playername, password) {
@@ -80,15 +80,16 @@ export function logout (){
 }
 
 /**
- * Diese Methode läd die katigurien vom Server und gib diese zurück.
+ * Diese Methode lädt die Kategorien vom Server und gib diese zurück.
  */
-export function getCatigroy(){
-    return ["DemoA", "DemoB", "DemoC"]; // todo hier muss die funkion alle katigurie hin.
+export function getCategory() {
+    return ["DemoA", "DemoB", "DemoC"]; // todo hier muss die funkion alle Kategorie hin.
 }
+
 /**
  *
  */
-export function getGameSize (){
+export function getGameSize() {
     return [10, 20]; // todo hier muss die funkion alle längen abzufragen hin.
 }
 /**
@@ -153,29 +154,30 @@ export function createGame(category, size){
  * @returns
  */
 export function getMyQuestions(category, size){
-    let allquestion =getallquestion(category);
+    let allQuestions = getAllQuestions(category);
     let question = [];
     for(let i = 0; i<size; i++){
-        question.push(allquestion[Math.floor(Math.random() * size)]);
+        question.push(allQuestions[Math.floor(Math.random() * size)]);
     }
     return question;
 }
+
 /**
  *
  * @param {*} c
  * @returns
  */
-function getallquestion(c){
+function getAllQuestions(c) {
 
     return [
-        {"question":"FrageA","a":"A","b":"B","c":"C","d":"D"},
-        {"question":"FrageB","a":"A","b":"B","c":"C","d":"D"},
-        {"question":"FrageC","a":"A","b":"B","c":"C","d":"D"},
-        {"question":"FrageD","a":"A","b":"B","c":"C","d":"D"},
-        {"question":"FrageF","a":"A","b":"B","c":"C","d":"D"},
-        {"question":"FrageG","a":"A","b":"B","c":"C","d":"D"},
-        {"question":"FrageH","a":"A","b":"B","c":"C","d":"D"},
-        {"question":"FrageI","a":"A","b":"B","c":"C","d":"D"},
+        {"question": "FrageA", "a": "A", "b": "B", "c": "C", "d": "D"},
+        {"question": "FrageB", "a": "A", "b": "B", "c": "C", "d": "D"},
+        {"question": "FrageC", "a": "A", "b": "B", "c": "C", "d": "D"},
+        {"question": "FrageD", "a": "A", "b": "B", "c": "C", "d": "D"},
+        {"question": "FrageF", "a": "A", "b": "B", "c": "C", "d": "D"},
+        {"question": "FrageG", "a": "A", "b": "B", "c": "C", "d": "D"},
+        {"question": "FrageH", "a": "A", "b": "B", "c": "C", "d": "D"},
+        {"question": "FrageI", "a": "A", "b": "B", "c": "C", "d": "D"},
         {"question":"FrageJ","a":"A","b":"B","c":"C","d":"D"},
         {"question":"FrageK","a":"A","b":"B","c":"C","d":"D"},
         {"question":"FrageL","a":"A","b":"B","c":"C","d":"D"},
@@ -199,7 +201,7 @@ function getallquestion(c){
 export function submitAnswer(bool, time, gameID){
     console.log(bool, time, gameID);
 }
-export function getResult(gameID){
-    return {"done": true, "localPoint": 750, "remodePoint": 650, "nameOponent": "Hans"};
-    //return {"done": false, "localPoint": 750, "remodePoint": null}
+export function getResult(gameID) {
+    return {"done": true, "localPoint": 750, "remotePoint": 650, "nameOpponent": "Hans"};
+    //return {"done": false, "localPoint": 750, "remotePoint": null}
 }

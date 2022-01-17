@@ -131,57 +131,56 @@ public class GamesController {
         }
     }
     /**
-     * Nimmt die Antworten entgegen und verwaltet das Spiel (Antworten gezählt, Fragen entgegengenommen und der Highscore wegschreibe).
+     * Nimmt Antworten entgegen und verwaltet das Spiel (Antworten gezählt, Fragen entgegengenommen
+     * und Highscore wegschreiben).
+     *
      * @param dropAnswerRequest das ist das mapping
      * @return den Aktuellen stand, solange diese auf RUNNING steht.
      */
     @PutMapping("/dropanswer")
     public ResponseEntity<GamesEntity> dropAnswer(@RequestBody DropAnswerRequest dropAnswerRequest) {
         Optional<GamesEntity> updateGame = gamesRepository.findById(dropAnswerRequest.getGamesid());
-        if (updateGame.isPresent()) {
-            if (updateGame.get().getGamestatus() == RUNNING) {
-                if (dropAnswerRequest.isIsplayerone()) {
-                    if (dropAnswerRequest.isAnswers()) {
-                        updateGame.get().setPlayeronescore(updateGame.get().getPlayeronescore() + scoreCalculator(dropAnswerRequest.getTime()));
-                    }
-                    updateGame.get().setPlayeroneround(updateGame.get().getPlayeroneround() + 1);
-                    if (checkGameCount(updateGame)) {
-                        updateGame.get().setGamestatus(CLOSE);
-                        createAndSaveGamesHistory(updateGame);
-                        int currentScore = updateGame.get().getPlayeronescore();
-                        int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
-                        if (currentScore > highscore) {
-                            highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().setHighscorepoints(updateGame.get().getPlayertwoscore());
-                            highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().setHighscorepoints(currentScore);
-                        }
-                    }
-                    GamesEntity createGame = gamesRepository.save(updateGame.get());
-                    return ResponseEntity.ok(createGame);
-                } else {
-                    if (dropAnswerRequest.isAnswers()) {
-                        updateGame.get().setPlayertwoscore(updateGame.get().getPlayertwoscore() + scoreCalculator(dropAnswerRequest.getTime()));
-                    }
-                    updateGame.get().setPlayertworound(updateGame.get().getPlayertworound() + 1);
-                    if (checkGameCount(updateGame)) {
-                        updateGame.get().setGamestatus(CLOSE);
-                        createAndSaveGamesHistory(updateGame);
-                        int currentScore = updateGame.get().getPlayertwoscore();
-                        int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
-                        if (currentScore > highscore) {
-                            highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().setHighscorepoints(currentScore);
-                            highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().setHighscorepoints(updateGame.get().getPlayertwoscore());
-                        }
-                    }
-                    GamesEntity createGame = gamesRepository.save(updateGame.get());
-                    return ResponseEntity.ok(createGame);
+        if (updateGame.isPresent() && updateGame.get().getGamestatus() == RUNNING) {
+            if (dropAnswerRequest.isIsplayerone()) {
+                if (dropAnswerRequest.isAnswers()) {
+                    updateGame.get().setPlayeronescore(updateGame.get().getPlayeronescore() + scoreCalculator(dropAnswerRequest.getTime()));
                 }
-            }else{
-                return ResponseEntity.badRequest().build();
+                updateGame.get().setPlayeroneround(updateGame.get().getPlayeroneround() + 1);
+                if (checkGameCount(updateGame)) {
+                    updateGame.get().setGamestatus(CLOSE);
+                    createAndSaveGamesHistory(updateGame);
+                    int currentScore = updateGame.get().getPlayeronescore();
+                    int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
+                    if (currentScore > highscore) {
+                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().setHighscorepoints(updateGame.get().getPlayertwoscore());
+                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().setHighscorepoints(currentScore);
+                    }
+                }
+                GamesEntity createGame = gamesRepository.save(updateGame.get());
+                return ResponseEntity.ok(createGame);
+            } else {
+                if (dropAnswerRequest.isAnswers()) {
+                    updateGame.get().setPlayertwoscore(updateGame.get().getPlayertwoscore() + scoreCalculator(dropAnswerRequest.getTime()));
+                }
+                updateGame.get().setPlayertworound(updateGame.get().getPlayertworound() + 1);
+                if (checkGameCount(updateGame)) {
+                    updateGame.get().setGamestatus(CLOSE);
+                    createAndSaveGamesHistory(updateGame);
+                    int currentScore = updateGame.get().getPlayertwoscore();
+                    int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
+                    if (currentScore > highscore) {
+                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().setHighscorepoints(currentScore);
+                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().setHighscorepoints(updateGame.get().getPlayertwoscore());
+                    }
+                }
+                GamesEntity createGame = gamesRepository.save(updateGame.get());
+                return ResponseEntity.ok(createGame);
             }
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
+
     /**
      * Die Methode gibt eine Liste offener Spiele zurück
      * @return Liste offener
