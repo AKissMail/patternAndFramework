@@ -7,7 +7,7 @@ import * as highscore from './highscore.js';
 import * as statistic from './statistic.js';
 
 /**
- * Diese function zeigt das Haubtmenü an.
+ * Diese Funktion zeigt das Hauptmenü an.
  *
  */
 export function show() {
