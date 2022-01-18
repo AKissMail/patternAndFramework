@@ -4,7 +4,7 @@ import * as mainMenu from "../view/mainMenu.js";
 // API URI
 const serverURL = 'http://localhost:8080';
 const loginPath = '/auth/login';
-const regestationPath = '/auth/register';
+const registrationPath = '/auth/register';
 const updatePasswordPath = '/auth/updatepassword';
 
 
@@ -19,7 +19,7 @@ const updatePasswordPath = '/auth/updatepassword';
  * @param doneFunction die Function welche bei einem .done ausgeführt werden soll
  * @param malFunction die Function welche bei einem .fail ausgeführt werden soll
  */
-function connection(path, method, body, datatype, token, doneFunction, malFunction) {
+function connection({path, method = "GET", body, datatype = "JSON", doneFunction, malFunction} = {}) {
     $.ajax(
         {
             method: method,
@@ -35,7 +35,7 @@ function connection(path, method, body, datatype, token, doneFunction, malFuncti
                 "Platform": "web",
                 "Accept": "*/*",
                 "Build": 2,
-                "Authorization": token
+                "Authorization": path === loginPath || path === registrationPath ? "" : decodeCookie("token")
             },
             contentType: "application/json; charset=utf-8",
             dataType: datatype,
@@ -57,27 +57,24 @@ function connection(path, method, body, datatype, token, doneFunction, malFuncti
  * @param password das Passwort von dem User
  */
 export function createPlayer(playername, password) {
-    connection(
-        registrationPath,
-        "POST",
-        {
-            username: playername,
-            password: password
-        },
-        "text",
-        "",
-        function done(response) {
+    connection({
+        path: registrationPath,
+        method: "POST",
+        body: {username: playername, password: password},
+        datatype: "text",
+        doneFunction: function done(response) {
             console.log(response);
             console.log('registration done!');
             choice.show();
             mainMenu.show();
         },
-        function fail(xhr, status) {
+        malFunction: function fail(xhr, status) {
             console.log('registration failed!');
             console.log(xhr.response);
             console.log(status);
             alert("Registrierung fehlgeschlagen");
-        });
+        }
+    });
 }
 
 /**
@@ -87,16 +84,12 @@ export function createPlayer(playername, password) {
  * @param password Passwort
  */
 export function logInUser(playername, password) {
-    connection(
-        loginPath,
-        "POST",
-        {
-            username: playername,
-            password: password
-        },
-        "text",
-        "",
-        function done(response) {
+    connection({
+        path: loginPath,
+        method: "POST",
+        body: {username: playername, password: password},
+        datatype: "text",
+        doneFunction: function done(response) {
             console.log(response);
             console.log('Login done!');
             document.cookie = "token = " + response;
@@ -104,12 +97,13 @@ export function logInUser(playername, password) {
             console.log(decodeCookie("token"));
             mainMenu.show();
         },
-        function fail(xhr, status) {
+        malFunction: function fail(xhr, status) {
             console.log('Login failed!');
             console.log(xhr.response);
             console.log(status);
             alert("Login ist fehlgeschlagen!");
-        });
+        }
+    });
 }
 
 /**
@@ -149,28 +143,24 @@ export function decodeCookie(cookieName) {
  * @param newPassword das neue Password
  */
 export function updatePassword(oldPassword, newPassword) {
-    connection(
-        updatePasswordPath,
-        "POST",
-        {
-            "playername":decodeCookie("playername"),
-            "oldpassword":oldPassword,
-            "newpassword":newPassword
-        },
-        "text",
-        decodeCookie("token"),
-        function (response){
+    connection({
+        path: updatePasswordPath,
+        datatype: "POST",
+        body: {"playername": decodeCookie("playername"), "oldpassword": oldPassword, "newpassword": newPassword},
+        method: "text",
+        doneFunction: function (response) {
             console.log(response);
             console.log('updatePassword done!');
             console.log(decodeCookie("token"));
             logout();
         },
-        function ( xhr , status){
+        malFunction: function (xhr, status) {
             console.log('Login failed!');
             console.log(xhr.response);
             console.log(status);
             alert("Login ist fehlgeschlagen!");
-        })
+        }
+    })
 }
 
 /** ******************************************* @todo ******************************************************** */
