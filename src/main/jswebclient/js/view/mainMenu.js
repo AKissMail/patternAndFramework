@@ -19,7 +19,7 @@ export function show() {
     profilePic.setAttribute("id", "thumbnail");
     profilePic.setAttribute("src", user[4]);
     let name = document.createElement("h2");
-    name.append("Hallo "+user[1] +" :)");
+    name.append("Hallo "+ apiCalls.decodeCookie("playername"));
 
     let logout = document.createElement("div");
     let logoutText = document.createElement("p");

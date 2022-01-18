@@ -1,7 +1,6 @@
 import * as apiCalls from './apiCalls.js';
-
 import * as quiz from '../view/quiz.js';
-
+import * as mainMenu from "../view/mainMenu.js";
 
 export let killTimeOut = null;
 
@@ -43,4 +42,13 @@ export function startGame(category, size) {
     let question = apiCalls.getMyQuestions(category, size);
     killTimeOut = null;
     quiz.show(gameID, question, size, category);
+}
+
+/**
+ *  Das ist das bissen magic in der Login maske.
+ */
+export function runLogIn() {
+    let userName = document.getElementById("userName").value;
+    let password = document.getElementById("password").value;
+    apiCalls.logInUser(userName, password);
 }

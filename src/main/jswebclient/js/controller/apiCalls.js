@@ -1,68 +1,145 @@
 import * as choice from '../view/choice.js';
+import * as mainMenu from "../view/mainMenu.js";
 
+// API URI
 const serverURL = 'http://localhost:8080';
 const loginPath = '/auth/login';
+const regestationPath = '/auth/register';
 
 
 /**
- * Diese Methode erstellt einen neuen Spieler.
- * @param {*} user
- * @param {*} password
+ * Dies ist die function dei ein ajax request an die Api mache. Sie bekommt die notwendigen parameter sowie zwei
+ * callback übergeben. Die doneFunction wir im erfolgs fall ausgeführt und iei
+ * @param path der Pfad zu der Api
+ * @param method die Methode → GET, POST, PUT
+ * @param body der zu übertragende body als JSON
+ * @param datatype was wird als antwort erwartet? "text" oder "json"
+ * @param token der JWT Token – falls kein Token mit geschickt werden soll → ""
+ * @param doneFunction die Function welche bei einem .done ausgeführt werden soll
+ * @param malfunction die Function welche bei einem .fail ausgeführt werden soll
  */
-export function createPlayer(user, password) {
-    alert("todo");
-    //@todo
-    return true;
+function connection(path,method,body,datatype,token,doneFunction,malfunction){
+$.ajax(
+        {
+            method: method,
+            crossDomain: true,
+            url: serverURL + path,
+            xhrFields: {withCredentials: true},
+            headers: {
+                "Access-Control-Allow-Origin": serverURL,
+                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                "Access-Control-Max-Age": "86400",
+                "Content-Type": "application/json",
+                "Platform": "web",
+                "Accept": "*/*",
+                "Build": 2,
+                "Authorization":token
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: datatype,
+            data: JSON.stringify(body)
+        }
+    )
+        .done(function (response) {
+            doneFunction(response);
+        })
+        .fail(function (xhr, status) {
+            malfunction(xhr, status);
+        });
+}
+
+/**
+ * Diese Methode erstellt einen neuen Spieler.
+ * @param playername der name von dem User
+ * @param password das Passwort von dem User
+ */
+export function createPlayer(playername, password) {
+    connection(
+        regestationPath,
+        "POST",
+        {
+            username: playername,
+            password: password
+        },
+        "text",
+        "",
+        function done(response){
+            console.log(response);
+            console.log('registration done!');
+            choice.show();
+            mainMenu.show();
+        },
+        function fail( xhr , status) {
+            console.log('registration failed!');
+            console.log(xhr.response);
+            console.log(status);
+            alert("Registrierung fehlgeschlagen");
+        });
 }
 
 /**
  * Diese Methode loggt den Spieler ein.
  * @param playername Spielername
  * @param password Passwort
- * @returns
  */
 export function logInUser(playername, password) {
-    $.ajax(
+    connection(
+        loginPath,
+        "POST",
         {
-            method: "POST",
-            crossDomain: true,
-            url: serverURL + loginPath,
-            xhrFields: {withCredentials: true},
-            headers: {
-                //"Access-Control-Request-Headers": "x-requested-with",
-                "Access-Control-Allow-Origin": serverURL,
-                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                //"Access-Control-Allow-Credentials": "true",
-                "Access-Control-Max-Age": "86400",
-                "Content-Type": "application/json",
-                "Platform": "web",
-                "Accept": "*/*",
-                "Accept-Encoding": "gzip, deflate, br",
-                "Connection": "keep-alive",
-                "Build": 2
-            },
-            contentType: "application/json; charset=utf-8",
-            dataType: 'json',
-            data: JSON.stringify({
-                username: playername,
-                password: password
-            })
-        }
-    )
-        .done(function (response) {
-            console.log('Login done!');
+            username: playername,
+            password: password
+        },
+        "text",
+        "",
+        function done(response){
             console.log(response);
-        })
-        .fail(function (xhr, status) {
+            console.log('Login done!');
+            document.cookie = "token = "+response;
+            document.cookie = "playername ="+playername;
+            console.log(decodeCookie("token"));
+            mainMenu.show();
+            },
+        function fail( xhr , status) {
             console.log('Login failed!');
-            //console.log(xhr);
+            console.log(xhr.response);
             console.log(status);
+            alert("Login ist fehlgeschlagen!");
         });
-
-    return true;
 }
 
+/**
+ * Diese Methode loggt den User aus.
+ */
+export function logout (){
+    document.cookie = "token = ";
+    console.log(document.cookie);
+    choice.show();
+}
+
+/**
+ * Dies function holt aus dem document.cookie den zughörigen wert raus und gibt diesen zurück.
+ * @param cookieName der Bezeichner des Wertes
+ * @returns {string} den Wert, falls der Bezeichner vorhanden ist. Falls nichts gefunden wird "".
+ */
+export function decodeCookie(cookieName){
+    let name = cookieName + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+/** ******************************************* @todo ******************************************************** */
 /**
  * Diese Methode gibt die Daten eines lokalen Spielers zurück.
  */
@@ -70,15 +147,6 @@ export function getLocalUser(){
     return [1, "Andy", "42", "42", "https://hub.dummyapis.com/image?text=Test&height=120&width=120", "online"];
 
 }
-
-/**
- * Diese Methode loggt den User aus.
- */
-export function logout (){
-    //todo
-    choice.show();
-}
-
 /**
  * Diese Methode lädt die Kategorien vom Server und gib diese zurück.
  */
@@ -161,14 +229,8 @@ export function getMyQuestions(category, size){
     }
     return question;
 }
-
-/**
- *
- * @param {*} c
- * @returns
- */
 function getAllQuestions(c) {
-
+    //@todo
     return [
         {"question": "FrageA", "a": "A", "b": "B", "c": "C", "d": "D"},
         {"question": "FrageB", "a": "A", "b": "B", "c": "C", "d": "D"},
@@ -199,9 +261,11 @@ function getAllQuestions(c) {
     //todo
 }
 export function submitAnswer(bool, time, gameID){
+    //@todo
     console.log(bool, time, gameID);
 }
 export function getResult(gameID) {
+    //@todo
     return {"done": true, "localPoint": 750, "remotePoint": 650, "nameOpponent": "Hans"};
     //return {"done": false, "localPoint": 750, "remotePoint": null}
 }

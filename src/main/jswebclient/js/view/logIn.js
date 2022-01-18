@@ -30,7 +30,7 @@ export function show() {
     document.getElementById("aside").appendChild(side);
     document.getElementById("aside").appendChild(sideP);
 
-    let form = document.createElement("form");
+    let form = document.createElement("span");
 
     let inputServer = document.createElement("input");
     inputServer.setAttribute("type", "text");
@@ -89,20 +89,7 @@ export function show() {
  */
 function addEventListener(){
     document.getElementById("back home").addEventListener("click", choice.show);
-    document.getElementById("button").addEventListener("click", runLogIn);
+    document.getElementById("button").addEventListener("click", base.runLogIn);
     console.log('addEventListener')
 
-}
-/**
- *  Das ist das bissen magic in der Login maske. @todo hier muss der Login umgesetzt werden und in Base verschoben werden.
- */
-function runLogIn() {
-    let userName = document.getElementById("userName").value;
-    let password = document.getElementById("password").value;
-    let bool = apiCalls.logInUser(userName, password);
-    if(bool){
-        mainMenu.show();
-    }else{
-        alert("Login ist fehlgeschlagen!");
-    }
 }
