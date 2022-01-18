@@ -5,6 +5,7 @@ import * as mainMenu from "../view/mainMenu.js";
 const serverURL = 'http://localhost:8080';
 const loginPath = '/auth/login';
 const regestationPath = '/auth/register';
+const updatePasswordPath = '/auth/updatepassword';
 
 
 /**
@@ -139,6 +140,36 @@ export function decodeCookie(cookieName){
     return "";
 }
 
+/**
+ * Diese function setzt ein neues Password
+ * @param oldPassword das alte Password
+ * @param newPassword das neue Password
+ */
+export function updatePassword(oldPassword, newPassword) {
+    connection(
+        updatePasswordPath,
+        "POST",
+        {
+            "playername":decodeCookie("playername"),
+            "oldpassword":oldPassword,
+            "newpassword":newPassword
+        },
+        "text",
+        decodeCookie("token"),
+        function (response){
+            console.log(response);
+            console.log('updatePassword done!');
+            console.log(decodeCookie("token"));
+            logout();
+        },
+        function ( xhr , status){
+            console.log('Login failed!');
+            console.log(xhr.response);
+            console.log(status);
+            alert("Login ist fehlgeschlagen!");
+        })
+}
+
 /** ******************************************* @todo ******************************************************** */
 /**
  * Diese Methode gibt die Daten eines lokalen Spielers zurück.
@@ -167,13 +198,7 @@ export function deleteStatistics() {
     //todd!
 
 }
-/**
- *
- * @param {*} password
- */
-export function updatePassword(password){
-    //tod!
-}
+
 /**
  *
  * @param {*} data
