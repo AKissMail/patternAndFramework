@@ -214,7 +214,7 @@ public class GamesController {
      * @return Die Punkte
      */
     private int scoreCalculator(int time) {
-        if (time <= 0) {
+        if (time <= 100) {
             return 1;
         } else {
             return time / 100;

@@ -1,10 +1,10 @@
 package de.gruppeo.wise2122_java_client.helpers;
 
 import de.gruppeo.wise2122_java_client.models.MConfig;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -244,6 +244,23 @@ public class Connection {
             System.out.println("Highscore des Spielers zurückgesetzt.");
         } catch (Exception e) {
             System.out.println("Highscore konnte nicht zurückgesetzt werden: " + e);
+        }
+    }
+
+    /**
+     * Lädt enkodiertes Image an den Server
+     * und speichert es im Spielermodell.
+     *
+     * @param imageString
+     * @param playername
+     */
+    public void uploadThumbnail(String imageString, String playername) {
+        try {
+            // Sendet Datei an Server
+            sendData("POST", "{ \"file\": \"" + imageString + "\", \"playername\": \"" + playername + "\" }");
+            System.out.println("Image wurde hochgeladen");
+        } catch (Exception e) {
+            System.out.println("Image konnte nicht hochgeladen werden: " + e);
         }
     }
 }
