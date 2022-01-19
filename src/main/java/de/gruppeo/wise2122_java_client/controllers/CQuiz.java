@@ -32,6 +32,9 @@ public class CQuiz implements Initializable {
     private String playerOne;
     private String playerTwo;
 
+    private double seconds;
+    private double totalSeconds;
+
     private ArrayList<MQuestion> questions;
     private ArrayList<String> answers;
     private String correctAnswer;
@@ -140,7 +143,7 @@ public class CQuiz implements Initializable {
         try {
             // Sendet Antwort an Server
             Connection con = new Connection("/games/dropanswer");
-            con.dropAnswer(gameID, isPlayerOne(), isCorrect, getPoints());
+            con.dropAnswer(gameID, isPlayerOne(), isCorrect, getTime());
         } catch (Exception e) {}
 
         // Ändert die Button-Beschriftung
@@ -154,10 +157,10 @@ public class CQuiz implements Initializable {
      * @TODO Muss noch implementiert werden
      * Berechnet die Punkte einer Spielrunde.
      *
-     * @return Punkte
+     * @return Time
      */
-    private int getPoints() {
-        return 1000;
+    private int getTime() {
+        return (int) seconds * 1000;
     }
 
     /**
@@ -309,8 +312,8 @@ public class CQuiz implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    double seconds = countdown.getCurrentSeconds();
-                    double totalSeconds = countdown.getTotalSeconds();
+                    seconds = countdown.getCurrentSeconds();
+                    totalSeconds = countdown.getTotalSeconds();
 
                     progressBar_quiz_progress.setProgress(seconds / totalSeconds);
                     label_quiz_timer.setText(String.format("%.0f", seconds));

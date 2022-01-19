@@ -1,6 +1,9 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
+import de.gruppeo.wise2122_java_client.helpers.Connection;
+import de.gruppeo.wise2122_java_client.helpers.Converter;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,7 +45,9 @@ public class CSettingsChangePicture implements Initializable {
      * @param event
      * @throws MalformedURLException
      */
-    public void onAction_uploadPicture(ActionEvent event) throws MalformedURLException {
+    public void onAction_uploadPicture(ActionEvent event) throws Exception {
+        String playername = MConfig.getInstance().getUsername();
+
         // Stage wird für den FileChooser benötigt
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
@@ -51,10 +56,15 @@ public class CSettingsChangePicture implements Initializable {
         fileChooser.setTitle("Wähle ein Profilbild aus");
         this.file = fileChooser.showOpenDialog(stage);
 
-        // Speichert Dateipfad lokal in Pref-XML
-        loader.saveData("PICTURE", file.getPath());
+        // Speichert enkodiertes Image in Datenbank
+        Connection upload = new Connection("/player/uploadthumbnail");
+        upload.uploadThumbnail(Converter.encodeImage(file.getPath()), playername);
+
+        // Erhält enkodiertes Image aus Datenbank
+        Connection download = new Connection("/player/getthumbnailbyname?playername=" + playername);
+        System.out.println("Bild: " + Converter.decodeImage(download.getServerResponse()));
 
         // Setzt Image in Kreis ein
-        circle_settings_picture.setFill(new ImagePattern(loader.loadImage("PICTURE")));
+        //circle_settings_picture.setFill(new ImagePattern(Converter.decodeImage(download.getServerResponse()));
     }
 }
