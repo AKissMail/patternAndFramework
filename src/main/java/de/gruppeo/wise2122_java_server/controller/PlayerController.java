@@ -141,6 +141,30 @@ public class PlayerController {
                 .body("Spieler konnte nicht gefunden werden!");
     }
 
+    @PostMapping(value = "/uploadthumbnailstr")
+    public ResponseEntity<String> uploadThumbnail(
+            @RequestParam("playername") String playername,
+            @RequestParam("file") String file) {
+        Optional<PlayerEntity> playerOptional = playerRepository.findByUsername(playername);
+
+        if (playerOptional.isPresent() && !file.isEmpty()) {
+            playerOptional.get().setThumbnail(file);
+            playerRepository.save(playerOptional.get());
+            if (playerOptional.get().getThumbnail() != null) {
+                return ResponseEntity
+                        .status(HttpStatus.CREATED)
+                        .body("Thumbnail wurde in der Datenbank gespeichert!");
+            } else {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Thumbnail konnte nicht gespeichert werden!");
+            }
+        }
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("Spieler konnte nicht gefunden werden!");
+    }
+
     @GetMapping(value = "/getthumbnailbyname")
     public ResponseEntity<String> getThumbnailByName(@RequestParam("playername") String playername) {
         Optional<PlayerEntity> playerOptional = playerRepository.findByUsername(playername);
