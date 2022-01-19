@@ -221,13 +221,13 @@ public class Connection {
      * Beantwortung an den Server.
      *
      * @param gameID
-     * @param playerOne
+     * @param isPlayerOne
      * @param answer
      * @param timer
      */
-    public void dropAnswer(int gameID, boolean playerOne, boolean answer, int timer) {
+    public void dropAnswer(int gameID, boolean isPlayerOne, boolean answer, int timer) {
         try {
-            sendData("PUT", "{ \"gamesid\": \"" + gameID + "\", \"playerone\": \"" + playerOne + "\", \"answer\": \"" + answer + "\", \"timer\": \"" + timer + "\" }");
+            sendData("PUT", "{ \"gamesid\": \"" + gameID + "\", \"isplayerone\": \"" + isPlayerOne + "\", \"answers\": \"" + answer + "\", \"time\": \"" + timer + "\" }");
             System.out.println("Antwort zu Spiel " + gameID + " wurde gesendet");
         } catch (Exception e) {
             System.out.println("Antwort konnte nicht gesendet werden: " + e);

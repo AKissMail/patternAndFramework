@@ -9,6 +9,7 @@ public class MHighscore {
     public int highscorepoints;
     private String playername;
     private String lastupdate;
+    private int rank;
 
     public MHighscore() {}
 
@@ -19,7 +20,10 @@ public class MHighscore {
         this.lastupdate = lastupdate;
     }
 
-    public MHighscore(int highscorepoints) {
+    public MHighscore(int rank, String playername, int highscorepoints, String lastupdate) {
+        this.rank = rank;
+        this.playername = playername;
         this.highscorepoints = highscorepoints;
+        this.lastupdate = lastupdate;
     }
 }

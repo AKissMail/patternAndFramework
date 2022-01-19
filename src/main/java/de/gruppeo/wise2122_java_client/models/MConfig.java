@@ -18,17 +18,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MConfig {
     private static final MConfig OBJ = new MConfig();
 
-    private String jwtSecret;       // Tokenschlüssel
-    private String privateToken;    // Authentifizierungsschlüssel
-    private String username;        // Benutername
-    private String baseURL;         // Standard Host-URL
-    private Object category;        // Ausgewählte Kategorie
-    private Object opponent;        // Ausgewählter Gegner
-    private Object rounds;          // Objekt der ausgewählten Rundenzahl
-    private int indexRounds;        // Index Standard-Rundenzahl
-    private int joinedGameID;       // ID des beigetretenen Spiels
-    private int registeredGameID;   // ID des registrierten Spiels
-    private int refreshrate;        // Aktualisierungsrate in Millisekunden
+    private String jwtSecret;           // Tokenschlüssel
+    private String privateToken;        // Authentifizierungsschlüssel
+    private String username;            // Benutername
+    private String baseURL;             // Standard Host-URL
+    private Object category;            // Ausgewählte Kategorie
+    private Object opponent;            // Ausgewählter Gegner
+    private Object rounds;              // Objekt der ausgewählten Rundenzahl
+    private int indexRounds;            // Index Standard-Rundenzahl
+    private int joinedGameID;           // ID des beigetretenen Spiels
+    private int registeredGameID;       // ID des registrierten Spiels
+    private int refreshrate;            // Aktualisierungsrate in Millisekunden
+    private double defaultCountdown;    // Countdown-Länge in Sekunden
 
     /**
      * Um sicherzustellen, dass nur eine Instanz des Config-Modells
@@ -43,6 +44,7 @@ public class MConfig {
         this.jwtSecret = "IchbineinfurchtbargeheimesGeheimnisvonThomas";
         this.refreshrate = 2000; // 2 Sekunden
         this.indexRounds = 0;
+        this.defaultCountdown = 5.0;
     }
 
     /**

@@ -118,6 +118,9 @@ public class CLobby {
         String username = MConfig.getInstance().getUsername();
         int registeredGameID = MConfig.getInstance().getRegisteredGameID();
 
+        System.out.println("Username: " + username);
+        System.out.println("Reg ID: " + registeredGameID);
+
         // Aktualisiert den Status des Spiels
         Connection con = new Connection("/games/update");
         con.updateGame(registeredGameID, username, "", "RUNNING");

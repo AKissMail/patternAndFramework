@@ -42,8 +42,9 @@
             <TableView fx:id="table_highscore_points" prefHeight="314.0" prefWidth="560.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="column_highscore_rank" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Platz" />
-                <TableColumn fx:id="column_highscore_player" maxWidth="1.7976931348623157E308" prefWidth="280.0" text="Spieler" />
-                  <TableColumn fx:id="column_highscore_points" maxWidth="1.7976931348623157E308" prefWidth="150.0" sortType="DESCENDING" text="Punkte" />
+                <TableColumn fx:id="column_highscore_player" maxWidth="1.7976931348623157E308" prefWidth="209.0" text="Spieler" />
+                  <TableColumn fx:id="column_highscore_points" maxWidth="1.7976931348623157E308" prefWidth="152.0" sortType="DESCENDING" text="Punkte" />
+                  <TableColumn fx:id="column_highscore_date" prefWidth="93.0" text="Datum" />
               </columns>
                <BorderPane.margin>
                   <Insets bottom="20.0" left="70.0" right="70.0" />

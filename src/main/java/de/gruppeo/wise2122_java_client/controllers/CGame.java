@@ -22,7 +22,6 @@ public class CGame implements Initializable {
     Alert alert;
 
     public static Timer gameTimer;
-    public static Timer waitingTimer;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_game_foundGames;
@@ -68,7 +67,6 @@ public class CGame implements Initializable {
 
                         serverGames.add(username + " (" + category + " - " + rounds + " Runden)");
                     }
-                    System.out.println("Server: " + serverGames);
 
                     for (String item : serverGames) {
                         // Wennn Username nicht in Liste enthalten ist

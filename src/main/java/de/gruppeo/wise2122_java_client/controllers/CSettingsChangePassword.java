@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 
 public class CSettingsChangePassword extends Validation {
 
@@ -112,13 +113,11 @@ public class CSettingsChangePassword extends Validation {
         // Speichert neuen Token in Config-Objekt
         MConfig.getInstance().setPrivateToken(con.getServerResponse());
 
+        // Abmelden @TODO User muss sich einmal abmelden
+
+
         // Zeigt Erfolgsmeldung an
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Das Password für " + username + " wurde erfolgreich geändert.", ButtonType.OK);
         alert.showAndWait();
-
-        // Leert alle Eingabefelder
-        textField_settings_currentPassword.clear();
-        textField_settings_newPassword1.clear();
-        textField_settings_newPassword2.clear();
     }
 }

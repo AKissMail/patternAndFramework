@@ -19,19 +19,18 @@ import java.util.ResourceBundle;
 
 public class CHighscore implements Initializable {
     ViewLoader loader;
-    PPlayer mapperPlayer;
     PHighscore mapperHighscore;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_highscore_gameRounds;
     @FXML private TableView<Object> table_highscore_points;
-    @FXML private TableColumn<MPlayer, Integer> column_highscore_rank;
-    @FXML private TableColumn<MPlayer, String> column_highscore_player;
+    @FXML private TableColumn<MHighscore, Integer> column_highscore_rank;
+    @FXML private TableColumn<MHighscore, String> column_highscore_player;
     @FXML private TableColumn<MHighscore, Integer> column_highscore_points;
+    @FXML private TableColumn<MHighscore, String> column_highscore_date;
 
     public CHighscore() throws Exception {
         loader = new ViewLoader();
-        mapperPlayer = new PPlayer(new Connection("/player/all"));
         mapperHighscore = new PHighscore(new Connection("/highscore"));
     }
 
@@ -39,27 +38,18 @@ public class CHighscore implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Stimmt mit MPlayer-Objekt überein - baut Brücke, um Spalten zu befüllen
         column_highscore_rank.setCellValueFactory(new PropertyValueFactory<>("rank"));
-        column_highscore_player.setCellValueFactory(new PropertyValueFactory<>("username"));
+        column_highscore_player.setCellValueFactory(new PropertyValueFactory<>("playername"));
         column_highscore_points.setCellValueFactory(new PropertyValueFactory<>("highscorepoints"));
+        column_highscore_date.setCellValueFactory(new PropertyValueFactory<>("lastupdate"));
 
         // Label zur Anzeige der Anzahl der gespielten Runden
         label_highscore_gameRounds.setText("Du hast 0 Runden gespielt");
 
         int rank = 1;
 
-        /*for (int i = 0; i < mapperPlayer.getPlayers().size(); i++) {
-            table_highscore_points.getItems().add(new MPlayer(i, mapperPlayer.getPlayers().get(i).getUsername()));
-            table_highscore_points.getItems().add(new MHighscore(mapperHighscore.getHighscores().get(i).getHighscorepoints()));
-        }*/
-
-        /* Befüllt Spalten mit Werten des MPlayer-Objekts
-        for (MPlayer player : mapperPlayer.getPlayers()) {
-            table_highscore_points.getItems().add(new MPlayer(rank++, player.getUsername(), player.getHighscore().getHighscorepoints()));
-        }*/
-
-        /*for (MHighscore score : mapperHighscore.getHighscores()) {
-            table_highscore_points.getItems().add(new MHighscore(score.getHighscorepoints()));
-        }*/
+        for (MHighscore score : mapperHighscore.getHighscores()) {
+            table_highscore_points.getItems().add(new MHighscore(rank++, score.getPlayername(), score.getHighscorepoints(), score.getLastupdate()));
+        }
     }
 
     /**

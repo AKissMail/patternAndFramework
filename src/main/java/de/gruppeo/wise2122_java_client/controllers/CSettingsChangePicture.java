@@ -36,7 +36,8 @@ public class CSettingsChangePicture implements Initializable {
     }
 
     /**
-     * Zeigt Maske zur Auswahl eines neuen Profilbildes an.
+     * Zeigt Maske zur Auswahl
+     * eines neuen Profilbildes an.
      *
      * @param event
      * @throws MalformedURLException

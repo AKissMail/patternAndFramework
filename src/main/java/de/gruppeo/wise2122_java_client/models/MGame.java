@@ -23,11 +23,11 @@ public class MGame {
 
     private MCategory category;
     private MRounds rounds;
-    private String[] questions;
+    private MQuestion[] questions;
 
     public MGame() {}
 
-    public MGame(int id, String gamestatus, MPlayer playerone, int playeronescore, int playeroneround, MPlayer playertwo, int playertwoscore, int playertworound, MCategory category, MRounds rounds, String[] questions) {
+    public MGame(int id, String gamestatus, MPlayer playerone, int playeronescore, int playeroneround, MPlayer playertwo, int playertwoscore, int playertworound, MCategory category, MRounds rounds, MQuestion[] questions) {
         this.id = id;
         this.gamestatus = gamestatus;
         this.playerone = playerone;

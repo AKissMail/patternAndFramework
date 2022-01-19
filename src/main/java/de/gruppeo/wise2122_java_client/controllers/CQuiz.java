@@ -4,8 +4,8 @@ import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MQuestion;
-import de.gruppeo.wise2122_java_client.models.MTimer;
-import de.gruppeo.wise2122_java_client.parsers.PQuestion;
+import de.gruppeo.wise2122_java_client.models.MCountdown;
+import de.gruppeo.wise2122_java_client.parsers.PGame;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,21 +15,26 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.fxml.FXML;
 
 public class CQuiz implements Initializable {
     ViewLoader loader;
-    PQuestion mapper;
-    MTimer timer;
+    MCountdown countdown;
+    TimerTask task;
+    Button[] buttons;
 
-    private int questionID;
-    private int points;
-    private String correctAnswer;
+    public static Timer quizTimer;
+
+    private int gameID;
+    private int questionNumber;
+    private String playerOne;
+    private String playerTwo;
+
     private ArrayList<MQuestion> questions;
     private ArrayList<String> answers;
+    private String correctAnswer;
 
     @FXML private BorderPane mainPane;
     @FXML private ProgressBar progressBar_quiz_progress;
@@ -40,6 +45,7 @@ public class CQuiz implements Initializable {
     @FXML private Button button_quiz_answerB;
     @FXML private Button button_quiz_answerC;
     @FXML private Button button_quiz_answerD;
+    @FXML private Button button_quiz_nextQuestion;
     @FXML private Label label_quiz_pointsOp1;
     @FXML private Label label_quiz_pointsOp2;
     @FXML private Label label_quiz_nameOp1;
@@ -47,24 +53,59 @@ public class CQuiz implements Initializable {
 
     public CQuiz() throws Exception {
         loader = new ViewLoader();
-        timer = new MTimer();
-        //mapper = new PQuestion(new Connection("/questions?category=" + MConfig.getInstance().getCategory().toString()));
-        points = 0;
+        quizTimer = new Timer();
+        questionNumber = 0;
+
+        int registeredGameID = MConfig.getInstance().getRegisteredGameID();
+        int joindedGameID = MConfig.getInstance().getJoinedGameID();
+
+        if (registeredGameID == 0) {
+            gameID = joindedGameID;
+        } else {
+            gameID = registeredGameID;
+        }
 
         questions = new ArrayList<>();
-        for(MQuestion question : mapper.getQuestions()) {
+        PGame mapper = new PGame(new Connection("/games/" + gameID));
+        playerOne = mapper.getGames().get(0).getPlayerone().getUsername();
+        playerTwo = mapper.getGames().get(0).getPlayertwo().getUsername();
+
+        for (MQuestion question : mapper.getGames().get(0).getQuestions()) {
             questions.add(question);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        questionID = 0;
+        this.buttons = new Button[] {button_quiz_answerA, button_quiz_answerB, button_quiz_answerC, button_quiz_answerD};
+        this.countdown = new MCountdown();
+        runQuizRound();
+    }
 
-        /*startCountdown();
-        setNumberQuestions();
-        setQuestion();
-        setAnswers();*/
+    /**
+     * Enthält alle Methoden, die für eine
+     * Spielrunde benötigt werden.
+     */
+    private void runQuizRound() {
+        if (getCurrentRound() == getTotalRounds()) {
+            task.cancel();
+            Stage stage = (Stage) mainPane.getScene().getWindow();
+            stage.setScene(loader.getScene("result"));
+            stage.show();
+        } else {
+            setDefaultAnswersColor();
+            setPlayerNames();
+            disableAnswers(false);
+            setNumberQuestions();
+            setQuestion();
+            setAnswers();
+            setPoints();
+            startCountdown();
+
+            button_quiz_nextQuestion.setDisable(true);
+            countdown.resetSeconds();
+            questionNumber++;
+        }
     }
 
     /**
@@ -72,71 +113,98 @@ public class CQuiz implements Initializable {
      * ist und sendet das Ergebnis, zusammen mit
      * der berechneten Punkzahl, an den Server.
      */
-    private void checkAnswer() throws Exception {
-        Button[] buttons = new Button[] {button_quiz_answerA, button_quiz_answerB, button_quiz_answerC, button_quiz_answerD};
+    private void checkAnswer(boolean isTimeUp, Button clickedButton) {
+        boolean isCorrect = false;
+        task.cancel();
 
-        // Speichert Config-Daten in lokale Variablen
-        int gameID = MConfig.getInstance().getRegisteredGameID();
+        // Deaktiviert Antworten
+        disableAnswers(true);
+
+        // Prüft, ob die Zeit abgelaufen ist
+        if (!isTimeUp) {
+            // Prüft, ob angeklickte Antwort korrekt ist
+            if (clickedButton.getText().equals(correctAnswer)) {
+                isCorrect = true;
+            }
+        }
 
         // Färbt Antworten
         for (Button button : buttons) {
             if (button.getText().equals(correctAnswer)) {
-                System.out.println(button.getText());
                 button.setStyle("-fx-background-color: #047b06; ");
             } else {
                 button.setStyle("-fx-background-color: #ff0000; ");
             }
         }
 
-        // Sendet Antwort an Server
-        Connection con = new Connection("/dropAnswer");
-        //con.dropAnswer(gameID, playerOne, answer, timer);
+        try {
+            // Sendet Antwort an Server
+            Connection con = new Connection("/games/dropanswer");
+            con.dropAnswer(gameID, isPlayerOne(), isCorrect, getPoints());
+        } catch (Exception e) {}
 
-        // Deaktiviert Antworten
-        disableAnswers();
+        // Ändert die Button-Beschriftung
+        if (getCurrentRound() == getTotalRounds()) {
+            button_quiz_nextQuestion.setText("Ergebnis anzeigen");
+        }
+        button_quiz_nextQuestion.setDisable(false);
     }
 
     /**
-     * Startet einen Countdown, der einen
-     * Ladebalken und die zugehörige Beschriftung
-     * im Sekundentakt aktualisiert.
+     * @TODO Muss noch implementiert werden
+     * Berechnet die Punkte einer Spielrunde.
+     *
+     * @return Punkte
      */
-    private void startCountdown() {
-        label_quiz_timer.setText(String.format("%.0f", timer.getSeconds()));
+    private int getPoints() {
+        return 1000;
+    }
 
-        Thread thread = new Thread(() -> {
-            while (timer.getSeconds() > 0) {
-                try {
-                    Thread.sleep(1000);
-                    timer.decreaseSeconds(1);
-                } catch (Exception e) {
-                    System.out.println("Error: " + e);
-                }
+    /**
+     * Gibt die aktuelle Rundenzahl zurück.
+     *
+     * @return aktuelle Rundenzahl
+     */
+    private int getCurrentRound() {
+        PGame mapper;
+        int currentRound = 0;
 
-                Platform.runLater(() -> {
-                    Color color;
-                    if (timer.getSeconds() > 5.0) {
-                        color = Color.WHITE;
-                    } else {
-                        color = Color.BLACK;
-                    }
+        try {
+            mapper = new PGame(new Connection("/games/" + gameID));
+            currentRound = mapper.getGames().get(0).getPlayertworound();
 
-                    label_quiz_timer.setTextFill(color);
-                    label_quiz_timer.setText(String.format("%.0f", timer.getSeconds()));
-                    progressBar_quiz_progress.setProgress(timer.getSeconds() / 10.0);
-                });
+            if (isPlayerOne()) {
+                currentRound = mapper.getGames().get(0).getPlayeroneround();
             }
-            disableAnswers();
-        });
-        thread.start();
+        } catch (Exception e) {
+            System.out.println("Fehler: " + e);
+        }
+        return currentRound;
+    }
+
+    /**
+     * Gibt die Gesamtrundenzahl des Spiels zurück.
+     *
+     * @return Gesamtrundenzahl
+     */
+    private int getTotalRounds() {
+        PGame mapper;
+        int totalRounds = 0;
+
+        try {
+            mapper = new PGame(new Connection("/games/" + gameID));
+            totalRounds = mapper.getGames().get(0).getRounds().getRounds();
+        } catch (Exception e) {
+            System.out.println("Fehler: " + e);
+        }
+        return totalRounds;
     }
 
     /**
      * Setzt die aktuelle Fragennummer.
      */
     private void setNumberQuestions() {
-        int number = 1;
-        label_quiz_numberQuestion.setText("Frage " + questionID + 1 + " von " + number);
+        label_quiz_numberQuestion.setText("Frage " + (getCurrentRound()+1) + " von " + getTotalRounds());
     }
 
     /**
@@ -144,7 +212,7 @@ public class CQuiz implements Initializable {
      * und präsentiert sie auf der GUI.
      */
     private void setQuestion() {
-        label_quiz_question.setText(questions.get(questionID).getQuestion());
+        label_quiz_question.setText(questions.get(questionNumber).getQuestion());
     }
 
     /**
@@ -154,34 +222,115 @@ public class CQuiz implements Initializable {
      */
     private void setAnswers() {
         answers = new ArrayList<>();
+        int buttonNumber = 0;
 
         // Speichert Antworten der übergebenen Frage
-        answers.add(questions.get(questionID).getCorrectAnswer());
-        answers.add(questions.get(questionID).getFalseAnswer1());
-        answers.add(questions.get(questionID).getFalseAnswer2());
-        answers.add(questions.get(questionID).getFalseAnswer3());
+        answers.add(questions.get(questionNumber).getCorrectAnswer());
+        answers.add(questions.get(questionNumber).getFalseAnswer1());
+        answers.add(questions.get(questionNumber).getFalseAnswer2());
+        answers.add(questions.get(questionNumber).getFalseAnswer3());
 
         // Speichert korrekte Antwort in globaler Variable
-        correctAnswer = questions.get(questionID).getCorrectAnswer();
+        correctAnswer = questions.get(questionNumber).getCorrectAnswer();
 
         // Mischt die Liste aller Antworten
         Collections.shuffle(answers);
 
         // Zeigt Antworten auf GUI an
-        button_quiz_answerA.setText(answers.get(0));
-        button_quiz_answerB.setText(answers.get(1));
-        button_quiz_answerC.setText(answers.get(2));
-        button_quiz_answerD.setText(answers.get(3));
+        for (Button button : buttons) {
+            button.setText(answers.get(buttonNumber++));
+        }
+    }
+
+    /**
+     * Setzt die Namen der beiden Spieler.
+     */
+    private void setPlayerNames() {
+        label_quiz_nameOp1.setText(playerOne);
+        label_quiz_nameOp2.setText(playerTwo);
+    }
+
+    /**
+     * Setzt die Punktzahl beider Spieler
+     */
+    private void setPoints() {
+        int playerOneScore = 0;
+        int playerTwoScore = 0;
+
+        try {
+            PGame mapper = new PGame(new Connection("/games/" + gameID));
+            playerOneScore = mapper.getGames().get(0).getPlayeronescore();
+            playerTwoScore = mapper.getGames().get(0).getPlayertwoscore();
+        } catch (Exception e) {}
+        label_quiz_pointsOp1.setText(playerOneScore + " P");
+        label_quiz_pointsOp2.setText(playerTwoScore + " P");
+    }
+
+    /**
+     * Gibt zurück, ob sich bei dem handelnden
+     * Spieler um Spieler 1 handelt oder nicht.
+     *
+     * @return isPlayerOne
+     */
+    private boolean isPlayerOne() {
+        boolean isPlayerOne = false;
+
+        if (MConfig.getInstance().getUsername().equals(playerOne)) {
+            isPlayerOne = true;
+        }
+        return isPlayerOne;
     }
 
     /**
      * Deaktiviert alle Antworten.
      */
-    private void disableAnswers() {
-        button_quiz_answerA.setDisable(true);
-        button_quiz_answerB.setDisable(true);
-        button_quiz_answerC.setDisable(true);
-        button_quiz_answerD.setDisable(true);
+    private void disableAnswers(boolean isDisabled) {
+        for (Button button : buttons) {
+            button.setDisable(isDisabled);
+        }
+    }
+
+    /**
+     * Färbt Buttons in Standardfarbe.
+     */
+    private void setDefaultAnswersColor() {
+        for (Button button : buttons) {
+            button.setStyle("-fx-background-color: #008ae6;");
+        }
+    }
+
+    /**
+     * Startet einen Countdown, der einen
+     * Ladebalken und die zugehörige Beschriftung
+     * im Sekundentakt aktualisiert.
+     */
+    private void startCountdown() {
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    double seconds = countdown.getCurrentSeconds();
+                    double totalSeconds = countdown.getTotalSeconds();
+
+                    progressBar_quiz_progress.setProgress(seconds / totalSeconds);
+                    label_quiz_timer.setText(String.format("%.0f", seconds));
+                    countdown.decreaseSeconds(1);
+
+                    Color color;
+                    if (seconds > totalSeconds / 2) {
+                        color = Color.WHITE;
+                    } else {
+                        color = Color.BLACK;
+                    }
+                    label_quiz_timer.setTextFill(color);
+
+                    if (seconds == 0.0) {
+                        checkAnswer(true, button_quiz_answerA);
+                    }
+                });
+            }
+        };
+        quizTimer.scheduleAtFixedRate(task, 0, 1000);
     }
 
     /**
@@ -189,8 +338,8 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerA() throws Exception {
-        checkAnswer();
+    public void onMouseClicked_answerA() {
+        checkAnswer(false, button_quiz_answerA);
     }
 
     /**
@@ -198,8 +347,8 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerB() throws Exception {
-        checkAnswer();
+    public void onMouseClicked_answerB() {
+        checkAnswer(false, button_quiz_answerB);
     }
 
     /**
@@ -207,8 +356,8 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerC() throws Exception {
-        checkAnswer();
+    public void onMouseClicked_answerC() {
+        checkAnswer(false, button_quiz_answerC);
     }
 
     /**
@@ -216,8 +365,8 @@ public class CQuiz implements Initializable {
      * Sendet Antwort an den Server, der diese mit
      * der Lösung der aktuellen Frage vergleicht.
      */
-    public void onMouseClicked_answerD() throws Exception {
-        checkAnswer();
+    public void onMouseClicked_answerD() {
+        checkAnswer(false, button_quiz_answerD);
     }
 
     /**
@@ -225,9 +374,25 @@ public class CQuiz implements Initializable {
      * das aktuell laufende Quiz und navigiert
      * anschließend zum Hauptmenü.
      */
-    public void onMouseClicked_quitGame() {
+    public void onMouseClicked_quitGame() throws Exception {
+        // Beendet Timer
+        quizTimer.cancel();
+
+        // Löscht das erstellte Spiel
+        Connection con = new Connection("/games/update");
+        con.deleteGame(gameID);
+
+        // Wechselt Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
         stage.show();
+    }
+
+    /**
+     * Zeigt die nächste Frage an oder wechselt
+     * zur Ergebnis-Maske.
+     */
+    public void onMouseClicked_nextQuestion() {
+        runQuizRound();
     }
 }
