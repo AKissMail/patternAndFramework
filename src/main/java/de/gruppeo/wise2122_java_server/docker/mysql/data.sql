@@ -374,5 +374,3 @@ INSERT INTO mibquizzz.questions (correctanswer, difficulty, falseanswer1, falsea
                                  category_quizcategoryid)
 VALUES ('Netscape Navigator', 'Fachkraft', 'Windows', 'OS/2', 'Unix',
         'Welches dieser Begriffe ist ein Internet-Browser?', 7);
-
-

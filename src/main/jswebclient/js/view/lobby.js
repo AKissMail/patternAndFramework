@@ -1,9 +1,10 @@
-import * as base from '../controler/base.js';
-import * as apiCalls from '../controler/apiCalls.js';
+import * as base from '../controller/base.js';
+import * as apiCalls from '../controller/apiCalls.js';
 import * as mainMenu from './mainMenu.js';
 import * as resultView from './result.js';
+
 /**
- * Hier wir die Lobby angezeigt, welche während der suche nach einem Gegner angezeigt wird.
+ * Hier wird die Lobby angezeigt, welche während der Suche nach einem Gegner angezeigt wird.
  */
 export function show(gameID) {
     base.clearStage();

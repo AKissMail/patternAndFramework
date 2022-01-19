@@ -34,14 +34,18 @@ public class PlayerEntity {
     @NumberFormat(pattern = "0000", style = NumberFormat.Style.NUMBER)
     private Integer currentscore;
 
-    // private Image thumbnail;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    @JsonIgnore
+    private String thumbnail;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currentstatus")
     public Currentstatus currentstatus;
 
     @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JsonManagedReference
+    @JsonManagedReference
+    @ToString.Exclude
     private HighscoreEntity highscore;
 
     @Override

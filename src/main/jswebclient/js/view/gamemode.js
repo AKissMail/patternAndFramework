@@ -1,13 +1,13 @@
-import * as base from '../controler/base.js';
-import * as apiCalls from '../controler/apiCalls.js';
+import * as base from '../controller/base.js';
+import * as apiCalls from '../controller/apiCalls.js';
 
 import * as mainMenu from './mainMenu.js';
 
 let openGames = "";
 let catigroy = "";
-let lenght  = 0;
+let lenght = 0;
 
-export function show(){
+export function show() {
     base.clearStage();
 
     let backHome = document.createElement("div");
@@ -44,7 +44,7 @@ function addShowEventListener() {
 
 function showNewGame() {
     base.clearStage();
-    catigroy = apiCalls.getCatigroy();
+    catigroy = apiCalls.getCategory();
     lenght = apiCalls.getGameSize();
 
     let backHome = document.createElement("div");

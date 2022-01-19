@@ -1,12 +1,13 @@
-import * as base from '../controler/base.js';
-import * as apiCalls from '../controler/apiCalls.js';
+import * as base from '../controller/base.js';
+import * as apiCalls from '../controller/apiCalls.js';
 
 import * as gamemode from './gamemode.js';
 import * as settings from './settings.js';
 import * as highscore from './highscore.js';
 import * as statistic from './statistic.js';
+
 /**
- * Diese function zeigt das Haubtmenü an.
+ * Diese Funktion zeigt das Hauptmenü an.
  *
  */
 export function show() {
@@ -18,7 +19,7 @@ export function show() {
     profilePic.setAttribute("id", "thumbnail");
     profilePic.setAttribute("src", user[4]);
     let name = document.createElement("h2");
-    name.append("Hallo "+user[1] +" :)");
+    name.append("Hallo "+ apiCalls.decodeCookie("playername"));
 
     let logout = document.createElement("div");
     let logoutText = document.createElement("p");

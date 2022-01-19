@@ -1,4 +1,4 @@
-import * as base from '../controler/base.js';
+import * as base from '../controller/base.js';
 import * as mainMenu from './mainMenu.js';
 import * as statistic from './statistic.js';
 

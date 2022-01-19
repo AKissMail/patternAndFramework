@@ -13,6 +13,7 @@ public class MPlayer {
 
     private int playerid;
     private String username;
+    private String thumbnail;
     private int currentscore;
     private String currentstatus;
     private MHighscore highscore;
@@ -34,9 +35,10 @@ public class MPlayer {
      * @param currentscore
      * @param currentstatus
      */
-    public MPlayer(int playerid, String username, int currentscore, String currentstatus, MHighscore highscore) {
+    public MPlayer(int playerid, String username, String thumbnail, int currentscore, String currentstatus, MHighscore highscore) {
         this.playerid = playerid;
         this.username = username;
+        this.thumbnail = thumbnail;
         this.currentscore = currentscore;
         this.currentstatus = currentstatus;
         this.highscore = highscore;

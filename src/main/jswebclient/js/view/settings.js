@@ -1,11 +1,11 @@
-import * as base from '../controler/base.js';
-import * as apiCalls from '../controler/apiCalls.js';
+import * as base from '../controller/base.js';
+import * as apiCalls from '../controller/apiCalls.js';
 import * as mainMenu from './mainMenu.js';
 
 /**
  * Hier wird das einstellungsmenü in den DOM gehängt
  */
-export function show(){
+export function show() {
     base.clearStage();
     let backHome = document.createElement("div");
     let backHomeText = document.createElement("p");
@@ -91,10 +91,11 @@ function updatePicture() {
  * kleine Helfer function für das Ändern eines Passwortes.
  */
 function updatePassword() {
+    let oldPassword = prompt("Bitte geben Sie ihr altes password ein.")
     let newPassword = prompt("Bitte geben Sie ein neues Passwort ein.");
     let newPassword2 = prompt("Bitte geben Sie das Passwort erneut ein.");
     if(newPassword === newPassword2){
-        apiCalls.updatePassword(newPassword);
+        apiCalls.updatePassword(oldPassword,newPassword);
     }else{
         alert("Die Passwörter stimmen nicht überein!");
     }

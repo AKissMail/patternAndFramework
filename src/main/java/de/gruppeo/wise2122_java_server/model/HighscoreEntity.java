@@ -27,6 +27,7 @@ public class HighscoreEntity {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "player_playerid", unique = true)
     @JsonBackReference
+    @ToString.Exclude
     private PlayerEntity player;
 
     @Column(name = "highscorepoints")

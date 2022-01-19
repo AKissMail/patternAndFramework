@@ -1,11 +1,11 @@
-import * as base from "../controler/base.js";
+import * as base from "../controller/base.js";
 import * as logIn from "./logIn.js";
 import * as register from "./register.js";
 
 
 /**
  * Diese function ist die start View der App. Hier kann man aussuchen, ob man sich
- * regestiren möchte oder anmelden möchte.
+ * registrieren möchte oder anmelden möchte.
  */
 export function show() {
     console.log("show");
@@ -40,12 +40,13 @@ export function show() {
     document.getElementsByTagName("main")[0].appendChild(aside);
     document.getElementById("aside").appendChild(side);
     document.getElementById("aside").appendChild(sideP);
-    addEvetLissner();
+    addEventListener();
 }
+
 /**
  * Kleine helfer function die EventListener setzt.
  */
-function addEvetLissner(){
+function addEventListener() {
     document.getElementById("logIn").addEventListener("click", logIn.show);
     document.getElementById("register").addEventListener("click", register.show);
     console.log('addEventListener, show done');
