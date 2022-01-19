@@ -8,6 +8,7 @@ import de.gruppeo.wise2122_java_server.repository.HighscoreRepository;
 import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
 import de.gruppeo.wise2122_java_server.request.HighscoreRequest;
 import de.gruppeo.wise2122_java_server.request.StatusRequest;
+import de.gruppeo.wise2122_java_server.request.UploadImageByStrRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -142,9 +143,9 @@ public class PlayerController {
     }
 
     @PostMapping(value = "/uploadthumbnailstr")
-    public ResponseEntity<String> uploadThumbnail(
-            @RequestParam("playername") String playername,
-            @RequestParam("file") String file) {
+    public ResponseEntity<String> uploadThumbnail(@RequestBody UploadImageByStrRequest uploadThumbnailRequest) {
+        String playername = uploadThumbnailRequest.getPlayername();
+        String file = uploadThumbnailRequest.getFile();
         Optional<PlayerEntity> playerOptional = playerRepository.findByUsername(playername);
 
         if (playerOptional.isPresent() && !file.isEmpty()) {
