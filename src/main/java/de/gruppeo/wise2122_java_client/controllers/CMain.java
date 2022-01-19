@@ -2,11 +2,12 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Configuration;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
+import de.gruppeo.wise2122_java_client.helpers.Converter;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -31,11 +32,8 @@ public class CMain implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            circle_main_picture.setFill(new ImagePattern(loader.loadImage("PICTURE")));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        // Lädt das Profilbild
+        loader.loadThumbnail(circle_main_picture);
 
         // Setzt den Playernamen
         label_main_username.setText(MConfig.getInstance().getUsername());

@@ -4,10 +4,12 @@ import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Converter;
 import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
@@ -31,11 +33,8 @@ public class CSettingsChangePicture implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            circle_settings_picture.setFill(new ImagePattern(loader.loadImage("PICTURE")));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        // Lädt Profilbild
+        loader.loadThumbnail(circle_settings_picture);
     }
 
     /**
@@ -57,14 +56,14 @@ public class CSettingsChangePicture implements Initializable {
         this.file = fileChooser.showOpenDialog(stage);
 
         // Speichert enkodiertes Image in Datenbank
-        Connection upload = new Connection("/player/uploadthumbnail");
+        Connection upload = new Connection("/player/uploadthumbnailstr");
         upload.uploadThumbnail(Converter.encodeImage(file.getPath()), playername);
 
         // Erhält enkodiertes Image aus Datenbank
         Connection download = new Connection("/player/getthumbnailbyname?playername=" + playername);
-        System.out.println("Bild: " + Converter.decodeImage(download.getServerResponse()));
+        Converter.decodeImage(download.getServerResponse());
 
         // Setzt Image in Kreis ein
-        //circle_settings_picture.setFill(new ImagePattern(Converter.decodeImage(download.getServerResponse()));
+        circle_settings_picture.setFill(new ImagePattern(SwingFXUtils.toFXImage(Converter.decodeImage(download.getServerResponse()), null)));
     }
 }

@@ -22,6 +22,7 @@ public class MConfig {
     private String privateToken;        // Authentifizierungsschlüssel
     private String username;            // Benutername
     private String baseURL;             // Standard Host-URL
+    private String defaultPic;          // Dateiname des Standardbilds
     private Object category;            // Ausgewählte Kategorie
     private Object opponent;            // Ausgewählter Gegner
     private Object rounds;              // Objekt der ausgewählten Rundenzahl
@@ -42,6 +43,7 @@ public class MConfig {
     private MConfig() {
         this.baseURL = "http://localhost:8080";
         this.jwtSecret = "IchbineinfurchtbargeheimesGeheimnisvonThomas";
+        this.defaultPic = "/defaultPic.png";
         this.refreshrate = 2000; // 2 Sekunden
         this.indexRounds = 0;
         this.defaultCountdown = 5.0;

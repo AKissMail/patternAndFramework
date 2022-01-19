@@ -1,21 +1,21 @@
 package de.gruppeo.wise2122_java_client.helpers;
 
 import de.gruppeo.wise2122_java_client.Start;
+import de.gruppeo.wise2122_java_client.models.MConfig;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
-import javax.swing.text.View;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.prefs.Preferences;
 
 public class ViewLoader {
-    // Objekt zum Speichern und Laden von lokalen Einstellungen
-    Preferences pref = java.util.prefs.Preferences.userNodeForPackage(java.util.prefs.Preferences.class);
 
     private Pane pane;
     private Scene scene;
@@ -73,29 +73,42 @@ public class ViewLoader {
     }
 
     /**
-     * Gibt das dem übergebenen Schlüssel
-     * zugeordneten Image zurück.
+     * Gibt ein lokal gespeichertes
+     * Standardbild zurück.
      *
-     * @param key
      * @return lokal gespeichertes Image
      * @throws MalformedURLException
      */
-    public Image loadImage(String key) throws MalformedURLException {
-        Image image;
-
-        this.file = new File(pref.get(key, "src/main/resources/de/gruppeo/wise2122_java_client/images/picture.png"));
-        return image = new Image(file.toURI().toURL().toExternalForm(), false);
+    public Image loadDefaultImage() throws MalformedURLException {
+        try {
+            this.file = new File("src/main/resources/de/gruppeo/wise2122_java_client/images" + MConfig.getInstance().getDefaultPic());
+        } catch (Exception e) {
+            System.out.println("Bild konnte nicht geladen werden");
+        }
+        return new Image(file.toURI().toURL().toExternalForm(), false);
     }
 
     /**
-     * Speichert Zeichenkette lokal in einer XML-Datei.
-     * Zeichenkette wird mittels Schlüssel aufgerufen.
+     * Lädt das in der Datenbank gespeicherte
+     * Profilbild und zeigt es auf der GUI an.
+     * Wenn kein Profilbild gefunden wurde,
+     * wird ein Standardbild geladen.
      *
-     * @param key
-     * @param data
+     * @param thumbnail
      */
-    public void saveData(String key, String data) {
-        pref.put(key.toUpperCase(), data);
-        System.out.println(data + " wurde erfolgreich gespeichert");
+    public void loadThumbnail(Circle thumbnail) {
+        try {
+            // Erhält enkodiertes Image aus Datenbank
+            Connection download = new Connection("/player/getthumbnailbyname?playername=" + MConfig.getInstance().getUsername());
+            Converter.decodeImage(download.getServerResponse());
+            thumbnail.setFill(new ImagePattern(SwingFXUtils.toFXImage(Converter.decodeImage(download.getServerResponse()), null)));
+        } catch (Exception e) {
+            try {
+                thumbnail.setFill(new ImagePattern(loadDefaultImage()));
+                System.out.println("Standardbild gesetzt");
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

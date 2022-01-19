@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import java.net.URL;
@@ -30,6 +31,10 @@ public class CLobby {
     @FXML private BorderPane mainPane;
     @FXML private Button button_lobby_startQuiz;
     @FXML private Label label_lobby_searchingNetwork;
+    @FXML private Label label_lobby_playerOne;
+    @FXML private Label label_lobby_playerTwo;
+    @FXML private Circle circle_lobby_playerOne;
+    @FXML private Circle circle_lobby_playerTwo;
 
     public CLobby() {
         loader = new ViewLoader();
@@ -39,6 +44,8 @@ public class CLobby {
 
     public void initialize() throws Exception {
         registerNewGame();
+        loader.loadThumbnail(circle_lobby_playerOne);
+        label_lobby_playerOne.setText(MConfig.getInstance().getUsername());
 
         TimerTask task = new TimerTask() {
             @Override
