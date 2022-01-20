@@ -5,6 +5,7 @@ import de.gruppeo.wise2122_java_server.repository.*;
 import de.gruppeo.wise2122_java_server.request.DropAnswerRequest;
 import de.gruppeo.wise2122_java_server.request.NewGameRequest;
 import de.gruppeo.wise2122_java_server.request.UpdateGameRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.security.SecureRandom;
@@ -249,14 +250,39 @@ public class GamesController {
 
     /**
      * Das ist der Get um die Spielhistorie eines Spielers abzurufen
+     *
      * @param playername der Spielername
      * @return die liste der beendeten Spiele
      */
     @GetMapping("/history")
-    public ResponseEntity<GamesHistoryEntity> showGamesHistory(@RequestParam String playername) {
-        Optional<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayername_Username(playername);
+    public List<GamesHistoryEntity> showGamesHistory(@RequestParam String playername) {
+        if (playername == null || playername.isEmpty()) {
+            return gamesHistoryRepository.findAll();
+        } else {
+            return gamesHistoryRepository.findByPlayername_Username(playername);
+        }
+    }
 
-        return gamesHistory.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
+    /**
+     * Diese Methode löscht die History-Eintröge eines Spielers.
+     *
+     * @param playername der Spielername
+     * @return die liste der beendeten Spiele
+     */
+    @PutMapping("/historydelete")
+    public ResponseEntity<String> deleteGamesHistory(@RequestParam("playername") String playername) {
+        List<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayername_Username(playername);
+
+        if (gamesHistory.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("History des Spielers " + playername + " konnte nicht gefunden werden!");
+        } else {
+            gamesHistory.forEach(gamesHistoryRepository::delete);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("History des Spielers " + playername + " wurde gelöscht");
+        }
     }
 
     /**
