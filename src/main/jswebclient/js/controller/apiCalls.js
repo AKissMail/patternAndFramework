@@ -1,12 +1,22 @@
 import * as choice from '../view/choice.js';
 import * as mainMenu from "../view/mainMenu.js";
+import * as highscore from "../view/highscore.js";
+import * as statistic from "../view/statistic.js";
+import * as gamemode from "../view/gamemode.js";
+import {displayRounds, showEnterGame} from "../view/gamemode.js";
 
 // API URI
 const serverURL = 'http://localhost:8080';
 const loginPath = '/auth/login';
 const registrationPath = '/auth/register';
 const updatePasswordPath = '/auth/updatepassword';
-
+const highscorePath = '/highscore';
+const historyPath = '/games/history';
+const catigroyPath = '/category';
+const roundsPath ='/rounds';
+const openGamePath = '/games/open';
+const updateGamePath = '/games/update';
+const createGamePath = '/games/create';
 
 /**
  * Dies ist die function dei ein ajax request an die Api mache. Sie bekommt die notwendigen parameter sowie zwei
@@ -20,6 +30,7 @@ const updatePasswordPath = '/auth/updatepassword';
  * @param malFunction die Function welche bei einem .fail ausgeführt werden soll
  */
 function connection({path, method = "GET", body, datatype = "JSON", doneFunction, malFunction} = {}) {
+    console.log(decodeCookie("token"));
     $.ajax(
         {
             method: method,
@@ -27,7 +38,7 @@ function connection({path, method = "GET", body, datatype = "JSON", doneFunction
             url: serverURL + path,
             xhrFields: {withCredentials: true},
             headers: {
-                "Access-Control-Allow-Origin": serverURL,
+                "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
                 "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
                 "Access-Control-Max-Age": "86400",
@@ -35,7 +46,7 @@ function connection({path, method = "GET", body, datatype = "JSON", doneFunction
                 "Platform": "web",
                 "Accept": "*/*",
                 "Build": 2,
-                "Authorization": path === loginPath || path === registrationPath ? "" : decodeCookie("token")
+                "Authorization": path === loginPath || path === registrationPath ? "" : "Bearer "+decodeCookie("token")
             },
             contentType: "application/json; charset=utf-8",
             dataType: datatype,
@@ -156,12 +167,16 @@ export function updatePassword(oldPassword, newPassword) {
         },
         malFunction: function (xhr, status) {
             console.log('Login failed!');
-            console.log(xhr.response);
+            console.log(xhr);
             console.log(status);
-            alert("Login ist fehlgeschlagen!");
+            alert("Die Änderung ist fehlgeschlagen!");
         }
     })
 }
+
+
+
+
 
 /** ******************************************* @todo ******************************************************** */
 /**
@@ -175,22 +190,56 @@ export function getLocalUser() {
 /**
  * Diese Methode lädt die Kategorien vom Server und gib diese zurück.
  */
-export function getCategory() {
-    return ["DemoA", "DemoB", "DemoC"]; // todo hier muss die funkion alle Kategorie hin.
+export function getCategory(callmeback) {
+
+    {
+        connection({
+            path: catigroyPath,
+            doneFunction: function (response) {
+                console.log(response);
+                //gamemode.displayCategory(response);
+                callback(response);
+            },
+            malFunction: function (xhr, status) {
+                console.log('highscorePath failed!');
+                console.log(xhr);
+                console.log(status);
+            }
+        })
+    }
+    function callback(response){
+        callmeback(response);
+    }
 }
 
 /**
  *
  */
-export function getGameSize() {
-    return [10, 20]; // todo hier muss die funkion alle längen abzufragen hin.
+export function getGameSize(callmeback) {
+    {
+        connection({
+            path: roundsPath,
+            doneFunction: function (response) {
+                console.log(response);
+                callback(response);
+            },
+            malFunction: function (xhr, status) {
+                console.log('highscorePath failed!');
+                console.log(xhr);
+                console.log(status);
+            }
+        })
+    }
+    function callback(response){
+        callmeback(response);
+    }
 }
 
 /**
  *
  */
 export function deleteStatistics() {
-    //todd!
+    //@todo
 
 }
 
@@ -199,11 +248,29 @@ export function deleteStatistics() {
  * @param {*} data
  */
 export function updatePicture(data) {
-    const endpoint = "./img";
-    fetch(endpoint, {
-        method: "post",
-        body: data
-    }).catch(console.error);
+
+}
+
+export function updateGame(id,playerOne, playerTwo, status, callback){
+    connection({
+        path: updateGamePath,
+        method: "PUT",
+        body:{
+            "gamesid": id,
+            "playerone": playerOne,
+            "playertwo": playerTwo,
+            "status": status
+        },
+        doneFunction: function (response) {
+            console.log()
+            callback(response);
+        },
+        malFunction: function (xhr, status) {
+            console.log('highscorePath failed!');
+            console.log(xhr);
+            console.log(status);
+        }
+    })
 }
 
 /**
@@ -211,7 +278,17 @@ export function updatePicture(data) {
  * @returns
  */
 export function getHighscore() {
-    return [["User A", 650], ["User B", 550], ["User C", 450], ["User D", 350], ["User F", 250], ["User G", 150], ["User H", 50], ["User I", 0]];
+    connection({
+        path: highscorePath,
+        doneFunction: function (response) {
+            highscore.showData(response);;
+        },
+        malFunction: function (xhr, status) {
+            console.log('highscorePath failed!');
+            console.log(xhr);
+            console.log(status);
+        }
+    })
 }
 
 /**
@@ -219,15 +296,59 @@ export function getHighscore() {
  * @returns
  */
 export function getStatistic() {
-    return [["User A", 650, 300], ["User B", 550, 350], ["User C", 450, 400], ["User D", 350, 370], ["User F", 250, 220], ["User G", 150, 200], ["User H", 50, 500], ["User I", 0, 50]];
+    $.ajax(
+        {
+            method: "GET",
+            crossDomain: true,
+            url: serverURL + historyPath + "/" +decodeCookie("playername"),
+            xhrFields: {withCredentials: true},
+            headers: {
+                "Access-Control-Allow-Origin": serverURL,
+                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                "Access-Control-Max-Age": "86400",
+                "Content-Type": "application/json",
+                "Platform": "web",
+                "Accept": "*/*",
+                "Build": 2,
+                "Authorization": "Bearer "+decodeCookie("token")
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "JSON",
+        }
+    )
+        .done(function (response) {
+            console.log(response);
+            statistic.showData(response);
+        })
+        .fail(function (xhr, status) {
+            console.log('highscorePath failed!');
+            console.log(xhr);
+            console.log(status);
+        });
 }
 
 /**
  *
  * @returns
  */
-export function getOpenGames() {
-    return [["User A", "DemoA", 20, 1], ["User B", "DemoB", 10, 2], ["User C", "DemoC", 20, 3], ["User D", "DemoD", 10, 4]];
+export function getOpenGames(callmeback) {
+    connection({
+        path: openGamePath,
+        doneFunction: function (response) {
+            console.log(response);
+            //gamemode.showEnterGame(response);
+            callback(response);
+        },
+        malFunction: function (xhr, status) {
+            console.log('highscorePath failed!');
+            console.log(xhr);
+            console.log(status);
+        }
+    })
+    function callback (response){
+        callmeback(response);
+    }
 }
 
 /**
@@ -237,7 +358,23 @@ export function getOpenGames() {
  * @returns
  */
 export function createGame(category, size) {
-    return 10;
+    connection({
+        path: createGamePath,
+        method:"POST",
+        body: {
+            "username" : decodeCookie("playername"),
+            "category": category,
+            "rouds" : 1
+        },
+        doneFunction: function (response) {
+            console.log(response);
+        },
+        malFunction: function (xhr, status) {
+            console.log('highscorePath failed!');
+            console.log(xhr);
+            console.log(status);
+        }
+    })
 }
 
 /**
