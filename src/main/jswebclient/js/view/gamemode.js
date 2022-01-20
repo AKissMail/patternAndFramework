@@ -1,11 +1,8 @@
 import * as base from '../controller/base.js';
 import * as apiCalls from '../controller/apiCalls.js';
-
 import * as mainMenu from './mainMenu.js';
-
-let openGames = "";
-let catigroy = "";
-let lenght = 0;
+import {decodeCookie} from "../controller/apiCalls.js";
+// import {showNewGameRounds} from "./scrap";
 
 export function show() {
     base.clearStage();
@@ -37,16 +34,14 @@ export function show() {
     document.getElementsByTagName("article")[0].appendChild(btnB);
     addShowEventListener();
 }
+
 function addShowEventListener() {
-    document.getElementById("newGame").addEventListener("click", showNewGame);
-    document.getElementById("enterGame").addEventListener("click", showEnterGame);
-};
+    document.getElementById("newGame").addEventListener("click", showNewGamePreload);
+    document.getElementById("enterGame").addEventListener("click", function (){apiCalls.getOpenGames(showEnterGame)});
+}
 
-function showNewGame() {
+function showNewGamePreload(){
     base.clearStage();
-    catigroy = apiCalls.getCategory();
-    lenght = apiCalls.getGameSize();
-
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
     backHome.setAttribute("class", "btn");
@@ -55,11 +50,14 @@ function showNewGame() {
     backHome.appendChild(backHometext);
     document.getElementsByTagName("nav")[0].appendChild(backHome);
     document.getElementById("back home").addEventListener("click", show);
+    apiCalls.getCategory(displayCategory);
+}
 
+export function displayCategory(category){
+    console.log('h')
     let brake1 = document.createElement("br");
     let brake2 = document.createElement("br");
     let brake3 = document.createElement("br");
-    let brake4 = document.createElement("br");
     let from = document.createElement("form");
     let labe = document.createElement("label");
     labe.append("Wählen sie eine Kategorie");
@@ -69,27 +67,34 @@ function showNewGame() {
     let select = document.createElement("select");
     select.setAttribute("id", "category");
 
-    for (let i = 0; i < catigroy.length; i++) {
+
+    for (let i = 0; i < category.length; i++) {
+        console.log('jippi');
         let option = document.createElement("option");
-        option.setAttribute("value", catigroy[i]);
-        option.append(catigroy[i])
+        option.setAttribute("value", category[i].valueOf().categoryname);
+        option.append(category[i].valueOf().categoryname);
         select.appendChild(option);
     }
     from.appendChild(select);
     from.appendChild(brake3);
-    let label2 = document.createElement("label");
-    label2.append("Wählen sie die anzahl der Fragen");
-    from.appendChild(label2);
+    let label = document.createElement("label");
+    label.append("Wählen sie die anzahl der Fragen");
+    from.appendChild(label);
     from.appendChild(brake2);
+    document.getElementsByTagName("article")[0].appendChild(from)
+    apiCalls.getGameSize(displayRounds);
 
-    let select2 = document.createElement("select");
-    select2.setAttribute("id", "lenth");
+}
+export function displayRounds (rounds){
+    let brake = document.createElement("br");
+    let select = document.createElement("select");
+    select.setAttribute("id", "length");
 
-    for (let i = 0; i < lenght.length; i++){
-        let option2 = document.createElement("option");
-        option2.setAttribute("value", lenght[i].toString());
-        option2.append(lenght[i].toString());
-        select2.appendChild(option2);
+    for (let i = 0; i < rounds.length; i++){
+        let option = document.createElement("option");
+        option.setAttribute("value", rounds[i].valueOf().quizroundsid);
+        option.append(rounds[i].valueOf().rounds);
+        select.appendChild(option);
     }
 
     let input = document.createElement("input");
@@ -97,21 +102,25 @@ function showNewGame() {
     input.setAttribute("id", "submit");
     input.setAttribute("value", "Senden");
 
-    from.appendChild(select2);
-    from.appendChild(brake4);
-    from.appendChild(input);
+    document.getElementsByTagName("form")[0].appendChild(select);
+    document.getElementsByTagName("form")[0].appendChild(brake);
+    document.getElementsByTagName("form")[0].appendChild(input);
 
-    document.getElementsByTagName("article")[0].appendChild(from);
+
     document.getElementsByTagName("input")[0].addEventListener("click",()=>{
-        console.log(document.getElementById("category").value, document.getElementById("lenth").value);
-        base.startGame(document.getElementById("category").value, document.getElementById("lenth").value);
+        console.log(
+            document.getElementById("category").value + "  "+
+            document.getElementById("length").value);
+        apiCalls.createGame(
+            document.getElementById("category").value,
+            document.getElementById("length").value)
     });
+
 }
 
-function showEnterGame(){
-    this.games = apiCalls.getOpenGames();
-    console.log(this.games.length);
-    console.log(this.games[1][1]);
+export function showEnterGame(games){
+
+    console.log(games);
 
     base.clearStage();
     let backHome = document.createElement("div");
@@ -124,7 +133,7 @@ function showEnterGame(){
     document.getElementById("back home").addEventListener("click", show);
 
     let heading  = document.createElement("h1");
-    heading.append("Es wurden "+this.games.length+" gefunden.");
+    heading.append("Es wurden "+games.length+" gefunden.");
 
     document.getElementsByTagName("article")[0].appendChild(heading);
 
@@ -136,12 +145,12 @@ function showEnterGame(){
     let select = document.createElement("select");
     select.setAttribute("name", "gameDropdown");
     select.setAttribute("id", "selectGame")
-    for(let i = 0; i< this.games.length; i++){
+    for(let i = 0; i< games.length; i++){
 
         let option = document.createElement("option");
         option.setAttribute("value", i);
-        option.setAttribute("id", this.games[i][3]);
-        option.append("Thema: "+this.games[i][1]+", Fragen: "+this.games[i][2]+", gegen: "+this.games[i][0]);
+        option.setAttribute("id", games[i].valueOf().id);
+        option.append("Thema: "+games[i].valueOf().category.valueOf().categoryname+", Fragen: "+games[i].valueOf().rounds.rounds+", gegen: "+games[i].valueOf().playerone.valueOf().username);
 
         select.appendChild(option);
     }
@@ -156,8 +165,12 @@ function showEnterGame(){
     document.getElementsByTagName("article")[0].appendChild(form);
 
     document.getElementsByTagName("input")[0].addEventListener("click",()=>{
-        let data = this.games[document.getElementById("selectGame").value]
-        console.log(data);
-        base.joinGame(data);
+        let id = games[document.getElementById("selectGame").value].valueOf().id;
+        let playerOne = games[document.getElementById("selectGame").value].valueOf().playerone.valueOf().username;
+        let playerTwo = decodeCookie("playername");
+        let status = "";
+        let callback  = function (data){console.log(data)};
+        console.log(id);
+        apiCalls.updateGame(id,playerOne,playerTwo, status, callback);
     });
 }

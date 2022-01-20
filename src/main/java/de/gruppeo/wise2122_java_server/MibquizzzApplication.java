@@ -1,5 +1,6 @@
 package de.gruppeo.wise2122_java_server;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -23,13 +24,43 @@ public class MibquizzzApplication {
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/auth/login")
-						.allowedOrigins("http://localhost:63342")
+			public void addCorsMappings(@NotNull CorsRegistry registry) {
+
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost")
 						.allowCredentials(true);
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:63342")
+						.allowedOrigins("http://localhost:63342/")
 						.allowCredentials(true);
+
+				registry.addMapping("/player/**")
+						.allowedOrigins("http://localhost")
+						.allowCredentials(true);
+				registry.addMapping("/player/**")
+						.allowedOrigins("http://localhost:63342/")
+						.allowCredentials(true);
+
+				registry.addMapping("/games/**")
+						.allowedOrigins("http://localhost:63342/")
+						.allowCredentials(true);
+				registry.addMapping("/games/**")
+						.allowedOrigins("http://localhost/")
+						.allowCredentials(true);
+
+				registry.addMapping("/games/update")
+						.allowedOrigins("http://localhost/")
+						.allowCredentials(true);
+				registry.addMapping("/games/update")
+						.allowedOrigins("http://localhost:63342/")
+						.allowCredentials(true);
+
+				registry.addMapping("/auth/**")
+						.allowedOrigins("http://localhost")
+						.allowCredentials(true);
+				registry.addMapping("/auth/**")
+						.allowedOrigins("http://localhost:63342/")
+						.allowCredentials(true);
+
 			}
 		};
 	}
