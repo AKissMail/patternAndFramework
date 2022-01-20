@@ -2,17 +2,16 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Validation;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
 
 public class CSettingsChangePassword extends Validation {
 
-    private ViewLoader loader;
+    private Loader loader;
     private int checkSum;
     private ArrayList<Boolean> list;
 
@@ -29,7 +28,7 @@ public class CSettingsChangePassword extends Validation {
      * im Zwischenspeicher.
      */
     public CSettingsChangePassword() {
-        loader = new ViewLoader();
+        loader = new Loader();
         checkSum = 0;
         list =  new ArrayList<Boolean>();
 

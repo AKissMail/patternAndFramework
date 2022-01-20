@@ -2,23 +2,22 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Validation;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MGame;
 import de.gruppeo.wise2122_java_client.parsers.PGame;
 import javafx.application.Platform;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
-import java.net.URL;
+
 import java.util.*;
 
 public class CLobby {
-    ViewLoader loader;
+    Loader loader;
     Validation validation;
 
     public static Timer lobbyTimer;
@@ -37,15 +36,25 @@ public class CLobby {
     @FXML private Circle circle_lobby_playerTwo;
 
     public CLobby() {
-        loader = new ViewLoader();
+        loader = new Loader();
         validation = new Validation();
         lobbyTimer = new Timer();
     }
 
+    /**
+     * Registriert ein neues Spiel mit der zuvor getätigten
+     * Quizkonfiguration und prüft regelmäßig, ob ein Gegner
+     * beigetreten ist. Dann wird der Spielername und das
+     * Profilbild des Gegners angezeigt.
+     *
+     * @throws Exception
+     */
     public void initialize() throws Exception {
+        String playername = MConfig.getInstance().getUsername();
+
         registerNewGame();
-        loader.loadThumbnail(circle_lobby_playerOne);
-        label_lobby_playerOne.setText(MConfig.getInstance().getUsername());
+        loader.loadThumbnail(circle_lobby_playerOne, playername);
+        label_lobby_playerOne.setText(playername);
 
         TimerTask task = new TimerTask() {
             @Override
@@ -56,7 +65,9 @@ public class CLobby {
                     if (isChallengerAvailable()) {
                         label_lobby_searchingNetwork.setText(playerTwo + " ist deinem Spiel beigetreten");
 
-                        // @TODO Profilbild und Username des beigetretenen Gegners auf GUI anzeigen
+                        // Zeigt Profilbild des Gegners an
+                        loader.loadThumbnail(circle_lobby_playerTwo, playerTwo);
+                        label_lobby_playerTwo.setText(playerTwo);
 
                         button_lobby_startQuiz.setDisable(false);
                     } else {
@@ -124,9 +135,6 @@ public class CLobby {
         // Speichert Congig-Daten in lokalen Variablen
         String username = MConfig.getInstance().getUsername();
         int registeredGameID = MConfig.getInstance().getRegisteredGameID();
-
-        System.out.println("Username: " + username);
-        System.out.println("Reg ID: " + registeredGameID);
 
         // Aktualisiert den Status des Spiels
         Connection con = new Connection("/games/update");

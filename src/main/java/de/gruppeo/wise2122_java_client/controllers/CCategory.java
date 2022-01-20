@@ -5,13 +5,12 @@ import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MRounds;
 import de.gruppeo.wise2122_java_client.parsers.PCategory;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MCategory;
 import de.gruppeo.wise2122_java_client.parsers.PRounds;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -19,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CCategory implements Initializable {
-    ViewLoader loader;
+    Loader loader;
     Validation validation;
     PCategory mapperCategory;
     PRounds mapperRounds;
@@ -38,7 +37,7 @@ public class CCategory implements Initializable {
      * @throws Exception
      */
     public CCategory() throws Exception {
-        loader = new ViewLoader();
+        loader = new Loader();
         validation = new Validation();
         mapperCategory = new PCategory(new Connection("/category"));
         mapperRounds = new PRounds(new Connection("/rounds"));

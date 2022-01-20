@@ -2,14 +2,13 @@ package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.helpers.Converter;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
@@ -21,20 +20,20 @@ import java.util.ResourceBundle;
 
 public class CSettingsChangePicture implements Initializable {
 
-    private ViewLoader loader;
+    private Loader loader;
     private FileChooser fileChooser;
     private File file;
 
     @FXML private Circle circle_settings_picture;
 
     public CSettingsChangePicture() {
-        loader = new ViewLoader();
+        loader = new Loader();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Lädt Profilbild
-        loader.loadThumbnail(circle_settings_picture);
+        loader.loadThumbnail(circle_settings_picture, MConfig.getInstance().getUsername());
     }
 
     /**

@@ -57,7 +57,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Circle>
-                        <Label fx:id="label_lobby_playerOne" alignment="CENTER" contentDisplay="CENTER" text="Username">
+                        <Label fx:id="label_lobby_playerOne" alignment="CENTER" contentDisplay="CENTER">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -79,7 +79,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Circle>
-                        <Label fx:id="label_lobby_playerTwo" alignment="CENTER" contentDisplay="CENTER" text="Username">
+                        <Label fx:id="label_lobby_playerTwo" alignment="CENTER" contentDisplay="CENTER">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

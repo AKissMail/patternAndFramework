@@ -15,14 +15,14 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ViewLoader {
+public class Loader {
 
     private Pane pane;
     private Scene scene;
     private File file;
     private String location;
 
-    public ViewLoader() {
+    public Loader() {
         location = "fxml/";
     }
 
@@ -73,6 +73,30 @@ public class ViewLoader {
     }
 
     /**
+     * Lädt das in der Datenbank gespeicherte
+     * Profilbild und zeigt es auf der GUI an.
+     * Wenn kein Profilbild gefunden wurde,
+     * wird ein Standardbild geladen.
+     *
+     * @param thumbnail
+     */
+    public void loadThumbnail(Circle thumbnail, String playername) {
+        try {
+            // Erhält enkodiertes Image aus Datenbank
+            Connection download = new Connection("/player/getthumbnailbyname?playername=" + playername);
+            Converter.decodeImage(download.getServerResponse());
+            thumbnail.setFill(new ImagePattern(SwingFXUtils.toFXImage(Converter.decodeImage(download.getServerResponse()), null)));
+        } catch (Exception e) {
+            try {
+                thumbnail.setFill(new ImagePattern(loadDefaultImage()));
+                System.out.println("Standardbild gesetzt");
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * Gibt ein lokal gespeichertes
      * Standardbild zurück.
      *
@@ -86,29 +110,5 @@ public class ViewLoader {
             System.out.println("Bild konnte nicht geladen werden");
         }
         return new Image(file.toURI().toURL().toExternalForm(), false);
-    }
-
-    /**
-     * Lädt das in der Datenbank gespeicherte
-     * Profilbild und zeigt es auf der GUI an.
-     * Wenn kein Profilbild gefunden wurde,
-     * wird ein Standardbild geladen.
-     *
-     * @param thumbnail
-     */
-    public void loadThumbnail(Circle thumbnail) {
-        try {
-            // Erhält enkodiertes Image aus Datenbank
-            Connection download = new Connection("/player/getthumbnailbyname?playername=" + MConfig.getInstance().getUsername());
-            Converter.decodeImage(download.getServerResponse());
-            thumbnail.setFill(new ImagePattern(SwingFXUtils.toFXImage(Converter.decodeImage(download.getServerResponse()), null)));
-        } catch (Exception e) {
-            try {
-                thumbnail.setFill(new ImagePattern(loadDefaultImage()));
-                System.out.println("Standardbild gesetzt");
-            } catch (MalformedURLException ex) {
-                ex.printStackTrace();
-            }
-        }
     }
 }

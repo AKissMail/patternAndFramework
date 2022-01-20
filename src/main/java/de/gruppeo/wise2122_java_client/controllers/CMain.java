@@ -1,24 +1,20 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Configuration;
-import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.helpers.Converter;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
 public class CMain implements Initializable {
-    ViewLoader loader;
+    Loader loader;
     Configuration config;
 
     @FXML private BorderPane mainPane;
@@ -26,17 +22,19 @@ public class CMain implements Initializable {
     @FXML private Label label_main_username;
 
     public CMain() {
-        loader = new ViewLoader();
+        loader = new Loader();
         config = new Configuration();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        String playername = MConfig.getInstance().getUsername();
+
         // Lädt das Profilbild
-        loader.loadThumbnail(circle_main_picture);
+        loader.loadThumbnail(circle_main_picture, playername);
 
         // Setzt den Playernamen
-        label_main_username.setText(MConfig.getInstance().getUsername());
+        label_main_username.setText(playername);
     }
 
     /**

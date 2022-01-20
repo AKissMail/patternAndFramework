@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 
 public class CSignUp {
-    ViewLoader loader;
+    Loader loader;
     Validation validation;
     JwtTokenProvider tokenProvider;
     Alert alert;
@@ -36,7 +36,7 @@ public class CSignUp {
      * im Zwischenspeicher.
      */
     public CSignUp() {
-        loader = new ViewLoader();
+        loader = new Loader();
         validation = new Validation();
         list =  new ArrayList<Boolean>();
         tokenProvider = new JwtTokenProvider();
