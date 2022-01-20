@@ -83,7 +83,6 @@ export function displayCategory(category){
     from.appendChild(brake2);
     document.getElementsByTagName("article")[0].appendChild(from)
     apiCalls.getGameSize(displayRounds);
-
 }
 export function displayRounds (rounds){
     let brake = document.createElement("br");
@@ -92,7 +91,7 @@ export function displayRounds (rounds){
 
     for (let i = 0; i < rounds.length; i++){
         let option = document.createElement("option");
-        option.setAttribute("value", rounds[i].valueOf().quizroundsid);
+        option.setAttribute("value", rounds[i].valueOf().rounds);
         option.append(rounds[i].valueOf().rounds);
         select.appendChild(option);
     }
@@ -165,10 +164,16 @@ export function showEnterGame(games){
     document.getElementsByTagName("article")[0].appendChild(form);
 
     document.getElementsByTagName("input")[0].addEventListener("click",()=>{
+        console.log(
+        games[document.getElementById("selectGame").value].valueOf().id+" "+
+        games[document.getElementById("selectGame").value].valueOf().playerone.valueOf().username +" "+
+        decodeCookie("playername")+" "+
+        "JOINED")
+
         let id = games[document.getElementById("selectGame").value].valueOf().id;
         let playerOne = games[document.getElementById("selectGame").value].valueOf().playerone.valueOf().username;
         let playerTwo = decodeCookie("playername");
-        let status = "";
+        let status = "JOINED";
         let callback  = function (data){console.log(data)};
         console.log(id);
         apiCalls.updateGame(id,playerOne,playerTwo, status, callback);

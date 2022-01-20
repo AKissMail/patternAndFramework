@@ -8,7 +8,7 @@ import * as mainMenu from './mainMenu.js';
  */
 export function show() {
     base.clearStage();
-    apiCalls.getStatistic();
+    apiCalls.getStatistic(showData);
 
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
@@ -22,77 +22,81 @@ export function show() {
 }
 
     export function showData(data){
-    console.log(data);
-    let highscoreHading = document.createElement("h1");
-    highscoreHading.append("Spielstatistik");
-    let highscoreHadingDescription = document.createElement("p");
-    //highscoreHadingDescription.append(data.length + " Spielrunden gefunden");
-        highscoreHadingDescription.append('1'+ " Spielrunden gefunden");
-    document.getElementsByTagName("article")[0].appendChild(highscoreHading);
-    document.getElementsByTagName("article")[0].appendChild(highscoreHadingDescription);
-    let scoreTabel = document.createElement("table");
-    scoreTabel.setAttribute("id", "scoreTabel");
 
-    let scoreTabelHeading = document.createElement("tr");
-    let scoreTabelHeadingRundennummer = document.createElement("th");
-    scoreTabelHeadingRundennummer.append("Spiel");
-    let scoreTabelHeadingPlatz = document.createElement("th");
-    scoreTabelHeadingPlatz.append("Rundennummer");
-    let scoreTabelHeadingUser = document.createElement("th");
-    scoreTabelHeadingUser.append("Kategorie");
-    let scoreTabelHeadingPunkte = document.createElement("th");
-    scoreTabelHeadingPunkte.append("Deine Punkte");
-    let scoreTabelHeadingPunkteOpponent = document.createElement("th");
-    scoreTabelHeadingPunkteOpponent.append("Die Punkte des Gegners");
+    if (!data.length === 0) {
+        console.log(data);
+        let highscoreHading = document.createElement("h1");
+        highscoreHading.append("Spielstatistik");
+        let highscoreHadingDescription = document.createElement("p");
+        highscoreHadingDescription.append(data.length + " Spielrunden gefunden");
+        document.getElementsByTagName("article")[0].appendChild(highscoreHading);
+        document.getElementsByTagName("article")[0].appendChild(highscoreHadingDescription);
+        let scoreTabel = document.createElement("table");
+        scoreTabel.setAttribute("id", "scoreTabel");
 
-    scoreTabelHeading.appendChild(scoreTabelHeadingRundennummer);
-    scoreTabelHeading.appendChild(scoreTabelHeadingPlatz);
-    scoreTabelHeading.appendChild(scoreTabelHeadingUser);
-    scoreTabelHeading.appendChild(scoreTabelHeadingPunkte);
-    scoreTabelHeading.appendChild(scoreTabelHeadingPunkteOpponent);
-    scoreTabel.appendChild(scoreTabelHeading);
+        let scoreTabelHeading = document.createElement("tr");
+        let scoreTabelHeadingRundennummer = document.createElement("th");
+        scoreTabelHeadingRundennummer.append("Spiel");
+        let scoreTabelHeadingPlatz = document.createElement("th");
+        scoreTabelHeadingPlatz.append("Rundennummer");
+        let scoreTabelHeadingUser = document.createElement("th");
+        scoreTabelHeadingUser.append("Kategorie");
+        let scoreTabelHeadingPunkte = document.createElement("th");
+        scoreTabelHeadingPunkte.append("Deine Punkte");
+        let scoreTabelHeadingPunkteOpponent = document.createElement("th");
+        scoreTabelHeadingPunkteOpponent.append("Die Punkte des Gegners");
 
-        let row = document.createElement("tr");
-        let ranking = document.createElement("td");
-        let rounds =document.createElement("td");
-        let user = document.createElement("td");
-        let score = document.createElement("td");
-        let scoreOppnent = document.createElement("td");
-        ranking.append('1');
-        rounds.append(data.valueOf().rounds.rounds);
-        user.append(data.valueOf().category.categoryname);
-        score.append(data.valueOf().playerscore);
-        scoreOppnent.append(data.valueOf().opponentscore);
-        row.appendChild(ranking);
-        row.appendChild(rounds);
-        row.appendChild(user);
-        row.appendChild(score);
-        row.appendChild(scoreOppnent);
-        scoreTabel.appendChild(row);
+        scoreTabelHeading.appendChild(scoreTabelHeadingRundennummer);
+        scoreTabelHeading.appendChild(scoreTabelHeadingPlatz);
+        scoreTabelHeading.appendChild(scoreTabelHeadingUser);
+        scoreTabelHeading.appendChild(scoreTabelHeadingPunkte);
+        scoreTabelHeading.appendChild(scoreTabelHeadingPunkteOpponent);
+        scoreTabel.appendChild(scoreTabelHeading);
 
 
-   /**
-    * // hier muss die schleife aktualisiere werden
-    for (let i = 1; i <= data.length; i++) {
-        let row = document.createElement("tr");
-        let ranking = document.createElement("td");
-        let rounds =document.createElement("td");
-        let user = document.createElement("td");
-        let score = document.createElement("td");
-        let scoreOppnent = document.createElement("td");
-        ranking.append(i.toString());
-        rounds.append(data[i - 1].valueOf().rounds.rounds);
-        user.append(data[i - 1].valueOf().category.categoryname);
-        score.append(data[i - 1].valueOf().playerscore);
-        scoreOppnent.append(data[i-1].valueOf().opponentscore);
-        row.appendChild(ranking);
-        row.appendChild(rounds);
-        row.appendChild(user);
-        row.appendChild(score);
-        row.appendChild(scoreOppnent);
-        scoreTabel.appendChild(row);
+        let summPoints = 0;
+        let winn = 0;
+        let lose = 0;
+
+        for (let i = 1; i <= data.length; i++) {
+            let row = document.createElement("tr");
+            let ranking = document.createElement("td");
+            let rounds = document.createElement("td");
+            let user = document.createElement("td");
+            let score = document.createElement("td");
+            let scoreOppnent = document.createElement("td");
+            ranking.append(i.toString());
+            rounds.append(data[i - 1].valueOf().rounds.rounds);
+            user.append(data[i - 1].valueOf().category.categoryname);
+            score.append(data[i - 1].valueOf().playerscore);
+            scoreOppnent.append(data[i - 1].valueOf().opponentscore);
+            row.appendChild(ranking);
+            row.appendChild(rounds);
+            row.appendChild(user);
+            row.appendChild(score);
+            row.appendChild(scoreOppnent);
+            scoreTabel.appendChild(row);
+            if (data[i - 1].valueOf().opponentscore > data[i - 1].valueOf().playerscore) {
+                lose++
+            } else {
+                winn++
+            }
+            summPoints += data[i - 1].valueOf().playerscore;
+        }
+        let text1 = document.createElement("p");
+        text1.append("Du hast insgesamt " + data.length + " Spiele gespielt.");
+        let text2 = document.createElement("p");
+        text2.append("Davon hast du " + winn + " gewonnen und " + lose + " verloren.");
+        let text3 = document.createElement("p");
+        text3.append("Im Durchschnitt hast du, " + summPoints / data.length + " Punkte erzeilt.")
+        document.getElementsByTagName("article")[0].appendChild(scoreTabel);
+        document.getElementsByTagName("article")[0].appendChild(text1);
+        document.getElementsByTagName("article")[0].appendChild(text2);
+        document.getElementsByTagName("article")[0].appendChild(text3);
+    }else{
+        let emptytext = document.createElement("p");
+        emptytext.append("Es wurden noch kein Spiele von dir gespielt");
+        document.getElementsByTagName("article")[0].appendChild(emptytext);
     }
-    */
-    document.getElementsByTagName("article")[0].appendChild(scoreTabel);
 
 }

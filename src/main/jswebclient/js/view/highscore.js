@@ -7,7 +7,7 @@ import * as mainMenu from './mainMenu.js';
  */
 export function show() {
     base.clearStage();
-    apiCalls.getHighscore();
+    apiCalls.getHighscore(showData);
 
     let backHome = document.createElement("div");
     backHome.setAttribute("id", "back home");
@@ -15,8 +15,8 @@ export function show() {
     let backHometext = document.createElement("p");
     backHometext.append("Hauptmenü");
     backHome.appendChild(backHometext);
-
     document.getElementsByTagName("nav")[0].appendChild(backHome);
+
 }
 
 export function showData (data){

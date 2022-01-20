@@ -5,6 +5,7 @@ import * as gamemode from './gamemode.js';
 import * as settings from './settings.js';
 import * as highscore from './highscore.js';
 import * as statistic from './statistic.js';
+import * as choice from "./choice.js";
 
 /**
  * Diese Funktion zeigt das Hauptmenü an.
@@ -70,7 +71,7 @@ export function show() {
  * kleine helfer function, welch die eventListener setzt.
  */
 function addEventListener(){
-    document.getElementById("logout").addEventListener("click", apiCalls.logout);
+    document.getElementById("logout").addEventListener("click", function(){apiCalls.logout(choice.show)});
     document.getElementById("startGame").addEventListener("click", gamemode.show);
     document.getElementById("settings").addEventListener("click",settings.show);
     document.getElementById("highscore").addEventListener("click", highscore.show);

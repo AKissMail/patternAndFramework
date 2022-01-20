@@ -105,6 +105,6 @@ function updatePassword() {
  */
 function deleteStatistics() {
     if(confirm("Möchten Sie wirklich alle daten Löchen?")){
-        apiCalls.deleteStatistics();
+        apiCalls.deleteStatistics(alert);
     }
 }
