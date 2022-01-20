@@ -1,7 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MQuestion;
 import de.gruppeo.wise2122_java_client.models.MCountdown;
@@ -11,29 +11,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.*;
-
 import javafx.fxml.FXML;
 
 public class CQuiz implements Initializable {
-    ViewLoader loader;
+    Loader loader;
     MCountdown countdown;
     TimerTask task;
     Button[] buttons;
 
-    public static Timer quizTimer;
-
     private int gameID;
     private int questionNumber;
+
     private String playerOne;
     private String playerTwo;
 
     private double seconds;
     private double totalSeconds;
+    public static Timer quizTimer;
 
     private ArrayList<MQuestion> questions;
     private ArrayList<String> answers;
@@ -43,7 +43,7 @@ public class CQuiz implements Initializable {
     @FXML private ProgressBar progressBar_quiz_progress;
     @FXML private Label label_quiz_timer;
     @FXML private Label label_quiz_numberQuestion;
-    @FXML private Label label_quiz_question;
+    @FXML private TextArea textarea_quiz_question;
     @FXML private Button button_quiz_answerA;
     @FXML private Button button_quiz_answerB;
     @FXML private Button button_quiz_answerC;
@@ -55,17 +55,17 @@ public class CQuiz implements Initializable {
     @FXML private Label label_quiz_nameOp2;
 
     public CQuiz() throws Exception {
-        loader = new ViewLoader();
+        loader = new Loader();
         quizTimer = new Timer();
         questionNumber = 0;
 
-        int registeredGameID = MConfig.getInstance().getRegisteredGameID();
-        int joindedGameID = MConfig.getInstance().getJoinedGameID();
+        int gameIDP_playerOne = MConfig.getInstance().getRegisteredGameID();
+        int gameID_playerTwo = MConfig.getInstance().getJoinedGameID();
 
-        if (registeredGameID == 0) {
-            gameID = joindedGameID;
+        if (gameIDP_playerOne == 0) {
+            gameID = gameID_playerTwo;
         } else {
-            gameID = registeredGameID;
+            gameID = gameIDP_playerOne;
         }
 
         questions = new ArrayList<>();
@@ -154,7 +154,6 @@ public class CQuiz implements Initializable {
     }
 
     /**
-     * @TODO Muss noch implementiert werden
      * Berechnet die Punkte einer Spielrunde.
      *
      * @return Time
@@ -180,7 +179,7 @@ public class CQuiz implements Initializable {
                 currentRound = mapper.getGames().get(0).getPlayeroneround();
             }
         } catch (Exception e) {
-            System.out.println("Fehler: " + e);
+            deleteCurrentGame();
         }
         return currentRound;
     }
@@ -198,9 +197,27 @@ public class CQuiz implements Initializable {
             mapper = new PGame(new Connection("/games/" + gameID));
             totalRounds = mapper.getGames().get(0).getRounds().getRounds();
         } catch (Exception e) {
-            System.out.println("Fehler: " + e);
+            deleteCurrentGame();
         }
         return totalRounds;
+    }
+
+    /**
+     * Sendet einen POST an den Server
+     * und löscht damit das aktuelle
+     * Spiel. In der Datenbank wird
+     * es weiterhin angezeigt - der
+     * Status ändert sich auf CLOSE.
+     */
+    private void deleteCurrentGame() {
+        try {
+            // Löscht das erstellte Spiel
+            Connection con = new Connection("/games/update");
+            con.deleteGame(MConfig.getInstance().getRegisteredGameID());
+            System.out.println("Spiel wurde gelöscht");
+        } catch (Exception es) {
+            System.out.println("Spiel konnte nicht gelöscht werden");
+        }
     }
 
     /**
@@ -215,7 +232,7 @@ public class CQuiz implements Initializable {
      * und präsentiert sie auf der GUI.
      */
     private void setQuestion() {
-        label_quiz_question.setText(questions.get(questionNumber).getQuestion());
+        textarea_quiz_question.setText(questions.get(questionNumber).getQuestion());
     }
 
     /**
@@ -373,6 +390,14 @@ public class CQuiz implements Initializable {
     }
 
     /**
+     * Zeigt die nächste Frage an oder wechselt
+     * zur Ergebnis-Maske.
+     */
+    public void onMouseClicked_nextQuestion() {
+        runQuizRound();
+    }
+
+    /**
      * Klick auf "Beenden"-Button beendet
      * das aktuell laufende Quiz und navigiert
      * anschließend zum Hauptmenü.
@@ -389,13 +414,5 @@ public class CQuiz implements Initializable {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("main"));
         stage.show();
-    }
-
-    /**
-     * Zeigt die nächste Frage an oder wechselt
-     * zur Ergebnis-Maske.
-     */
-    public void onMouseClicked_nextQuestion() {
-        runQuizRound();
     }
 }

@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CLogIn implements Initializable {
-    ViewLoader loader;
+    Loader loader;
     Validation validation;
     JwtTokenProvider tokenProvider;
 
@@ -29,7 +29,7 @@ public class CLogIn implements Initializable {
     @FXML private Button button_logIn_logIn;
 
     public CLogIn() {
-        loader = new ViewLoader();
+        loader = new Loader();
         validation = new Validation();
         tokenProvider = new JwtTokenProvider();
     }

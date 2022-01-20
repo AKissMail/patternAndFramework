@@ -209,7 +209,7 @@ public class Connection {
      */
     public void deleteGame(int gamesID) {
         try {
-            sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"playerone\": \"" + "null" + "\", \"playertwo\": \"" + "null" + "\", \"status\": \"" + "OPEN" + "\" }");
+            sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"playerone\": \"" + "null" + "\", \"playertwo\": \"" + "null" + "\", \"status\": \"" + "CLOSE" + "\" }");
             System.out.println("Spiel " + gamesID + " wurde gelöscht");
         } catch (Exception e) {
             System.out.println("Spiel konnte nicht gelöscht werden: " + e);

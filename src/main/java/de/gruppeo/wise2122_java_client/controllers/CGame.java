@@ -1,7 +1,7 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import de.gruppeo.wise2122_java_client.models.MGame;
 import de.gruppeo.wise2122_java_client.parsers.PGame;
@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.*;
 
 public class CGame implements Initializable {
-    ViewLoader loader;
+    Loader loader;
     PGame mapper;
     Alert alert;
 
@@ -29,7 +29,7 @@ public class CGame implements Initializable {
     @FXML private Button button_game_joinGame;
 
     public CGame() {
-        loader = new ViewLoader();
+        loader = new Loader();
         gameTimer = new Timer();
     }
 
@@ -182,7 +182,7 @@ public class CGame implements Initializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            alert.close();
         }
         return isSelectedGameRunning;
     }
@@ -214,7 +214,7 @@ public class CGame implements Initializable {
         // Beendet den Timer
         gameTimer.cancel();
 
-        // Entfernt Spieler 2 aus dem beigetretenen Spiel
+        // Entfernt Spieler 2 aus dem beigetretenen Spiel @TODO Hier gibt's noch ein Problem!
         Connection removePlayerTwo = new Connection("/games/update");
         removePlayerTwo.updateGame(MConfig.getInstance().getJoinedGameID(), "", "null", "OPEN");
 

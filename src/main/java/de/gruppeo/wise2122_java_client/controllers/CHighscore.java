@@ -1,16 +1,15 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
 import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MHighscore;
-import de.gruppeo.wise2122_java_client.models.MPlayer;
 import de.gruppeo.wise2122_java_client.parsers.PHighscore;
-import de.gruppeo.wise2122_java_client.parsers.PPlayer;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -18,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CHighscore implements Initializable {
-    ViewLoader loader;
+    Loader loader;
     PHighscore mapperHighscore;
 
     @FXML private BorderPane mainPane;
@@ -30,7 +29,7 @@ public class CHighscore implements Initializable {
     @FXML private TableColumn<MHighscore, String> column_highscore_date;
 
     public CHighscore() throws Exception {
-        loader = new ViewLoader();
+        loader = new Loader();
         mapperHighscore = new PHighscore(new Connection("/highscore"));
     }
 
@@ -50,6 +49,15 @@ public class CHighscore implements Initializable {
         for (MHighscore score : mapperHighscore.getHighscores()) {
             table_highscore_points.getItems().add(new MHighscore(rank++, score.getPlayername(), score.getHighscorepoints(), score.getLastupdate()));
         }
+    }
+
+    /**
+     * Zeigt die Spielhistorie an.
+     */
+    public void onMouseClicked_showGameHistory() {
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("history"));
+        stage.show();
     }
 
     /**

@@ -1,6 +1,6 @@
 package de.gruppeo.wise2122_java_client.controllers;
 
-import de.gruppeo.wise2122_java_client.helpers.ViewLoader;
+import de.gruppeo.wise2122_java_client.helpers.Loader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -8,12 +8,12 @@ import javafx.fxml.FXML;
 
 public class CSettings {
 
-    private ViewLoader loader;
+    private Loader loader;
 
     @FXML private BorderPane mainPane;
 
     public CSettings() {
-        loader = new ViewLoader();
+        loader = new Loader();
     }
 
     /**
