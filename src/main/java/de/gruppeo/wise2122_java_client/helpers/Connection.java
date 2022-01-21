@@ -21,9 +21,13 @@ public class Connection {
      * @param directory
      * @throws Exception
      */
-    public Connection(String directory) throws Exception {
-        connection = (HttpURLConnection) new URL(MConfig.getInstance().getBaseURL() + directory).openConnection();
-        privateToken = MConfig.getInstance().getPrivateToken();
+    public Connection(String directory) {
+        try {
+            connection = (HttpURLConnection) new URL(MConfig.getInstance().getBaseURL() + directory).openConnection();
+            privateToken = MConfig.getInstance().getPrivateToken();
+        } catch (Exception e) {
+            System.out.println("Verbindung konnte nicht hergestellt werden");
+        }
     }
 
     /**

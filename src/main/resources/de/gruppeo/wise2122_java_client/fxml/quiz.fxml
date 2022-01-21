@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -48,14 +47,11 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextArea fx:id="textarea_quiz_question" editable="false" prefHeight="65.0" prefWidth="581.0" text="Hallo">
-                     <VBox.margin>
-                        <Insets left="100.0" right="100.0" />
-                     </VBox.margin>
+                  <Label fx:id="label_quiz_question" alignment="CENTER" contentDisplay="CENTER" maxWidth="500.0" text="Question" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
-                  </TextArea>
+                  </Label>
                </children>
                <BorderPane.margin>
                   <Insets top="10.0" />
@@ -67,18 +63,24 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <Button fx:id="button_quiz_answerA" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerA" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="button_quiz_answerA" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerA" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer A" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                         </Button>
-                        <Button fx:id="button_quiz_answerC" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerC" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="button_quiz_answerC" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerC" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer C" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                         </Button>
                      </children>
                      <HBox.margin>
@@ -87,18 +89,24 @@
                   </VBox>
                   <VBox alignment="CENTER">
                      <children>
-                        <Button fx:id="button_quiz_answerB" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerB" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="button_quiz_answerB" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerB" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer B" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                         </Button>
-                        <Button fx:id="button_quiz_answerD" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerD" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="button_quiz_answerD" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onMouseClicked_answerD" prefHeight="86.0" prefWidth="275.0" style="-fx-background-color: #008ae6;" text="Answer D" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="20.0" />
                            </font>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                         </Button>
                      </children>
                      <HBox.margin>

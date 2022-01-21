@@ -214,9 +214,13 @@ public class CGame implements Initializable {
         // Beendet den Timer
         gameTimer.cancel();
 
-        // Entfernt Spieler 2 aus dem beigetretenen Spiel @TODO Hier gibt's noch ein Problem!
-        Connection removePlayerTwo = new Connection("/games/update");
-        removePlayerTwo.updateGame(MConfig.getInstance().getJoinedGameID(), "", "null", "OPEN");
+        int gameID = MConfig.getInstance().getJoinedGameID();
+
+        if (gameID != 0) {
+            // Entfernt Spieler 2 aus dem beigetretenen Spiel
+            Connection removePlayerTwo = new Connection("/games/update");
+            removePlayerTwo.updateGame(gameID, "", "null", "OPEN");
+        }
 
         // Wechselt die Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();

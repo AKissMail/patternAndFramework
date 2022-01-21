@@ -43,7 +43,7 @@ public class CQuiz implements Initializable {
     @FXML private ProgressBar progressBar_quiz_progress;
     @FXML private Label label_quiz_timer;
     @FXML private Label label_quiz_numberQuestion;
-    @FXML private TextArea textarea_quiz_question;
+    @FXML private Label label_quiz_question;
     @FXML private Button button_quiz_answerA;
     @FXML private Button button_quiz_answerB;
     @FXML private Button button_quiz_answerC;
@@ -54,7 +54,7 @@ public class CQuiz implements Initializable {
     @FXML private Label label_quiz_nameOp1;
     @FXML private Label label_quiz_nameOp2;
 
-    public CQuiz() throws Exception {
+    public CQuiz() {
         loader = new Loader();
         quizTimer = new Timer();
         questionNumber = 0;
@@ -140,11 +140,9 @@ public class CQuiz implements Initializable {
             }
         }
 
-        try {
-            // Sendet Antwort an Server
-            Connection con = new Connection("/games/dropanswer");
-            con.dropAnswer(gameID, isPlayerOne(), isCorrect, getTime());
-        } catch (Exception e) {}
+        // Sendet Antwort an Server
+        Connection con = new Connection("/games/dropanswer");
+        con.dropAnswer(gameID, isPlayerOne(), isCorrect, getTime());
 
         // Ändert die Button-Beschriftung
         if (getCurrentRound() == getTotalRounds()) {
@@ -232,7 +230,7 @@ public class CQuiz implements Initializable {
      * und präsentiert sie auf der GUI.
      */
     private void setQuestion() {
-        textarea_quiz_question.setText(questions.get(questionNumber).getQuestion());
+        label_quiz_question.setText(questions.get(questionNumber).getQuestion());
     }
 
     /**
@@ -274,14 +272,13 @@ public class CQuiz implements Initializable {
      * Setzt die Punktzahl beider Spieler
      */
     private void setPoints() {
-        int playerOneScore = 0;
-        int playerTwoScore = 0;
+        int playerOneScore;
+        int playerTwoScore;
 
-        try {
-            PGame mapper = new PGame(new Connection("/games/" + gameID));
-            playerOneScore = mapper.getGames().get(0).getPlayeronescore();
-            playerTwoScore = mapper.getGames().get(0).getPlayertwoscore();
-        } catch (Exception e) {}
+        PGame mapper = new PGame(new Connection("/games/" + gameID));
+        playerOneScore = mapper.getGames().get(0).getPlayeronescore();
+        playerTwoScore = mapper.getGames().get(0).getPlayertwoscore();
+
         label_quiz_pointsOp1.setText(playerOneScore + " P");
         label_quiz_pointsOp2.setText(playerTwoScore + " P");
     }
@@ -402,7 +399,7 @@ public class CQuiz implements Initializable {
      * das aktuell laufende Quiz und navigiert
      * anschließend zum Hauptmenü.
      */
-    public void onMouseClicked_quitGame() throws Exception {
+    public void onMouseClicked_quitGame() {
         // Beendet Timer
         quizTimer.cancel();
 

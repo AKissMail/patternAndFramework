@@ -3,6 +3,7 @@ package de.gruppeo.wise2122_java_client;
 import de.gruppeo.wise2122_java_client.controllers.CLobby;
 import de.gruppeo.wise2122_java_client.controllers.CGame;
 import de.gruppeo.wise2122_java_client.controllers.CQuiz;
+import de.gruppeo.wise2122_java_client.controllers.CResult;
 import de.gruppeo.wise2122_java_client.helpers.Connection;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.application.Application;
@@ -28,6 +29,7 @@ public class Start extends Application {
                     CGame.gameTimer.cancel();
                     CLobby.lobbyTimer.cancel();
                     CQuiz.quizTimer.cancel();
+                    CResult.resultTimer.cancel();
 
                     // Löscht das erstellte Spiel
                     Connection con = new Connection("/games/update");

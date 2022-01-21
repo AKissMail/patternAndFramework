@@ -28,7 +28,7 @@
          <top>
             <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="label_result_resultText" alignment="CENTER" contentDisplay="CENTER" text="Resulttext" textAlignment="CENTER">
+                  <Label fx:id="label_result_resultText" alignment="CENTER" contentDisplay="CENTER" text="Warten auf Gegner ..." textAlignment="CENTER">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="label_result_points" text="Points" />
+                  <Label fx:id="label_result_points" text="Das Spielergebnis steht gleich fest" />
                </children>
                <BorderPane.margin>
                   <Insets top="10.0" />
