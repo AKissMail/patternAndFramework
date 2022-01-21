@@ -102,7 +102,6 @@ public class CQuiz implements Initializable {
             setNumberQuestions();
             setQuestion();
             setAnswers();
-            setPoints();
             startCountdown();
 
             button_quiz_nextQuestion.setDisable(true);
@@ -149,6 +148,7 @@ public class CQuiz implements Initializable {
             button_quiz_nextQuestion.setText("Ergebnis anzeigen");
         }
         button_quiz_nextQuestion.setDisable(false);
+        setPoints();
     }
 
     /**
