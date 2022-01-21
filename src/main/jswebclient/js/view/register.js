@@ -79,9 +79,7 @@ function addEvetLissner(){
  */
 function run(){
     if(document.getElementById("password").value === document.getElementById("passwordVerify").value){
-        apiCalls.createPlayer(document.getElementById("userName").value, document.getElementById("password").value);
-
-        choice.show();
+        apiCalls.createPlayer(document.getElementById("userName").value, document.getElementById("password").value, choice.show);
     }else{
         alert("Die Passwörter stimmen nicht über ein!");
     }

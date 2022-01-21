@@ -6,7 +6,7 @@ export let killTimeOut = null;
 
 /**
  * Die Methode macht den DOM Leer und setzt ein minimales Gerüst in den DOM ein. Dieses Gerüst wird von
- * der _show function erwartet. Das letztendliche Resultat schaut wie die ursprüngliche index.html aus.
+ * den show function erwartet. Das letztendliche Resultat schaut wie die ursprüngliche index.html aus.
  * Lediglich der onload event Listener ist nicht enthalten.
  */
 export function clearStage() {
@@ -27,13 +27,9 @@ export function clearStage() {
     document.getElementsByTagName("body")[0].appendChild(footer);
 }
 
-export function joinGame(game) {
-    let gameID = game[3];
-    let size = game[2];
-    let category = game[1];
-    let opponent = game[0];
-    let question = apiCalls.getMyQuestions(category, size);
-    quiz.show(gameID, question, size, category, opponent);
+export function runGame(game) {
+    //@todo
+
 }
 
 export function startGame(category, size) {
@@ -50,5 +46,5 @@ export function startGame(category, size) {
 export function runLogIn() {
     let userName = document.getElementById("userName").value;
     let password = document.getElementById("password").value;
-    apiCalls.logInUser(userName, password);
+    apiCalls.logInUser(userName, password, mainMenu.show);
 }
