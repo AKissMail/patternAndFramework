@@ -139,7 +139,7 @@ export function showEnterGame(games){
     let form = document.createElement("form");
     let label = document.createElement("label");
     label.setAttribute("for", "gameDropdown");
-    label.append("Wählen Sie ein Speil aus");
+    label.append("Wählen Sie ein Spiel aus");
     form.appendChild(label);
     let select = document.createElement("select");
     select.setAttribute("name", "gameDropdown");
@@ -163,19 +163,24 @@ export function showEnterGame(games){
     form.appendChild(input);
     document.getElementsByTagName("article")[0].appendChild(form);
 
-    document.getElementsByTagName("input")[0].addEventListener("click",()=>{
+    document.getElementsByTagName("input")[0].addEventListener("click", () => {
+        /*
         console.log(
         games[document.getElementById("selectGame").value].valueOf().id+" "+
         games[document.getElementById("selectGame").value].valueOf().playerone.valueOf().username +" "+
         decodeCookie("playername")+" "+
         "JOINED")
+        */
 
         let id = games[document.getElementById("selectGame").value].valueOf().id;
-        let playerOne = games[document.getElementById("selectGame").value].valueOf().playerone.valueOf().username;
+        // let playerOne = games[document.getElementById("selectGame").value].valueOf().playerone.valueOf().username;
+        let playerOne = "";
         let playerTwo = decodeCookie("playername");
         let status = "JOINED";
-        let callback  = function (data){console.log(data)};
+        let callback = function (data) {
+            console.log(data)
+        };
         console.log(id);
-        apiCalls.updateGame(id,playerOne,playerTwo, status, callback);
+        apiCalls.updateGame(id, playerOne, playerTwo, status, callback);
     });
 }

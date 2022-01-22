@@ -28,38 +28,9 @@ public class MibquizzzApplication {
 
 				registry.addMapping("/**")
 						.allowedOrigins("http://localhost")
-						.allowCredentials(true);
-				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:63342/")
-						.allowCredentials(true);
-
-				registry.addMapping("/player/**")
-						.allowedOrigins("http://localhost")
-						.allowCredentials(true);
-				registry.addMapping("/player/**")
-						.allowedOrigins("http://localhost:63342/")
-						.allowCredentials(true);
-
-				registry.addMapping("/games/**")
-						.allowedOrigins("http://localhost:63342/")
-						.allowCredentials(true);
-				registry.addMapping("/games/**")
-						.allowedOrigins("http://localhost/")
-						.allowCredentials(true);
-
-				registry.addMapping("/games/update")
-						.allowedOrigins("http://localhost/")
-						.allowCredentials(true);
-				registry.addMapping("/games/update")
-						.allowedOrigins("http://localhost:63342/")
-						.allowCredentials(true);
-
-				registry.addMapping("/auth/**")
-						.allowedOrigins("http://localhost")
-						.allowCredentials(true);
-				registry.addMapping("/auth/**")
-						.allowedOrigins("http://localhost:63342/")
-						.allowCredentials(true);
+						.allowCredentials(true)
+						.allowedMethods("GET", "PUT", "POST", "OPTIONS")
+						.allowedHeaders("*");
 
 			}
 		};

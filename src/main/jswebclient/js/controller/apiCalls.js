@@ -33,15 +33,15 @@ function connection({path, method = "GET", body, datatype = "JSON", doneFunction
             url: serverURL + path,
             xhrFields: {withCredentials: true},
             headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Origin": "http://localhost:8080",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
                 "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                "Access-Control-Max-Age": "86400",
+                "Access-Control-Max-Age": "30",
                 "Content-Type": "application/json",
                 "Platform": "web",
                 "Accept": "*/*",
                 "Build": 2,
-                "Authorization": path === loginPath || path === registrationPath ? "" : "Bearer "+decodeCookie("token")
+                "Authorization": path === loginPath || path === registrationPath ? "" : "Bearer " + decodeCookie("token")
             },
             contentType: "application/json; charset=utf-8",
             dataType: datatype,
@@ -349,7 +349,7 @@ export function getStatistic(callback) {
             }
         ];
         let emptytext = [];
-        callback(fakeResponse);
+        callback(response);
     }
 }
 
