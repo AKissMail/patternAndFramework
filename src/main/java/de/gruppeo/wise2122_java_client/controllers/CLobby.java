@@ -13,7 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
-
 import java.util.*;
 
 public class CLobby {
@@ -72,6 +71,11 @@ public class CLobby {
                         button_lobby_startQuiz.setDisable(false);
                     } else {
                         label_lobby_searchingNetwork.setText(category + " (" + rounds + " Runden) bereitgestellt");
+
+                        // Zeigt Platzhalter an, solange kein Gegner beigetreten ist
+                        loader.setAnyThumbnail(circle_lobby_playerTwo, "/questionmark.png");
+                        label_lobby_playerTwo.setText("");
+
                         button_lobby_startQuiz.setDisable(true);
                     }
                 });
@@ -86,6 +90,8 @@ public class CLobby {
      * der zuvor ausgewählten Quizkategorie,
      * der Rundenzahl und dem Benutzer, der
      * das Spiel gestartet hat.
+     *
+     * @throws Exception
      */
     private void registerNewGame() throws Exception {
         // Erstellt neues Spiel
@@ -128,7 +134,7 @@ public class CLobby {
      * RUNNING, damit es nicht mehr in der
      * List der offenen Spiele angezeigt wird.
      */
-    public void onMouseClicked_startQuiz() throws Exception {
+    public void onMouseClicked_startQuiz() {
         // Beendet den Timer
         lobbyTimer.cancel();
 
@@ -152,7 +158,7 @@ public class CLobby {
      * Spiel wieder, damit eine neue Spiel-
      * Konfiguration vorgenommen werden kann.
      */
-    public void onMouseClicked_back() throws Exception {
+    public void onMouseClicked_back() {
         // Beendet den Timer
         lobbyTimer.cancel();
 

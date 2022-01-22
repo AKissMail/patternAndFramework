@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -114,6 +113,9 @@ public class CQuiz implements Initializable {
      * Prüft, ob die angeklickte Antwort korrekt
      * ist und sendet das Ergebnis, zusammen mit
      * der berechneten Punkzahl, an den Server.
+     *
+     * @param isTimeUp
+     * @param clickedButton
      */
     private void checkAnswer(boolean isTimeUp, Button clickedButton) {
         boolean isCorrect = false;
@@ -300,6 +302,8 @@ public class CQuiz implements Initializable {
 
     /**
      * Deaktiviert alle Antworten.
+     *
+     * @param isDisabled
      */
     private void disableAnswers(boolean isDisabled) {
         for (Button button : buttons) {

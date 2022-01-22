@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -78,21 +77,37 @@ public class Loader {
      * Wenn kein Profilbild gefunden wurde,
      * wird ein Standardbild geladen.
      *
-     * @param thumbnail
+     * @param circle
      */
-    public void loadThumbnail(Circle thumbnail, String playername) {
+    public void loadThumbnail(Circle circle, String playername) {
         try {
             // Erhält enkodiertes Image aus Datenbank
             Connection download = new Connection("/player/getthumbnailbyname?playername=" + playername);
             Converter.decodeImage(download.getServerResponse());
-            thumbnail.setFill(new ImagePattern(SwingFXUtils.toFXImage(Converter.decodeImage(download.getServerResponse()), null)));
+            circle.setFill(new ImagePattern(SwingFXUtils.toFXImage(Converter.decodeImage(download.getServerResponse()), null)));
         } catch (Exception e) {
             try {
-                thumbnail.setFill(new ImagePattern(loadDefaultImage()));
+                circle.setFill(new ImagePattern(loadDefaultImage()));
                 System.out.println("Standardbild gesetzt");
             } catch (MalformedURLException ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Setzt ein im Image-Verzeichnis enthaltenes
+     * Bild in den übergebenen Kreis ein.
+     *
+     * @param circle
+     * @param filename
+     */
+    public void setAnyThumbnail(Circle circle, String filename) {
+        try {
+            file = new File("src/main/resources/de/gruppeo/wise2122_java_client/images" + filename);
+            circle.setFill(new ImagePattern(new Image(file.toURI().toURL().toExternalForm(), false)));
+        } catch (Exception e) {
+            System.out.println("Bild konnte nicht gesetzt werden");
         }
     }
 
