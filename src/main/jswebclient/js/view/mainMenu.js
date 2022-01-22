@@ -6,19 +6,16 @@ import * as settings from './settings.js';
 import * as highscore from './highscore.js';
 import * as statistic from './statistic.js';
 import * as choice from "./choice.js";
-
+import {decodeCookie} from "../controller/apiCalls.js";
 /**
  * Diese Funktion zeigt das Hauptmenü an.
  *
  */
 export function show() {
-    console.log("show");
     base.clearStage();
-    let user = apiCalls.getLocalUser();
 
     let profilePic = document.createElement("img");
     profilePic.setAttribute("id", "thumbnail");
-    profilePic.setAttribute("src", user[4]);
     let name = document.createElement("h2");
     name.append("Hallo "+ apiCalls.decodeCookie("playername"));
 
@@ -64,6 +61,10 @@ export function show() {
     document.getElementsByTagName("article")[0].appendChild(settings);
     document.getElementsByTagName("article")[0].appendChild(highscore);
     document.getElementsByTagName("article")[0].appendChild(statistic);
+    apiCalls.getPicture(decodeCookie("playername"), function (response){
+        let pic= "data:image/gif;base64,"+ response;
+        document.getElementById("thumbnail").setAttribute("src", pic);
+    })
     addEventListener();
 }
 

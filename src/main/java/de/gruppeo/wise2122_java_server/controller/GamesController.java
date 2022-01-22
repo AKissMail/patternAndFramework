@@ -280,7 +280,7 @@ public class GamesController {
         } else {
             gamesHistory.forEach(gamesHistoryRepository::delete);
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.OK)
                     .body("History des Spielers " + playername + " wurde gelöscht");
         }
     }
