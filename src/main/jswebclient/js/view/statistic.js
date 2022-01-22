@@ -23,7 +23,8 @@ export function show() {
 
     export function showData(data){
 
-    if (!data.length === 0) {
+
+    if (data.length >0) {
         console.log(data);
         let highscoreHading = document.createElement("h1");
         highscoreHading.append("Spielstatistik");
