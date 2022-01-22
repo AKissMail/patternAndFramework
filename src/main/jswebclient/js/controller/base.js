@@ -33,11 +33,7 @@ export function runGame(game) {
 }
 
 export function startGame(category, size) {
-    console.log('Test');
-    let gameID = apiCalls.createGame(category, size);
-    let question = apiCalls.getMyQuestions(category, size);
-    killTimeOut = null;
-    quiz.show(gameID, question, size, category);
+ //@todo
 }
 
 /**
@@ -47,4 +43,9 @@ export function runLogIn() {
     let userName = document.getElementById("userName").value;
     let password = document.getElementById("password").value;
     apiCalls.logInUser(userName, password, mainMenu.show);
+}
+export function base64Picture(data) {
+
+
+
 }

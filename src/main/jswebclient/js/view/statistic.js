@@ -1,6 +1,5 @@
 import * as base from '../controller/base.js';
 import * as apiCalls from '../controller/apiCalls.js';
-
 import * as mainMenu from './mainMenu.js';
 
 /**

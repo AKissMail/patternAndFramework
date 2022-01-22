@@ -1,6 +1,8 @@
 import * as base from '../controller/base.js';
 import * as apiCalls from '../controller/apiCalls.js';
 import * as mainMenu from './mainMenu.js';
+import * as choice from './choice.js';
+import {logout} from "../controller/apiCalls.js";
 
 /**
  * Hier wird das einstellungsmenü in den DOM gehängt
@@ -47,10 +49,7 @@ export function show() {
     document.getElementById("deleteStatistics").addEventListener("click", deleteStatistics);
     document.getElementById("backHome").addEventListener("click", mainMenu.show);
 }
-
 /**
- * kleine Helfer function für den upload von Bildern
- */
 function updatePicture() {
     base.clearStage();
 
@@ -62,7 +61,7 @@ function updatePicture() {
     backHome.setAttribute("id", "backHome");
     document.getElementsByTagName("nav")[0].appendChild(backHome);
 
-    let from = document.createElement("form");
+    let from = document.createElement("span");
     from.setAttribute("id", "uploadFrom");
     let input = document.createElement("input");
     input.setAttribute("id","inputFile");
@@ -77,12 +76,41 @@ function updatePicture() {
 
     const htmlForm = document.getElementById("uploadFrom");
     const inputFile = document.getElementById("inputFile");
+    let myFile ={};
+    let isFilePresent = true; // soll das so?
+    let data;
+    inputFile.addEventListener("change", async (event) => {
+        myFile = {};
+        isFilePresent = false;
+
+        const filePromise = Object.entries(files).map((item) => {
+            return new Promise((resolve, reject) => {
+                const [index, file] = item;
+                const reader = new FileReader();
+                reader.readAsBinaryString(file);
+                reader.onload = function (event) {
+                    const fileKey = `${inputKey}${files.length > 1 ? `[${index}]` : ""}`;
+                    myFile[fileKey] = `data:${file.type};base64,${btoa(event.target.result)}`;
+                    resolve();
+                };
+                reader.onerror = function () {
+                    console.log("can't read the file");
+                    reject();
+                };
+            });
+            Promise.all(filePromise)
+                .then(()=>{
+                isFilePresent = true;
+                let newData =myFile;
+            }
+        })
+
+
+        });
+
 
     htmlForm.addEventListener("submit", e => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("newPicture", inputFile.files[0]);
-        apiCalls.updatePicture(formData);
+        alert("Test");
     })
 
     document.getElementById("backHome").addEventListener("click", show);
@@ -95,7 +123,7 @@ function updatePassword() {
     let newPassword = prompt("Bitte geben Sie ein neues Passwort ein.");
     let newPassword2 = prompt("Bitte geben Sie das Passwort erneut ein.");
     if(newPassword === newPassword2){
-        apiCalls.updatePassword(oldPassword,newPassword);
+        apiCalls.updatePassword(oldPassword,newPassword, function (){logout(choice.show)});
     }else{
         alert("Die Passwörter stimmen nicht überein!");
     }
@@ -104,7 +132,7 @@ function updatePassword() {
  * kleine Helfer function für das Zurücksetzen der Spielstatistik.
  */
 function deleteStatistics() {
-    if(confirm("Möchten Sie wirklich alle daten Löchen?")){
-        apiCalls.deleteStatistics(alert);
+    if(confirm("Möchten Sie wirklich alle daten Löschen?")){
+        apiCalls.deleteStatistics(console.log);
     }
 }

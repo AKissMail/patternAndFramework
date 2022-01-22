@@ -1,4 +1,5 @@
-// API URI
+
+
 const serverURL = 'http://localhost:8080';
 const loginPath = '/auth/login';
 const registrationPath = '/auth/register';
@@ -11,6 +12,7 @@ const roundsPath ='/rounds';
 const openGamePath = '/games/open';
 const updateGamePath = '/games/update';
 const createGamePath = '/games/create';
+const getthumbnailPath = '/player/getthumbnailbyname?playername=';
 
 
 /**
@@ -25,7 +27,6 @@ const createGamePath = '/games/create';
  * @param malFunction die Function welche bei einem .fail ausgeführt werden soll
  */
 function connection({path, method = "GET", body, datatype = "JSON", doneFunction, malFunction} = {}) {
-    console.log(decodeCookie("token"));
     $.ajax(
         {
             method: method,
@@ -54,6 +55,25 @@ function connection({path, method = "GET", body, datatype = "JSON", doneFunction
         .fail(function (xhr, status) {
             malFunction(xhr, status);
         });
+}
+
+export function getPicture (name,callback){
+    connection({
+        path: getthumbnailPath+name,
+        datatype: "text",
+        doneFunction: function done(response) {
+            console.log('getPicture done!');
+            console.log(response);
+            callback(response);
+        },
+        malFunction: function fail(xhr, status) {
+            console.log('getPicture failed!');
+            console.log(xhr.response);
+            console.log(status);
+            return " ";
+        }
+    });
+
 }
 
 /**
@@ -145,31 +165,6 @@ export function decodeCookie(cookieName) {
     return "";
 }
 
-/**
- * Diese function setzt ein neues Password
- * @param oldPassword das alte Password
- * @param newPassword das neue Password
- */
-export function updatePassword(oldPassword, newPassword) {
-    connection({
-        path: updatePasswordPath,
-        datatype: "POST",
-        body: {"playername": decodeCookie("playername"), "oldpassword": oldPassword, "newpassword": newPassword},
-        method: "text",
-        doneFunction: function (response) {
-            console.log(response);
-            console.log('updatePassword done!');
-            console.log(decodeCookie("token"));
-            logout();
-        },
-        malFunction: function (xhr, status) {
-            console.log('Login failed!');
-            console.log(xhr);
-            console.log(status);
-            alert("Die Änderung ist fehlgeschlagen!");
-        }
-    })
-}
 
 /**
  * Diese Methode lädt die Kategorien vom Server und gib diese zurück.
@@ -250,108 +245,7 @@ export function updateGame(id,playerOne, playerTwo, status, callback){
     })
 }
 
-/**
- * Diese Methode holt die Statistik für ein Speiler vom Server
- * @param callmeback Die Function die ausgeführt werden soll wenn eine 200 kommt.
- * @todo CORS
- */
-export function getStatistic(callback) {
-    connection({
-        method: "GET",
-        path: historyPath + "?playername=" + decodeCookie("playername"),
-        doneFunction: function (response) {
-            callmeback(response);
-        },
-        malFunction: function (xhr, status) {
-            callmeback(xhr);
-            console.log('highscorePath failed!');
-            console.log(xhr);
-            console.log(status);
-        }
-    })
-    function callmeback(response){
-        console.log(response);
-        let fakeResponse = [
-            {
-                "id": 15,
-                "playername": {
-                    "playerid": 111,
-                    "username": "test",
-                    "currentscore": 0,
-                    "currentstatus": "ONLINE",
-                    "highscore": {
-                        "quizhighscoreid": 14,
-                        "playername": "test",
-                        "highscorepoints": 0,
-                        "lastupdate": "2022-01-18T19:02:00.445679"
-                    }
-                },
-                "playerscore": 2,
-                "opponentscore": 1,
-                "category": {
-                    "quizcategoryid": 3,
-                    "categoryname": "Mediendesign"
-                },
-                "rounds": {
-                    "quizroundsid": 1,
-                    "rounds": 5
-                }
-            },
-            {
-                "id": 16,
-                "playername": {
-                    "playerid": 111,
-                    "username": "test",
-                    "currentscore": 0,
-                    "currentstatus": "ONLINE",
-                    "highscore": {
-                        "quizhighscoreid": 14,
-                        "playername": "test",
-                        "highscorepoints": 0,
-                        "lastupdate": "2022-01-18T19:02:00.445679"
-                    }
-                },
-                "playerscore": 3,
-                "opponentscore": 2,
-                "category": {
-                    "quizcategoryid": 4,
-                    "categoryname": "IT-Sicherheit"
-                },
-                "rounds": {
-                    "quizroundsid": 2,
-                    "rounds": 10
-                }
-            },
-            {
-                "id": 17,
-                "playername": {
-                    "playerid": 111,
-                    "username": "test",
-                    "currentscore": 0,
-                    "currentstatus": "ONLINE",
-                    "highscore": {
-                        "quizhighscoreid": 14,
-                        "playername": "test",
-                        "highscorepoints": 0,
-                        "lastupdate": "2022-01-18T19:02:00.445679"
-                    }
-                },
-                "playerscore": 4,
-                "opponentscore": 3,
-                "category": {
-                    "quizcategoryid": 5,
-                    "categoryname": "Erdkunde"
-                },
-                "rounds": {
-                    "quizroundsid": 3,
-                    "rounds": 20
-                }
-            }
-        ];
-        let emptytext = [];
-        callback(response);
-    }
-}
+
 
 /**
  * Diese Function ruft die Spiele vom Server, ab die den Status offen haben.
@@ -406,6 +300,62 @@ export function createGame(category, size, callback) {
 }
 
 /**
+ * Diese function lädt ein Base64 encodetet Bild
+ * @param data
+ */
+export function updatePicture(data) {
+    //@todo
+}
+
+/**
+ * Diese function setzt ein neues Password
+ * @param oldPassword das alte Password
+ * @param newPassword das neue Password
+ */
+export function updatePassword(oldPassword, newPassword, callback) {
+    connection({
+        path: updatePasswordPath,
+        datatype: "Text",
+        body: {"playername": decodeCookie("playername"), "oldpassword": oldPassword, "newpassword": newPassword},
+        method: "POST",
+        doneFunction: function (response) {
+            callback();
+        },
+        malFunction: function (xhr, status) {
+            console.log('Login failed!');
+            console.log(xhr);
+            console.log(status);
+            alert("Die Änderung ist fehlgeschlagen!");
+        }
+    })
+}
+
+
+/**
+ * Diese Function löscht die Statistik eines Users. – Nicht erschrecken, falls 404 geworfen wird.
+ * Dann sind keine Daten in der DB gewesen.
+ * @param callback Die Function die ausgeführt werden soll cobalt eine 200 ergebnis da ist.
+ */
+export function deleteStatistics(callback) {
+
+    connection({
+        method: "PUT",
+        path: historydeletePath + "?playername=" + decodeCookie("playername"),
+        doneFunction: function (response) {
+            callmeback(response);
+        },
+        malFunction: function (xhr, status) {
+            console.log('deleteStatistics failed!');
+            console.log(xhr);
+            console.log(status);
+        }
+    })
+    function callmeback(response){
+        callback(response);
+    }
+}
+
+/**
  * Diese function holt den Highscore vom Server
  * @returns
  */
@@ -427,20 +377,18 @@ export function getHighscore(callback) {
 }
 
 /**
- * Diese Function löscht die Statistik eines Users.
- * @param callback Die Function die ausgeführt werden soll sobalt eine 200 ergebnis da ist.
- * @todo CORS
+ * Diese Methode holt die Statistik für ein Speiler vom Server
+ * @param callback Die Function die ausgeführt werden soll wenn eine 200 kommt.
  */
-export function deleteStatistics(callback) {
-
+export function getStatistic(callback) {
     connection({
-        method: "PUT",
-        path: historydeletePath + "?playername=" + decodeCookie("playername"),
+        method: "GET",
+        path: historyPath + "?playername=" + decodeCookie("playername"),
         doneFunction: function (response) {
             callmeback(response);
         },
         malFunction: function (xhr, status) {
-            callmeback(status);
+            callmeback(xhr);
             console.log('highscorePath failed!');
             console.log(xhr);
             console.log(status);
@@ -450,54 +398,7 @@ export function deleteStatistics(callback) {
         callback(response);
     }
 }
-
-/**
- * Diese function lädt ein Base64 encodetet Bild
- * @param data
- */
-export function updatePicture(data) {
-    //@todo
-}
-
 /********************************************* @todo */ /******************************************************* */
-export function getMyQuestions(category, size) {
-    let allQuestions = getAllQuestions(category);
-    let question = [];
-    for (let i = 0; i < size; i++) {
-        question.push(allQuestions[Math.floor(Math.random() * size)]);
-    }
-    return question;
-}
-function getAllQuestions(c) {
-    //@todo
-    return [
-        {"question": "FrageA", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageB", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageC", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageD", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageF", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageG", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageH", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageI", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageJ", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageK", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageL", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageM", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageN", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageO", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageP", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageQ", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageR", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageS", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageT", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageU", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageV", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageW", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageX", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageY", "a": "A", "b": "B", "c": "C", "d": "D"},
-        {"question": "FrageZ", "a": "A", "b": "B", "c": "C", "d": "D"}
-    ];
-}
 export function submitAnswer(bool, time, gameID) {
     //@todo
     console.log(bool, time, gameID);
@@ -507,9 +408,3 @@ export function getResult(gameID) {
     return {"done": true, "localPoint": 750, "remotePoint": 650, "nameOpponent": "Hans"};
     //return {"done": false, "localPoint": 750, "remotePoint": null}
 }
-export function getLocalUser() {
-    //@todo
-    return [1, "Andy", "42", "42", "https://hub.dummyapis.com/image?text=Test&height=120&width=120", "online"];
-
-}
-
