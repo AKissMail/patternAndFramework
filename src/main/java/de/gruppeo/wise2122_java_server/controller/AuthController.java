@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 import static de.gruppeo.wise2122_java_server.model.Currentstatus.ONLINE;
-
 @RestController
+@CrossOrigin
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -117,7 +117,9 @@ public class AuthController {
             updatedPlayer.setPassword(passwordEncoder.encode(newPassword));
             playerRepository.save(updatedPlayer);
 
-            return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
+            //return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Das Passwort wurde geändert!");
         }
 
         return ResponseEntity.badRequest().build();
