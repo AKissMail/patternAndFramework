@@ -30,7 +30,8 @@ public class MConfig {
     private int joinedGameID;           // ID des beigetretenen Spiels
     private int registeredGameID;       // ID des registrierten Spiels
     private int refreshrate;            // Aktualisierungsrate in Millisekunden
-    private double defaultCountdown;    // Countdown-Länge in Sekunden
+    private int defaultNextQuestion;    // Countdown-Länhe in Sekunden für nächste Frage
+    private double defaultCountdown;    // Countdown-Länge in Sekunden einer Spielrunde
 
     /**
      * Um sicherzustellen, dass nur eine Instanz des Config-Modells
@@ -46,6 +47,7 @@ public class MConfig {
         this.defaultPic = "/defaultPic.png";
         this.refreshrate = 2000; // 2 Sekunden
         this.indexRounds = 0;
+        this.defaultNextQuestion = 10;
         this.defaultCountdown = 5.0;
     }
 
