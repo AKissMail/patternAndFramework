@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Interface für die Abfrage der Tabelle gameshistory
+ */
 @Repository
 public interface GamesHistoryRepository extends JpaRepository<GamesHistoryEntity, Long> {
 
