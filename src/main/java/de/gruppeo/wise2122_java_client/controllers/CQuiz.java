@@ -11,18 +11,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.*;
+
 import javafx.fxml.FXML;
 
 public class CQuiz implements Initializable {
     Loader loader;
     MCountdown countdown;
-    TimerTask task;
+    TimerTask countdownTask;
+    TimerTask questionTask;
     Button[] buttons;
 
     private int gameID;
@@ -33,7 +34,10 @@ public class CQuiz implements Initializable {
 
     private double seconds;
     private double totalSeconds;
+    private int nextQuestion;
+
     public static Timer quizTimer;
+    public static Timer questionTimer;
 
     private ArrayList<MQuestion> questions;
     private ArrayList<String> answers;
@@ -57,7 +61,9 @@ public class CQuiz implements Initializable {
     public CQuiz() {
         loader = new Loader();
         quizTimer = new Timer();
+        questionTimer = new Timer();
         questionNumber = 0;
+        nextQuestion = MConfig.getInstance().getDefaultNextQuestion();
 
         int gameIDP_playerOne = MConfig.getInstance().getRegisteredGameID();
         int gameID_playerTwo = MConfig.getInstance().getJoinedGameID();
@@ -90,8 +96,14 @@ public class CQuiz implements Initializable {
      * Spielrunde benötigt werden.
      */
     private void runQuizRound() {
+        try {
+            questionTask.cancel();
+        } catch (Exception e) {
+            System.out.println("Timer ist null");
+        }
+
         if (getCurrentRound() == getTotalRounds()) {
-            task.cancel();
+            countdownTask.cancel();
             Stage stage = (Stage) mainPane.getScene().getWindow();
             stage.setScene(loader.getScene("result"));
             stage.show();
@@ -114,10 +126,14 @@ public class CQuiz implements Initializable {
      * Prüft, ob die angeklickte Antwort korrekt
      * ist und sendet das Ergebnis, zusammen mit
      * der berechneten Punkzahl, an den Server.
+     *
+     * @param isTimeUp
+     * @param clickedButton
      */
     private void checkAnswer(boolean isTimeUp, Button clickedButton) {
         boolean isCorrect = false;
-        task.cancel();
+        countdownTask.cancel();
+        nextQuestion = 5;
 
         // Deaktiviert Antworten
         disableAnswers(true);
@@ -143,12 +159,44 @@ public class CQuiz implements Initializable {
         Connection con = new Connection("/games/dropanswer");
         con.dropAnswer(gameID, isPlayerOne(), isCorrect, getTime());
 
-        // Ändert die Button-Beschriftung
-        if (getCurrentRound() == getTotalRounds()) {
-            button_quiz_nextQuestion.setText("Ergebnis anzeigen");
-        }
-        button_quiz_nextQuestion.setDisable(false);
+        // Aktualisiert den Spielerscore
         setPoints();
+
+        // Startet Countdown für nächste Runde
+        startCountdownNextQuestion();
+    }
+
+    /**
+     * Startet nächste Spielrunde automatisch,
+     * sodass der Gegner nicht zu lange auf
+     * das Endergebnis warten muss.
+     */
+    private void startCountdownNextQuestion() {
+        button_quiz_nextQuestion.setDisable(false);
+
+        questionTask = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    String buttonText;
+
+                    if (nextQuestion <= 0) {
+                        buttonText = "Nächste Frage";
+                        runQuizRound();
+                    } else {
+                        // Ändert die Button-Beschriftung
+                        if (getCurrentRound() == getTotalRounds()) {
+                            buttonText = "Ergebnis anzeigen (" + nextQuestion + ")";
+                        } else {
+                            buttonText = "Nächste Frage (" + nextQuestion + ")";
+                        }
+                    }
+                    nextQuestion--;
+                    button_quiz_nextQuestion.setText(buttonText);
+                });
+            }
+        };
+        questionTimer.scheduleAtFixedRate(questionTask, 0, 1000);
     }
 
     /**
@@ -300,6 +348,8 @@ public class CQuiz implements Initializable {
 
     /**
      * Deaktiviert alle Antworten.
+     *
+     * @param isDisabled
      */
     private void disableAnswers(boolean isDisabled) {
         for (Button button : buttons) {
@@ -322,7 +372,7 @@ public class CQuiz implements Initializable {
      * im Sekundentakt aktualisiert.
      */
     private void startCountdown() {
-        task = new TimerTask() {
+        countdownTask = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -347,7 +397,7 @@ public class CQuiz implements Initializable {
                 });
             }
         };
-        quizTimer.scheduleAtFixedRate(task, 0, 1000);
+        quizTimer.scheduleAtFixedRate(countdownTask, 0, 1000);
     }
 
     /**

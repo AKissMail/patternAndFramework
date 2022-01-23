@@ -8,6 +8,7 @@ import de.gruppeo.wise2122_java_server.request.UpdateGameRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,15 @@ import static de.gruppeo.wise2122_java_server.model.Gamestatus.RUNNING;
 
 
 /**
- * Das ist der GamesController hier werden alle api schnittstellen rund um ein Spiel behandelt.
- * Hier gibt es:
- * /games/create → ein Spiel erstellen
- * /games/update → ein Spiel updaten (beitreten oder löschen)
- * /games/dropAnswer → eine antwort abgeben
- * /games/history → die Spielhistorie eines Spielers abzurufen
- * /games/{id} → ein bestimmte spiel finden
- * /games/all → all spiele finden
+ * Die GamesController-Klasse erstellt die wichtigsten REST-Schnittstellen zur Erstellung und Betrieb der Quiz-Runden.
+ * Es werden alle Api-schnittstellen rund um ein Spiel behandelt:
+ * <p>
+ * /games/create        ein Spiel erstellen
+ * /games/update        ein Spiel aktualisieren (beitreten oder löschen)
+ * /games/dropAnswer    eine Antwort abgeben
+ * /games/history       die Spielhistorie eines Spielers abrufen
+ * /games/{id}          ein bestimmtes Spiel finden
+ * /games/all           alle Spiele auflisten
  */
 @RestController
 @RequestMapping("/games")
@@ -41,8 +43,19 @@ public class GamesController {
 
     /**
      * Constructor
+     *
+     * @param gamesRepository        games repository
+     * @param gamesHistoryRepository games history repository
+     * @param playerRepository       player repository
+     * @param categoryRepository     category repository
+     * @param roundsRepository       rounds repository
+     * @param questionsRepository    questions repository
+     * @param highscoreRepository    highscore repository
      */
-    public GamesController(GamesRepository gamesRepository, GamesHistoryRepository gamesHistoryRepository, PlayerRepository playerRepository, CategoryRepository categoryRepository, RoundsRepository roundsRepository, QuestionsRepository questionsRepository, HighscoreRepository highscoreRepository) {
+    public GamesController(GamesRepository gamesRepository, GamesHistoryRepository gamesHistoryRepository,
+                           PlayerRepository playerRepository, CategoryRepository categoryRepository,
+                           RoundsRepository roundsRepository, QuestionsRepository questionsRepository,
+                           HighscoreRepository highscoreRepository) {
         this.gamesRepository = gamesRepository;
         this.gamesHistoryRepository = gamesHistoryRepository;
         this.playerRepository = playerRepository;
@@ -53,9 +66,11 @@ public class GamesController {
     }
 
     /**
-     * Diese Methode nimmt eine Anfrage für ein neues Spiel an und erstellt und gibt diese zurück.
-     * @param newGameRequest Das ist das Request mapping
-     * @return das Spiel mit allen Fragen
+     * Diese Methode nimmt eine Anfrage für ein neues Spiel an. Anschließend wird das Spiel erstellt
+     * und die Metadaten zurückgegeben
+     *
+     * @param newGameRequest Besteht aus username (playername), category (Spielkategorie), rounds (Anzahl Quizrunden)
+     * @return das erstellte Spiel (GamesEntity) mit den zufällig gewürfelten Fragen
      */
     @PostMapping("/create")
     public ResponseEntity<GamesEntity> createGame(@RequestBody NewGameRequest newGameRequest) {
@@ -63,8 +78,12 @@ public class GamesController {
         Optional<CategoryEntity> gameCategory = categoryRepository.findByCategoryname(newGameRequest.getCategory());
         Optional<RoundsEntity> gameRound = roundsRepository.findByRounds(newGameRequest.getRounds());
         List<QuestionsEntity> questionOfCategories = questionsRepository.findByCategory_CategorynameAllIgnoreCase(newGameRequest.getCategory());
-        if (playerOne.isPresent() && gameCategory.isPresent() && gameRound.isPresent()) {
+
+        // Prüfen, ob die übergebenen Parameter zu Findungen in der DB geführt haben
+        if (playerOne.isPresent() && gameCategory.isPresent() && gameRound.isPresent() && !questionOfCategories.isEmpty()) {
             List<QuestionsEntity> randomQuestions = getRandomQuestions(questionOfCategories, newGameRequest.getRounds());
+
+            // Spielobjekt erstellen
             GamesEntity newGame = new GamesEntity();
             newGame.setGamestatus(Gamestatus.OPEN);
             newGame.setPlayerone(playerOne.get());
@@ -81,10 +100,12 @@ public class GamesController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     /**
-     * Mit dieser Methode kann ein Spiel in der Datenbank aktualisiert werden.
-     * @param updateGameRequest Man kann folgende Param übergeben: games id, player one, player two, status
-     * @return GamesEntity
+     * Mit dieser Methode wird ein Spiel in der Datenbank aktualisiert.
+     *
+     * @param updateGameRequest Man kann folgende Parameter übergeben: gamesid, playerone, playertwo, status
+     * @return GamesEntity Spiel mit den aktualisierten Daten
      */
     @PutMapping("/update")
     public ResponseEntity<GamesEntity> updateGame(@RequestBody UpdateGameRequest updateGameRequest) {
@@ -93,6 +114,9 @@ public class GamesController {
             return ResponseEntity.badRequest().build();
         }
         GamesEntity updatedGame;
+
+        // Hier wird unterschieden, um was für eine Art Aktualisierung es sich handelt
+        // und wer diese veranlasst hat
         switch (updateGameRequest.getPlayerone() + "-" + updateGameRequest.getPlayertwo()) {
             case "null-":
                 updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
@@ -131,12 +155,16 @@ public class GamesController {
                 }
         }
     }
+
     /**
-     * Nimmt Antworten entgegen und verwaltet das Spiel (Antworten gezählt, Fragen entgegengenommen
-     * und Highscore wegschreiben).
+     * Nimmt Antworten entgegen und verwaltet die laufenden Spielrunden
+     * - Antworten zählen
+     * - Antwort richtig oder falsch
+     * - am Ende weird der Highscore weggeschrieben
      *
-     * @param dropAnswerRequest das ist das mapping
-     * @return den Aktuellen stand, solange diese auf RUNNING steht.
+     * @param dropAnswerRequest bestehend aus gamesid, isplayerone (true oder false), answers,
+     *                          time (Zeitpunkt, bei dem die Frage beantwortet worden ist)
+     * @return GamesEntity das aktualisierte Spiel, solange es im Status RUNNING ist
      */
     @PutMapping("/dropanswer")
     public ResponseEntity<GamesEntity> dropAnswer(@RequestBody DropAnswerRequest dropAnswerRequest) {
@@ -184,35 +212,40 @@ public class GamesController {
 
     /**
      * Die Methode gibt eine Liste offener Spiele zurück
-     * @return Liste offener
+     *
+     * @return GamesEntity Liste offener Spiele
      */
     @GetMapping("/open")
     public List<GamesEntity> findByGamestatus() {
         return gamesRepository.findByGamestatus(Gamestatus.OPEN);
     }
-    /**
-     * Diese Methode gibt ein bestimmtes Spiel zurück anhand einer ID
-     * @param id die ID des zu suchen
-     * @return das gesuchte Spiel
-     */
 
+    /**
+     * Diese Methode gibt ein Spiel anhand der gamesid zurück
+     *
+     * @param id die gamesid des zu suchenden Spiels
+     * @return GamesEntity das gesuchte Spiel
+     */
     @GetMapping("/{id}")
     public Optional<GamesEntity> findById(@PathVariable Long id) {
         return gamesRepository.findById(id);
     }
-    /**
-     * Mit dieser Methode werden alle Spiele gefunden und zurück übermittelt
-     * @return die Spiele
-     */
 
+    /**
+     * Mit dieser Methode werden alle Spiele als Liste angezeigt
+     *
+     * @return GamesEntity Liste der Spiele
+     */
     @GetMapping("/all")
     public List<GamesEntity> index() {
         return gamesRepository.findAll();
     }
+
     /**
-     * Dieser Methode werden die Punkte zurückgegeben
+     * Dieser Methode werden die Punkte anhand der Zeit berechnet
+     *
      * @param time Zeit die der Spieler gebraucht hat
-     * @return Die Punkte
+     * @return Punkte (score) als int
      */
     private int scoreCalculator(int time) {
         if (time <= 100) {
@@ -223,9 +256,9 @@ public class GamesController {
     }
 
     /**
-     * Diese Methode schreibt Spiele, welche beendet wurden in die games_history Tabelle.
+     * Diese Methode schreibt beendete Spiele in die games_history Tabelle.
      *
-     * @param updateGame das Spiel, welches beendet wurde
+     * @param updateGame das Spiel (GamesEntity), welches beendet wurde
      */
     private void createAndSaveGamesHistory(Optional<GamesEntity> updateGame) {
         if (updateGame.isPresent()) {
@@ -252,7 +285,7 @@ public class GamesController {
      * Das ist der Get um die Spielhistorie eines Spielers abzurufen
      *
      * @param playername der Spielername
-     * @return die liste der beendeten Spiele
+     * @return die liste der beendeten Spiele (GamesHistoryEntity)
      */
     @GetMapping("/history")
     public List<GamesHistoryEntity> showGamesHistory(@RequestParam String playername) {
@@ -302,10 +335,11 @@ public class GamesController {
     }
 
     /**
-     * Wählt aus ein Set von Fragen, eine bestimme anzahl an Fragen zufällig aus.
+     * Wählt aus den Fragen einer Kategorie, eine bestimme Anzahl an Fragen zufällig (würfeln) aus.
+     *
      * @param questions         das Set an Fragen
-     * @param numberOfQuestions die anzahl der Fragen die ausgewählt wurden´
-     * @return Die Liste der ausgewählten Fragen
+     * @param numberOfQuestions die Anzahl der zu würfelnden Fragen
+     * @return Liste der ausgewählten Fragen (QuestionsEntity)
      */
     public List<QuestionsEntity> getRandomQuestions(List<QuestionsEntity> questions, int numberOfQuestions) {
         List<QuestionsEntity> randomQuestions = new ArrayList<>();

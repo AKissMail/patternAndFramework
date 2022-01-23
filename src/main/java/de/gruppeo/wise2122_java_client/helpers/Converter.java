@@ -2,7 +2,10 @@ package de.gruppeo.wise2122_java_client.helpers;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Base64;
 
 public class Converter {
@@ -12,7 +15,7 @@ public class Converter {
      * Zeichenkette, sodass es in der Datenbank
      * gespeichert werden kann.
      *
-     * @param imagePath
+     * @param imagePath Enthält den Pfad zum Bild
      * @return Zeichenkette
      */
     public static String encodeImage(String imagePath) {
@@ -30,11 +33,11 @@ public class Converter {
     }
 
     /**
-     * Konvertriert übergebene Zeichenkette
+     * Konvertiert übergebene Zeichenkette
      * in eine Bilddatei, sodass es auf der
      * GUI angezeigt werden kann.
      *
-     * @param imageString
+     * @param imageString Base64 String, welcher Bildinformationen enthält
      */
     public static BufferedImage decodeImage(String imageString) {
         BufferedImage image = null;
@@ -44,7 +47,7 @@ public class Converter {
             image = ImageIO.read(bis);
             bis.close();
         } catch (Exception e) {
-
+            System.out.println("Bild konnte nicht korrekt dekodiert werden!");
         }
         return image;
     }

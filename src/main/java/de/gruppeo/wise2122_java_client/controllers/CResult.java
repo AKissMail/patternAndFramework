@@ -16,9 +16,12 @@ import javafx.fxml.FXML;
 public class CResult {
 
     Loader loader;
-    TimerTask task;
+
+    TimerTask resultTask;
+    TimerTask waitingResultTask;
 
     int gameID;
+    int waitingResult;
     String gameStatus;
 
     int scorePlayerOne;
@@ -27,6 +30,7 @@ public class CResult {
     String playerTwo;
 
     public static Timer resultTimer;
+    public static Timer waitingResultTimer;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_result_resultText;
@@ -37,6 +41,9 @@ public class CResult {
     public CResult() {
         loader = new Loader();
         resultTimer = new Timer();
+        waitingResultTimer = new Timer();
+
+        waitingResult = 30;
 
         int gameIDP_playerOne = MConfig.getInstance().getRegisteredGameID();
         int gameID_playerTwo = MConfig.getInstance().getJoinedGameID();
@@ -49,7 +56,9 @@ public class CResult {
     }
 
     public void initialize() {
-        task = new TimerTask() {
+        startCountdownNextQuestion();
+
+        resultTask = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -61,15 +70,30 @@ public class CResult {
                     playerOne = mapper.getGames().get(0).getPlayerone().getUsername();
                     playerTwo = mapper.getGames().get(0).getPlayertwo().getUsername();
 
-                    if (gameStatus.equals("CLOSE")) {
+                    label_result_points.setText("Das Ergebnis steht in " + waitingResult + " Sekunden fest");
+
+                    if (gameStatus.equals("CLOSE") || waitingResult <= 0) {
                         resultTimer.cancel();
+                        waitingResultTimer.cancel();
 
                         setResultText();
                     }
                 });
             }
         };
-        resultTimer.scheduleAtFixedRate(task, 0, MConfig.getInstance().getRefreshrate());
+        resultTimer.scheduleAtFixedRate(resultTask, 0, MConfig.getInstance().getRefreshrate());
+    }
+
+    private void startCountdownNextQuestion() {
+        waitingResultTask = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    waitingResult--;
+                });
+            }
+        };
+        waitingResultTimer.scheduleAtFixedRate(waitingResultTask, 0, 1000);
     }
 
     /**
@@ -82,12 +106,12 @@ public class CResult {
         if (scorePlayerOne > scorePlayerTwo) {
             loader.loadThumbnail(circle_result_winner, playerOne);
             loader.loadThumbnail(circle_result_loser, playerTwo);
-            label_result_points.setText(scorePlayerTwo + " vs. " + scorePlayerOne);
+            label_result_points.setText(scorePlayerTwo + " Punkte vs. " + scorePlayerOne + " Punkte");
             nameCurrentPlayer = playerOne;
         } else {
             loader.loadThumbnail(circle_result_winner, playerTwo);
             loader.loadThumbnail(circle_result_loser, playerOne);
-            label_result_points.setText(scorePlayerOne + " vs. " + scorePlayerTwo);
+            label_result_points.setText(scorePlayerOne + " Punkte vs. " + scorePlayerTwo + " Punkte");
             nameCurrentPlayer = playerTwo;
         }
 

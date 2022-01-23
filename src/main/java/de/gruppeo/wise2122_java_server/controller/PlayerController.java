@@ -20,29 +20,55 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Base64;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+/**
+ * Der Spieler Controller
+ * <p>
+ * Hier sind die Methoden enthalten, die benötigt werden, um einen Spieler zu verwalten und abzufragen
+ */
 @RestController
 @RequestMapping("/player")
 public class PlayerController {
 
-    @Autowired
     private final PlayerRepository playerRepository;
     private final HighscoreRepository highscoreRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
 
+    /**
+     * Instantiates a new Player controller.
+     *
+     * @param playerRepository    the player repository
+     * @param highscoreRepository the highscore repository
+     * @param jwtTokenProvider    the jwt token provider
+     */
+    @Autowired
     public PlayerController(PlayerRepository playerRepository, HighscoreRepository highscoreRepository, JwtTokenProvider jwtTokenProvider) {
         this.playerRepository = playerRepository;
         this.highscoreRepository = highscoreRepository;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    /**
+     * Ungefilterte Liste der registrierten Spieler.
+     *
+     * @return Liste vom Typ PlayerEntity
+     */
     @GetMapping("/all")
     public List<PlayerEntity> index() {
         return playerRepository.findAll();
     }
 
+    /**
+     * Listet Spieler eines bestimmten Status.
+     *
+     * @param status Spielerstatus
+     * @return Liste vom Typ PlayerEntity
+     */
     @GetMapping
     public List<PlayerEntity> findByCurrentstatusAllIgnoreCase(
             @RequestParam("status") Currentstatus status) {
@@ -54,6 +80,12 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Aktualisiere den Spieler Status
+     *
+     * @param statusRequest bestehend aus token (Spielername) und zu setzenden status
+     * @return response entity vom Typ PlayerEntity
+     */
     @PostMapping("/changeplayerstatus")
     public ResponseEntity<PlayerEntity> changePlayerStatus(@RequestBody StatusRequest statusRequest) {
         if (statusRequest.getStatus() == null) {
@@ -75,6 +107,12 @@ public class PlayerController {
 
     }
 
+    /**
+     * Spieler Highscore setzen
+     *
+     * @param highscoreRequest highscore request bestehend aus token (Spielername) und playerHighscore
+     * @return HighscoreEntity des Spielers
+     */
     @PutMapping("/setplayerhighscore")
     public ResponseEntity<HighscoreEntity> setPlayerHighscore(@RequestBody HighscoreRequest highscoreRequest) {
         if (highscoreRequest.getPlayerHighscore() == null) {
@@ -111,6 +149,13 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Upload eines Thumbnails des Spielers
+     *
+     * @param playername Spielername
+     * @param file       Datei
+     * @return response entity vom Typ String (Erfolgreich oder Error)
+     */
     @PostMapping(value = "/uploadthumbnail",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -142,6 +187,12 @@ public class PlayerController {
                 .body("Spieler konnte nicht gefunden werden!");
     }
 
+    /**
+     * Upload eines Spieler Thumbnails, wobei das Bild diesmal als Base64 String übertragen wird
+     *
+     * @param uploadThumbnailRequest bestehend aus file (Base64 String) und playername (Spielername)
+     * @return response entity vom Typ String (erfolgreich oder Fehler)
+     */
     @PostMapping(value = "/uploadthumbnailstr")
     public ResponseEntity<String> uploadThumbnail(@RequestBody UploadImageByStrRequest uploadThumbnailRequest) {
         String playername = uploadThumbnailRequest.getPlayername();
@@ -166,6 +217,12 @@ public class PlayerController {
                 .body("Spieler konnte nicht gefunden werden!");
     }
 
+    /**
+     * Liefert Spieler Thumbnail anhand des Spielernamen.
+     *
+     * @param playername Spielername
+     * @return Bild als Base64 String
+     */
     @GetMapping(value = "/getthumbnailbyname")
     public ResponseEntity<String> getThumbnailByName(@RequestParam("playername") String playername) {
         Optional<PlayerEntity> playerOptional = playerRepository.findByUsername(playername);
@@ -183,6 +240,11 @@ public class PlayerController {
 
     }
 
+    /**
+     * Init binder für Kleinschreibung bei ENUM Datentypen, hier Currentstatus
+     *
+     * @param binder the binder
+     */
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Currentstatus.class, new CaseInsensitiveEnumEditor(Currentstatus.class));

@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 import static de.gruppeo.wise2122_java_server.model.Currentstatus.ONLINE;
+
+/**
+ * Der Auth Controller stellt eine REST-Api bereit.
+ */
 @RestController
-@CrossOrigin
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -30,6 +33,15 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
     private final HighscoreRepository highscoreRepository;
 
+    /**
+     * Instanziiert einen neuen Auth Controller.
+     *
+     * @param playerRepository      player repository
+     * @param passwordEncoder       password encoder
+     * @param authenticationManager authentication manager
+     * @param jwtTokenProvider      jwt token provider
+     * @param highscoreRepository   highscore repository
+     */
     public AuthController(PlayerRepository playerRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, HighscoreRepository highscoreRepository) {
         this.playerRepository = playerRepository;
         this.passwordEncoder = passwordEncoder;
@@ -80,6 +92,12 @@ public class AuthController {
         return ResponseEntity.ok(created);
     }
 
+    /**
+     * Login Rest-Schnittstelle
+     *
+     * @param authRequest Der auth request erwartet username (playername) und password (Passwort)
+     * @return response entity vom Typ String
+     */
     @PostMapping(value = "/login")
     public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -91,6 +109,12 @@ public class AuthController {
         return ResponseEntity.ok(jwtTokenProvider.generateToken(authentication));
     }
 
+    /**
+     * Aktualisiert das Spieler-Passwort
+     *
+     * @param updatePasswordRequest der update password request besteht aus playername, oldpassword und newpassword
+     * @return response entity vom Typ String
+     */
     @PostMapping("/updatepassword")
     @PreAuthorize("hasRole('READ_PRIVILEGE')")
     @ResponseBody
