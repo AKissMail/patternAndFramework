@@ -330,17 +330,19 @@ public class GamesController {
         if (updateGame.isPresent()) {
             // History für Spieler 1
             GamesHistoryEntity newGameHistoryEntryOne = new GamesHistoryEntity();
-            newGameHistoryEntryOne.setRounds(updateGame.get().getRounds());
-            newGameHistoryEntryOne.setPlayername(updateGame.get().getPlayerone());
-            newGameHistoryEntryOne.setCategory(updateGame.get().getCategory());
+            newGameHistoryEntryOne.setRounds(updateGame.get().getRounds().getRounds());
+            newGameHistoryEntryOne.setPlayername(updateGame.get().getPlayerone().getUsername());
+            newGameHistoryEntryOne.setPlayer(updateGame.get().getPlayerone());
+            newGameHistoryEntryOne.setCategoryname(updateGame.get().getCategory().getCategoryname());
             newGameHistoryEntryOne.setPlayerscore(updateGame.get().getPlayeronescore());
             newGameHistoryEntryOne.setOpponentscore(updateGame.get().getPlayertwoscore());
             gamesHistoryRepository.save(newGameHistoryEntryOne);
             // History für Spieler 2
             GamesHistoryEntity newGameHistoryEntryTwo = new GamesHistoryEntity();
-            newGameHistoryEntryTwo.setRounds(updateGame.get().getRounds());
-            newGameHistoryEntryTwo.setPlayername(updateGame.get().getPlayertwo());
-            newGameHistoryEntryTwo.setCategory(updateGame.get().getCategory());
+            newGameHistoryEntryTwo.setRounds(updateGame.get().getRounds().getRounds());
+            newGameHistoryEntryTwo.setPlayername(updateGame.get().getPlayertwo().getUsername());
+            newGameHistoryEntryTwo.setPlayer(updateGame.get().getPlayertwo());
+            newGameHistoryEntryTwo.setCategoryname(updateGame.get().getCategory().getCategoryname());
             newGameHistoryEntryTwo.setPlayerscore(updateGame.get().getPlayertwoscore());
             newGameHistoryEntryTwo.setOpponentscore(updateGame.get().getPlayeronescore());
             gamesHistoryRepository.save(newGameHistoryEntryTwo);
@@ -358,7 +360,7 @@ public class GamesController {
         if (playername == null || playername.isEmpty()) {
             return gamesHistoryRepository.findAll();
         } else {
-            return gamesHistoryRepository.findByPlayername_Username(playername);
+            return gamesHistoryRepository.findByPlayer_Username(playername);
         }
     }
 
@@ -370,7 +372,7 @@ public class GamesController {
      */
     @PutMapping("/historydelete")
     public ResponseEntity<String> deleteGamesHistory(@RequestParam("playername") String playername) {
-        List<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayername_Username(playername);
+        List<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayer_Username(playername);
 
         if (gamesHistory.isEmpty()) {
             return ResponseEntity
