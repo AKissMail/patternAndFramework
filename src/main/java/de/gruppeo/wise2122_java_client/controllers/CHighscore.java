@@ -5,11 +5,9 @@ import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MHighscore;
 import de.gruppeo.wise2122_java_client.parsers.PHighscore;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -21,14 +19,13 @@ public class CHighscore implements Initializable {
     PHighscore mapperHighscore;
 
     @FXML private BorderPane mainPane;
-    @FXML private Label label_highscore_gameRounds;
     @FXML private TableView<Object> table_highscore_points;
     @FXML private TableColumn<MHighscore, Integer> column_highscore_rank;
     @FXML private TableColumn<MHighscore, String> column_highscore_player;
     @FXML private TableColumn<MHighscore, Integer> column_highscore_points;
     @FXML private TableColumn<MHighscore, String> column_highscore_date;
 
-    public CHighscore() throws Exception {
+    public CHighscore() {
         loader = new Loader();
         mapperHighscore = new PHighscore(new Connection("/highscore"));
     }
@@ -40,9 +37,6 @@ public class CHighscore implements Initializable {
         column_highscore_player.setCellValueFactory(new PropertyValueFactory<>("playername"));
         column_highscore_points.setCellValueFactory(new PropertyValueFactory<>("highscorepoints"));
         column_highscore_date.setCellValueFactory(new PropertyValueFactory<>("lastupdate"));
-
-        // Label zur Anzeige der Anzahl der gespielten Runden
-        label_highscore_gameRounds.setText("Du hast 0 Runden gespielt");
 
         int rank = 1;
 

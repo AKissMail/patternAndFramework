@@ -33,10 +33,8 @@ public class CCategory implements Initializable {
      * den Maskenwechsel und etabliert eine neue
      * Serververbindung zur Bereitstellung der
      * Quiz-Kategorien.
-     *
-     * @throws Exception
      */
-    public CCategory() throws Exception {
+    public CCategory() {
         loader = new Loader();
         validation = new Validation();
         mapperCategory = new PCategory(new Connection("/category"));
