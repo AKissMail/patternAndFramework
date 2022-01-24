@@ -26,4 +26,5 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
      * @return die Spieler als Liste
      */
     List<PlayerEntity> findByCurrentstatus(Currentstatus currentstatus);
+
 }
