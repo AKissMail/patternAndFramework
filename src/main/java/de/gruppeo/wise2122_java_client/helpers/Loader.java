@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +32,7 @@ public class Loader {
      * Ersetzung eines Maskenbereichs
      * verwendet werden.
      *
-     * @param filename
+     * @param filename FXML Dateiname
      * @return pane
      */
     public Pane getPane(String filename) {
