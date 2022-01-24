@@ -24,8 +24,6 @@ public class Start extends Application {
 
         // Wird nach Programmende ausgeführt
         stage.setOnCloseRequest(event -> {
-            Connection con;
-            con = new Connection("/games/update");
                 try {
                     // Beendet alle Timer
                     CGame.gameTimer.cancel();
@@ -33,13 +31,7 @@ public class Start extends Application {
                     CQuiz.quizTimer.cancel();
                     CQuiz.questionTimer.cancel();
                     CResult.resultTimer.cancel();
-                    CResult.waitingResultTimer.cancel();
-
-                    // Löscht das erstellte Spiel
-                    con.deleteGame(MConfig.getInstance().getRegisteredGameID());
-                } catch (Exception e) {
-                    con.deleteGame(MConfig.getInstance().getJoinedGameID());
-                }
+                } catch (Exception e) {}
             }
         );
     }
