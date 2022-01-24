@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class Connection {
     HttpURLConnection connection;
@@ -18,8 +19,7 @@ public class Connection {
      * HTTP-Verbindung und stellt privaten Token
      * zur Verfügung.
      *
-     * @param directory
-     * @throws Exception
+     * @param directory URL-Pfad
      */
     public Connection(String directory) {
         try {
@@ -36,7 +36,7 @@ public class Connection {
      * globalen Variable, die von außen über
      * eine GETTER-Methode gelesen werden kann.
      *
-     * @throws Exception
+     * @throws Exception Verbindungsproblem
      */
     private void getData() throws Exception {
         // Konfiguriert HTTP-Verbindung
@@ -61,8 +61,8 @@ public class Connection {
      * und speichert Antwort in globaler
      * Variable 'serverResponse'.
      *
-     * @param serverInput
-     * @throws Exception
+     * @param serverInput JSON-Zeichenkette
+     * @throws Exception Verbindungsproblem
      */
     private void sendData(String requestMethod, String serverInput) throws Exception {
         // Konfiguriert HTTP-Verbindung
@@ -78,14 +78,14 @@ public class Connection {
 
         // Schreibt Server-Input
         try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = serverInput.getBytes("utf-8");
+            byte[] input = serverInput.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
 
         // Liest die Server-Antwort vom Input Stream
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
-            String responseLine = null;
+            String responseLine;
 
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
@@ -120,15 +120,15 @@ public class Connection {
      * Registriert einen neuen Spieler mit
      * einem Benuternamen und Passwort.
      *
-     * @param username
-     * @param password
+     * @param username Benutzername
+     * @param password Passwort
      */
     public void signUpPlayer(String username, String password) {
         try {
             sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
-            System.out.println("Spieler wurde registriert");
+            System.out.println("Spieler " + username.toUpperCase() + " wurde registriert");
         } catch (Exception e) {
-            System.out.println("Spieler konnte nicht registriert werden: " + e);
+            System.out.println("Spieler " + username.toUpperCase() + " konnte nicht registriert werden: " + e);
         }
     }
 
@@ -136,15 +136,15 @@ public class Connection {
      * Meldet einen registrierten Spieler mit
      * einem Benutzernamen und Passwort an.
      *
-     * @param username
-     * @param password
+     * @param username Benutzername
+     * @param password Passwort
      */
     public void logInPlayer(String username, String password) {
         try {
             sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
-            System.out.println("Spieler mit dem Namen >" + username + "< wurde angemeldet");
+            System.out.println("Spieler " + username.toUpperCase() + " wurde angemeldet");
         } catch (Exception e) {
-            System.out.println("Spieler (" + username + ") konnte nicht angemeldet werden: " + e);
+            System.out.println("Spieler " + username.toUpperCase() + " konnte nicht angemeldet werden: " + e);
         }
     }
 
@@ -152,9 +152,9 @@ public class Connection {
      * Aktualisiert das Passwort
      * des angemeldeten Benutzers.
      *
-     * @param username
-     * @param currentPassword
-     * @param newPassword
+     * @param username Benutzername
+     * @param currentPassword Aktuelles Passwort
+     * @param newPassword Neues Passwort
      */
     public void updatePassword(String username, String currentPassword, String newPassword) {
         try {
@@ -166,16 +166,16 @@ public class Connection {
     }
 
     /**
-     * Kann den Benutzernamen des Spieler 1
+     * Schreibt den Benutzernamen des Spieler 1
      * und Spieler 2 in ein erstelltes Spiel
-     * schreiben und den Spielstatus ändern.
+     * und kann den Spielstatus ändern.
      * Eine leere Zeichenkette überschreibt
      * den entsprechenden Benutzernamen nicht.
      *
-     * @param gamesID
-     * @param playerOne
-     * @param playerTwo
-     * @param status
+     * @param gamesID ID des Spiels
+     * @param playerOne Spielername des Initiators
+     * @param playerTwo Spielername des Beitretenden
+     * @param status Spielstatus
      */
     public void updateGame(int gamesID, String playerOne, String playerTwo, String status) {
         try {
@@ -193,9 +193,9 @@ public class Connection {
      * Spiels wird automatisch auf OPEN gestellt und
      * in der Liste der verfügbaren Spiele angezeigt.
      *
-     * @param playerOne
-     * @param category
-     * @param rounds
+     * @param playerOne Spielername des Initiators
+     * @param category Quizkategorie
+     * @param rounds Quizrunden
      */
     public void createGame(String playerOne, String category, int rounds) {
         try {
@@ -207,27 +207,34 @@ public class Connection {
     }
 
     /**
-     * Löscht das übergebene Spiel.
+     * Löscht das übergebene Spiel, indem Zeichenketten
+     * mit dem Wert 'null' jeweils in die Spielernamen
+     * geschrieben werden. Der Server interpretiert dies
+     * als Löschinstruktion.
      *
-     * @param gamesID
+     * @param gamesID ID des zu löschenden Spiels
      */
     public void deleteGame(int gamesID) {
         try {
             sendData("PUT", "{ \"gamesid\": \"" + gamesID + "\", \"playerone\": \"" + "null" + "\", \"playertwo\": \"" + "null" + "\", \"status\": \"" + "CLOSE" + "\" }");
             System.out.println("Spiel " + gamesID + " wurde gelöscht");
         } catch (Exception e) {
-            System.out.println("Spiel konnte nicht gelöscht werden: " + e);
+            System.out.println("Spiel " + gamesID + " konnte nicht gelöscht werden: " + e);
         }
     }
 
     /**
-     * Sendet Daten einer
-     * Beantwortung an den Server.
+     * Sendet Daten einer Beantwortung an den Server.
+     * Ob eine Antwort vom Spieler korrekt beantwortet
+     * hat, wird vom Client geprüft und mittels Boolean
+     * an den Server übertragen. Die Berechnung der
+     * Punkte wird auf Grundlage der übergebenen Zeit
+     * vom Server übernommen.
      *
-     * @param gameID
-     * @param isPlayerOne
-     * @param answer
-     * @param timer
+     * @param gameID ID des Spiels
+     * @param isPlayerOne Gibt der Initiator des Spiels eine Antwort?
+     * @param answer Wurde die Frage korrekt beantwortet?
+     * @param timer Für die Beantwortung einer Frage benötigte Zeit
      */
     public void dropAnswer(int gameID, boolean isPlayerOne, boolean answer, int timer) {
         try {
@@ -240,7 +247,8 @@ public class Connection {
 
     /**
      * Setzt den Highscore des Spielers zurück.
-     * Der Spieler wird von der Api anhand des Tokens ermittelt.
+     * Der Spieler wird von der API anhand des
+     * Tokens ermittelt.
      */
     public void resetHighscore() {
         try {
@@ -255,8 +263,8 @@ public class Connection {
      * Lädt enkodiertes Image an den Server
      * und speichert es im Spielermodell.
      *
-     * @param imageString
-     * @param playername
+     * @param imageString Enkodierte Zeichenkette als Repräsentation eines Images
+     * @param playername Spielername
      */
     public void uploadThumbnail(String imageString, String playername) {
         try {
