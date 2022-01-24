@@ -2,10 +2,20 @@ package de.gruppeo.wise2122_java_server.config;
 
 import java.beans.PropertyEditorSupport;
 
+/**
+ * Einstellungen zur Groß- und Kleinschreibung für den Datentyp ENUM manipulieren.
+ * Dies wird benötigt, wenn ENUM Werte per URL (kleingeschrieben) von der REST-API weiterverarbeitet werden sollen
+ */
 public class CaseInsensitiveEnumEditor extends PropertyEditorSupport {
+    @SuppressWarnings("rawtypes")
     private final Class<? extends Enum> enumType;
     private final String[] enumNames;
 
+    /**
+     * Instantiates a new Case insensitive enum editor.
+     *
+     * @param type the type
+     */
     public CaseInsensitiveEnumEditor(Class<?> type) {
         this.enumType = type.asSubclass(Enum.class);
         var values = type.getEnumConstants();

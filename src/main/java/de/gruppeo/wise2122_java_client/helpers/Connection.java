@@ -1,10 +1,10 @@
 package de.gruppeo.wise2122_java_client.helpers;
 
 import de.gruppeo.wise2122_java_client.models.MConfig;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -142,9 +142,9 @@ public class Connection {
     public void logInPlayer(String username, String password) {
         try {
             sendData("POST", "{ \"username\": \"" + username + "\", \"password\": \"" + password + "\" }");
-            System.out.println("Spieler wurde angemeldet");
+            System.out.println("Spieler mit dem Namen >" + username + "< wurde angemeldet");
         } catch (Exception e) {
-            System.out.println("Spieler konnte nicht angemeldet werden: " + e);
+            System.out.println("Spieler (" + username + ") konnte nicht angemeldet werden: " + e);
         }
     }
 

@@ -14,8 +14,9 @@ import java.util.List;
 public interface GamesRepository extends JpaRepository<GamesEntity, Long> {
     /**
      * Sucht Spiel nach Status
-      * @param gamestatus der Status
-     * @return Die gefundenen Spiele.
+     *
+     * @param gamestatus der Status
+     * @return Die gefundenen Spiele vom Typ GamesEntity
      */
     List<GamesEntity> findByGamestatus(Gamestatus gamestatus);
 }

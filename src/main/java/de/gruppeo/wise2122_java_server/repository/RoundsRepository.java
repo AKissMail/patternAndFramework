@@ -12,9 +12,10 @@ import java.util.Optional;
 @Repository
 public interface RoundsRepository extends JpaRepository<RoundsEntity, Long> {
     /**
-     * gibt die gesucht runde zurück
+     * gibt die gesuchte Runde zurück
+     *
      * @param rounds als int
-     * @return die runde
+     * @return die runde vom Typ RoundsEntity
      */
     Optional<RoundsEntity> findByRounds(Integer rounds);
 }

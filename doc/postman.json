@@ -1,0 +1,390 @@
+{
+  "item": [
+    {
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\n  \"username\": \"\",\n  \"category\": \"\",\n  \"rounds\": 0\n}"
+        },
+        "url": {
+          "path": [
+            "games",
+            "create"
+          ],
+          "query": [],
+          "host": "{{MIBQuiz}}",
+          "raw": "{{MIBQuiz}}/games/create"
+        }
+      },
+      "response": [
+        {
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n    \"username\": \"\",\n    \"category\": \"\",\n    \"rounds\": 0\n}"
+            },
+            "url": {
+              "query": [],
+              "host": "{{MIBQuiz}}"
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "code": 200,
+          "_postman_previewtype": "text",
+          "responseTime": 61,
+          "name": "createGame-Example",
+          "header": [
+            {
+              "name": "date",
+              "key": "date",
+              "value": "Sa., 15 Jan. 202214:46:15 GMT",
+              "description": "The date and time that the message was sent"
+            },
+            {
+              "name": "server",
+              "key": "server",
+              "value": "Apache-Coyote/1.1",
+              "description": "A name for the server"
+            },
+            {
+              "name": "transfer-encoding",
+              "key": "transfer-encoding",
+              "value": "chunked",
+              "description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+            },
+            {
+              "name": "content-type",
+              "key": "content-type",
+              "value": "application/json;charset\u003dUTF-8"
+            }
+          ],
+          "body": "{\n    \"id\": 0,\n    /**\n     * OPEN :OPEN\n     * CLOSE :CLOSE\n     * RUNNING :RUNNING\n     * JOINED :JOINED\n     */\n    \"gamestatus\": \"\",\n    \"playerone\": {\n        \"playerid\": 0,\n        \"username\": \"\",\n        \"currentscore\": 0,\n        /**\n         * OFFLINE :OFFLINE\n         * ONLINE :ONLINE\n         * SEARCHING :SEARCHING\n         * WAITING :WAITING\n         * QUIZZING :QUIZZING\n         */\n        \"currentstatus\": \"\",\n        \"highscore\": {\n            \"quizhighscoreid\": 0,\n            \"player\": {\n                \"playerid\": 0,\n                \"username\": \"\",\n                \"currentscore\": 0,\n                /**\n                 * OFFLINE :OFFLINE\n                 * ONLINE :ONLINE\n                 * SEARCHING :SEARCHING\n                 * WAITING :WAITING\n                 * QUIZZING :QUIZZING\n                 */\n                \"currentstatus\": \"\",\n                \"highscore\": {\n                    \"quizhighscoreid\": 0,\n                    \"player\": {},\n                    \"highscorepoints\": 0,\n                    \"lastupdate\": \"\"\n                }\n            },\n            \"highscorepoints\": 0,\n            \"lastupdate\": \"\"\n        }\n    },\n    \"playeronescore\": 0,\n    \"playeroneround\": 0,\n    \"playertwo\": {\n        \"playerid\": 0,\n        \"username\": \"\",\n        \"currentscore\": 0,\n        /**\n         * OFFLINE :OFFLINE\n         * ONLINE :ONLINE\n         * SEARCHING :SEARCHING\n         * WAITING :WAITING\n         * QUIZZING :QUIZZING\n         */\n        \"currentstatus\": \"\",\n        \"highscore\": {\n            \"quizhighscoreid\": 0,\n            \"player\": {\n                \"playerid\": 0,\n                \"username\": \"\",\n                \"currentscore\": 0,\n                /**\n                 * OFFLINE :OFFLINE\n                 * ONLINE :ONLINE\n                 * SEARCHING :SEARCHING\n                 * WAITING :WAITING\n                 * QUIZZING :QUIZZING\n                 */\n                \"currentstatus\": \"\",\n                \"highscore\": {\n                    \"quizhighscoreid\": 0,\n                    \"player\": {\n                        \"playerid\": 0,\n                        \"username\": \"\",\n                        \"currentscore\": 0,\n                        /**\n                         * OFFLINE :OFFLINE\n                         * ONLINE :ONLINE\n                         * SEARCHING :SEARCHING\n                         * WAITING :WAITING\n                         * QUIZZING :QUIZZING\n                         */\n                        \"currentstatus\": \"\",\n                        \"highscore\": {\n                            \"quizhighscoreid\": 0,\n                            \"player\": {\n                                \"playerid\": 0,\n                                \"username\": \"\",\n                                \"currentscore\": 0,\n                                /**\n                                 * OFFLINE :OFFLINE\n                                 * ONLINE :ONLINE\n                                 * SEARCHING :SEARCHING\n                                 * WAITING :WAITING\n                                 * QUIZZING :QUIZZING\n                                 */\n                                \"currentstatus\": \"\",\n                                \"highscore\": {\n                                    \"quizhighscoreid\": 0,\n                                    \"player\": {},\n                                    \"highscorepoints\": 0,\n                                    \"lastupdate\": \"\"\n                                }\n                            },\n                            \"highscorepoints\": 0,\n                            \"lastupdate\": \"\"\n                        }\n                    },\n                    \"highscorepoints\": 0,\n                    \"lastupdate\": \"\"\n                }\n            },\n            \"highscorepoints\": 0,\n            \"lastupdate\": \"\"\n        }\n    },\n    \"playertwoscore\": 0,\n    \"playertworound\": 0,\n    \"category\": {\n        \"quizcategoryid\": 0,\n        \"categoryname\": \"\"\n    },\n    \"rounds\": {\n        \"quizroundsid\": 0,\n        \"rounds\": 0 //@Enumerated(EnumType.ORDINAL)\n    },\n    \"questions\": [\n        {\n            \"quizquestionid\": 0,\n            \"question\": \"\",\n            \"correctAnswer\": \"\",\n            \"falseAnswer1\": \"\",\n            \"falseAnswer2\": \"\",\n            \"falseAnswer3\": \"\",\n            \"difficulty\": \"\",\n            \"category\": { //@Enumerated(EnumType.STRING)\n                \"quizcategoryid\": 0,\n                \"categoryname\": \"\"\n            }\n        }\n    ]\n}",
+          "status": "OK"
+        }
+      ],
+      "name": "createGame"
+    },
+    {
+      "request": {
+        "method": "PUT",
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "raw": "{\n  \"gamesid\": 0,\n  \"playerone\": \"\",\n  \"playertwo\": \"\",\n  \"status\": \"\"\n}"
+        },
+        "url": {
+          "path": [
+            "games",
+            "update"
+          ],
+          "query": [],
+          "host": "{{MIBQuiz}}",
+          "raw": "{{MIBQuiz}}/games/update"
+        }
+      },
+      "response": [
+        {
+          "originalRequest": {
+            "method": "PUT",
+            "description": "",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              },
+              "raw": "{\n    \"gamesid\": 0,\n    \"playerone\": \"\",\n    \"playertwo\": \"\",\n    \"status\": \"\"\n}"
+            },
+            "url": {
+              "query": [],
+              "host": "{{MIBQuiz}}"
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "code": 200,
+          "_postman_previewtype": "text",
+          "responseTime": 45,
+          "name": "api-Example",
+          "header": [
+            {
+              "name": "date",
+              "key": "date",
+              "value": "Sa., 15 Jan. 202214:46:15 GMT",
+              "description": "The date and time that the message was sent"
+            },
+            {
+              "name": "server",
+              "key": "server",
+              "value": "Apache-Coyote/1.1",
+              "description": "A name for the server"
+            },
+            {
+              "name": "transfer-encoding",
+              "key": "transfer-encoding",
+              "value": "chunked",
+              "description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+            },
+            {
+              "name": "content-type",
+              "key": "content-type",
+              "value": "application/json;charset\u003dUTF-8"
+            }
+          ],
+          "body": "{\n    \"id\": 0,\n    /**\n     * OPEN :OPEN\n     * CLOSE :CLOSE\n     * RUNNING :RUNNING\n     * JOINED :JOINED\n     */\n    \"gamestatus\": \"\",\n    \"playerone\": {\n        \"playerid\": 0,\n        \"username\": \"\",\n        \"currentscore\": 0,\n        /**\n         * OFFLINE :OFFLINE\n         * ONLINE :ONLINE\n         * SEARCHING :SEARCHING\n         * WAITING :WAITING\n         * QUIZZING :QUIZZING\n         */\n        \"currentstatus\": \"\",\n        \"highscore\": {\n            \"quizhighscoreid\": 0,\n            \"player\": {\n                \"playerid\": 0,\n                \"username\": \"\",\n                \"currentscore\": 0,\n                /**\n                 * OFFLINE :OFFLINE\n                 * ONLINE :ONLINE\n                 * SEARCHING :SEARCHING\n                 * WAITING :WAITING\n                 * QUIZZING :QUIZZING\n                 */\n                \"currentstatus\": \"\",\n                \"highscore\": {\n                    \"quizhighscoreid\": 0,\n                    \"player\": {},\n                    \"highscorepoints\": 0,\n                    \"lastupdate\": \"\"\n                }\n            },\n            \"highscorepoints\": 0,\n            \"lastupdate\": \"\"\n        }\n    },\n    \"playeronescore\": 0,\n    \"playeroneround\": 0,\n    \"playertwo\": {\n        \"playerid\": 0,\n        \"username\": \"\",\n        \"currentscore\": 0,\n        /**\n         * OFFLINE :OFFLINE\n         * ONLINE :ONLINE\n         * SEARCHING :SEARCHING\n         * WAITING :WAITING\n         * QUIZZING :QUIZZING\n         */\n        \"currentstatus\": \"\",\n        \"highscore\": {\n            \"quizhighscoreid\": 0,\n            \"player\": {\n                \"playerid\": 0,\n                \"username\": \"\",\n                \"currentscore\": 0,\n                /**\n                 * OFFLINE :OFFLINE\n                 * ONLINE :ONLINE\n                 * SEARCHING :SEARCHING\n                 * WAITING :WAITING\n                 * QUIZZING :QUIZZING\n                 */\n                \"currentstatus\": \"\",\n                \"highscore\": {\n                    \"quizhighscoreid\": 0,\n                    \"player\": {\n                        \"playerid\": 0,\n                        \"username\": \"\",\n                        \"currentscore\": 0,\n                        /**\n                         * OFFLINE :OFFLINE\n                         * ONLINE :ONLINE\n                         * SEARCHING :SEARCHING\n                         * WAITING :WAITING\n                         * QUIZZING :QUIZZING\n                         */\n                        \"currentstatus\": \"\",\n                        \"highscore\": {\n                            \"quizhighscoreid\": 0,\n                            \"player\": {\n                                \"playerid\": 0,\n                                \"username\": \"\",\n                                \"currentscore\": 0,\n                                /**\n                                 * OFFLINE :OFFLINE\n                                 * ONLINE :ONLINE\n                                 * SEARCHING :SEARCHING\n                                 * WAITING :WAITING\n                                 * QUIZZING :QUIZZING\n                                 */\n                                \"currentstatus\": \"\",\n                                \"highscore\": {\n                                    \"quizhighscoreid\": 0,\n                                    \"player\": {},\n                                    \"highscorepoints\": 0,\n                                    \"lastupdate\": \"\"\n                                }\n                            },\n                            \"highscorepoints\": 0,\n                            \"lastupdate\": \"\"\n                        }\n                    },\n                    \"highscorepoints\": 0,\n                    \"lastupdate\": \"\"\n                }\n            },\n            \"highscorepoints\": 0,\n            \"lastupdate\": \"\"\n        }\n    },\n    \"playertwoscore\": 0,\n    \"playertworound\": 0,\n    \"category\": {\n        \"quizcategoryid\": 0,\n        \"categoryname\": \"\"\n    },\n    \"rounds\": {\n        \"quizroundsid\": 0,\n        \"rounds\": 0 //@Enumerated(EnumType.ORDINAL)\n    },\n    \"questions\": [\n        {\n            \"quizquestionid\": 0,\n            \"question\": \"\",\n            \"correctAnswer\": \"\",\n            \"falseAnswer1\": \"\",\n            \"falseAnswer2\": \"\",\n            \"falseAnswer3\": \"\",\n            \"difficulty\": \"\",\n            \"category\": { //@Enumerated(EnumType.STRING)\n                \"quizcategoryid\": 0,\n                \"categoryname\": \"\"\n            }\n        }\n    ]\n}",
+          "status": "OK"
+        }
+      ],
+      "name": "api"
+    },
+    {
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "path": [
+            "games",
+            "open"
+          ],
+          "query": [],
+          "host": "{{MIBQuiz}}",
+          "raw": "{{MIBQuiz}}/games/open"
+        }
+      },
+      "response": [
+        {
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "path": [
+                "games",
+                "open"
+              ],
+              "query": [],
+              "host": "{{MIBQuiz}}",
+              "raw": "{{MIBQuiz}}/games/open"
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "code": 200,
+          "_postman_previewtype": "text",
+          "responseTime": 73,
+          "name": "findByGamestatus-Example",
+          "header": [
+            {
+              "name": "date",
+              "key": "date",
+              "value": "Sa., 15 Jan. 202214:46:15 GMT",
+              "description": "The date and time that the message was sent"
+            },
+            {
+              "name": "server",
+              "key": "server",
+              "value": "Apache-Coyote/1.1",
+              "description": "A name for the server"
+            },
+            {
+              "name": "transfer-encoding",
+              "key": "transfer-encoding",
+              "value": "chunked",
+              "description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+            },
+            {
+              "name": "content-type",
+              "key": "content-type",
+              "value": "application/json;charset\u003dUTF-8"
+            }
+          ],
+          "body": "[\n    {\n        \"id\": 0,\n        /**\n         * OPEN :OPEN\n         * CLOSE :CLOSE\n         * RUNNING :RUNNING\n         * JOINED :JOINED\n         */\n        \"gamestatus\": \"\",\n        \"playerone\": {\n            \"playerid\": 0,\n            \"username\": \"\",\n            \"currentscore\": 0,\n            /**\n             * OFFLINE :OFFLINE\n             * ONLINE :ONLINE\n             * SEARCHING :SEARCHING\n             * WAITING :WAITING\n             * QUIZZING :QUIZZING\n             */\n            \"currentstatus\": \"\",\n            \"highscore\": {\n                \"quizhighscoreid\": 0,\n                \"player\": {\n                    \"playerid\": 0,\n                    \"username\": \"\",\n                    \"currentscore\": 0,\n                    /**\n                     * OFFLINE :OFFLINE\n                     * ONLINE :ONLINE\n                     * SEARCHING :SEARCHING\n                     * WAITING :WAITING\n                     * QUIZZING :QUIZZING\n                     */\n                    \"currentstatus\": \"\",\n                    \"highscore\": {\n                        \"quizhighscoreid\": 0,\n                        \"player\": {},\n                        \"highscorepoints\": 0,\n                        \"lastupdate\": \"\"\n                    }\n                },\n                \"highscorepoints\": 0,\n                \"lastupdate\": \"\"\n            }\n        },\n        \"playeronescore\": 0,\n        \"playeroneround\": 0,\n        \"playertwo\": {\n            \"playerid\": 0,\n            \"username\": \"\",\n            \"currentscore\": 0,\n            /**\n             * OFFLINE :OFFLINE\n             * ONLINE :ONLINE\n             * SEARCHING :SEARCHING\n             * WAITING :WAITING\n             * QUIZZING :QUIZZING\n             */\n            \"currentstatus\": \"\",\n            \"highscore\": {\n                \"quizhighscoreid\": 0,\n                \"player\": {\n                    \"playerid\": 0,\n                    \"username\": \"\",\n                    \"currentscore\": 0,\n                    /**\n                     * OFFLINE :OFFLINE\n                     * ONLINE :ONLINE\n                     * SEARCHING :SEARCHING\n                     * WAITING :WAITING\n                     * QUIZZING :QUIZZING\n                     */\n                    \"currentstatus\": \"\",\n                    \"highscore\": {\n                        \"quizhighscoreid\": 0,\n                        \"player\": {\n                            \"playerid\": 0,\n                            \"username\": \"\",\n                            \"currentscore\": 0,\n                            /**\n                             * OFFLINE :OFFLINE\n                             * ONLINE :ONLINE\n                             * SEARCHING :SEARCHING\n                             * WAITING :WAITING\n                             * QUIZZING :QUIZZING\n                             */\n                            \"currentstatus\": \"\",\n                            \"highscore\": {\n                                \"quizhighscoreid\": 0,\n                                \"player\": {\n                                    \"playerid\": 0,\n                                    \"username\": \"\",\n                                    \"currentscore\": 0,\n                                    /**\n                                     * OFFLINE :OFFLINE\n                                     * ONLINE :ONLINE\n                                     * SEARCHING :SEARCHING\n                                     * WAITING :WAITING\n                                     * QUIZZING :QUIZZING\n                                     */\n                                    \"currentstatus\": \"\",\n                                    \"highscore\": {\n                                        \"quizhighscoreid\": 0,\n                                        \"player\": {},\n                                        \"highscorepoints\": 0,\n                                        \"lastupdate\": \"\"\n                                    }\n                                },\n                                \"highscorepoints\": 0,\n                                \"lastupdate\": \"\"\n                            }\n                        },\n                        \"highscorepoints\": 0,\n                        \"lastupdate\": \"\"\n                    }\n                },\n                \"highscorepoints\": 0,\n                \"lastupdate\": \"\"\n            }\n        },\n        \"playertwoscore\": 0,\n        \"playertworound\": 0,\n        \"category\": {\n            \"quizcategoryid\": 0,\n            \"categoryname\": \"\"\n        },\n        \"rounds\": {\n            \"quizroundsid\": 0,\n            \"rounds\": 0 //@Enumerated(EnumType.ORDINAL)\n        },\n        \"questions\": [\n            {\n                \"quizquestionid\": 0,\n                \"question\": \"\",\n                \"correctAnswer\": \"\",\n                \"falseAnswer1\": \"\",\n                \"falseAnswer2\": \"\",\n                \"falseAnswer3\": \"\",\n                \"difficulty\": \"\",\n                \"category\": { //@Enumerated(EnumType.STRING)\n                    \"quizcategoryid\": 0,\n                    \"categoryname\": \"\"\n                }\n            }\n        ]\n    }\n]",
+          "status": "OK"
+        }
+      ],
+      "name": "findByGamestatus"
+    },
+    {
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "path": [
+            "games",
+            ":id"
+          ],
+          "query": [],
+          "host": "{{MIBQuiz}}",
+          "raw": "{{MIBQuiz}}/games/{id}"
+        }
+      },
+      "response": [
+        {
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "path": [
+                "games",
+                ":id"
+              ],
+              "query": [],
+              "host": "{{MIBQuiz}}",
+              "raw": "{{MIBQuiz}}/games/{id}"
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "code": 200,
+          "_postman_previewtype": "text",
+          "responseTime": 73,
+          "name": "findById-Example",
+          "header": [
+            {
+              "name": "date",
+              "key": "date",
+              "value": "Sa., 15 Jan. 202214:46:15 GMT",
+              "description": "The date and time that the message was sent"
+            },
+            {
+              "name": "server",
+              "key": "server",
+              "value": "Apache-Coyote/1.1",
+              "description": "A name for the server"
+            },
+            {
+              "name": "transfer-encoding",
+              "key": "transfer-encoding",
+              "value": "chunked",
+              "description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+            },
+            {
+              "name": "content-type",
+              "key": "content-type",
+              "value": "application/json;charset\u003dUTF-8"
+            }
+          ],
+          "body": "{\n    \"value\": { //If non-null, the value; if null, indicates no value is present\n        \"id\": 0,\n        /**\n         * OPEN :OPEN\n         * CLOSE :CLOSE\n         * RUNNING :RUNNING\n         * JOINED :JOINED\n         */\n        \"gamestatus\": \"\",\n        \"playerone\": {\n            \"playerid\": 0,\n            \"username\": \"\",\n            \"currentscore\": 0,\n            /**\n             * OFFLINE :OFFLINE\n             * ONLINE :ONLINE\n             * SEARCHING :SEARCHING\n             * WAITING :WAITING\n             * QUIZZING :QUIZZING\n             */\n            \"currentstatus\": \"\",\n            \"highscore\": {\n                \"quizhighscoreid\": 0,\n                \"player\": {\n                    \"playerid\": 0,\n                    \"username\": \"\",\n                    \"currentscore\": 0,\n                    /**\n                     * OFFLINE :OFFLINE\n                     * ONLINE :ONLINE\n                     * SEARCHING :SEARCHING\n                     * WAITING :WAITING\n                     * QUIZZING :QUIZZING\n                     */\n                    \"currentstatus\": \"\",\n                    \"highscore\": {\n                        \"quizhighscoreid\": 0,\n                        \"player\": {},\n                        \"highscorepoints\": 0,\n                        \"lastupdate\": \"\"\n                    }\n                },\n                \"highscorepoints\": 0,\n                \"lastupdate\": \"\"\n            }\n        },\n        \"playeronescore\": 0,\n        \"playeroneround\": 0,\n        \"playertwo\": {\n            \"playerid\": 0,\n            \"username\": \"\",\n            \"currentscore\": 0,\n            /**\n             * OFFLINE :OFFLINE\n             * ONLINE :ONLINE\n             * SEARCHING :SEARCHING\n             * WAITING :WAITING\n             * QUIZZING :QUIZZING\n             */\n            \"currentstatus\": \"\",\n            \"highscore\": {\n                \"quizhighscoreid\": 0,\n                \"player\": {\n                    \"playerid\": 0,\n                    \"username\": \"\",\n                    \"currentscore\": 0,\n                    /**\n                     * OFFLINE :OFFLINE\n                     * ONLINE :ONLINE\n                     * SEARCHING :SEARCHING\n                     * WAITING :WAITING\n                     * QUIZZING :QUIZZING\n                     */\n                    \"currentstatus\": \"\",\n                    \"highscore\": {\n                        \"quizhighscoreid\": 0,\n                        \"player\": {\n                            \"playerid\": 0,\n                            \"username\": \"\",\n                            \"currentscore\": 0,\n                            /**\n                             * OFFLINE :OFFLINE\n                             * ONLINE :ONLINE\n                             * SEARCHING :SEARCHING\n                             * WAITING :WAITING\n                             * QUIZZING :QUIZZING\n                             */\n                            \"currentstatus\": \"\",\n                            \"highscore\": {\n                                \"quizhighscoreid\": 0,\n                                \"player\": {\n                                    \"playerid\": 0,\n                                    \"username\": \"\",\n                                    \"currentscore\": 0,\n                                    /**\n                                     * OFFLINE :OFFLINE\n                                     * ONLINE :ONLINE\n                                     * SEARCHING :SEARCHING\n                                     * WAITING :WAITING\n                                     * QUIZZING :QUIZZING\n                                     */\n                                    \"currentstatus\": \"\",\n                                    \"highscore\": {\n                                        \"quizhighscoreid\": 0,\n                                        \"player\": {},\n                                        \"highscorepoints\": 0,\n                                        \"lastupdate\": \"\"\n                                    }\n                                },\n                                \"highscorepoints\": 0,\n                                \"lastupdate\": \"\"\n                            }\n                        },\n                        \"highscorepoints\": 0,\n                        \"lastupdate\": \"\"\n                    }\n                },\n                \"highscorepoints\": 0,\n                \"lastupdate\": \"\"\n            }\n        },\n        \"playertwoscore\": 0,\n        \"playertworound\": 0,\n        \"category\": {\n            \"quizcategoryid\": 0,\n            \"categoryname\": \"\"\n        },\n        \"rounds\": {\n            \"quizroundsid\": 0,\n            \"rounds\": 0 //@Enumerated(EnumType.ORDINAL)\n        },\n        \"questions\": [\n            {\n                \"quizquestionid\": 0,\n                \"question\": \"\",\n                \"correctAnswer\": \"\",\n                \"falseAnswer1\": \"\",\n                \"falseAnswer2\": \"\",\n                \"falseAnswer3\": \"\",\n                \"difficulty\": \"\",\n                \"category\": { //@Enumerated(EnumType.STRING)\n                    \"quizcategoryid\": 0,\n                    \"categoryname\": \"\"\n                }\n            }\n        ]\n    }\n}",
+          "status": "OK"
+        }
+      ],
+      "name": "findById"
+    },
+    {
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "path": [
+            "games",
+            "all"
+          ],
+          "query": [],
+          "host": "{{MIBQuiz}}",
+          "raw": "{{MIBQuiz}}/games/all"
+        }
+      },
+      "response": [
+        {
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "path": [
+                "games",
+                "all"
+              ],
+              "query": [],
+              "host": "{{MIBQuiz}}",
+              "raw": "{{MIBQuiz}}/games/all"
+            }
+          },
+          "_postman_previewlanguage": "json",
+          "code": 200,
+          "_postman_previewtype": "text",
+          "responseTime": 27,
+          "name": "index-Example",
+          "header": [
+            {
+              "name": "date",
+              "key": "date",
+              "value": "Sa., 15 Jan. 202214:46:15 GMT",
+              "description": "The date and time that the message was sent"
+            },
+            {
+              "name": "server",
+              "key": "server",
+              "value": "Apache-Coyote/1.1",
+              "description": "A name for the server"
+            },
+            {
+              "name": "transfer-encoding",
+              "key": "transfer-encoding",
+              "value": "chunked",
+              "description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+            },
+            {
+              "name": "content-type",
+              "key": "content-type",
+              "value": "application/json;charset\u003dUTF-8"
+            }
+          ],
+          "body": "[\n    {\n        \"id\": 0,\n        /**\n         * OPEN :OPEN\n         * CLOSE :CLOSE\n         * RUNNING :RUNNING\n         * JOINED :JOINED\n         */\n        \"gamestatus\": \"\",\n        \"playerone\": {\n            \"playerid\": 0,\n            \"username\": \"\",\n            \"currentscore\": 0,\n            /**\n             * OFFLINE :OFFLINE\n             * ONLINE :ONLINE\n             * SEARCHING :SEARCHING\n             * WAITING :WAITING\n             * QUIZZING :QUIZZING\n             */\n            \"currentstatus\": \"\",\n            \"highscore\": {\n                \"quizhighscoreid\": 0,\n                \"player\": {\n                    \"playerid\": 0,\n                    \"username\": \"\",\n                    \"currentscore\": 0,\n                    /**\n                     * OFFLINE :OFFLINE\n                     * ONLINE :ONLINE\n                     * SEARCHING :SEARCHING\n                     * WAITING :WAITING\n                     * QUIZZING :QUIZZING\n                     */\n                    \"currentstatus\": \"\",\n                    \"highscore\": {\n                        \"quizhighscoreid\": 0,\n                        \"player\": {},\n                        \"highscorepoints\": 0,\n                        \"lastupdate\": \"\"\n                    }\n                },\n                \"highscorepoints\": 0,\n                \"lastupdate\": \"\"\n            }\n        },\n        \"playeronescore\": 0,\n        \"playeroneround\": 0,\n        \"playertwo\": {\n            \"playerid\": 0,\n            \"username\": \"\",\n            \"currentscore\": 0,\n            /**\n             * OFFLINE :OFFLINE\n             * ONLINE :ONLINE\n             * SEARCHING :SEARCHING\n             * WAITING :WAITING\n             * QUIZZING :QUIZZING\n             */\n            \"currentstatus\": \"\",\n            \"highscore\": {\n                \"quizhighscoreid\": 0,\n                \"player\": {\n                    \"playerid\": 0,\n                    \"username\": \"\",\n                    \"currentscore\": 0,\n                    /**\n                     * OFFLINE :OFFLINE\n                     * ONLINE :ONLINE\n                     * SEARCHING :SEARCHING\n                     * WAITING :WAITING\n                     * QUIZZING :QUIZZING\n                     */\n                    \"currentstatus\": \"\",\n                    \"highscore\": {\n                        \"quizhighscoreid\": 0,\n                        \"player\": {\n                            \"playerid\": 0,\n                            \"username\": \"\",\n                            \"currentscore\": 0,\n                            /**\n                             * OFFLINE :OFFLINE\n                             * ONLINE :ONLINE\n                             * SEARCHING :SEARCHING\n                             * WAITING :WAITING\n                             * QUIZZING :QUIZZING\n                             */\n                            \"currentstatus\": \"\",\n                            \"highscore\": {\n                                \"quizhighscoreid\": 0,\n                                \"player\": {\n                                    \"playerid\": 0,\n                                    \"username\": \"\",\n                                    \"currentscore\": 0,\n                                    /**\n                                     * OFFLINE :OFFLINE\n                                     * ONLINE :ONLINE\n                                     * SEARCHING :SEARCHING\n                                     * WAITING :WAITING\n                                     * QUIZZING :QUIZZING\n                                     */\n                                    \"currentstatus\": \"\",\n                                    \"highscore\": {\n                                        \"quizhighscoreid\": 0,\n                                        \"player\": {},\n                                        \"highscorepoints\": 0,\n                                        \"lastupdate\": \"\"\n                                    }\n                                },\n                                \"highscorepoints\": 0,\n                                \"lastupdate\": \"\"\n                            }\n                        },\n                        \"highscorepoints\": 0,\n                        \"lastupdate\": \"\"\n                    }\n                },\n                \"highscorepoints\": 0,\n                \"lastupdate\": \"\"\n            }\n        },\n        \"playertwoscore\": 0,\n        \"playertworound\": 0,\n        \"category\": {\n            \"quizcategoryid\": 0,\n            \"categoryname\": \"\"\n        },\n        \"rounds\": {\n            \"quizroundsid\": 0,\n            \"rounds\": 0 //@Enumerated(EnumType.ORDINAL)\n        },\n        \"questions\": [\n            {\n                \"quizquestionid\": 0,\n                \"question\": \"\",\n                \"correctAnswer\": \"\",\n                \"falseAnswer1\": \"\",\n                \"falseAnswer2\": \"\",\n                \"falseAnswer3\": \"\",\n                \"difficulty\": \"\",\n                \"category\": { //@Enumerated(EnumType.STRING)\n                    \"quizcategoryid\": 0,\n                    \"categoryname\": \"\"\n                }\n            }\n        ]\n    }\n]",
+          "status": "OK"
+        }
+      ],
+      "name": "index"
+    }
+  ],
+  "info": {
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "name": "GamesController-20220115144615",
+    "description": "GamesController"
+  }
+}
