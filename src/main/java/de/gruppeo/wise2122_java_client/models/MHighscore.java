@@ -1,6 +1,7 @@
 package de.gruppeo.wise2122_java_client.models;
 
 import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,6 +11,7 @@ import java.util.Locale;
 @Getter
 public class MHighscore {
 
+    private int quizhighscoreid;
     public int highscorepoints;
     private String playername;
     private String lastupdate;
