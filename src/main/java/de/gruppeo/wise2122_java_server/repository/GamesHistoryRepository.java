@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface GamesHistoryRepository extends JpaRepository<GamesHistoryEntity, Long> {
 
-    List<GamesHistoryEntity> findByPlayername_Username(String username);
+    List<GamesHistoryEntity> findByPlayer_Username(String username);
 
 }
