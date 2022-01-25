@@ -246,20 +246,6 @@ public class Connection {
     }
 
     /**
-     * Setzt den Highscore des Spielers zurück.
-     * Der Spieler wird von der API anhand des
-     * Tokens ermittelt.
-     */
-    public void resetHighscore() {
-        try {
-            sendData("PUT", "{ \"playerHighscore\": \"0\", \"token\": \"" + privateToken + "\" }");
-            System.out.println("Highscore des Spielers zurückgesetzt.");
-        } catch (Exception e) {
-            System.out.println("Highscore konnte nicht zurückgesetzt werden: " + e);
-        }
-    }
-
-    /**
      * Lädt enkodiertes Image an den Server
      * und speichert es im Spielermodell.
      *
@@ -273,6 +259,34 @@ public class Connection {
             System.out.println("Image wurde hochgeladen");
         } catch (Exception e) {
             System.out.println("Image konnte nicht hochgeladen werden: " + e);
+        }
+    }
+
+    /**
+     * Setzt die Spielhistorie des
+     * angemeldeten Spielers zurück.
+     */
+    public void deleteHistory() {
+        try {
+            // Sendet Datei an Server
+            sendData("POST", "{ \"token\": \"" + privateToken + "\" }");
+            System.out.println("History wurde erfolgreich gelöscht");
+        } catch (Exception e) {
+            System.out.println("Historie konnte nicht gelöscht werden: " + e);
+        }
+    }
+
+    /**
+     * Setzt den Highscore des Spielers zurück.
+     * Der Spieler wird von der API anhand des
+     * Tokens ermittelt.
+     */
+    public void resetHighscore() {
+        try {
+            sendData("PUT", "{ \"playerHighscore\": \"0\", \"token\": \"" + privateToken + "\" }");
+            System.out.println("Highscore des Spielers zurückgesetzt.");
+        } catch (Exception e) {
+            System.out.println("Highscore konnte nicht zurückgesetzt werden: " + e);
         }
     }
 }

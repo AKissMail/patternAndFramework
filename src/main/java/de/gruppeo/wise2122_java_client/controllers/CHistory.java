@@ -53,7 +53,8 @@ public class CHistory implements Initializable {
      * Setzt die Spielhistorie zurück.
      */
     public void onMouseClicked_resetHistory() {
-        // @TODO Muss noch implementiert werden
+        Connection con = new Connection("/games/historydeletebytoken");
+        con.deleteHistory();
     }
 
     /**
