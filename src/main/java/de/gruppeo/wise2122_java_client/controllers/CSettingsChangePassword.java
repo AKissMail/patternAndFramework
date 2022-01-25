@@ -5,9 +5,11 @@ import de.gruppeo.wise2122_java_client.helpers.Validation;
 import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 
 public class CSettingsChangePassword extends Validation {
 
@@ -15,6 +17,7 @@ public class CSettingsChangePassword extends Validation {
     private int checkSum;
     private ArrayList<Boolean> list;
 
+    @FXML private BorderPane mainPane;
     @FXML private Label label_settings_currentPassword;
     @FXML private Label label_settings_newPassword1;
     @FXML private Label label_settings_newPassword2;
@@ -105,18 +108,44 @@ public class CSettingsChangePassword extends Validation {
         String currentPassword = textField_settings_currentPassword.getText();
         String newPassword = textField_settings_newPassword2.getText();
 
-        // Aktualisiert das Passwort des Users
         Connection con = new Connection("/auth/updatepassword");
-        con.updatePassword(username, currentPassword, newPassword);
 
-        // Speichert neuen Token in Config-Objekt
-        MConfig.getInstance().setPrivateToken(con.getServerResponse());
+        try {
+            // Aktualisiert das Passwort des Users
+            con.updatePassword(username, currentPassword, newPassword);
 
-        // Abmelden @TODO User muss sich einmal abmelden
+            // Überschreibt Token mit leerem String
+            MConfig.getInstance().setPrivateToken("");
 
+            // Zeigt Erfolgsmeldung an
+            Alert success = new Alert(Alert.AlertType.INFORMATION, "Das Password wurde erfolgreich geändert.", ButtonType.OK);
+            success.showAndWait();
 
-        // Zeigt Erfolgsmeldung an
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Das Password für " + username + " wurde erfolgreich geändert.", ButtonType.OK);
-        alert.showAndWait();
+            // Leitet zum Hauptmenü
+            Stage stage = (Stage) mainPane.getScene().getWindow();
+            stage.setScene(loader.getScene("logIn"));
+            stage.show();
+        } catch (Exception e) {
+            switch (con.getConnection().getResponseCode()) {
+                case 401:
+                    System.out.println("Response Code: 401");
+                    Alert failure = new Alert(Alert.AlertType.WARNING, "Das aktuelle Passwort ist nicht korrekt.", ButtonType.OK);
+                    failure.showAndWait();
+
+                    clearTextfields(new TextField[]{textField_settings_currentPassword});
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Bereinigt alle übergebenen Textfelder.
+     *
+     * @param textFields Textfelder
+     */
+    private void clearTextfields(TextField[] textFields) {
+        for (TextField textField : textFields) {
+            textField.clear();
+        }
     }
 }
