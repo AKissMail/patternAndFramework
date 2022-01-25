@@ -393,7 +393,7 @@ public class GamesController {
     @PostMapping("/historydeletebytoken")
     public ResponseEntity<String> deleteGamesHistoryByToken(@RequestBody DeletGameHistoryRequestWithJSON deletGameHistoryRequestWithJSON) {
         String username = jwtTokenProvider.getUsernameFromToken(deletGameHistoryRequestWithJSON.getToken());
-        List<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayername_Username(username);
+        List<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayer_Username(username);
 
         if (gamesHistory.isEmpty()) {
             return ResponseEntity
