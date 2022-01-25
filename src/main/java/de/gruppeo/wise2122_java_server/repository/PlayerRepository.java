@@ -13,17 +13,19 @@ import java.util.Optional;
 @Repository
 public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
     /**
-     * Hier wird ein User nach name gesucht
+     * Hier wird ein Spieler nach Name gesucht
      *
-     * @param Username der name des gesuchten
-     * @return den Spieler vom Typ PlayerEntity
+     * @param username der name des gesuchten Spielers
+     * @return Spieler vom Typ PlayerEntity
      */
-    Optional<PlayerEntity> findByUsername(String Username);
+    Optional<PlayerEntity> findByUsername(String username);
 
     /**
-     * Hier werden Spiel nach ihren Staus gesucht
+     * Hier werden Spiele nach ihren Status gesucht
+     *
      * @param currentstatus Status
      * @return die Spieler als Liste
      */
     List<PlayerEntity> findByCurrentstatus(Currentstatus currentstatus);
+
 }

@@ -26,11 +26,11 @@ public class CQuiz implements Initializable {
     TimerTask questionTask;
     Button[] buttons;
 
-    private int gameID;
+    private final int gameID;
     private int questionNumber;
 
-    private String playerOne;
-    private String playerTwo;
+    private final String playerOne;
+    private final String playerTwo;
 
     private double seconds;
     private double totalSeconds;
@@ -39,8 +39,7 @@ public class CQuiz implements Initializable {
     public static Timer quizTimer;
     public static Timer questionTimer;
 
-    private ArrayList<MQuestion> questions;
-    private ArrayList<String> answers;
+    private final ArrayList<MQuestion> questions;
     private String correctAnswer;
 
     @FXML private BorderPane mainPane;
@@ -116,6 +115,7 @@ public class CQuiz implements Initializable {
             setAnswers();
             startCountdown();
 
+            button_quiz_nextQuestion.setText("Nächste Frage");
             button_quiz_nextQuestion.setDisable(true);
             countdown.resetSeconds();
             questionNumber++;
@@ -127,8 +127,8 @@ public class CQuiz implements Initializable {
      * ist und sendet das Ergebnis, zusammen mit
      * der berechneten Punkzahl, an den Server.
      *
-     * @param isTimeUp
-     * @param clickedButton
+     * @param isTimeUp Countdown abgelaufen?
+     * @param clickedButton Angeklickte Antwort
      */
     private void checkAnswer(boolean isTimeUp, Button clickedButton) {
         boolean isCorrect = false;
@@ -287,7 +287,7 @@ public class CQuiz implements Initializable {
      * sie auf der GUI.
      */
     private void setAnswers() {
-        answers = new ArrayList<>();
+        ArrayList<String> answers = new ArrayList<>();
         int buttonNumber = 0;
 
         // Speichert Antworten der übergebenen Frage
@@ -349,7 +349,7 @@ public class CQuiz implements Initializable {
     /**
      * Deaktiviert alle Antworten.
      *
-     * @param isDisabled
+     * @param isDisabled Button deaktivieren?
      */
     private void disableAnswers(boolean isDisabled) {
         for (Button button : buttons) {
@@ -452,10 +452,6 @@ public class CQuiz implements Initializable {
     public void onMouseClicked_quitGame() {
         // Beendet Timer
         quizTimer.cancel();
-
-        // Löscht das erstellte Spiel
-        Connection con = new Connection("/games/update");
-        con.deleteGame(gameID);
 
         // Wechselt Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();

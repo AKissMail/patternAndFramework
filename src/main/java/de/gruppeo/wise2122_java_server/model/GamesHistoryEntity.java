@@ -1,7 +1,10 @@
 package de.gruppeo.wise2122_java_server.model;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -21,9 +24,12 @@ public class GamesHistoryEntity {
     @Column(name = "gamehistoryid", nullable = false, updatable = false)
     private Long id;
 
+    @Column(nullable = false, updatable = false)
+    private String playername;
+
     @ManyToOne(optional = false)
-    @JoinColumn(name = "playername", nullable = false, updatable = false)
-    private PlayerEntity playername;
+    @JoinColumn(name = "player", nullable = false, updatable = false)
+    private PlayerEntity player;
 
     @ToString.Include
     @Column(nullable = false, updatable = false)
@@ -33,12 +39,10 @@ public class GamesHistoryEntity {
     @Column(nullable = false, updatable = false)
     private Integer opponentscore;
 
-    @ManyToOne
-    @JoinColumn
-    private CategoryEntity category;
+    @Column(nullable = false, updatable = false)
+    private String categoryname;
 
-    @ManyToOne
-    @JoinColumn
-    private RoundsEntity rounds;
+    @Column(nullable = false, updatable = false)
+    private Integer rounds;
 
 }

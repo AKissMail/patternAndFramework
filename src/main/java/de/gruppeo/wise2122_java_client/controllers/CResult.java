@@ -16,9 +16,7 @@ import javafx.fxml.FXML;
 public class CResult {
 
     Loader loader;
-
     TimerTask resultTask;
-    TimerTask waitingResultTask;
 
     int gameID;
     int waitingResult;
@@ -30,7 +28,6 @@ public class CResult {
     String playerTwo;
 
     public static Timer resultTimer;
-    public static Timer waitingResultTimer;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_result_resultText;
@@ -41,8 +38,6 @@ public class CResult {
     public CResult() {
         loader = new Loader();
         resultTimer = new Timer();
-        waitingResultTimer = new Timer();
-
         waitingResult = 30;
 
         int gameIDP_playerOne = MConfig.getInstance().getRegisteredGameID();
@@ -56,8 +51,6 @@ public class CResult {
     }
 
     public void initialize() {
-        startCountdownNextQuestion();
-
         resultTask = new TimerTask() {
             @Override
             public void run() {
@@ -70,11 +63,8 @@ public class CResult {
                     playerOne = mapper.getGames().get(0).getPlayerone().getUsername();
                     playerTwo = mapper.getGames().get(0).getPlayertwo().getUsername();
 
-                    label_result_points.setText("Das Ergebnis steht in " + waitingResult + " Sekunden fest");
-
-                    if (gameStatus.equals("CLOSE") || waitingResult <= 0) {
+                    if (gameStatus.equals("CLOSE")) {
                         resultTimer.cancel();
-                        waitingResultTimer.cancel();
 
                         setResultText();
                     }
@@ -82,18 +72,6 @@ public class CResult {
             }
         };
         resultTimer.scheduleAtFixedRate(resultTask, 0, MConfig.getInstance().getRefreshrate());
-    }
-
-    private void startCountdownNextQuestion() {
-        waitingResultTask = new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    waitingResult--;
-                });
-            }
-        };
-        waitingResultTimer.scheduleAtFixedRate(waitingResultTask, 0, 1000);
     }
 
     /**
