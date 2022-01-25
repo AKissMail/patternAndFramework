@@ -13,9 +13,8 @@ import javafx.stage.Stage;
 
 public class CSettingsChangePassword extends Validation {
 
-    private Loader loader;
-    private int checkSum;
-    private ArrayList<Boolean> list;
+    private final Loader loader;
+    private final ArrayList<Boolean> list;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_settings_currentPassword;
@@ -32,8 +31,7 @@ public class CSettingsChangePassword extends Validation {
      */
     public CSettingsChangePassword() {
         loader = new Loader();
-        checkSum = 0;
-        list =  new ArrayList<Boolean>();
+        list =  new ArrayList<>();
 
         for (int i = 1; i <= 3; i++) {
             list.add(false);

@@ -26,6 +26,7 @@ public class MHistory {
     }
 
     public double getAverage() {
-        return 42.0;
+        return 42.0; // @TODO Muss noch implementiert werden
+
     }
 }
