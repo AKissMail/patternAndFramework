@@ -5,6 +5,7 @@ import de.gruppeo.wise2122_java_client.helpers.Loader;
 import de.gruppeo.wise2122_java_client.models.MConfig;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -70,6 +71,15 @@ public class CMain implements Initializable {
     public void onMouseClicked_showHighscore() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.setScene(loader.getScene("highscore"));
+        stage.show();
+    }
+
+    /**
+     * Zeigt die Spielhistorie an.
+     */
+    public void onMouseClicked_showHistory() {
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        stage.setScene(loader.getScene("history"));
         stage.show();
     }
 

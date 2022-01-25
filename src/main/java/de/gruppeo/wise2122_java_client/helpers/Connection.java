@@ -254,7 +254,6 @@ public class Connection {
      */
     public void uploadThumbnail(String imageString, String playername) {
         try {
-            // Sendet Datei an Server
             sendData("POST", "{ \"file\": \"" + imageString + "\", \"playername\": \"" + playername + "\" }");
             System.out.println("Image wurde hochgeladen");
         } catch (Exception e) {
@@ -266,9 +265,8 @@ public class Connection {
      * Setzt die Spielhistorie des
      * angemeldeten Spielers zurück.
      */
-    public void deleteHistory() {
+    public void resetHistory() {
         try {
-            // Sendet Datei an Server
             sendData("POST", "{ \"token\": \"" + privateToken + "\" }");
             System.out.println("History wurde erfolgreich gelöscht");
         } catch (Exception e) {
@@ -284,7 +282,7 @@ public class Connection {
     public void resetHighscore() {
         try {
             sendData("PUT", "{ \"playerHighscore\": \"0\", \"token\": \"" + privateToken + "\" }");
-            System.out.println("Highscore des Spielers zurückgesetzt.");
+            System.out.println("Highscore des Spielers zurückgesetzt");
         } catch (Exception e) {
             System.out.println("Highscore konnte nicht zurückgesetzt werden: " + e);
         }

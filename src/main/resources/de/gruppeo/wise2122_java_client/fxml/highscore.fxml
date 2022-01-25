@@ -13,19 +13,12 @@
    <top>
       <BorderPane prefHeight="50.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
-            <Button fx:id="button_highscore_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showMain" prefHeight="25.0" prefWidth="90.0" text="Hauptmenü" BorderPane.alignment="CENTER">
+            <Button fx:id="button_highscore_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showMain" prefHeight="25.0" prefWidth="95.0" text="Hauptmenü" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>
             </Button>
          </left>
-         <right>
-            <Button fx:id="button_highscore_showGameHistory" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showGameHistory" prefHeight="25.0" prefWidth="90.0" text="Spielhistorie" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets left="15.0" right="15.0" />
-               </BorderPane.margin>
-            </Button>
-         </right>
          <center>
             <Label text="Highscore" BorderPane.alignment="CENTER">
                <font>
@@ -33,6 +26,13 @@
                </font>
             </Label>
          </center>
+         <right>
+            <Button fx:id="button_highscore_resetHighscore" mnemonicParsing="false" onMouseClicked="#onMouseClicked_resetHighscore" prefHeight="26.0" prefWidth="95.0" text="Zurücksetzen" textFill="#bc1a1a" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
       </BorderPane>
    </top>
    <center>

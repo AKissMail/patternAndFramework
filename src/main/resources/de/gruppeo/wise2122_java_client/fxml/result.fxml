@@ -13,7 +13,7 @@
    <top>
       <BorderPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
-            <Button fx:id="button_result_main" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showMain" prefHeight="25.0" prefWidth="90.0" text="Hauptmenü" BorderPane.alignment="CENTER">
+            <Button fx:id="button_result_main" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showMain" prefHeight="25.0" prefWidth="95.0" text="Hauptmenü" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin></Button>
@@ -28,7 +28,7 @@
          <top>
             <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="label_result_resultText" alignment="CENTER" contentDisplay="CENTER" text="Warten auf Gegner ..." textAlignment="CENTER">
+                  <Label fx:id="label_result_resultText" alignment="CENTER" contentDisplay="CENTER" text="Warte auf das Ergebnis" textAlignment="CENTER">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -36,7 +36,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="label_result_points" text="Das Spielergebnis steht gleich fest" />
+                  <Label fx:id="label_result_points" text="Dein Gegner beendet das Quiz gleich ..." />
                </children>
                <BorderPane.margin>
                   <Insets top="10.0" />
