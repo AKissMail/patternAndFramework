@@ -1,8 +1,3 @@
-import * as apiCalls from './apiCalls.js';
-import * as quiz from '../view/quiz.js';
-import * as mainMenu from "../view/mainMenu.js";
-
-export let killTimeOut = null;
 
 /**
  * Die Methode macht den DOM Leer und setzt ein minimales Gerüst in den DOM ein. Dieses Gerüst wird von
@@ -27,25 +22,7 @@ export function clearStage() {
     document.getElementsByTagName("body")[0].appendChild(footer);
 }
 
-export function runGame(game) {
-    //@todo
-
-}
 
 export function startGame(category, size) {
  //@todo
-}
-
-/**
- *  Das ist das bissen magic in der Login maske.
- */
-export function runLogIn() {
-    let userName = document.getElementById("userName").value;
-    let password = document.getElementById("password").value;
-    apiCalls.logInUser(userName, password, mainMenu.show);
-}
-export function base64Picture(data) {
-
-
-
 }

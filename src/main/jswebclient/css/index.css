@@ -57,10 +57,10 @@ p, #button, form > label {
     border-radius: 50%;
     display: inline-block;
 }
-#scoreTabel {
+#scoreTable {
     display: unset;
 }
-#scoreTabel > tr > td {
+#scoreTable > tr > td {
     background: #008ae6;
     color: #e6e6e6;
     padding-left: 1em;
@@ -78,7 +78,7 @@ p, #button, form > label {
     from {-webkit-transform: rotate(0deg);}
     to{-webkit-transform: rotate(359deg);}
 }
-#wapper {
+#wrapperQuestion {
     display: grid;
     grid-template-columns: auto auto;
 }
@@ -157,4 +157,10 @@ p, #button, form > label {
     width: 100px;
     border-radius: 50%;
     background-color: #008ae6;
+}
+.green{
+    color:green;
+}
+.red{
+    color:red;
 }

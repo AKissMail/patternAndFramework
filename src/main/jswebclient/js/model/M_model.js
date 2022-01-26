@@ -1,17 +1,24 @@
+/**
+ * In dieser Datei werden die Abfragen af die REST Api gemacht. Daneben wird hier auch auf die Cookies zugegriffen.
+ * Dort wird der Token, der Nutzername und die Rolle des Users gespeichert.
+ */
+
+const serverURL = 'http://localhost:8080';
 
 const uploadthumbnailstrPath = '/player/uploadthumbnailstr';
-const serverURL = 'http://localhost:8080';
 const loginPath = '/auth/login';
 const registrationPath = '/auth/register';
 const updatePasswordPath = '/auth/updatepassword';
-const highscorePath = '/highscore';
-const historyPath = '/games/history';
-const historydeletePath = '/games/historydelete';
-const catigroyPath = '/category';
-const roundsPath ='/rounds';
+const categoryPath = '/category';
+const getGameByIDPath = '/games/'
 const openGamePath = '/games/open';
 const updateGamePath = '/games/update';
 const createGamePath = '/games/create';
+const historyPath = '/games/history';
+const historydeletePath = '/games/historydelete';
+const highscorePath = '/highscore';
+const roundsPath ='/rounds';
+
 const getthumbnailPath = '/player/getthumbnailbyname?playername=';
 
 
@@ -57,55 +64,54 @@ function connection({path, method = "GET", body, datatype = "JSON", doneFunction
         });
 }
 
+/**
+ * Diese Function ruft Bilder von der API ab. Es kommt Base 64 zurück.
+ * @param name Der Name des Users
+ * @param callback Die Callback function.
+ */
+
 export function getPicture (name,callback){
     connection({
         path: getthumbnailPath+name,
         datatype: "text",
         doneFunction: function done(response) {
-            console.log('getPicture done!');
             callback(response);
         },
         malFunction: function fail(xhr, status) {
-            console.log('getPicture failed!');
-            console.log(xhr.response);
-            console.log(status);
-            return " ";
+            callback(xhr, status);
         }
     });
 }
 
 /**
  * Diese Methode erstellt einen neuen Spieler.
- * @param playername der name von dem User
+ * @param player der name von dem User
  * @param password das Passwort von dem User
+ * @param callback
  */
-export function createPlayer(playername, password,callback) {
+export function createPlayer(player, password,callback) {
     connection({
         path: registrationPath,
         method: "POST",
-        body: {username: playername, password: password},
+        body: {username: player, password: password},
         datatype: "text",
         doneFunction: function done(response) {
             console.log(response);
             console.log('registration done!');
-            callmeback();
+            callback();
         },
         malFunction: function fail(xhr, status) {
-            console.log('registration failed!');
-            console.log(xhr.response);
-            console.log(status);
+            console.log('registration failed!', xhr.response,status);
             alert("Registrierung fehlgeschlagen");
         }
     });
-    function callmeback(){
-        callback();
-    }
 }
 
 /**
  * Diese Methode loggt den Spieler ein.
  * @param playername Spielername
  * @param password Passwort
+ * @param callback
  */
 export function logInUser(playername, password, callback) {
     connection({
@@ -122,9 +128,7 @@ export function logInUser(playername, password, callback) {
             callback();
         },
         malFunction: function fail(xhr, status) {
-            console.log('Login failed!');
-            console.log(xhr.response);
-            console.log(status);
+            console.log('Login failed!', xhr.response,status);
             alert("Login ist fehlgeschlagen!");
         }
     });
@@ -141,7 +145,6 @@ export function logout (callback){
 
 /**
  * Diese Methode holt aus dem document.cookie den zugehörigen Wert raus und gibt diesen zurück.
- *
  * @param cookieName der Bezeichner des Wertes
  * @returns {string} den Text (String), falls der Bezeichner vorhanden ist und wenn nicht, dann "".
  */
@@ -164,34 +167,28 @@ export function decodeCookie(cookieName) {
 
 /**
  * Diese Methode lädt die Kategorien vom Server und gib diese zurück.
+ * @param callback
  */
-export function getCategory(callmeback) {
-
+export function getCategory(callback) {
     {
         connection({
-            path: catigroyPath,
+            path: categoryPath,
             doneFunction: function (response) {
                 console.log(response);
-                //gamemode.displayCategory(response);
                 callback(response);
             },
             malFunction: function (xhr, status) {
-                console.log('highscorePath failed!');
-                console.log(xhr);
-                console.log(status);
+                console.log('highscorePath  failed!', xhr.response,status);
             }
         })
-    }
-    function callback(response){
-        callmeback(response);
     }
 }
 
 /**
  * Diese Methode lädt die auf dem Server hinterlegten Spielrunden (Anzahl der Fragen)
- * @param callmeback die Methoden die nach dem Laden
+ * @param callback die Methoden die nach dem Laden
  */
-export function getGameSize(callmeback) {
+export function getGameSize(callback) {
     {
         connection({
             path: roundsPath,
@@ -200,14 +197,9 @@ export function getGameSize(callmeback) {
                 callback(response);
             },
             malFunction: function (xhr, status) {
-                console.log('highscorePath failed!');
-                console.log(xhr);
-                console.log(status);
+                console.log('highscorePath  failed!', xhr.response,status);
             }
         })
-    }
-    function callback(response){
-        callmeback(response);
     }
 }
 
@@ -230,13 +222,10 @@ export function updateGame(id,playerOne, playerTwo, status, callback){
             "status": status
         },
         doneFunction: function (response) {
-            console.log()
             callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('highscorePath failed!');
-            console.log(xhr);
-            console.log(status);
+            console.log('updateGame failed!', xhr,status);
         }
     })
 }
@@ -252,24 +241,19 @@ export function getOpenGames(callback) {
         path: openGamePath,
         doneFunction: function (response) {
             console.log(response);
-            callmeback(response);
+            callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('highscorePath failed!');
-            console.log(xhr);
-            console.log(status);
+            console.log('highscorePath failed!', xhr.response,status);
         }
     })
-    function callmeback (response){
-        callback(response);
-    }
 }
 
 /**
  * Diese function erstellt ein Spiel auf dem Server
  * @param {*} category Die Kategorie als String
  * @param {*} size Die anzahl der Runden als Zahl ohne ''
- * @param callback Die Function die ausgeführt werden soll sobalt eine 200 ergebnis da ist.
+ * @param callback Die Function die ausgeführt werden soll, wenn das Ergebnis da ist.
  */
 export function createGame(category, size, callback) {
     console.log(category, size);
@@ -282,22 +266,19 @@ export function createGame(category, size, callback) {
             "rounds" : size
         },
         doneFunction: function (response) {
-            callmeback(response);
+            callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('CreateGame failed!');
-            console.log(xhr);
-            console.log(status);
+            console.log('CreateGame failed!', xhr.response,status); //to do
+            callback(status);
         }
     })
-    function callmeback(response) {
-        callback(response);
-    }
 }
 
 /**
  * Diese function lädt ein Base64 encodetet Bild
  * @param data
+ * @param callback
  */
 export function updatePicture(data, callback) {
     connection({
@@ -309,7 +290,7 @@ export function updatePicture(data, callback) {
             callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log(xhr);
+            console.log( 'updatePicture failed!', xhr.response,status);
             callback(status);
         }
     })
@@ -319,6 +300,7 @@ export function updatePicture(data, callback) {
  * Diese function setzt ein neues Password
  * @param oldPassword das alte Password
  * @param newPassword das neue Password
+ * @param callback
  */
 export function updatePassword(oldPassword, newPassword, callback) {
     connection({
@@ -326,14 +308,11 @@ export function updatePassword(oldPassword, newPassword, callback) {
         datatype: "Text",
         body: {"playername": decodeCookie("playername"), "oldpassword": oldPassword, "newpassword": newPassword},
         method: "POST",
-        doneFunction: function (response) {
+        doneFunction: function () {
             callback();
         },
         malFunction: function (xhr, status) {
-            console.log('Login failed!');
-            console.log(xhr);
-            console.log(status);
-            alert("Die Änderung ist fehlgeschlagen!");
+            callback(xhr, status);
         }
     })
 }
@@ -350,17 +329,12 @@ export function deleteStatistics(callback) {
         method: "PUT",
         path: historydeletePath + "?playername=" + decodeCookie("playername"),
         doneFunction: function (response) {
-            callmeback(response);
+            callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('deleteStatistics failed!');
-            console.log(xhr);
-            console.log(status);
+            callback(xhr, status);
         }
     })
-    function callmeback(response){
-        callback(response);
-    }
 }
 
 /**
@@ -371,48 +345,47 @@ export function getHighscore(callback) {
     connection({
         path: highscorePath,
         doneFunction: function (response) {
-            callmeback(response);
+            callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('highscorePath failed!');
-            console.log(xhr);
-            console.log(status);
+            console.log('highscorePath failed!', xhr.response,status);
         }
     })
-    function callmeback(response){
-        callback(response);
-    }
 }
 
 /**
- * Diese Methode holt die Statistik für ein Speiler vom Server
- * @param callback Die Function die ausgeführt werden soll wenn eine 200 kommt.
+ * Diese Methode holt die Statistik für einen User vom Server
+ * @param callback Die Function die ausgeführt werden soll, wenn eine 200 kommt.
  */
 export function getStatistic(callback) {
     connection({
         method: "GET",
         path: historyPath + "?playername=" + decodeCookie("playername"),
         doneFunction: function (response) {
-            callmeback(response);
+            callback(response);
         },
         malFunction: function (xhr, status) {
-            callmeback(xhr);
-            console.log('highscorePath failed!');
-            console.log(xhr);
-            console.log(status);
+            callback(xhr);
+            console.log('highscorePath failed!', xhr.response,status);
         }
     })
-    function callmeback(response){
-        callback(response);
-    }
 }
-/********************************************* @todo */ /******************************************************* */
-export function submitAnswer(bool, time, gameID) {
-    //@todo
-    console.log(bool, time, gameID);
-}
-export function getResult(gameID) {
-    //@todo
-    return {"done": true, "localPoint": 750, "remotePoint": 650, "nameOpponent": "Hans"};
-    //return {"done": false, "localPoint": 750, "remotePoint": null}
+
+/**
+ * Diese function läd ein Spiel vom Server nach einer gegebenen ID und gib diese in einen Callback zurück.
+ * @param id Die ID des gesuchten Spiels
+ * @param callback die callback function
+ */
+export function getGameByID(id, callback){
+
+    connection({
+        method: 'GET',
+        path: getGameByIDPath+id,
+        doneFunction: function (response){
+            callback(response);
+        }, malFunction: function (xhr, status) {
+            callback(xhr);
+            console.log('GetGameByID failed!', xhr.response,status);
+        }
+    })
 }
