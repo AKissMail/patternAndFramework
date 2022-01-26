@@ -1,4 +1,4 @@
-import * as choice from "./view/V_choice.js";
+import * as choice from "./view/V_start.js";
 import {decodeCookie} from "./model/M_model.js";
 import * as mainMenu from "./view/V_mainMenu.js";
 
