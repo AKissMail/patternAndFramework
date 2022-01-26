@@ -35,7 +35,7 @@ export function show() {
             let row = document.createElement("tr");
             let ranking = view.createGenericText("td",i.toString());
             let rounds = view.createGenericText("td", data[i - 1].valueOf().rounds.rounds);
-            let user = view.createGenericText("td", data[i - 1].valueOf().category.categoryname);
+            let user = view.createGenericText("td", data[i - 1].valueOf().categoryname);
             let score = view.createGenericText("td" ,data[i - 1].valueOf().playerscore);
             let scoreOpponent =view.createGenericText("td", data[i - 1].valueOf().opponentscore);
             row.appendChild(ranking);
