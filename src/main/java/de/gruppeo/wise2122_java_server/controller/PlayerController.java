@@ -229,7 +229,7 @@ public class PlayerController {
 
         if (playerOptional.isPresent()) {
             PlayerEntity player = playerOptional.get();
-            if (player.getThumbnail().isEmpty()) {
+            if (player.getThumbnail() == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Spieler hat kein Thumbnail");
             } else {
                 return ResponseEntity.ok(player.getThumbnail());

@@ -7,6 +7,8 @@ import de.gruppeo.wise2122_java_server.request.DropAnswerRequest;
 import de.gruppeo.wise2122_java_server.request.NewGameRequest;
 import de.gruppeo.wise2122_java_server.request.UpdateGameRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +38,7 @@ import static de.gruppeo.wise2122_java_server.model.Gamestatus.*;
 @RequestMapping("/games")
 public class GamesController {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(GamesController.class);
     private final GamesRepository gamesRepository;
     private final GamesHistoryRepository gamesHistoryRepository;
     private final PlayerRepository playerRepository;
@@ -45,16 +48,19 @@ public class GamesController {
     private final HighscoreRepository highscoreRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
+    private int nmbrOfRndsFactor;
+
     /**
      * Constructor
-     *  @param gamesRepository        games repository
+     *
+     * @param gamesRepository        games repository
      * @param gamesHistoryRepository games history repository
      * @param playerRepository       player repository
      * @param categoryRepository     category repository
      * @param roundsRepository       rounds repository
      * @param questionsRepository    questions repository
      * @param highscoreRepository    highscore repository
-     * @param jwtTokenProvider
+     * @param jwtTokenProvider       jwtTokenProvider
      */
     public GamesController(GamesRepository gamesRepository, GamesHistoryRepository gamesHistoryRepository,
                            PlayerRepository playerRepository, CategoryRepository categoryRepository,
@@ -83,41 +89,8 @@ public class GamesController {
         Optional<CategoryEntity> gameCategory = categoryRepository.findByCategoryname(newGameRequest.getCategory());
         Optional<RoundsEntity> gameRound = roundsRepository.findByRounds(newGameRequest.getRounds());
 
-        // Liste der laufenden und offenen Spiele
-        List<GamesEntity> runningGames = gamesRepository.findByGamestatus(RUNNING);
-        List<GamesEntity> openGames = gamesRepository.findByGamestatus(OPEN);
-        // Werden welche gefunden, wird geprüft, ob es sich um Leichen handelt
-        if (!runningGames.isEmpty()) {
-            runningGames.forEach(runningGame -> {
-                // Abstand zwischen den Aktualisierungen der Spieler für jedes offene Spiel ermitteln
-                long durationPlayerUpdates = ChronoUnit.SECONDS.between(runningGame.getPlayerOneLastRequestTime(),
-                        runningGame.getPlayerTwoLastRequestTime());
-                long durationCreatedAndNow = ChronoUnit.SECONDS.between(runningGame.getCreated(), LocalDateTime.now());
-                System.out.println(">>> GameID: >" + runningGame.getId() + "< ::: Der Abstand zwischen den " +
-                        "Spielaktualisierungen der beiden Spieler liegt bei >" + durationPlayerUpdates + "< Sekunden");
-                System.out.println(">>> GameID: >" + runningGame.getId() + "< ::: Der Abstand zwischen dem " +
-                        "Erstellungsdatum >" + runningGame.getCreated() + "< und Jetzt liegt bei >" + durationCreatedAndNow + "< Sekunden");
-                if ((durationPlayerUpdates > runningGame.getRounds().rounds * 10) ||
-                        durationCreatedAndNow > runningGame.getRounds().rounds * 11L) {
-                    runningGame.setGamestatus(Gamestatus.CLOSE);
-                    System.out.println(">>> GameID: >" + runningGame.getId() + "< ::: Spiel wurde auf Status >CLOSE< gesetzt!");
-                    gamesRepository.save(runningGame);
-                }
-            });
-        }
-        if (!openGames.isEmpty()) {
-            openGames.forEach(openGame -> {
-                // Abstand zwischen den Jetzt und dem Erstellungsdatum zu groß
-                long durationCreatedAndNow = ChronoUnit.SECONDS.between(openGame.getCreated(), LocalDateTime.now());
-                System.out.println(">>> GameID: >" + openGame.getId() + "< ::: Der Abstand zwischen dem " +
-                        "Erstellungsdatum >" + openGame.getCreated() + "< und Jetzt liegt bei >" + durationCreatedAndNow + "< Sekunden");
-                if (durationCreatedAndNow > openGame.getRounds().rounds * 11L) {
-                    openGame.setGamestatus(Gamestatus.CLOSE);
-                    System.out.println(">>> GameID: >" + openGame.getId() + "< ::: Spiel wurde auf Status >CLOSE< gesetzt!");
-                    gamesRepository.save(openGame);
-                }
-            });
-        }
+        // Alte laufende und offene Spiele aus der Games-Tabelle löschen
+        clearAndCheckGames(11);
 
         List<QuestionsEntity> questionOfCategories = questionsRepository.findByCategory_CategorynameAllIgnoreCase(newGameRequest.getCategory());
 
@@ -140,6 +113,7 @@ public class GamesController {
             GamesEntity createdGame = gamesRepository.save(newGame);
             return ResponseEntity.ok(createdGame);
         } else {
+            log.error("Spiel kann mit den übergebenen Parametern nicht erstellt werden: " + newGameRequest);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -154,6 +128,7 @@ public class GamesController {
     public ResponseEntity<GamesEntity> updateGame(@RequestBody UpdateGameRequest updateGameRequest) {
         Optional<GamesEntity> updateGame = gamesRepository.findById(updateGameRequest.getGamesid());
         if (updateGame.isEmpty()) {
+            log.error("Das angegebene Spiel existiert nicht und konnte entsprechend nicht aktualisiert werden.");
             return ResponseEntity.badRequest().build();
         }
         GamesEntity updatedGame;
@@ -162,7 +137,7 @@ public class GamesController {
                 updateGame.get().getPlayerTwoLastRequestTime() != null) {
             long durationPlayerUpdates = ChronoUnit.SECONDS.between(updateGame.get().getPlayerOneLastRequestTime(),
                     updateGame.get().getPlayerTwoLastRequestTime());
-            System.out.println(">>> Der Abstand zwischen den Spielaktualisierungen der beiden Spieler liegt bei" +
+            log.info("Der Abstand zwischen den Spielaktualisierungen der beiden Spieler liegt bei" +
                     " >" + durationPlayerUpdates + "< Sekunden");
         }
 
@@ -185,8 +160,10 @@ public class GamesController {
                 gamesRepository.delete(updateGame.get());
                 if (!gamesRepository.existsById(updateGame.get().getId())) {
                     GamesEntity deletedGAme = new GamesEntity();
+                    log.info("Spiel mit der GameID >" + updateGame.get().getId() + "< wurde gelöscht.");
                     return ResponseEntity.ok(deletedGAme);
                 }
+                log.error("Das Spiel konnte nicht gelöscht werden!");
                 return ResponseEntity.badRequest().build();
             default:
                 Optional<PlayerEntity> playerOne = playerRepository.findByUsername(updateGameRequest.getPlayerone());
@@ -198,6 +175,7 @@ public class GamesController {
                     updateGame.get().setPlayerOneLastRequestTime(LocalDateTime.now());
 
                     updatedGame = gamesRepository.save(updateGame.get());
+                    clearAndCheckGames();
                     return ResponseEntity.ok(updatedGame);
                 } else if (playerTwo.isPresent()) {
                     updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
@@ -206,8 +184,11 @@ public class GamesController {
                     updateGame.get().setPlayerTwoLastRequestTime(LocalDateTime.now());
 
                     updatedGame = gamesRepository.save(updateGame.get());
+                    clearAndCheckGames();
                     return ResponseEntity.ok(updatedGame);
                 } else {
+                    log.warn("Weder Spieler 1 (" + updateGameRequest.getPlayerone() + "), noch Spieler 2 ("
+                            + updateGameRequest.getPlayertwo() + "), konnte gefunden werden!");
                     return ResponseEntity.badRequest().build();
                 }
         }
@@ -226,57 +207,80 @@ public class GamesController {
     @PutMapping("/dropanswer")
     public ResponseEntity<GamesEntity> dropAnswer(@RequestBody DropAnswerRequest dropAnswerRequest) {
         Optional<GamesEntity> updateGame = gamesRepository.findById(dropAnswerRequest.getGamesid());
+
+        // Das Spiel existiert und läuft noch
         if (updateGame.isPresent() && updateGame.get().getGamestatus() == RUNNING) {
 
-            if (updateGame.get().getPlayerOneLastRequestTime() != null &&
-                    updateGame.get().getPlayerTwoLastRequestTime() != null) {
-                long durationPlayerUpdates = ChronoUnit.SECONDS.between(updateGame.get().getPlayerOneLastRequestTime(),
-                        updateGame.get().getPlayerTwoLastRequestTime());
-                System.out.println(">>> Der Abstand zwischen den Spielaktualisierungen der beiden Spieler liegt bei" +
-                        " >" + durationPlayerUpdates + "< Sekunden");
-            }
+            // Berechne den Abstand zwischen den letzten Requests der Spieler
+            if (updateGame.get().getPlayerOneLastRequestTime() != null && updateGame.get().getPlayerTwoLastRequestTime() != null) {
+                long durationPlayerUpdates = ChronoUnit.SECONDS.between(updateGame.get().getPlayerOneLastRequestTime(), updateGame.get().getPlayerTwoLastRequestTime());
+                log.info("Der Abstand zwischen den Spielaktualisierungen der beiden Spieler liegt bei >" + durationPlayerUpdates + "< Sekunden");
+            } // Ende durationPlayerUpdates
 
+            // Antwort kommt von Spieler Eins (playerOne)
             if (dropAnswerRequest.isIsplayerone()) {
+                // Antwort korrekt - Punkte berechnen
                 if (dropAnswerRequest.isAnswers()) {
                     updateGame.get().setPlayeronescore(updateGame.get().getPlayeronescore() + scoreCalculator(dropAnswerRequest.getTime()));
                 }
+                // Inkrementiere den Rundenzähler
                 updateGame.get().setPlayeroneround(updateGame.get().getPlayeroneround() + 1);
+
+                // Spiel zu Ende, weil max Rundenanzahl erreicht?
                 if (checkGameCount(updateGame)) {
-                    updateGame.get().setGamestatus(CLOSE);
-                    createAndSaveGamesHistory(updateGame);
-                    int currentScore = updateGame.get().getPlayeronescore();
-                    int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
-                    if (currentScore > highscore) {
-                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().setHighscorepoints(updateGame.get().getPlayertwoscore());
-                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().setHighscorepoints(currentScore);
-                    }
+                    updateGame.get().setGamestatus(CLOSE); // setze Spiel auf CLOSE
+                    createAndSaveGamesHistory(updateGame); // Speichere das Spiel in der GamesHistory Tabelle
+                    checkAndSaveHighscore(updateGame); // Highscore und aktuelle Punkte checken und ggf. updaten
                 }
-                //gamesRepository.updatePlayerOneRequestTime(LocalDateTime.now(),updateGame.get().getId());
-                updateGame.get().setPlayerOneLastRequestTime(LocalDateTime.now());
-                GamesEntity createGame = gamesRepository.save(updateGame.get());
-                return ResponseEntity.ok(createGame);
+                updateGame.get().setPlayerOneLastRequestTime(LocalDateTime.now()); // Spieler 1 hatte einen Request
             } else {
+                // Antwort korrekt - Punkte berechnen
                 if (dropAnswerRequest.isAnswers()) {
                     updateGame.get().setPlayertwoscore(updateGame.get().getPlayertwoscore() + scoreCalculator(dropAnswerRequest.getTime()));
                 }
+                // Inkrementiere den Rundenzähler
                 updateGame.get().setPlayertworound(updateGame.get().getPlayertworound() + 1);
+
+                // Spiel zu Ende, weil max Rundenanzahl erreicht?
                 if (checkGameCount(updateGame)) {
-                    updateGame.get().setGamestatus(CLOSE);
-                    createAndSaveGamesHistory(updateGame);
-                    int currentScore = updateGame.get().getPlayertwoscore();
-                    int highscore = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
-                    if (currentScore > highscore) {
-                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().setHighscorepoints(currentScore);
-                        highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().setHighscorepoints(updateGame.get().getPlayertwoscore());
-                    }
+                    updateGame.get().setGamestatus(CLOSE); // setze Spiel auf CLOSE
+                    createAndSaveGamesHistory(updateGame); // Speichere das Spiel in der GamesHistory Tabelle
+                    checkAndSaveHighscore(updateGame); // Highscore und aktuelle Punkte checken und ggf. updaten
                 }
-                //gamesRepository.updatePlayerOneRequestTime(LocalDateTime.now(),updateGame.get().getId());
-                updateGame.get().setPlayerTwoLastRequestTime(LocalDateTime.now());
-                GamesEntity createGame = gamesRepository.save(updateGame.get());
-                return ResponseEntity.ok(createGame);
+                updateGame.get().setPlayerTwoLastRequestTime(LocalDateTime.now()); // Spieler 2 hatte einen Request
             }
         } else {
+            log.error("Es wurde eine Antwort für GameID >" + updateGame.get().getId() + "< gesendet, aber das Spiel" +
+                    "ist bereits im Status >" + updateGame.get().getGamestatus() + "< !!!");
             return ResponseEntity.badRequest().build();
+        }
+        GamesEntity updatedGame = gamesRepository.save(updateGame.get());
+        return ResponseEntity.ok(updatedGame);
+    }
+
+    /**
+     * Prüft Punkte aus aktuellen Spiel gegen Highscore der Spieler
+     * und aktualisiert ggf.
+     *
+     * @param updateGame Laufendes Spiel vom Typ updateGame
+     */
+    private void checkAndSaveHighscore(@NotNull Optional<GamesEntity> updateGame) {
+        // ### Highscore prüfen ###
+        // Punkte des aktuellen Spiels
+        int currentScoreOne = updateGame.get().getPlayeronescore();
+        int currentScoreTwo = updateGame.get().getPlayertwoscore();
+        // Highscore der beiden Spieler
+        int highscoreOne = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
+        int highscoreTwo = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
+
+        // Prüfung und ggf. Speicherung des neuen Höchststands
+        if (currentScoreOne > highscoreOne) {
+            highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().setHighscorepoints(currentScoreOne);
+            log.info("Der HighScore von Spieler 1 (" + updateGame.get().getPlayerone().getUsername() + ") wurde von " + highscoreOne + " auf " + currentScoreOne + " aktualisiert");
+        }
+        if (currentScoreTwo > highscoreTwo) {
+            highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().setHighscorepoints(currentScoreTwo);
+            log.info("Der HighScore von Spieler 2 (" + updateGame.get().getPlayertwo().getUsername() + ") wurde von " + highscoreTwo + " auf " + currentScoreTwo + " aktualisiert");
         }
     }
 
@@ -298,6 +302,7 @@ public class GamesController {
      */
     @GetMapping("/{id}")
     public Optional<GamesEntity> findById(@PathVariable Long id) {
+        // clearAndCheckGames();
         return gamesRepository.findById(id);
     }
 
@@ -351,6 +356,59 @@ public class GamesController {
             newGameHistoryEntryTwo.setOpponentscore(updateGame.get().getPlayeronescore());
             gamesHistoryRepository.save(newGameHistoryEntryTwo);
         }
+    }
+
+    /**
+     * Diese Methode ermöglicht einen default Param beim Aufräumen der Games-Tabelle
+     */
+    private void clearAndCheckGames() {
+        clearAndCheckGames(10);
+    }
+
+    /**
+     * Diese Methode räumt in der Games-Tabelle Spiele ab, die zu lange im Status offen oder Running sind.
+     *
+     * @param nmbrOfRndsFactor Faktor der mit der Anzahl der Runden des Spiels multipliziert wird
+     */
+    private void clearAndCheckGames(Integer nmbrOfRndsFactor) {
+        this.nmbrOfRndsFactor = nmbrOfRndsFactor == null ? 0 : nmbrOfRndsFactor;
+
+        // Liste der laufenden und offenen Spiele
+        List<GamesEntity> runningGames = gamesRepository.findByGamestatus(RUNNING);
+        List<GamesEntity> openGames = gamesRepository.findByGamestatus(OPEN);
+        // Werden welche gefunden, wird geprüft, ob es sich um Leichen handelt
+        if (!runningGames.isEmpty()) {
+            runningGames.forEach(runningGame -> {
+                // Abstand zwischen den Aktualisierungen der Spieler für jedes offene Spiel ermitteln
+                long durationPlayerUpdates = ChronoUnit.SECONDS.between(runningGame.getPlayerOneLastRequestTime(),
+                        runningGame.getPlayerTwoLastRequestTime());
+                long durationCreatedAndNow = ChronoUnit.SECONDS.between(runningGame.getCreated(), LocalDateTime.now());
+                log.info("GameID: >" + runningGame.getId() + "< - der Abstand zwischen den " +
+                        "Spielaktualisierungen der beiden Spieler liegt bei >" + durationPlayerUpdates + "< Sekunden");
+                log.info("GameID: >" + runningGame.getId() + "< - der Abstand zwischen dem " +
+                        "Erstellungsdatum >" + runningGame.getCreated() + "< und Jetzt liegt bei >" + durationCreatedAndNow + "< Sekunden");
+                if ((durationPlayerUpdates > (long) runningGame.getRounds().rounds * this.nmbrOfRndsFactor) ||
+                        durationCreatedAndNow > (long) runningGame.getRounds().rounds * this.nmbrOfRndsFactor) {
+                    runningGame.setGamestatus(Gamestatus.CLOSE);
+                    log.info("GameID: >" + runningGame.getId() + "< - Spiel wurde auf Status >CLOSE< gesetzt!");
+                    gamesRepository.save(runningGame);
+                }
+            });
+        }
+        if (!openGames.isEmpty()) {
+            openGames.forEach(openGame -> {
+                // Abstand zwischen den Jetzt und dem Erstellungsdatum zu groß
+                long durationCreatedAndNow = ChronoUnit.SECONDS.between(openGame.getCreated(), LocalDateTime.now());
+                log.info("GameID: >" + openGame.getId() + "< - der Abstand zwischen dem " +
+                        "Erstellungsdatum >" + openGame.getCreated() + "< und Jetzt liegt bei >" + durationCreatedAndNow + "< Sekunden");
+                if (durationCreatedAndNow > (long) openGame.getRounds().rounds * this.nmbrOfRndsFactor) {
+                    openGame.setGamestatus(Gamestatus.CLOSE);
+                    log.info("GameID: >" + openGame.getId() + "< - Spiel wurde auf Status >CLOSE< gesetzt!");
+                    gamesRepository.save(openGame);
+                }
+            });
+        }
+
     }
 
     /**
