@@ -1,12 +1,12 @@
-import * as base from '../controller/base.js';
-import * as apiCalls from '../model/apiCalls.js';
-import * as view from './view.js';
+import * as base from '../controller/C_controller.js';
+import * as apiCalls from '../model/M_model.js';
+import * as view from './V_view.js';
 
-import * as gameModus from './gamemode.js';
+import * as gameModus from './V_gameModus.js';
 import * as settings from './settings.js';
-import * as highscore from './highscore.js';
+import * as highscore from './V_highscore.js';
 import * as statistic from './statistic.js';
-import * as choice from "./choice.js";
+import * as choice from "./V_start.js";
 /**
  * Diese Funktion zeigt das Hauptmenü an.
  *
