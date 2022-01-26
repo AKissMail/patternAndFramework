@@ -115,7 +115,7 @@ public class CGame implements Initializable {
      * ausgewählten Spiel (PlayerTwo) hinzu und
      * ändert den Spielstatus auf 'beigetreten'.
      */
-    public void onMouseClicked_joinGame() throws Exception {
+    public void onMouseClicked_joinGame() {
         // Speichert SpielID des ausgewählten Spiels in Config-Objekt
         MConfig.getInstance().setJoinedGameID(mapper.getGames().get(listView_game_gamelist.getSelectionModel().getSelectedIndex()).getId());
 

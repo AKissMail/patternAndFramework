@@ -13,14 +13,14 @@
    <top>
       <BorderPane prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
-            <Button fx:id="button_main_showSettings" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showSettings" prefHeight="25.0" prefWidth="90.0" text="Einstellungen" BorderPane.alignment="CENTER">
+            <Button fx:id="button_main_showSettings" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showSettings" prefHeight="25.0" prefWidth="95.0" text="Einstellungen" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>
             </Button>
          </left>
          <right>
-            <Button fx:id="button_main_logOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_logOut" prefHeight="25.0" prefWidth="90.0" text="Abmelden" BorderPane.alignment="CENTER">
+            <Button fx:id="button_main_logOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMouseClicked_logOut" prefHeight="25.0" prefWidth="95.0" text="Abmelden" textFill="#bc1a1a" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>
@@ -46,7 +46,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="700.0">
                <children>
-                  <Button fx:id="button_main_startQuiz" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="222.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Starten" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="button_main_startQuiz" mnemonicParsing="false" onMouseClicked="#onMouseClicked_startQuiz" prefHeight="80.0" prefWidth="220.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Starten" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
@@ -54,7 +54,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_main_joinGame" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinGame" prefHeight="80.0" prefWidth="222.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Beitreten" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="button_main_joinGame" mnemonicParsing="false" onMouseClicked="#onMouseClicked_joinGame" prefHeight="80.0" prefWidth="220.0" style="-fx-background-color: #008ae6#008ae6 #008ae6#008ae6;" text="Beitreten" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
@@ -64,11 +64,23 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="button_main_highscore" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHighscore" prefHeight="40.0" prefWidth="455.0" style="-fx-background-color: #a6a6a6#a6a6a6 #a6a6a6;" text="Highscore" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="button_main_highscore" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHighscore" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #a6a6a6#a6a6a6 #a6a6a6;" text="Highscore" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="button_main_history" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHistory" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #a6a6a6#a6a6a6 #a6a6a6;" text="Historie" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>

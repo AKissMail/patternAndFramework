@@ -6,26 +6,27 @@ import lombok.Getter;
 public class MHistory {
 
     int id;
-    MPlayer playername;
+    String playername;
     int playerscore;
     int opponentscore;
-    MCategory category;
-    MRounds rounds;
+    String categoryname;
+    int rounds;
     double average;
 
     MHistory() {}
 
-    public MHistory(int id, MPlayer playername, int playerscore, int opponentscore, MCategory category, MRounds rounds, double average) {
+    public MHistory(int id, String playername, int playerscore, int opponentscore, String categoryname, int rounds, double average) {
         this.id = id;
         this.playername = playername;
         this.playerscore = playerscore;
         this.opponentscore = opponentscore;
-        this.category = category;
+        this.categoryname = categoryname;
         this.rounds = rounds;
         this.average = average;
     }
 
     public double getAverage() {
-        return 42.0;
+        return 42.0; // @TODO Muss noch implementiert werden
+
     }
 }

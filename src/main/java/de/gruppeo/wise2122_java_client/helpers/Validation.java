@@ -21,7 +21,7 @@ public class Validation {
      * Passwort muss mindestens eine Zahl enthalten: [0-9]
      * Passwort muss mindestens einen Kleinbuchstaben enthalten: [a-z]
      * Passwort muss mindestens einen Großbuchstaben enthalten: [A-Z]
-     * Passwort muss mindestens ein Sonderzeichen enthalten: ! @ # & ( )
+     * Passwort muss mindestens ein Sonderzeichen enthalten: ! @ # & ()
      * Passwort muss mindestens eine Länge von 8 Zeichen haben
      * Passwort darf maximal eine Länge von 20 Zeichen haben
      */
@@ -33,8 +33,8 @@ public class Validation {
      * und wendet dabei das definierte Muster
      * für gültige Benutzernamen an.
      *
-     * @param username
-     * @return boolean
+     * @param username Benutername
+     * @return boolean Ist der Benutzername valide?
      */
     public boolean isValidUsername(final String username) {
         Matcher matcher = patternUsername.matcher(username);
@@ -45,8 +45,8 @@ public class Validation {
      * Validiert das übergebene Passwort und wendet dabei
      * das definierte Muster für sichere Passwörter an.
      *
-     * @param password
-     * @return boolean
+     * @param password Passwort
+     * @return boolean Ist das Passwort valide?
      */
     public boolean isValidPassword(final String password) {
         Matcher matcher = patternPassword.matcher(password);
@@ -81,8 +81,8 @@ public class Validation {
      * Aktiviert oder deaktiviert
      * die übergebenen Buttons.
      *
-     * @param buttons
-     * @param disable
+     * @param buttons Buttons
+     * @param disable Sollen Buttons deaktiviert werden?
      */
     public void disableButtons(Button[] buttons, boolean disable) {
         for (Button button : buttons) {

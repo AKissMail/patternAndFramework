@@ -7,15 +7,17 @@ import javafx.scene.control.ButtonType;
 public class CSettingsResetScore {
 
     public void onMouseClicked_resetScore() throws Exception {
-        Alert alert = new Alert(Alert.AlertType.WARNING, "Möchtest du deinen Highscore wirklich zurücksetzen?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Möchtest du deine Spieldaten wirklich zurücksetzen?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            System.out.println("Es wurde auf JA geklickt");
+            // Setzt den Highscore des angemeldeten Spielers zurück
+            Connection highscore = new Connection("/player/setplayerhighscore");
+            highscore.resetHighscore();
 
-            // Löscht den Highscore des Spielers
-            Connection con = new Connection("/player/setplayerhighscore");
-            con.resetHighscore();
+            // Setzt die Spielhistorie des angemeldeten Spielers zurück
+            Connection history = new Connection("/games/historydeletebytoken");
+            history.resetHistory();
         }
     }
 }
