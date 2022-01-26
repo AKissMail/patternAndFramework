@@ -1,6 +1,6 @@
-import * as choice from "./view/choice.js";
-import {decodeCookie} from "./controller/apiCalls.js";
-import * as mainMenu from "./view/mainMenu.js";
+import * as choice from "./view/V_choice.js";
+import {decodeCookie} from "./model/M_model.js";
+import * as mainMenu from "./view/V_mainMenu.js";
 
 /**
  * Das ist die start function.
@@ -11,6 +11,6 @@ import * as mainMenu from "./view/mainMenu.js";
             } else {
                 mainMenu.show();
             }
-    }
+}
 )
-();
+(); // und das ist der Aufruf.
