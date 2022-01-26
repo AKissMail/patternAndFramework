@@ -7,6 +7,8 @@ import de.gruppeo.wise2122_java_server.repository.PlayerRepository;
 import de.gruppeo.wise2122_java_server.request.AuthRequest;
 import de.gruppeo.wise2122_java_server.request.UpdatePasswordRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +18,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Base64;
 import java.util.Optional;
 
 import static de.gruppeo.wise2122_java_server.model.Currentstatus.ONLINE;
@@ -57,7 +63,7 @@ public class AuthController {
      * @return Ein Spielerobjekt als JSON
      */
     @PostMapping(value = "/register")
-    public ResponseEntity<PlayerEntity> register(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<PlayerEntity> register(@RequestBody AuthRequest authRequest) throws IOException {
         Optional<PlayerEntity> userOptional = playerRepository.findByUsername(authRequest.getUsername());
 
         if (userOptional.isPresent()) {
@@ -72,6 +78,10 @@ public class AuthController {
         player.setPassword(passwordEncoder.encode(authRequest.getPassword()));
         player.setCurrentscore(0);
         player.setCurrentstatus(ONLINE);
+        //File exampleThumbnail = new File(getClass().getResource("profile-example.png").getFile());
+        Resource profileExampleRsrc = new ClassPathResource("profile-example.png");
+        File profileExampleFile = profileExampleRsrc.getFile();
+        player.setThumbnail(encodeFileToBase64(profileExampleFile));
 
         // Eintrag in Spielertabelle wird angelegt (insert)
         PlayerEntity created = playerRepository.save(player);
@@ -148,4 +158,20 @@ public class AuthController {
 
         return ResponseEntity.badRequest().build();
     }
+
+    /**
+     * Lese Image und gebe Base64 String zurück
+     *
+     * @param file Datei die enkodiert werden soll
+     * @return Base64 kodierter String
+     */
+    private static String encodeFileToBase64(File file) {
+        try {
+            byte[] fileContent = Files.readAllBytes(file.toPath());
+            return Base64.getEncoder().encodeToString(fileContent);
+        } catch (IOException e) {
+            throw new IllegalStateException("Die Datei konnte nicht gelesen werden: " + file, e);
+        }
+    }
+
 }
