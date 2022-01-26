@@ -4,9 +4,9 @@ import lombok.Data;
 
 /**
  * Mapping für die das Senden der Antworten
- * games id = die ID des game
- * player one = Wenn der Player one antwortet → true | Player tow antwortet → false
- * time = die verbleibende Zeit bis die 10 Sekunden voll sind.
+ * - gamesid = die ID des Spiels
+ * - isplayerone = true,  wenn Spieler Eins antwortet und false, wenn Spieler Zwei
+ * - time = die verbleibende Zeit bis die 10 Sekunden voll sind
  */
 @Data
 public class DropAnswerRequest {
