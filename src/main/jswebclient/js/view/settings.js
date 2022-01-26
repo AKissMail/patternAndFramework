@@ -49,7 +49,7 @@ export function show() {
     document.getElementById("deleteStatistics").addEventListener("click", deleteStatistics);
     document.getElementById("backHome").addEventListener("click", mainMenu.show);
 }
-/**
+
 function updatePicture() {
     base.clearStage();
 
@@ -66,6 +66,7 @@ function updatePicture() {
     let input = document.createElement("input");
     input.setAttribute("id","inputFile");
     input.setAttribute("type", "file");
+    input.setAttribute("accept", '"image/png, image/gif, image/jpeg"');
     let button = document.createElement("button");
     button.setAttribute("class", "btn");
     button.setAttribute("id", "button");
@@ -74,44 +75,31 @@ function updatePicture() {
     from.appendChild(button);
     document.getElementsByTagName("article")[0].appendChild(from);
 
-    const htmlForm = document.getElementById("uploadFrom");
-    const inputFile = document.getElementById("inputFile");
-    let myFile ={};
-    let isFilePresent = true; // soll das so?
-    let data;
-    inputFile.addEventListener("change", async (event) => {
-        myFile = {};
-        isFilePresent = false;
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
 
-        const filePromise = Object.entries(files).map((item) => {
-            return new Promise((resolve, reject) => {
-                const [index, file] = item;
-                const reader = new FileReader();
-                reader.readAsBinaryString(file);
-                reader.onload = function (event) {
-                    const fileKey = `${inputKey}${files.length > 1 ? `[${index}]` : ""}`;
-                    myFile[fileKey] = `data:${file.type};base64,${btoa(event.target.result)}`;
-                    resolve();
-                };
-                reader.onerror = function () {
-                    console.log("can't read the file");
-                    reject();
-                };
-            });
-            Promise.all(filePromise)
-                .then(()=>{
-                isFilePresent = true;
-                let newData =myFile;
-            }
-        })
+    $('#button').click(function() {
+        const uploadedFile = document.querySelector('#inputFile').files[0];
+        toBase64(uploadedFile)
+            .then(res => {
+                let cutRes = res.split(',');
+                let data = cutRes[1];
+                console.log(data);
+                apiCalls.updatePicture(data, function (){
+                    console.log(res);
+                    show();
+                });
 
-
-        });
-
-
-    htmlForm.addEventListener("submit", e => {
-        alert("Test");
-    })
+            })
+            .catch(err => {
+                alert("Das hat leider nicht geklappt" + err);
+                console.log(err);
+            })
+    });
 
     document.getElementById("backHome").addEventListener("click", show);
 }

@@ -32,7 +32,7 @@ public class Loader {
      * Ersetzung eines Maskenbereichs
      * verwendet werden.
      *
-     * @param filename FXML Dateiname
+     * @param filename FXML-Dateiname
      * @return pane
      */
     public Pane getPane(String filename) {
@@ -97,22 +97,6 @@ public class Loader {
     }
 
     /**
-     * Setzt ein im Image-Verzeichnis enthaltenes
-     * Bild in den übergebenen Kreis ein.
-     *
-     * @param circle
-     * @param filename
-     */
-    public void setAnyThumbnail(Circle circle, String filename) {
-        try {
-            file = new File("src/main/resources/de/gruppeo/wise2122_java_client/images" + filename);
-            circle.setFill(new ImagePattern(new Image(file.toURI().toURL().toExternalForm(), false)));
-        } catch (Exception e) {
-            System.out.println("Bild konnte nicht gesetzt werden");
-        }
-    }
-
-    /**
      * Gibt ein lokal gespeichertes
      * Standardbild zurück.
      *
@@ -126,5 +110,21 @@ public class Loader {
             System.out.println("Bild konnte nicht geladen werden");
         }
         return new Image(file.toURI().toURL().toExternalForm(), false);
+    }
+
+    /**
+     * Setzt ein im Image-Verzeichnis enthaltenes
+     * Bild in den übergebenen Kreis ein.
+     *
+     * @param circle
+     * @param filename
+     */
+    public void setAnyThumbnail(Circle circle, String filename) {
+        try {
+            file = new File("src/main/resources/de/gruppeo/wise2122_java_client/images" + filename);
+            circle.setFill(new ImagePattern(new Image(file.toURI().toURL().toExternalForm(), false)));
+        } catch (Exception e) {
+            System.out.println("Bild konnte nicht gesetzt werden");
+        }
     }
 }

@@ -22,7 +22,7 @@
    <top>
       <BorderPane prefHeight="50.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
-            <Button fx:id="button_game_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="90.0" text="Zurück" BorderPane.alignment="CENTER">
+            <Button fx:id="button_game_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_back" prefHeight="25.0" prefWidth="95.0" text="Zurück" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>

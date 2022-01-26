@@ -1,5 +1,5 @@
 
-
+const uploadthumbnailstrPath = '/player/uploadthumbnailstr';
 const serverURL = 'http://localhost:8080';
 const loginPath = '/auth/login';
 const registrationPath = '/auth/register';
@@ -63,7 +63,6 @@ export function getPicture (name,callback){
         datatype: "text",
         doneFunction: function done(response) {
             console.log('getPicture done!');
-            console.log(response);
             callback(response);
         },
         malFunction: function fail(xhr, status) {
@@ -73,7 +72,6 @@ export function getPicture (name,callback){
             return " ";
         }
     });
-
 }
 
 /**
@@ -134,11 +132,9 @@ export function logInUser(playername, password, callback) {
 
 /**
  * Diese Methode loggt den User aus.
- * @todo callback
  */
 export function logout (callback){
     document.cookie = "token = ";
-    console.log(document.cookie);
     callback();
 
 }
@@ -303,8 +299,20 @@ export function createGame(category, size, callback) {
  * Diese function lädt ein Base64 encodetet Bild
  * @param data
  */
-export function updatePicture(data) {
-    //@todo
+export function updatePicture(data, callback) {
+    connection({
+        path: uploadthumbnailstrPath,
+        body: {"file": data, "playername": decodeCookie("playername")},
+        method: "POST",
+        doneFunction: function (response) {
+            console.log(response);
+            callback(response);
+        },
+        malFunction: function (xhr, status) {
+            console.log(xhr);
+            callback(status);
+        }
+    })
 }
 
 /**

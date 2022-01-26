@@ -2,9 +2,11 @@ package de.gruppeo.wise2122_java_server.controller;
 
 import de.gruppeo.wise2122_java_server.model.*;
 import de.gruppeo.wise2122_java_server.repository.*;
+import de.gruppeo.wise2122_java_server.request.DeletGameHistoryRequestWithJSON;
 import de.gruppeo.wise2122_java_server.request.DropAnswerRequest;
 import de.gruppeo.wise2122_java_server.request.NewGameRequest;
 import de.gruppeo.wise2122_java_server.request.UpdateGameRequest;
+import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,22 +43,23 @@ public class GamesController {
     private final RoundsRepository roundsRepository;
     private final QuestionsRepository questionsRepository;
     private final HighscoreRepository highscoreRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     /**
      * Constructor
-     *
-     * @param gamesRepository        games repository
+     *  @param gamesRepository        games repository
      * @param gamesHistoryRepository games history repository
      * @param playerRepository       player repository
      * @param categoryRepository     category repository
      * @param roundsRepository       rounds repository
      * @param questionsRepository    questions repository
      * @param highscoreRepository    highscore repository
+     * @param jwtTokenProvider
      */
     public GamesController(GamesRepository gamesRepository, GamesHistoryRepository gamesHistoryRepository,
                            PlayerRepository playerRepository, CategoryRepository categoryRepository,
                            RoundsRepository roundsRepository, QuestionsRepository questionsRepository,
-                           HighscoreRepository highscoreRepository) {
+                           HighscoreRepository highscoreRepository, JwtTokenProvider jwtTokenProvider) {
         this.gamesRepository = gamesRepository;
         this.gamesHistoryRepository = gamesHistoryRepository;
         this.playerRepository = playerRepository;
@@ -64,6 +67,7 @@ public class GamesController {
         this.roundsRepository = roundsRepository;
         this.questionsRepository = questionsRepository;
         this.highscoreRepository = highscoreRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     /**
@@ -383,6 +387,23 @@ public class GamesController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body("History des Spielers " + playername + " wurde gelöscht");
+        }
+    }
+
+    @PostMapping("/historydeletebytoken")
+    public ResponseEntity<String> deleteGamesHistoryByToken(@RequestBody DeletGameHistoryRequestWithJSON deletGameHistoryRequestWithJSON) {
+        String username = jwtTokenProvider.getUsernameFromToken(deletGameHistoryRequestWithJSON.getToken());
+        List<GamesHistoryEntity> gamesHistory = gamesHistoryRepository.findByPlayer_Username(username);
+
+        if (gamesHistory.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("History des Spielers " + username + " konnte nicht gefunden werden!");
+        } else {
+            gamesHistory.forEach(gamesHistoryRepository::delete);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body("History des Spielers " + username + " wurde gelöscht");
         }
     }
 

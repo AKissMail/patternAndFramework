@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -27,12 +28,20 @@ public class CHighscore implements Initializable {
 
     public CHighscore() {
         loader = new Loader();
-        mapperHighscore = new PHighscore(new Connection("/highscore"));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Stimmt mit MPlayer-Objekt überein - baut Brücke, um Spalten zu befüllen
+        loadHighscoreData();
+    }
+
+    /**
+     * Lädt den Highscore vom Server
+     * und fügt Daten in die Tabelle ein.
+     */
+    private void loadHighscoreData() {
+        mapperHighscore = new PHighscore(new Connection("/highscore"));
+
         column_highscore_rank.setCellValueFactory(new PropertyValueFactory<>("rank"));
         column_highscore_player.setCellValueFactory(new PropertyValueFactory<>("playername"));
         column_highscore_points.setCellValueFactory(new PropertyValueFactory<>("highscorepoints"));
@@ -46,12 +55,17 @@ public class CHighscore implements Initializable {
     }
 
     /**
-     * Zeigt die Spielhistorie an.
+     * Setzt den Highscore des angemeldeten Spielers zurück.
      */
-    public void onMouseClicked_showGameHistory() {
-        Stage stage = (Stage) mainPane.getScene().getWindow();
-        stage.setScene(loader.getScene("history"));
-        stage.show();
+    public void onMouseClicked_resetHighscore() {
+        Connection con = new Connection("/player/setplayerhighscore");
+        con.resetHighscore();
+
+        // Entfernt alle Einträge
+        table_highscore_points.getItems().clear();
+
+        // Lädt aktualisierte Daten
+        loadHighscoreData();
     }
 
     /**

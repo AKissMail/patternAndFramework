@@ -13,7 +13,7 @@
    <top>
       <BorderPane prefHeight="50.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
-            <Button fx:id="button_history_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showHighscore" prefHeight="25.0" prefWidth="90.0" text="Zurück" BorderPane.alignment="CENTER">
+            <Button fx:id="button_history_back" mnemonicParsing="false" onMouseClicked="#onMouseClicked_showMain" prefHeight="25.0" prefWidth="95.0" text="Hauptmenü" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>
@@ -27,7 +27,7 @@
             </Label>
          </center>
          <right>
-            <Button mnemonicParsing="false" onMouseClicked="#onMouseClicked_resetHistory" prefHeight="26.0" prefWidth="95.0" text="Zurücksetzen" textFill="#bc1a1a" BorderPane.alignment="CENTER">
+            <Button fx:id="button_history_resetHistory" mnemonicParsing="false" onMouseClicked="#onMouseClicked_resetHistory" prefHeight="26.0" prefWidth="95.0" text="Zurücksetzen" textFill="#bc1a1a" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="15.0" right="15.0" />
                </BorderPane.margin>
@@ -48,11 +48,11 @@
             <TableView fx:id="table_history_gameHistory" prefHeight="347.0" prefWidth="625.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="column_history_id" editable="false" maxWidth="96.0" minWidth="45.0" prefWidth="58.0" resizable="false" text="ID" />
-                  <TableColumn fx:id="column_history_category" editable="false" prefWidth="140.0" text="Kategorie" />
-                  <TableColumn fx:id="column_history_rounds" editable="false" prefWidth="90.0" text="Runden" />
-                <TableColumn fx:id="column_history_player" editable="false" prefWidth="130.0" resizable="false" text="Spieler" />
-                  <TableColumn fx:id="column_history_playerPoints" editable="false" prefWidth="90.0" text="Punkte" />
-                  <TableColumn fx:id="column_history_opponentPoints" editable="false" prefWidth="90.0" text="Punkte" />
+                  <TableColumn fx:id="column_history_category" editable="false" prefWidth="190.0" text="Kategorie" />
+                  <TableColumn fx:id="column_history_rounds" editable="false" text="Runden" />
+                <TableColumn fx:id="column_history_player" editable="false" prefWidth="110.0" resizable="false" text="Spieler" />
+                  <TableColumn fx:id="column_history_playerScore" editable="false" text="Punkte" />
+                  <TableColumn fx:id="column_history_opponentScore" editable="false" text="Punkte" />
                   <TableColumn fx:id="column_history_average" editable="false" prefWidth="90.0" text="Durchschnitt" />
               </columns>
                <BorderPane.margin>
