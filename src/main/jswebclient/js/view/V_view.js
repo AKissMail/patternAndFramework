@@ -131,6 +131,10 @@ export function createBarak(){
     return document.createElement("br");
 }
 
+/**
+ * @todo
+ * @returns {HTMLButtonElement}
+ */
 export function createQuestionButton (){
     return document.createElement("button");
 }

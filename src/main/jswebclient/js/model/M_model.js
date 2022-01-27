@@ -2,9 +2,8 @@
  * In dieser Datei werden die Abfragen af die REST Api gemacht. Daneben wird hier auch auf die Cookies zugegriffen.
  * Dort wird der Token, der Nutzername und die Rolle des Users gespeichert.
  */
-
+//die URI
 const serverURL = 'http://localhost:8080';
-
 const uploadthumbnailstrPath = '/player/uploadthumbnailstr';
 const loginPath = '/auth/login';
 const registrationPath = '/auth/register';
@@ -18,9 +17,7 @@ const historyPath = '/games/history';
 const historydeletePath = '/games/historydelete';
 const highscorePath = '/highscore';
 const roundsPath ='/rounds';
-
 const getthumbnailPath = '/player/getthumbnailbyname?playername=';
-
 
 /**
  * Dies ist die function dei ein ajax request an die Api mache. Sie bekommt die notwendigen parameter sowie zwei

@@ -1,6 +1,9 @@
 import * as apiCalls from '../model/M_model.js';
 import * as choice from '../view/V_start.js';
 
+/**
+ * Diese Function fragt das Alte Passwort ab und setzt ein neues.
+ */
 export function updatePassword(){
     let oldPassword = prompt("Bitte geben Sie ihr altes password ein.")
     let newPassword = prompt("Bitte geben Sie ein neues Passwort ein.");
@@ -12,6 +15,9 @@ export function updatePassword(){
     }
 }
 
+/**
+ * Löscht die Historie eines Users.
+ */
 export function deleteStatistics (){
     if(confirm("Möchten Sie wirklich alle daten Löschen?")){
         apiCalls.deleteStatistics(console.log);

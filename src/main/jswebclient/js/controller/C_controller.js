@@ -1,11 +1,10 @@
-
 /**
  * Die Methode macht den DOM Leer und setzt ein minimales Gerüst in den DOM ein. Dieses Gerüst wird von
  * den show function erwartet. Das letztendliche Resultat schaut wie die ursprüngliche index.html aus.
  * Lediglich der onload event Listener ist nicht enthalten.
  */
 export function clearStage() {
-    //alle element im body werden entfernt
+
     document.querySelector("header").remove();
     document.querySelector("main").remove();
     document.querySelector("footer").remove();

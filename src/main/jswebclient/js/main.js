@@ -1,12 +1,12 @@
 import * as choice from "./view/V_start.js";
-import {decodeCookie} from "./model/M_model.js";
+import * as model from "./model/M_model.js";
 import * as mainMenu from "./view/V_mainMenu.js";
 
 /**
  * Das ist die start function.
  */
 (()=> {
-            if (decodeCookie("token")==="") {
+            if (model.decodeCookie("token")==="") {
                 choice.show();
             } else {
                 mainMenu.show();

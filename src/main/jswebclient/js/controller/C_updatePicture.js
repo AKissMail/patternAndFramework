@@ -2,7 +2,7 @@ import * as apiCalls from '../model/M_model.js';
 import * as mainMenu from '../view/V_mainMenu.js';
 
 /**
- *
+ * Dies function holt aus einem Input eine Bild und mach daraus ein Base 64 String und passt diese für die Datenbank an.
  */
 export function base64Picture() {
     const toBase64 = file => new Promise((resolve, reject) => {

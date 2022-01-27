@@ -18,6 +18,13 @@ export function show(localPoint, remotePoint, nameOpponent) {
     document.getElementById("backHome").addEventListener("click", mainMenu.show);
     document.getElementById("centerBtn").addEventListener("click", statistic.show);
 }
+
+/**
+ * Diese Function verglicht Zwei Punktestände und gibt ein passenden stückchen HTML zurück.
+ * @param localPoint Punkte des Lokalen User
+ * @param remotePoint Punkte des remote User
+ * @returns {*} ein <p> mit den passenden String
+ */
 function v_result(localPoint, remotePoint){
     let heading;
     if (localPoint > remotePoint) {
