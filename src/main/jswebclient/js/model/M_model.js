@@ -3,21 +3,22 @@
  * Dort wird der Token, der Nutzername und die Rolle des Users gespeichert.
  */
 //die URI
-const serverURL = 'http://localhost:8080';
-const uploadthumbnailstrPath = '/player/uploadthumbnailstr';
-const loginPath = '/auth/login';
-const registrationPath = '/auth/register';
-const updatePasswordPath = '/auth/updatepassword';
-const categoryPath = '/category';
-const getGameByIDPath = '/games/'
-const openGamePath = '/games/open';
-const updateGamePath = '/games/update';
-const createGamePath = '/games/create';
-const historyPath = '/games/history';
-const historydeletePath = '/games/historydelete';
-const highscorePath = '/highscore';
-const roundsPath ='/rounds';
-const getthumbnailPath = '/player/getthumbnailbyname?playername=';
+const serverURL =               'http://localhost:8080';
+const uploadthumbnailstrPath =  '/player/uploadthumbnailstr';
+const loginPath =               '/auth/login';
+const registrationPath =        '/auth/register';
+const updatePasswordPath =      '/auth/updatepassword';
+const categoryPath =            '/category';
+const getGameByIDPath =         '/games/'
+const openGamePath =            '/games/open';
+const updateGamePath =          '/games/update';
+const createGamePath =          '/games/create';
+const sendAnswerPath =          '/games/dropanswer';
+const historyPath =             '/games/history';
+const historydeletePath =       '/games/historydelete';
+const highscorePath =           '/highscore';
+const roundsPath =              '/rounds';
+const getthumbnailPath =        '/player/getthumbnailbyname?playername=';
 
 /**
  * Dies ist die function dei ein ajax request an die Api mache. Sie bekommt die notwendigen parameter sowie zwei
@@ -383,6 +384,31 @@ export function getGameByID(id, callback){
         }, malFunction: function (xhr, status) {
             callback(xhr);
             console.log('GetGameByID failed!', xhr.response,status);
+        }
+    })
+}
+
+export function sendAnswer(gameID, isplayerone, answer, time, callback){
+
+    connection({
+
+        method: "PUT",
+        path: sendAnswerPath,
+        body: {
+            "gamesid": gameID,
+            "isplayerone": isplayerone,
+            "answers":answer,
+            "time": time
+        },
+        doneFunction: (response)=>{
+            console.log("done")
+            callback(response);
+
+        },
+        malFunction: (xhr, status)=>{
+            console.log("shit");
+            console.log(xhr, status)
+            //callback(response)
         }
     })
 }

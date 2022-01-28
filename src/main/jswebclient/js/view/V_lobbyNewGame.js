@@ -2,7 +2,7 @@ import * as controller from "../controller/C_controller.js";
 import * as view from "./V_view.js";
 import * as mainMenu from "./V_mainMenu.js";
 import * as model from "../model/M_model.js";
-import * as quiz from './quiz.js';
+import * as quiz from './V_quiz.js';
 import * as controllerLobby from '../controller/C_lobby.js';
 
 export function show(result) {

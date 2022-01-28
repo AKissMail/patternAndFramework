@@ -135,6 +135,12 @@ export function createBarak(){
  * @todo
  * @returns {HTMLButtonElement}
  */
-export function createQuestionButton (){
-    return document.createElement("button");
+export function createQuestionButton (id, value){
+    let btn = document.createElement("button");
+    btn.setAttribute("type", "button");
+    btn.setAttribute("id",id);
+    btn.setAttribute("class", "question");
+    btn.setAttribute("value", value);
+    btn.append(value);
+    return btn;
 }
