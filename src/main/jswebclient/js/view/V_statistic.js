@@ -25,7 +25,6 @@ export function showData(data) {
 
         let scoreTableHeading = document.createElement("tr");
         scoreTableHeading.appendChild(view.createGenericText("th", "Spiel"));
-        scoreTableHeading.appendChild(view.createGenericText("th", "Runden nummer"));
         scoreTableHeading.appendChild(view.createGenericText("th", "Kategorie"));
         scoreTableHeading.appendChild(view.createGenericText("th", "Deine Punkte"));
         scoreTableHeading.appendChild(view.createGenericText("th", "Die Punkte des Gegners"));
@@ -38,12 +37,10 @@ export function showData(data) {
         for (let i = 1; i <= data.length; i++) {
             let row = document.createElement("tr");
             let ranking = view.createGenericText("td", i.toString());
-            let rounds = view.createGenericText("td", data[i - 1].valueOf().rounds.rounds);
             let user = view.createGenericText("td", data[i - 1].valueOf().categoryname);
             let score = view.createGenericText("td", data[i - 1].valueOf().playerscore);
             let scoreOpponent = view.createGenericText("td", data[i - 1].valueOf().opponentscore);
             row.appendChild(ranking);
-            row.appendChild(rounds);
             row.appendChild(user);
             row.appendChild(score);
             row.appendChild(scoreOpponent);

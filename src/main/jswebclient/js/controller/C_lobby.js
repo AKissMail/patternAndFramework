@@ -13,6 +13,7 @@ import * as mainMenu from "../view/V_mainMenu.js";
  */
 export function loop (counter, IfYes,elseYes,IfYesFunction, elseYesFunction){
    if(!counter == 1){
+       console.log(counter);
         setTimeout(function(){
             M_model.getGameByID(M_model.decodeCookie("gameID"), function (result){
                 if (result.valueOf().gamestatus ==IfYes) {IfYesFunction();}

@@ -3,6 +3,7 @@ import * as quizController from '../controller/C_quiz.js'
 import * as model from '../model/M_model.js';
 import * as lobbyResult from './V_lobbyResult.js';
 import * as view from './V_view.js';
+import * as mainMenu from './V_mainMenu.js';
 
 /**
  * Mit dieser Function wird die Frage sowie die Antworten angezeigt. @todo nochmaldurchdenken
@@ -10,7 +11,7 @@ import * as view from './V_view.js';
  */
 let send = false;
 export function show(round){
-    document.cookie = "isplayerone = true"
+
     console.log(round);
     let game = round;
     if (game.valueOf().rounds.valueOf().rounds > 0) {
@@ -34,6 +35,7 @@ export function show(round){
         document.getElementById("1").addEventListener('click', ()=>{evaluate( document.getElementById("1").value, game, start)});
         document.getElementById("2").addEventListener('click', ()=>{evaluate( document.getElementById("2").value, game, start)});
         document.getElementById("3").addEventListener('click', ()=>{evaluate( document.getElementById("3").value, game, start)});
+        document.getElementById("exitGame").addEventListener('click', ()=>{model.updateGame(game.valueOf().id, "null", "null","CLOSE", mainMenu.show)})
 
     }else {
         lobbyResult.show(game);
