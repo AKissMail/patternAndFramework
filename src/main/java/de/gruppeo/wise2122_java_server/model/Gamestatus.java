@@ -4,5 +4,6 @@ public enum Gamestatus {
     OPEN,
     CLOSE,
     RUNNING,
-    JOINED
+    JOINED,
+    UNDEFINED
 }

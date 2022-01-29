@@ -2,6 +2,7 @@ package de.gruppeo.wise2122_java_server.repository;
 
 import de.gruppeo.wise2122_java_server.model.RoundsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -18,4 +19,8 @@ public interface RoundsRepository extends JpaRepository<RoundsEntity, Long> {
      * @return die runde vom Typ RoundsEntity
      */
     Optional<RoundsEntity> findByRounds(Integer rounds);
+
+    @Query(value = "SELECT max(rounds) FROM rounds")
+    int getMaxRounds();
+
 }

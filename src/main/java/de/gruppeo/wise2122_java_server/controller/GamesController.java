@@ -7,8 +7,8 @@ import de.gruppeo.wise2122_java_server.request.DropAnswerRequest;
 import de.gruppeo.wise2122_java_server.request.NewGameRequest;
 import de.gruppeo.wise2122_java_server.request.UpdateGameRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +36,9 @@ import static de.gruppeo.wise2122_java_server.model.Gamestatus.*;
  */
 @RestController
 @RequestMapping("/games")
+@Slf4j
 public class GamesController {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(GamesController.class);
     private final GamesRepository gamesRepository;
     private final GamesHistoryRepository gamesHistoryRepository;
     private final PlayerRepository playerRepository;
@@ -250,8 +250,16 @@ public class GamesController {
                 updateGame.get().setPlayerTwoLastRequestTime(LocalDateTime.now()); // Spieler 2 hatte einen Request
             }
         } else {
-            log.error("Es wurde eine Antwort für GameID >" + updateGame.get().getId() + "< gesendet, aber das Spiel" +
-                    "ist bereits im Status >" + updateGame.get().getGamestatus() + "< !!!");
+            // DEFAULT Werte setzen, falls Spiel nicht gefunden
+            long gameID = 0;
+            Gamestatus gameStatus = UNDEFINED;
+            if (updateGame.isPresent()) {
+                gameID = updateGame.get().getId();
+                gameStatus = updateGame.get().getGamestatus();
+            }
+
+            log.error("Es wurde eine Antwort für GameID >" + gameID + "< gesendet, aber das Spiel" +
+                    "ist bereits im Status >" + gameStatus + "< !!!");
             return ResponseEntity.badRequest().build();
         }
         GamesEntity updatedGame = gamesRepository.save(updateGame.get());
@@ -267,11 +275,18 @@ public class GamesController {
     private void checkAndSaveHighscore(@NotNull Optional<GamesEntity> updateGame) {
         // ### Highscore prüfen ###
         // Punkte des aktuellen Spiels
+        if (updateGame.isEmpty()) return;
         int currentScoreOne = updateGame.get().getPlayeronescore();
         int currentScoreTwo = updateGame.get().getPlayertwoscore();
         // Highscore der beiden Spieler
-        int highscoreOne = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
-        int highscoreTwo = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
+        int highscoreOne = 0;
+        int highscoreTwo = 0;
+        if (highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).isPresent()) {
+            highscoreOne = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayerone().getUsername()).get().highscorepoints;
+        }
+        if (highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).isPresent()) {
+            highscoreTwo = highscoreRepository.findByPlayer_Username(updateGame.get().getPlayertwo().getUsername()).get().highscorepoints;
+        }
 
         // Prüfung und ggf. Speicherung des neuen Höchststands
         if (currentScoreOne > highscoreOne) {
@@ -441,7 +456,7 @@ public class GamesController {
                     .status(HttpStatus.NOT_FOUND)
                     .body("History des Spielers " + playername + " konnte nicht gefunden werden!");
         } else {
-            gamesHistory.forEach(gamesHistoryRepository::delete);
+            gamesHistoryRepository.deleteAll(gamesHistory);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body("History des Spielers " + playername + " wurde gelöscht");
@@ -458,7 +473,7 @@ public class GamesController {
                     .status(HttpStatus.NOT_FOUND)
                     .body("History des Spielers " + username + " konnte nicht gefunden werden!");
         } else {
-            gamesHistory.forEach(gamesHistoryRepository::delete);
+            gamesHistoryRepository.deleteAll(gamesHistory);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body("History des Spielers " + username + " wurde gelöscht");
