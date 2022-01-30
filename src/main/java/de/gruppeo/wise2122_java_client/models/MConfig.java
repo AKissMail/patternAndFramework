@@ -9,7 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Modell wird zum Speichern und Lesen wichtiger
  * Konfigurationsdaten benötigt. Es ermöglicht den Zugriff
  * von außen auf alle im Objekt gespeicherten Daten. Es
- * kann nur eine Instanz vom Objekt erzeugt werden.
+ * kann nur eine Instanz vom Objekt erzeugt werden, da
+ * das Singelton-Pattern umgesetzt wird.
  */
 
 @Getter

@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +19,7 @@ public class Loader {
     private Pane pane;
     private Scene scene;
     private File file;
-    private String location;
+    private final String location;
 
     public Loader() {
         location = "fxml/";
@@ -56,7 +55,7 @@ public class Loader {
      * Ersetzung einer ganzen Maske
      * verwendet werden.
      *
-     * @param filename
+     * @param filename FXML-Dateiname
      * @return scene
      */
     public Scene getScene(String filename) {
@@ -78,7 +77,7 @@ public class Loader {
      * Wenn kein Profilbild gefunden wurde,
      * wird ein Standardbild geladen.
      *
-     * @param circle
+     * @param circle FXML-Kreis-View
      */
     public void loadThumbnail(Circle circle, String playername) {
         try {
@@ -101,7 +100,7 @@ public class Loader {
      * Standardbild zurück.
      *
      * @return lokal gespeichertes Image
-     * @throws MalformedURLException
+     * @throws MalformedURLException Ausnahme
      */
     public Image loadDefaultImage() throws MalformedURLException {
         try {
@@ -116,8 +115,8 @@ public class Loader {
      * Setzt ein im Image-Verzeichnis enthaltenes
      * Bild in den übergebenen Kreis ein.
      *
-     * @param circle
-     * @param filename
+     * @param circle FXML-Kreis-View
+     * @param filename Name einer Bilddatei
      */
     public void setAnyThumbnail(Circle circle, String filename) {
         try {

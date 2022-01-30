@@ -4,7 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
+ * Modell eines Spielers mit allen
+ * Attributen, die zum JSON-Parsing
+ * benötigt werden. Getter-/ Setter-
+ * Methoden werden mittels Lombok
+ * automatisch generiert.
  */
 
 @Getter
@@ -18,11 +22,9 @@ public class MPlayer {
     private String currentstatus;
     private MHighscore highscore;
 
-    private int rank;
-
     /**
-     * Standardkonstruktor wird zwingend zur
-     * Initialisierung der JSON-Mappers benötigt.
+     * Leerer Konstruktor wird
+     * beim JSON-Parsing benötigt.
      */
     public MPlayer() {}
 
@@ -30,10 +32,10 @@ public class MPlayer {
      * 1:1-Abbild der JSON-Struktur. Initialisiert
      * alle im JSON-String enthaltenen Datenfelder.
      *
-     * @param playerid
-     * @param username
-     * @param currentscore
-     * @param currentstatus
+     * @param playerid Eindeutige ID des Spielers
+     * @param username Eindeutiger Name des Spielers
+     * @param currentscore Aktueller Punktestand des Spielers
+     * @param currentstatus Aktueller Status des Spielers
      */
     public MPlayer(int playerid, String username, String thumbnail, int currentscore, String currentstatus, MHighscore highscore) {
         this.playerid = playerid;
@@ -41,12 +43,6 @@ public class MPlayer {
         this.thumbnail = thumbnail;
         this.currentscore = currentscore;
         this.currentstatus = currentstatus;
-        this.highscore = highscore;
-    }
-
-    public MPlayer(int rank, String username, MHighscore highscore) {
-        this.rank = rank;
-        this.username = username;
         this.highscore = highscore;
     }
 }

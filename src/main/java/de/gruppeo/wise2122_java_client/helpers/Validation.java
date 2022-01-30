@@ -3,7 +3,6 @@ package de.gruppeo.wise2122_java_client.helpers;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,8 +54,13 @@ public class Validation {
 
     /**
      * Aktiviert einen Button, wenn alle
-     * drei Felder vollständig und korrekt ausgefüllt
-     * wurden.
+     * drei Felder vollständig und korrekt
+     * ausgefüllt wurden.
+     *
+     * @param label Etikett eines Eingabefelds
+     * @param labelColor Farbe des Etiketts
+     * @param list Liste der zu prüfenden Eingabefelder
+     * @param button Zu aktivierender/deaktivierender Button
      */
     public void checkInputValidation(Label label, Color labelColor, ArrayList<Boolean> list, Button button) {
         int checkSum = 0;
@@ -65,7 +69,7 @@ public class Validation {
         label.setTextFill(labelColor);
 
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == true) {
+            if (list.get(i)) {
                 checkSum += 1;
             }
         }
