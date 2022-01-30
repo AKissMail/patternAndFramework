@@ -18,7 +18,9 @@ import java.net.URL;
 import java.util.*;
 
 import javafx.fxml.FXML;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class CQuiz implements Initializable {
     Loader loader;
     MCountdown countdown;
@@ -155,9 +157,14 @@ public class CQuiz implements Initializable {
             }
         }
 
-        // Sendet Antwort an Server
-        Connection con = new Connection("/games/dropanswer");
-        con.dropAnswer(gameID, isPlayerOne(), isCorrect, getTime());
+        try {
+            // Sendet Antwort an Server
+            Connection con = new Connection("/games/dropanswer");
+            con.dropAnswer(gameID, isPlayerOne(), isCorrect, getTime());
+        } catch (Exception e) {
+            log.error("Gegner hat das Spiel vorzeitig verlassen");
+            // @TODO Ergebnisbildschirm anzeigen
+        }
 
         // Aktualisiert den Spielerscore
         setPoints();
