@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controllers.CHistory">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.gruppeo.wise2122_java_client.controller.CHistory">
    <top>
       <BorderPane prefHeight="50.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <left>
@@ -49,11 +49,11 @@
               <columns>
                 <TableColumn fx:id="column_history_id" editable="false" maxWidth="96.0" minWidth="45.0" prefWidth="58.0" resizable="false" text="ID" />
                   <TableColumn fx:id="column_history_category" editable="false" prefWidth="190.0" text="Kategorie" />
-                  <TableColumn fx:id="column_history_rounds" editable="false" text="Runden" />
-                <TableColumn fx:id="column_history_player" editable="false" prefWidth="110.0" resizable="false" text="Spieler" />
+                  <TableColumn fx:id="column_history_rounds" editable="false" resizable="false" text="Runden" />
+                <TableColumn fx:id="column_history_player" editable="false" prefWidth="110.0" text="Spieler" />
                   <TableColumn fx:id="column_history_playerScore" editable="false" text="Punkte" />
-                  <TableColumn fx:id="column_history_opponentScore" editable="false" text="Punkte" />
-                  <TableColumn fx:id="column_history_average" editable="false" prefWidth="90.0" text="Durchschnitt" />
+                  <TableColumn fx:id="column_history_opponentScore" editable="false" resizable="false" text="Punkte" />
+                  <TableColumn fx:id="column_history_average" editable="false" prefWidth="90.0" text="Durchschnitt pro Runde" />
               </columns>
                <BorderPane.margin>
                   <Insets bottom="30.0" left="5.0" right="5.0" />
