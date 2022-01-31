@@ -1,11 +1,9 @@
 package de.gruppeo.wise2122_java_client;
 
-import de.gruppeo.wise2122_java_client.controllers.CLobby;
-import de.gruppeo.wise2122_java_client.controllers.CGame;
-import de.gruppeo.wise2122_java_client.controllers.CQuiz;
-import de.gruppeo.wise2122_java_client.controllers.CResult;
-import de.gruppeo.wise2122_java_client.helpers.Connection;
-import de.gruppeo.wise2122_java_client.models.MConfig;
+import de.gruppeo.wise2122_java_client.controller.CLobby;
+import de.gruppeo.wise2122_java_client.controller.CGame;
+import de.gruppeo.wise2122_java_client.controller.CQuiz;
+import de.gruppeo.wise2122_java_client.controller.CResult;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
