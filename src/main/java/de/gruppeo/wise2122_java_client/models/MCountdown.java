@@ -3,7 +3,12 @@ package de.gruppeo.wise2122_java_client.models;
 import lombok.Getter;
 
 /**
- *
+ * Modell eines Countdowns mit allen
+ * Attributen, die den Betrieb des
+ * Runden-Timers während des Spiels
+ * gewährleisten. Getter-Methoden
+ * werden mittels Lombok automatisch
+ * generiert.
  */
 
 @Getter
@@ -30,6 +35,10 @@ public class MCountdown {
         this.currentSeconds -= seconds;
     }
 
+    /**
+     * Setzt den aktuellen Timer-Stand
+     * auf den Standardwert zurück.
+     */
     public void resetSeconds() {
         this.currentSeconds = totalSeconds;
     }

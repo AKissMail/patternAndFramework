@@ -1,12 +1,19 @@
 package de.gruppeo.wise2122_java_client.models;
 
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.Locale;
+
+/**
+ * Modell eines Highscores mit allen
+ * Attributen, die zum JSON-Parsing
+ * benötigt werden. Getter-Methoden
+ * werden mittels Lombok automatisch
+ * generiert.
+ */
 
 @Getter
 public class MHighscore {
@@ -15,11 +22,24 @@ public class MHighscore {
     public int highscorepoints;
     private String playername;
     private String lastupdate;
-
     private int rank;
 
+    /**
+     * Leerer Konstruktor wird
+     * beim JSON-Parsing benötigt.
+     */
     public MHighscore() {}
 
+    /**
+     * Konstruktor, der alle für die
+     * JavaFX-Highscore-View benötigten
+     * Attribute initialisiert.
+     *
+     * @param rank Platzierung
+     * @param playername Name des Spielers
+     * @param highscorepoints Höchste Punktzahl eines Spielers
+     * @param lastupdate Datum der letzten Aktualisierung
+     */
     public MHighscore(int rank, String playername, int highscorepoints, String lastupdate) {
         this.rank = rank;
         this.playername = playername;
