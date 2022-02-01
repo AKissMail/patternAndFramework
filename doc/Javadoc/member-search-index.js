@@ -1,0 +1,1422 @@
+memberSearchIndex = [{
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "alert"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "alert"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "AuthController",
+    "l": "AuthController(PlayerRepository, PasswordEncoder, AuthenticationManager, JwtTokenProvider, HighscoreRepository)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.PlayerRepository,org.springframework.security.crypto.password.PasswordEncoder,org.springframework.security.authentication.AuthenticationManager,de.gruppeo.wise2122_java_server.security.JwtTokenProvider,de.gruppeo.wise2122_java_server.repository.HighscoreRepository)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.config",
+    "c": "SecurityConfig",
+    "l": "authenticationManagerBean()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "AuthRequest",
+    "l": "AuthRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "average"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "buttons"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.config",
+    "c": "CaseInsensitiveEnumEditor",
+    "l": "CaseInsensitiveEnumEditor(Class<?>)",
+    "u": "%3Cinit%3E(java.lang.Class)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PCategory",
+    "l": "categories"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "CategoryController",
+    "l": "CategoryController(CategoryRepository, QuestionsRepository, RoundsRepository)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.CategoryRepository,de.gruppeo.wise2122_java_server.repository.QuestionsRepository,de.gruppeo.wise2122_java_server.repository.RoundsRepository)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "CategoryConverter",
+    "l": "CategoryConverter()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "CategoryEntity",
+    "l": "CategoryEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "categoryname"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "CategoryEntity",
+    "l": "categoryname"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "CCategory()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "CGame()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "changePlayerStatus(StatusRequest)",
+    "u": "changePlayerStatus(de.gruppeo.wise2122_java_server.request.StatusRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "checkGameCount(Optional<GamesEntity>)",
+    "u": "checkGameCount(java.util.Optional)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Validation",
+    "l": "checkInputValidation(Label, Color, ArrayList<Boolean>, Button)",
+    "u": "checkInputValidation(javafx.scene.control.Label,javafx.scene.paint.Color,java.util.ArrayList,javafx.scene.control.Button)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHighscore",
+    "l": "CHighscore()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHistory",
+    "l": "CHistory()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLobby",
+    "l": "CLobby()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "CLogIn()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Gamestatus",
+    "l": "CLOSE"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "CMain()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtAuthenticationEntryPoint",
+    "l": "commence(HttpServletRequest, HttpServletResponse, AuthenticationException)",
+    "u": "commence(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,org.springframework.security.core.AuthenticationException)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "config"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "config"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "Configuration()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.config",
+    "c": "SecurityConfig",
+    "l": "configure(HttpSecurity)",
+    "u": "configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "connection"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "Connection(String)",
+    "u": "%3Cinit%3E(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Converter",
+    "l": "Converter()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "CategoryConverter",
+    "l": "convertToDatabaseColumn(Category)",
+    "u": "convertToDatabaseColumn(de.gruppeo.wise2122_java_server.model.Category)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "CategoryConverter",
+    "l": "convertToEntityAttribute(String)",
+    "u": "convertToEntityAttribute(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server",
+    "c": "MibquizzzApplication",
+    "l": "corsConfigurer()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "countdown"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "countdownTask"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "CQuiz()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "createGame(NewGameRequest)",
+    "u": "createGame(de.gruppeo.wise2122_java_server.request.NewGameRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "createGame(String, String, int)",
+    "u": "createGame(java.lang.String,java.lang.String,int)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "CResult()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettings",
+    "l": "CSettings()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePassword",
+    "l": "CSettingsChangePassword()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePicture",
+    "l": "CSettingsChangePicture()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsResetScore",
+    "l": "CSettingsResetScore()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "CSignUp()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "PlayerEntity",
+    "l": "currentstatus"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Converter",
+    "l": "decodeImage(String)",
+    "u": "decodeImage(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MCountdown",
+    "l": "decreaseSeconds(double)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "deleteFile()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "deleteGame(int)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "deleteGamesHistory(String)",
+    "u": "deleteGamesHistory(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "deleteGamesHistoryByToken(DeletGameHistoryRequestWithJSON)",
+    "u": "deleteGamesHistoryByToken(de.gruppeo.wise2122_java_server.request.DeletGameHistoryRequestWithJSON)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "DeletGameHistoryRequestWithJSON",
+    "l": "DeletGameHistoryRequestWithJSON()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Validation",
+    "l": "disableButtons(Button[], boolean)",
+    "u": "disableButtons(javafx.scene.control.Button[],boolean)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtAuthenticationFilter",
+    "l": "doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)",
+    "u": "doFilterInternal(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,javax.servlet.FilterChain)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "dropAnswer(DropAnswerRequest)",
+    "u": "dropAnswer(de.gruppeo.wise2122_java_server.request.DropAnswerRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "dropAnswer(int, boolean, boolean, int)",
+    "u": "dropAnswer(int,boolean,boolean,int)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "DropAnswerRequest",
+    "l": "DropAnswerRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Rounds",
+    "l": "EASY"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Converter",
+    "l": "encodeImage(String)",
+    "u": "encodeImage(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "Entwicklung"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "PlayerEntity",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "QuestionsEntity",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "Erdkunde"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "file"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "filePath"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "QuestionsController",
+    "l": "findByCategory_CategorynameAllIgnoreCase(String)",
+    "u": "findByCategory_CategorynameAllIgnoreCase(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "QuestionsRepository",
+    "l": "findByCategory_CategorynameAllIgnoreCase(String)",
+    "u": "findByCategory_CategorynameAllIgnoreCase(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "CategoryRepository",
+    "l": "findByCategoryname(String)",
+    "u": "findByCategoryname(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "PlayerRepository",
+    "l": "findByCurrentstatus(Currentstatus)",
+    "u": "findByCurrentstatus(de.gruppeo.wise2122_java_server.model.Currentstatus)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "findByCurrentstatusAllIgnoreCase(Currentstatus)",
+    "u": "findByCurrentstatusAllIgnoreCase(de.gruppeo.wise2122_java_server.model.Currentstatus)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "findByGamestatus()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "GamesRepository",
+    "l": "findByGamestatus(Gamestatus)",
+    "u": "findByGamestatus(de.gruppeo.wise2122_java_server.model.Gamestatus)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "findById(Long)",
+    "u": "findById(java.lang.Long)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "GamesHistoryRepository",
+    "l": "findByPlayer_Username(String)",
+    "u": "findByPlayer_Username(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "HighscoreRepository",
+    "l": "findByPlayer_Username(String)",
+    "u": "findByPlayer_Username(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "RoundsRepository",
+    "l": "findByRounds(Integer)",
+    "u": "findByRounds(java.lang.Integer)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "PlayerRepository",
+    "l": "findByUsername(String)",
+    "u": "findByUsername(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Rounds",
+    "l": "from(int)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "gameID"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PGame",
+    "l": "games"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "GamesController(GamesRepository, GamesHistoryRepository, PlayerRepository, CategoryRepository, RoundsRepository, QuestionsRepository, HighscoreRepository, JwtTokenProvider)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.GamesRepository,de.gruppeo.wise2122_java_server.repository.GamesHistoryRepository,de.gruppeo.wise2122_java_server.repository.PlayerRepository,de.gruppeo.wise2122_java_server.repository.CategoryRepository,de.gruppeo.wise2122_java_server.repository.RoundsRepository,de.gruppeo.wise2122_java_server.repository.QuestionsRepository,de.gruppeo.wise2122_java_server.repository.HighscoreRepository,de.gruppeo.wise2122_java_server.security.JwtTokenProvider)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "GamesEntity",
+    "l": "GamesEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "GamesHistoryEntity",
+    "l": "GamesHistoryEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "gameStatus"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "gameTimer"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtTokenProvider",
+    "l": "generateToken(Authentication)",
+    "u": "generateToken(org.springframework.security.core.Authentication)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtTokenProvider",
+    "l": "generateToken(String)",
+    "u": "generateToken(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "getAverage()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "getCode()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "getConnection()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MConfig",
+    "l": "getInstance()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHighscore",
+    "l": "getLastupdate()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "RoundsRepository",
+    "l": "getMaxRounds()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Loader",
+    "l": "getPane(String)",
+    "u": "getPane(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "getRandomQuestions(List<QuestionsEntity>, int)",
+    "u": "getRandomQuestions(java.util.List,int)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Loader",
+    "l": "getScene(String)",
+    "u": "getScene(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "getServerResponse()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "getThumbnailByName(String)",
+    "u": "getThumbnailByName(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtTokenProvider",
+    "l": "getUsernameFromToken(String)",
+    "u": "getUsernameFromToken(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtTokenProvider",
+    "l": "getUsernameFromToken(String, String)",
+    "u": "getUsernameFromToken(java.lang.String,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Rounds",
+    "l": "HARD"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "PlayerEntity",
+    "l": "hashCode()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "QuestionsEntity",
+    "l": "hashCode()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "HighscoreController",
+    "l": "HighscoreController(HighscoreRepository)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.HighscoreRepository)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "HighscoreEntity",
+    "l": "HighscoreEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHighscore",
+    "l": "highscorepoints"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "HighscoreEntity",
+    "l": "highscorepoints"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "HighscoreRequest",
+    "l": "HighscoreRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PHighscore",
+    "l": "highscores"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PHistory",
+    "l": "histories"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "id"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "CategoryController",
+    "l": "index()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "index()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "HighscoreController",
+    "l": "index()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "index()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "QuestionsController",
+    "l": "index()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "RoundsController",
+    "l": "index()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "initBinder(WebDataBinder)",
+    "u": "initBinder(org.springframework.web.bind.WebDataBinder)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLobby",
+    "l": "initialize()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "initialize()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHighscore",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHistory",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePicture",
+    "l": "initialize(URL, ResourceBundle)",
+    "u": "initialize(java.net.URL,java.util.ResourceBundle)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Validation",
+    "l": "isValidPassword(String)",
+    "u": "isValidPassword(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Validation",
+    "l": "isValidUsername(String)",
+    "u": "isValidUsername(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "ITSicherheit"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "jaxbContext"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Gamestatus",
+    "l": "JOINED"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtAuthenticationEntryPoint",
+    "l": "JwtAuthenticationEntryPoint()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.config",
+    "c": "SecurityConfig",
+    "l": "jwtAuthenticationFilter()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtAuthenticationFilter",
+    "l": "JwtAuthenticationFilter()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtTokenProvider",
+    "l": "JwtTokenProvider()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "list"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Loader",
+    "l": "loadDefaultImage()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHighscore",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHistory",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLobby",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "loader"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Loader",
+    "l": "Loader()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Loader",
+    "l": "loadThumbnail(Circle, String)",
+    "u": "loadThumbnail(javafx.scene.shape.Circle,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "PlayerUserDetailService",
+    "l": "loadUserByUsername(String)",
+    "u": "loadUserByUsername(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLobby",
+    "l": "lobbyTimer"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "AuthController",
+    "l": "login(AuthRequest)",
+    "u": "login(de.gruppeo.wise2122_java_server.request.AuthRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "logInPlayer(String, String)",
+    "u": "logInPlayer(java.lang.String,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client",
+    "c": "Start",
+    "l": "main(String[])",
+    "u": "main(java.lang.String[])"
+}, {
+    "p": "de.gruppeo.wise2122_java_server",
+    "c": "MibquizzzApplication",
+    "l": "main(String[])",
+    "u": "main(java.lang.String[])"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "mapper"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "mapperCategory"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHighscore",
+    "l": "mapperHighscore"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHistory",
+    "l": "mapperHistory"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "mapperRounds"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "marshaller"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MCategory",
+    "l": "MCategory()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MCategory",
+    "l": "MCategory(int, String)",
+    "u": "%3Cinit%3E(int,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MCountdown",
+    "l": "MCountdown()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "Mediendesign"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "Medieninformatik"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Rounds",
+    "l": "MEDIUM"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MGame",
+    "l": "MGame()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MGame",
+    "l": "MGame(int, String, MPlayer, int, int, MPlayer, int, int, MCategory, MRounds, MQuestion[])",
+    "u": "%3Cinit%3E(int,java.lang.String,de.gruppeo.wise2122_java_client.model.MPlayer,int,int,de.gruppeo.wise2122_java_client.model.MPlayer,int,int,de.gruppeo.wise2122_java_client.model.MCategory,de.gruppeo.wise2122_java_client.model.MRounds,de.gruppeo.wise2122_java_client.model.MQuestion[])"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHighscore",
+    "l": "MHighscore()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHighscore",
+    "l": "MHighscore(int, String, int, String)",
+    "u": "%3Cinit%3E(int,java.lang.String,int,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "MHistory()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "MHistory(int, String, int, int, String, int, double)",
+    "u": "%3Cinit%3E(int,java.lang.String,int,int,java.lang.String,int,double)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server",
+    "c": "MibquizzzApplication",
+    "l": "MibquizzzApplication()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MPlayer",
+    "l": "MPlayer()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MPlayer",
+    "l": "MPlayer(int, String, String, int, String, MHighscore)",
+    "u": "%3Cinit%3E(int,java.lang.String,java.lang.String,int,java.lang.String,de.gruppeo.wise2122_java_client.model.MHighscore)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MQuestion",
+    "l": "MQuestion()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MQuestion",
+    "l": "MQuestion(int, String, String, String, String, String, String, MCategory)",
+    "u": "%3Cinit%3E(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,de.gruppeo.wise2122_java_client.model.MCategory)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MRounds",
+    "l": "MRounds()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MRounds",
+    "l": "MRounds(int, int)",
+    "u": "%3Cinit%3E(int,int)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "NewGameRequest",
+    "l": "NewGameRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Currentstatus",
+    "l": "OFFLINE"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePicture",
+    "l": "onAction_uploadPicture(ActionEvent)",
+    "u": "onAction_uploadPicture(javafx.event.ActionEvent)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "GamesEntity",
+    "l": "onCreate()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePassword",
+    "l": "onKeyTyped_confirmedPassword()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePassword",
+    "l": "onKeyTyped_currentPassword()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePassword",
+    "l": "onKeyTyped_newPassword()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "onKeyTyped_password()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "onKeyTyped_password1()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "onKeyTyped_password2()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "onKeyTyped_username()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "onKeyTyped_username()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Currentstatus",
+    "l": "ONLINE"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "onMouseClicked_answerA()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "onMouseClicked_answerB()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "onMouseClicked_answerC()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "onMouseClicked_answerD()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "onMouseClicked_back()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "onMouseClicked_back()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLobby",
+    "l": "onMouseClicked_back()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettings",
+    "l": "onMouseClicked_back()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "onMouseClicked_back()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsChangePassword",
+    "l": "onMouseClicked_changePassword()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CGame",
+    "l": "onMouseClicked_joinGame()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "onMouseClicked_joinGame()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "onMouseClicked_logIn()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "onMouseClicked_logOut()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "onMouseClicked_nextQuestion()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "onMouseClicked_quitGame()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHighscore",
+    "l": "onMouseClicked_resetHighscore()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHistory",
+    "l": "onMouseClicked_resetHistory()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettingsResetScore",
+    "l": "onMouseClicked_resetScore()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "onMouseClicked_showHighscore()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "onMouseClicked_showHighscore()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "onMouseClicked_showHistory()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "onMouseClicked_showLobby()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHighscore",
+    "l": "onMouseClicked_showMain()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CHistory",
+    "l": "onMouseClicked_showMain()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "onMouseClicked_showMain()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettings",
+    "l": "onMouseClicked_showPasswordPane()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettings",
+    "l": "onMouseClicked_showPicturePane()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSettings",
+    "l": "onMouseClicked_showScorePane()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "onMouseClicked_showSettings()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "onMouseClicked_signUp()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "onMouseClicked_signUp()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLobby",
+    "l": "onMouseClicked_startQuiz()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CMain",
+    "l": "onMouseClicked_startQuiz()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Gamestatus",
+    "l": "OPEN"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "opponentscore"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.config",
+    "c": "SecurityConfig",
+    "l": "passwordEncoder()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PCategory",
+    "l": "PCategory(Connection)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_client.helper.Connection)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PGame",
+    "l": "PGame(Connection)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_client.helper.Connection)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PGame",
+    "l": "PGame(String)",
+    "u": "%3Cinit%3E(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PHighscore",
+    "l": "PHighscore(Connection)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_client.helper.Connection)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PHistory",
+    "l": "PHistory(Connection)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_client.helper.Connection)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "PlayerController(PlayerRepository, HighscoreRepository, JwtTokenProvider)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.PlayerRepository,de.gruppeo.wise2122_java_server.repository.HighscoreRepository,de.gruppeo.wise2122_java_server.security.JwtTokenProvider)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "PlayerEntity",
+    "l": "PlayerEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "playername"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "playerOne"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PPlayer",
+    "l": "players"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "playerscore"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "playerTwo"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "PlayerUserDetailService",
+    "l": "PlayerUserDetailService(PlayerRepository)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.PlayerRepository)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PPlayer",
+    "l": "PPlayer(Connection)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_client.helper.Connection)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PQuestion",
+    "l": "PQuestion(Connection)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_client.helper.Connection)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PRounds",
+    "l": "PRounds(Connection)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_client.helper.Connection)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PQuestion",
+    "l": "questions"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "QuestionsController",
+    "l": "QuestionsController(QuestionsRepository)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.QuestionsRepository)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "QuestionsEntity",
+    "l": "QuestionsEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "questionTask"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "questionTimer"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CQuiz",
+    "l": "quizTimer"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Currentstatus",
+    "l": "QUIZZING"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "readConfiguration()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "AuthController",
+    "l": "register(AuthRequest)",
+    "u": "register(de.gruppeo.wise2122_java_server.request.AuthRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "resetHighscore()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "resetHistory()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MCountdown",
+    "l": "resetSeconds()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "resultTask"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "resultTimer"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.model",
+    "c": "MHistory",
+    "l": "rounds"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.parser",
+    "c": "PRounds",
+    "l": "rounds"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "RoundsEntity",
+    "l": "rounds"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "RoundsController",
+    "l": "RoundsController(RoundsRepository)",
+    "u": "%3Cinit%3E(de.gruppeo.wise2122_java_server.repository.RoundsRepository)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "RoundsEntity",
+    "l": "RoundsEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Gamestatus",
+    "l": "RUNNING"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "scorePlayerOne"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "scorePlayerTwo"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Currentstatus",
+    "l": "SEARCHING"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.config",
+    "c": "SecurityConfig",
+    "l": "SecurityConfig()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Loader",
+    "l": "setAnyThumbnail(Circle, String)",
+    "u": "setAnyThumbnail(javafx.scene.shape.Circle,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.config",
+    "c": "CaseInsensitiveEnumEditor",
+    "l": "setAsText(String)",
+    "u": "setAsText(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "QuestionsEntity",
+    "l": "setCategory(CategoryEntity)",
+    "u": "setCategory(de.gruppeo.wise2122_java_server.model.CategoryEntity)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "setPlayerHighscore(HighscoreRequest)",
+    "u": "setPlayerHighscore(de.gruppeo.wise2122_java_server.request.HighscoreRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "showGamesHistory(String)",
+    "u": "showGamesHistory(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "signUpPlayer(String, String)",
+    "u": "signUpPlayer(java.lang.String,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client",
+    "c": "Start",
+    "l": "Start()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client",
+    "c": "Start",
+    "l": "start(Stage)",
+    "u": "start(javafx.stage.Stage)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "StatusRequest",
+    "l": "StatusRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "tokenProvider"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "tokenProvider"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Gamestatus",
+    "l": "UNDEFINED"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Configuration",
+    "l": "unmarshaller"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "updateGame(int, String, String, String)",
+    "u": "updateGame(int,java.lang.String,java.lang.String,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "GamesController",
+    "l": "updateGame(UpdateGameRequest)",
+    "u": "updateGame(de.gruppeo.wise2122_java_server.request.UpdateGameRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "UpdateGameRequest",
+    "l": "UpdateGameRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "updatePassword(String, String, String)",
+    "u": "updatePassword(java.lang.String,java.lang.String,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "UpdatePasswordRequest",
+    "l": "UpdatePasswordRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "GamesRepository",
+    "l": "updatePlayerOneRequestTime(LocalDateTime, long)",
+    "u": "updatePlayerOneRequestTime(java.time.LocalDateTime,long)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "AuthController",
+    "l": "updatePlayerPassword(UpdatePasswordRequest)",
+    "u": "updatePlayerPassword(de.gruppeo.wise2122_java_server.request.UpdatePasswordRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.repository",
+    "c": "GamesRepository",
+    "l": "updatePlayerTwoRequestTime(LocalDateTime, long)",
+    "u": "updatePlayerTwoRequestTime(java.time.LocalDateTime,long)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.request",
+    "c": "UploadImageByStrRequest",
+    "l": "UploadImageByStrRequest()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "uploadThumbnail(String, MultipartFile)",
+    "u": "uploadThumbnail(java.lang.String,org.springframework.web.multipart.MultipartFile)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Connection",
+    "l": "uploadThumbnail(String, String)",
+    "u": "uploadThumbnail(java.lang.String,java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.controller",
+    "c": "PlayerController",
+    "l": "uploadThumbnail(UploadImageByStrRequest)",
+    "u": "uploadThumbnail(de.gruppeo.wise2122_java_server.request.UploadImageByStrRequest)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.security",
+    "c": "JwtTokenProvider",
+    "l": "validateToken(String)",
+    "u": "validateToken(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CCategory",
+    "l": "validation"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLobby",
+    "l": "validation"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CLogIn",
+    "l": "validation"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CSignUp",
+    "l": "validation"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.helper",
+    "c": "Validation",
+    "l": "Validation()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Rounds",
+    "l": "Value"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Currentstatus",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Gamestatus",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Rounds",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Category",
+    "l": "values()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Currentstatus",
+    "l": "values()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Gamestatus",
+    "l": "values()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Rounds",
+    "l": "values()"
+}, {
+    "p": "de.gruppeo.wise2122_java_server.model",
+    "c": "Currentstatus",
+    "l": "WAITING"
+}, {
+    "p": "de.gruppeo.wise2122_java_client.controller",
+    "c": "CResult",
+    "l": "waitingResult"
+}, {"p": "de.gruppeo.wise2122_java_client.helper", "c": "Configuration", "l": "writeConfiguration()"}];
+updateSearchResults();

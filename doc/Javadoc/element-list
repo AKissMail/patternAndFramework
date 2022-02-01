@@ -1,0 +1,12 @@
+de.gruppeo.wise2122_java_client
+de.gruppeo.wise2122_java_client.controller
+de.gruppeo.wise2122_java_client.helper
+de.gruppeo.wise2122_java_client.model
+de.gruppeo.wise2122_java_client.parser
+de.gruppeo.wise2122_java_server
+de.gruppeo.wise2122_java_server.config
+de.gruppeo.wise2122_java_server.controller
+de.gruppeo.wise2122_java_server.model
+de.gruppeo.wise2122_java_server.repository
+de.gruppeo.wise2122_java_server.request
+de.gruppeo.wise2122_java_server.security
