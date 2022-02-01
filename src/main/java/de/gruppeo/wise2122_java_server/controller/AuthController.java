@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import static de.gruppeo.wise2122_java_server.model.Currentstatus.ONLINE;
 
+
 /**
  * Der Auth Controller stellt eine REST-Api bereit.
  */
@@ -38,6 +39,8 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final HighscoreRepository highscoreRepository;
+    // Pfadangabe zum Standardbild eines Spielers im Resources Ordner (siehe Konstruktor)
+    private final String defaultPicturePath;
 
     /**
      * Instanziiert einen neuen Auth Controller.
@@ -48,16 +51,21 @@ public class AuthController {
      * @param jwtTokenProvider      jwt token provider
      * @param highscoreRepository   highscore repository
      */
-    public AuthController(PlayerRepository playerRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, HighscoreRepository highscoreRepository) {
+    public AuthController(PlayerRepository playerRepository,
+                          PasswordEncoder passwordEncoder,
+                          AuthenticationManager authenticationManager,
+                          JwtTokenProvider jwtTokenProvider,
+                          HighscoreRepository highscoreRepository) {
         this.playerRepository = playerRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.highscoreRepository = highscoreRepository;
+        defaultPicturePath = "/de/gruppeo/wise2122_java_client/images/defaultPic.png";
     }
 
     /**
-     * Methode zum Erstellen eines neuen Spielers
+     * Methode zum Erstellen eines neuen Spielers.
      *
      * @param authRequest Enthält Nutzernamen und Passwort des zu registrierenden Spielers
      * @return Ein Spielerobjekt als JSON
@@ -79,7 +87,7 @@ public class AuthController {
         player.setCurrentscore(0);
         player.setCurrentstatus(ONLINE);
         //File exampleThumbnail = new File(getClass().getResource("profile-example.png").getFile());
-        Resource profileExampleRsrc = new ClassPathResource("profile-example.png");
+        Resource profileExampleRsrc = new ClassPathResource(this.defaultPicturePath);
         File profileExampleFile = profileExampleRsrc.getFile();
         player.setThumbnail(encodeFileToBase64(profileExampleFile));
 
