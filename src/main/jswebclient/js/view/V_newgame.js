@@ -10,7 +10,7 @@ import * as view from "./V_view.js";
  */
 export function showNewGamePreload(){
     base.clearStage();
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("back home", "zurück", "btn"));
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("nweGameBackHome", "zurück", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
     apiCalls.getCategory(displayCategory);
 }
 
@@ -20,7 +20,7 @@ export function showNewGamePreload(){
  */
 export function displayCategory(category){
     let from = view.createGenericText("form", view.createGenericText("label", "Wählen sie eine Kategorie"));
-    let select = view.createGenericElementWithOneAttribute("select", "id", "category");
+    let select = view.createGenericElementWithTwoAttribute("select", "id", "category", "class", "form-select form-select-lg mb-3");
     for (let i = 0; i < category.length; i++) {
         let option = view.createOption(category[i].valueOf().categoryname, category[i].valueOf().categoryname);
         select.appendChild(option);
@@ -39,15 +39,15 @@ export function displayCategory(category){
  * @param rounds Die runden anzahl als JSON.
  */
 export function displayRounds (rounds){
-    let select =view.createGenericElementWithOneAttribute("select", "id", "length");
+    let select =view.createGenericElementWithTwoAttribute("select", "id", "length", "class", "form-select form-select-lg mb-3");
     for (let i = 0; i < rounds.length; i++){
         let option = view.createOption(rounds[i].valueOf().rounds,rounds[i].valueOf().rounds);
         select.appendChild(option);
     }
     document.getElementsByTagName("form")[0].appendChild(select);
     document.getElementsByTagName("form")[0].appendChild(view.createBarak());
-    document.getElementsByTagName("form")[0].appendChild(view.createInput("input", "button", "", "Senden", "", "submit"));
-    document.getElementById("back home").addEventListener("click", gameModus.show);
+    document.getElementsByTagName("form")[0].appendChild(view.createInput("input", "button", "", "Senden", "", "submit", "btn btn-primary"));
+    document.getElementById("nweGameBackHome").addEventListener("click", gameModus.show);
     document.getElementsByTagName("input")[0].addEventListener("click",()=>{
         apiCalls.createGame(document.getElementById("category").value, document.getElementById("length").value, lobbyNewGame.show)
     });

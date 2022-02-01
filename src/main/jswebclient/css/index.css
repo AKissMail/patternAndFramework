@@ -2,16 +2,11 @@
                                                 Elemente
 //////////////////////////////////////////////////////////////////////////////////////////*/
 html {
-    background-color:  #e6e6e6;
-}
-main {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 1em;
+    background-color:  white;
 }
 #aside {
     padding: 30px;
-    background-color: #008ae6;
+    background-color: #0d6efd;
     text-align: center;
 }
 #aside > p {
@@ -27,25 +22,28 @@ main > article {
     text-align: center;
 }
 select {
-    background-color: #008ae6;
+    background-color: #0d6efd;
     color: #e6e6e6;
     font-size: x-large;
     margin: 10px;
 }
-form > label {
 
+article {
 }
 
+nav > .btn  {
+    margin-left: 1em;
+}
 /*//////////////////////////////////////////////////////////////////////////////////////////
                                                 Typo
 //////////////////////////////////////////////////////////////////////////////////////////*/
 h1 {
     font-size: x-large;
     font-family: sans-serif;
+    margin-top: 0.5em;
 }
-p, #button, form > label {
+p, form > label {
     font-family: sans-serif;
-    font-size: x-large;
 }
 /*//////////////////////////////////////////////////////////////////////////////////////////
                                                 id
@@ -53,19 +51,13 @@ p, #button, form > label {
 #thumbnail {
     height: 100px;
     width: 100px;
+    margin-top: 20px ;
     background-color: #008ae6;
     border-radius: 50%;
     display: inline-block;
 }
-#scoreTable {
-    display: unset;
-}
-#scoreTable > tr > td {
-    background: #008ae6;
-    color: #e6e6e6;
-    padding-left: 1em;
-    padding-right: 1em;
-}
+
+
 #none {
     display: none;
 }
@@ -82,12 +74,19 @@ p, #button, form > label {
     display: grid;
     grid-template-columns: auto auto;
 }
-#timer {
- /*todo hier muss noch ein Counter umgesetzt werden*/
+#timer{
+   /* margin: 10px; */
+    background-color: #fff;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
 }
-#button {
-    border-color: #e6e6e600;
+
+#timer > p{
+ text-align: center;
+ padding-top: 3px;
 }
+
 #userName, #password, #passwordVerify{
     width: 100%;
     padding: 12px 20px;
@@ -97,43 +96,26 @@ p, #button, form > label {
     border-radius: 1px;
     box-sizing: border-box;
 }
-#submit {
-
-    background: #008ae6;
-    color: #fff;
-    font-size: x-large;
-    border-color: #fff0;
-}
-#submit:hover {
-
-    background: #0268ac;
-    color: #fff;
-    font-size: x-large;
-    border-color: #fff0;
-}
 /*//////////////////////////////////////////////////////////////////////////////////////////
                                                 classes
 //////////////////////////////////////////////////////////////////////////////////////////*/
-.btn, #button{
-    margin: 20px;
+
+.btnGrid {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 10px;
+    grid-gap: 10px;
 }
-.btn > p, #button {
-    color: #e6e6e6;
-    background-color: #008ae6;
-    text-align: center;
-    display: initial;
-    box-shadow: 2px 2px 4px #d7caca;
-    padding: 5px;
+.mainGrid {
+    display: grid;
+    grid-template-columns: auto auto;
 }
-.btn > p:hover, #button:hover {
-    color: #e6e6e6;
-    background-color: #0268ac;
-    text-align: center;
-    display: initial;
-    box-shadow: 2px 2px 4px #d7caca;
-    padding: 5px;
+
+.navbar-brand {
+    margin-left: 1em;
 }
-.question:hover, #button:hover{
+
+.question:hover{
     color: #e6e6e6;
     background-color: #0268ac;
     text-align: center;

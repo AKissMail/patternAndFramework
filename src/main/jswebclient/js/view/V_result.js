@@ -11,12 +11,12 @@ import * as view from './V_view.js';
  */
 export function show(localPoint, remotePoint, nameOpponent) {
     base.clearStage();
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("backHome", "Hauptmenü", "btn"));
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("resultBackHome", "Hauptmenü", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
     document.getElementsByTagName("article")[0].appendChild(v_result(localPoint, remotePoint));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", "Du("+localPoint+" Punkte) vs. " + nameOpponent+"("+ remotePoint+" Punkte)"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("centerBtn", "Highscore anzeigen", "btn"));
-    document.getElementById("backHome").addEventListener("click", mainMenu.show);
-    document.getElementById("centerBtn").addEventListener("click", statistic.show);
+    document.getElementsByTagName("article")[0].appendChild(view.createButton("resultCenterBtn", "Highscore anzeigen", "btn btn-primary"));
+    document.getElementById("resultBackHome").addEventListener("click", mainMenu.show);
+    document.getElementById("resultCenterBtn").addEventListener("click", statistic.show);
 }
 
 /**
@@ -34,7 +34,7 @@ function v_result(localPoint, remotePoint){
         heading = view.createGenericText("h1","Du hast verloren!");
         heading.classList.add("red");
     }else{
-        heading = view.createGenericText("h1","Es ist unentschieden ausgehengen!");
+        heading = view.createGenericText("h1","Es ist unentschieden!");
     }
     return heading;
 }

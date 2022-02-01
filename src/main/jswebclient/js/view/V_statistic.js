@@ -9,7 +9,7 @@ import * as view from './V_view.js';
 export function show() {
     base.clearStage();
     apiCalls.getStatistic(showData);
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("back home", "Hauptmenü", "btn"));
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("statisticBackHome", "Hauptmenü", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
 }
 
 /**
@@ -17,11 +17,11 @@ export function show() {
  * @param data die Antwort vom Server
  */
 export function showData(data) {
-    if (data.length > 0) {
+   if (!data.length > 0) {
         document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h1", "Spielstatistik"));
         document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", data.length + " Spielrunden gefunden"));
 
-        let scoreTable = view.createGenericElementWithOneAttribute("table", "id", "scoreTable");
+        let scoreTable = view.createGenericElementWithTwoAttribute("table", "id", "scoreTable", "class", "table table-hover");
 
         let scoreTableHeading = document.createElement("tr");
         scoreTableHeading.appendChild(view.createGenericText("th", "Spiel"));
@@ -58,7 +58,8 @@ export function showData(data) {
         document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", "Davon hast du " + winn + " gewonnen und " + lose + " verloren."));
         document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", "Im Durchschnitt hast du, " + summPoints / data.length + " Punkte erzeilt."));
     } else {
+
         document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", "Es wurden noch kein Spiele von dir gespielt"));
     }
-    document.getElementById("back home").addEventListener("click", mainMenu.show);
+    document.getElementById("statisticBackHome").addEventListener("click", mainMenu.show);
 }

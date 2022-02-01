@@ -11,8 +11,6 @@ import * as mainMenu from './V_mainMenu.js';
  */
 let send = false;
 export function show(round){
-
-    console.log(round);
     let game = round;
     if (game.valueOf().rounds.valueOf().rounds > 0) {
         game.valueOf().rounds.valueOf().rounds = game.valueOf().rounds.valueOf().rounds - 1;
@@ -20,23 +18,31 @@ export function show(round){
         let start = new Date();
         let answersArray = quizController.mixArray([game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].correctAnswer, game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].falseAnswer1,
                                            game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].falseAnswer2,  game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].falseAnswer3]);
-        let wrapper = view.createGenericElementWithOneAttribute("span", "id", "wrapperQuestion");
+        let wrapper = view.createGenericElementWithTwoAttribute("span", "id", "wrapperQuestion", "class", "btnGrid");
         for(let i = 0; i < answersArray.length; i++){
-            wrapper.append(view.createQuestionButton(i, answersArray[i]));
+            wrapper.append(view.createQuestionButton("button", i,"btn btn-primary", answersArray[i], ));
         }
+
         controller.clearStage();
-        document.getElementsByTagName("nav")[0].appendChild(view.createButton("exitGame", "Beenden", "btn"));
+        document.getElementsByTagName("header")[0].appendChild(view.createNavBar("exitGame", "Beenden", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
         document.getElementsByTagName("nav")[0].appendChild(view.createGenericElementWithTwoAttribute("span", "id", "timer", "class", "icon"));
         document.getElementById("timer").append(view.createGenericText("p", "5"));
-        document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h2", game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].valueOf().question));
+
+        document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h1", game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].valueOf().question));
         document.getElementsByTagName("article")[0].appendChild(wrapper);
-        document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", "Du: "+game.valueOf().playeronescore +" Gegner: "+game.valueOf().playertwoscore));
+
+
         document.getElementById("0").addEventListener('click', ()=>{evaluate( document.getElementById("0").value, game, start)});
         document.getElementById("1").addEventListener('click', ()=>{evaluate( document.getElementById("1").value, game, start)});
         document.getElementById("2").addEventListener('click', ()=>{evaluate( document.getElementById("2").value, game, start)});
         document.getElementById("3").addEventListener('click', ()=>{evaluate( document.getElementById("3").value, game, start)});
-        document.getElementById("exitGame").addEventListener('click', ()=>{model.updateGame(game.valueOf().id, "null", "null","CLOSE", mainMenu.show)})
-
+        document.getElementById("exitGame").addEventListener('click', ()=>{
+            if (model.decodeCookie("isplayerone")){
+                model.updateGame(game.valueOf().id, model.decodeCookie("playername"),"" ,"CLOSE", mainMenu.show);
+            }else {
+                model.updateGame(game.valueOf().id, "",model.decodeCookie("playername") ,"CLOSE", mainMenu.show);
+            }
+        })
     }else {
         lobbyResult.show(game);
     }
