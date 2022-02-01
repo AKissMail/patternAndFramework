@@ -168,7 +168,7 @@ public class GamesController {
             default:
                 Optional<PlayerEntity> playerOne = playerRepository.findByUsername(updateGameRequest.getPlayerone());
                 Optional<PlayerEntity> playerTwo = playerRepository.findByUsername(updateGameRequest.getPlayertwo());
-                if (playerOne.isPresent()) {
+                if (playerOne.isPresent() && !updateGameRequest.getPlayerone().isEmpty()) {
                     updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
                     updateGame.get().setPlayerone(playerOne.get());
                     //gamesRepository.updatePlayerOneRequestTime(LocalDateTime.now(),updateGame.get().getId());
@@ -177,7 +177,7 @@ public class GamesController {
                     updatedGame = gamesRepository.save(updateGame.get());
                     clearAndCheckGames();
                     return ResponseEntity.ok(updatedGame);
-                } else if (playerTwo.isPresent()) {
+                } else if (playerTwo.isPresent() && !updateGameRequest.getPlayertwo().isEmpty()) {
                     updateGame.get().setGamestatus(Gamestatus.valueOf(updateGameRequest.getStatus()));
                     updateGame.get().setPlayertwo(playerTwo.get());
                     //gamesRepository.updatePlayerTwoRequestTime(LocalDateTime.now(),updateGame.get().getId());
