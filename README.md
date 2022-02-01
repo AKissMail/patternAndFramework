@@ -38,25 +38,41 @@ Es folgt eine Auswahl der wichtigsten Frameworks und Technologien, welche jedoch
 
 ## Spielablauf
 
-![Hauptfenster der Client-App](doc/Spielablauf_Uebersicht.png)
+![Hauptfenster der Client-App](doc/img/Spielablauf_Uebersicht.png)
 
 ## Ordnerstruktur
 
-Das Repository besteht aus folgenden Ordnern:
+Das Repository besteht aus folgenden Ordnern (hier sind nur die wichtigsten genannt):
 
-    |-.mvn          Maven Wrapper
-    |-doc           Die ausgearbeitete Dokumentation und zugehörige Dateien.
-    | |-java_client Unterordner mit Doku zur Client-App
-    | |-Mockups     Unterordner mit ersten Entwürfen der Client-App
-    | |-notes       Unterordner mit Besprechungsnotizen
-    | |-XXX         Unterordner für Daten, wie ...
-    |-lib           Für die Anwendung benötigte Libraries
-    |-META-INF      Für die Anwendung benötigte Einstellungen(?)
-    |-src           Unterordner für Source
-    |-|main         Hauptentwicklungszweig
-    |-|test         Tests
-    |-web_client    Sourcecode für den Web-Client
-    | |-xxx         Was noch so fehlt
+    📦 Reop
+    ┣ 📂 .mvn                Maven Wrapper
+    ┣ 📂 doc                 Die ausgearbeitete Dokumentation und zugehörige Dateien.
+    ┃ ┣ 📂 EA                Unterordner mit Daten zur Einsendeaufgabe
+    ┃ ┣ 📂 Javadoc           Unterordner mit Javadoc
+    ┃ ┣ 📂 img               Unterordner mit Bildern
+    ┃ ┣ 📂 java_client       Unterordner mit Doku zur Client-App
+    ┃ ┣ 📂 mockups           Unterordner mit ersten Entwürfen der Client-App
+    ┃ ┣ 📂 notes             Unterordner mit Besprechungsnotizen
+    ┃ ┣ 📂 postman           Unterordner für postman Vorlage
+    ┣ 📂 lib                 Für die Anwendung benötigte Libraries
+    ┣ 📂 META-INF            Für die Anwendung benötigte Einstellungen(?)
+    ┣ 📂 src                 Unterordner für Source und die docker-compose.yml
+    ┃ ┣ 📂 main              Hauptentwicklungszweig
+    ┃ ┃ ┣ 📂 java            Daten der Java anwendungen
+    ┃ ┃ ┃ ┗ 📂 de.gruppeo
+    ┃ ┃ ┃ ┃ ┣ 📂 wise2122_java_client
+    ┃ ┃ ┃ ┃ ┗ 📂 wise2122_java_server
+    ┃ ┃ ┃ ┃ ┃ ┣ 📂 docker.mysql
+    ┃ ┃ ┃ ┃ ┃ ┃ ┗📜 data.sql                 <- sql script für die Fragen und zwei User
+    ┃ ┃ ┃ ┃ ┃ ┗ 📜 MibquizzzApplication.java <- corsConfigurer
+    ┃ ┃ ┣ 📂 jswebclient                     Daten der Webapp
+    ┃ ┃ ┗ 📂 resources
+    ┣ 📂 target
+    ┣ 📜 CONTRIBUTING.md
+    ┣ 📜 LICENSE
+    ┣ 📜 lombok.config
+    ┣ 📜 pom.xml
+    ┗ 📜 README.md
 
 ## Build-Prozess und Docker
 
