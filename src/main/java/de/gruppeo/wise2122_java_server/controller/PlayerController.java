@@ -10,6 +10,7 @@ import de.gruppeo.wise2122_java_server.request.HighscoreRequest;
 import de.gruppeo.wise2122_java_server.request.StatusRequest;
 import de.gruppeo.wise2122_java_server.request.UploadImageByStrRequest;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +33,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/player")
+@Slf4j
 public class PlayerController {
 
     private final PlayerRepository playerRepository;
@@ -167,7 +169,7 @@ public class PlayerController {
         if (playerOptional.isPresent()) {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             if (fileName.contains("..")) {
-                System.out.println("Keine valide Datei!");
+                log.error("Keine valide Datei!");
             }
             try {
                 playerOptional.get().setThumbnail(Base64.getEncoder().encodeToString(file.getBytes()));
