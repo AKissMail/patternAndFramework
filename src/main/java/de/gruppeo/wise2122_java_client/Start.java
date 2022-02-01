@@ -18,8 +18,8 @@ public class Start extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
 
         // Fügt App-Icon hinzu (nur Windows)
-        Image icon = new Image("file:quizzzIcon.png)");
-        stage.getIcons().add(icon);
+        //Image icon = new Image("src/main/resources/de/gruppeo/wise2122_java_client/images/quizzzIcon.png)");
+        //stage.getIcons().add(icon);
 
         // Setzt Fensterparameter
         stage.setTitle("Quizzz");
@@ -36,6 +36,7 @@ public class Start extends Application {
                     CQuiz.quizTimer.cancel();
                     CQuiz.questionTimer.cancel();
                     CResult.resultTimer.cancel();
+                    CResult.showResultTimer.cancel();
                 } catch (Exception e) {}
             }
         );

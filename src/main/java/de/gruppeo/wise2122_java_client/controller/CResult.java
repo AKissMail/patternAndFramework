@@ -17,15 +17,20 @@ public class CResult {
 
     Loader loader;
     TimerTask resultTask;
+    TimerTask showResultTask;
+
     public static Timer resultTimer;
+    public static Timer showResultTimer;
 
     int gameID;
-    int waitingResult;
     String gameStatus;
     int scorePlayerOne;
     int scorePlayerTwo;
+    int rounds;
     String playerOne;
     String playerTwo;
+    boolean showResults;
+    double showResultsSeconds;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_result_resultText;
@@ -35,8 +40,9 @@ public class CResult {
 
     public CResult() {
         loader = new Loader();
+        showResults = false;
         resultTimer = new Timer();
-        waitingResult = 30;
+        showResultTimer = new Timer();
 
         int gameIDP_playerOne = MConfig.getInstance().getRegisteredGameID();
         int gameID_playerTwo = MConfig.getInstance().getJoinedGameID();
@@ -63,8 +69,9 @@ public class CResult {
                     scorePlayerTwo = mapper.getGames().get(0).getPlayertwoscore();
                     playerOne = mapper.getGames().get(0).getPlayerone().getUsername();
                     playerTwo = mapper.getGames().get(0).getPlayertwo().getUsername();
+                    rounds = mapper.getGames().get(0).getRounds().getRounds();
 
-                    if (gameStatus.equals("CLOSE")) {
+                    if (gameStatus.equals("CLOSE") || isWaiting()) {
                         resultTimer.cancel();
                         setResultText();
                     }
@@ -72,6 +79,46 @@ public class CResult {
             }
         };
         resultTimer.scheduleAtFixedRate(resultTask, 0, MConfig.getInstance().getRefreshrate());
+    }
+
+    /**
+     * Gibt zurück, ob noch auf den
+     * Gegner gewartet werden muss oder
+     * nicht. Notwendig, um sicherzustellen,
+     * dass ein Spieler sein Ergebnis angezeigt
+     * bekommt, obwohl der Gegner vorzeitig
+     * ausgestiegen ist.
+     *
+     * @return Warten?
+     */
+    private boolean isWaiting() {
+        showResultsSeconds = getWaitingSeconds();
+        showResultTask = new TimerTask() {
+
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    if (showResultsSeconds <= 0) {
+                        showResultTask.cancel();
+                        showResults = true;
+                    } else {
+                        showResultsSeconds--;
+                    }
+                });
+            }
+        };
+        showResultTimer.scheduleAtFixedRate(showResultTask, 0, 1000);
+        return showResults;
+    }
+
+    /**
+     * Berechnet die maximale Wartezeit
+     * auf das Spielergebnis.
+     *
+     * @return (Spielrunden * (Countdown + NextQuestion-Timer))
+     */
+    private double getWaitingSeconds() {
+        return rounds * (MConfig.getInstance().getDefaultCountdown() + MConfig.getInstance().getDefaultNextQuestion());
     }
 
     /**
@@ -108,6 +155,7 @@ public class CResult {
     public void onMouseClicked_showHighscore() {
         // Timer beeden
         resultTimer.cancel();
+        showResultTimer.cancel();
 
         // Wechselt Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();
@@ -121,6 +169,7 @@ public class CResult {
     public void onMouseClicked_showMain() {
         // Timer beeden
         resultTimer.cancel();
+        showResultTimer.cancel();
 
         // Wechselt Maske
         Stage stage = (Stage) mainPane.getScene().getWindow();
