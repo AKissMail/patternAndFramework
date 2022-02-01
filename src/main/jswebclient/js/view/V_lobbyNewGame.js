@@ -5,11 +5,15 @@ import * as model from "../model/M_model.js";
 import * as quiz from './V_quiz.js';
 import * as controllerLobby from '../controller/C_lobby.js';
 
+/**
+ * Das
+ * @param result
+ */
 export function show(result) {
     document.cookie = "isplayerone = true"
     document.cookie = "gameID=" + result.valueOf().id;
     controller.clearStage();
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("", "Hauptmenü", "btn"));
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("lobbyNewGameBackHome", "Hauptmenü", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h1", "Warten auf den Gegner"));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", "Netzwerk wird durchsucht ..."));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericElementWithTwoAttribute("img", "src", "img/settingsGear.png", "id", "rotation"));
@@ -17,6 +21,9 @@ export function show(result) {
     loop(150);
 }
 
+/**
+ *
+ */
 function showJoined(){
         if(confirm("Es wurde ein Gegner gefunden! Möchtest Du Starten?")){
             model.updateGame(model.decodeCookie("gameID"),model.decodeCookie("playername"), "", "RUNNING", (r)=>{console.log(r)});
@@ -27,6 +34,10 @@ function showJoined(){
         }
 }
 
+/**
+ *
+ * @param counter
+ */
 function loop (counter){
     if(counter >= 1){
         console.log(counter);

@@ -94,13 +94,10 @@ export function createPlayer(player, password,callback) {
         body: {username: player, password: password},
         datatype: "text",
         doneFunction: function done(response) {
-            console.log(response);
-            console.log('registration done!');
-            callback();
+            callback(response);
         },
         malFunction: function fail(xhr, status) {
-            console.log('registration failed!', xhr.response,status);
-            alert("Registrierung fehlgeschlagen");
+            callback(xhr, status);
         }
     });
 }
@@ -118,16 +115,10 @@ export function logInUser(playername, password, callback) {
         body: {username: playername, password: password},
         datatype: "text",
         doneFunction: function done(response) {
-            console.log(response);
-            console.log('Login done!');
-            document.cookie = "token = " + response;
-            document.cookie = "playername =" + playername;
-            console.log(decodeCookie("token"));
-            callback();
+            callback(response);
         },
         malFunction: function fail(xhr, status) {
-            console.log('Login failed!', xhr.response,status);
-            alert("Login ist fehlgeschlagen!");
+            callback(xhr, status)
         }
     });
 }
@@ -176,7 +167,7 @@ export function getCategory(callback) {
                 callback(response);
             },
             malFunction: function (xhr, status) {
-                console.log('highscorePath  failed!', xhr.response,status);
+                callback(xhr, status);
             }
         })
     }
@@ -191,11 +182,10 @@ export function getGameSize(callback) {
         connection({
             path: roundsPath,
             doneFunction: function (response) {
-                console.log(response);
                 callback(response);
             },
             malFunction: function (xhr, status) {
-                console.log('highscorePath  failed!', xhr.response,status);
+                callback(xhr, status);
             }
         })
     }
@@ -223,7 +213,7 @@ export function updateGame(id,playerOne, playerTwo, status, callback){
             callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('updateGame failed!', xhr,status);
+            callback(xhr, status);
         }
     })
 }
@@ -242,7 +232,7 @@ export function getOpenGames(callback) {
             callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('highscorePath failed!', xhr.response,status);
+            callback(xhr, status);
         }
     })
 }
@@ -267,14 +257,13 @@ export function createGame(category, size, callback) {
             callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('CreateGame failed!', xhr.response,status); //to do
-            callback(status);
+            callback(xhr, status);
         }
     })
 }
 
 /**
- * Diese function lädt ein Base64 encodetet Bild
+ * Diese function lädt ein Bild als Base64 encoding hoch.
  * @param data
  * @param callback
  */
@@ -288,8 +277,7 @@ export function updatePicture(data, callback) {
             callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log( 'updatePicture failed!', xhr.response,status);
-            callback(status);
+            callback(xhr, status);
         }
     })
 }
@@ -346,7 +334,7 @@ export function getHighscore(callback) {
             callback(response);
         },
         malFunction: function (xhr, status) {
-            console.log('highscorePath failed!', xhr.response,status);
+            callback(xhr, status);
         }
     })
 }
@@ -363,8 +351,7 @@ export function getStatistic(callback) {
             callback(response);
         },
         malFunction: function (xhr, status) {
-            callback(xhr);
-            console.log('highscorePath failed!', xhr.response,status);
+            callback(xhr, status);
         }
     })
 }
@@ -382,13 +369,12 @@ export function getGameByID(id, callback){
         doneFunction: function (response){
             callback(response);
         }, malFunction: function (xhr, status) {
-            callback(xhr);
-            console.log('GetGameByID failed!', xhr.response,status);
+            callback(xhr, status);
         }
     })
 }
 
-export function sendAnswer(gameID, isplayerone, answer, time, callback){
+export function sendAnswer(gameID, isPlayerOne, answer, time, callback){
 
     connection({
 
@@ -396,19 +382,16 @@ export function sendAnswer(gameID, isplayerone, answer, time, callback){
         path: sendAnswerPath,
         body: {
             "gamesid": gameID,
-            "isplayerone": isplayerone,
+            "isplayerone": isPlayerOne,
             "answers":answer,
             "time": time
         },
         doneFunction: (response)=>{
-            console.log("done")
             callback(response);
 
         },
         malFunction: (xhr, status)=>{
-            console.log("shit");
-            console.log(xhr, status)
-            //callback(response)
+            callback(xhr, status)
         }
     })
 }

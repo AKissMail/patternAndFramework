@@ -9,12 +9,18 @@ import * as updatePicture from './V_updatePicture.js';
  */
 export function show() {
     controller.clearStage();
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("backHome", "Hauptmenü", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("updatePicture","Profilbild ändern", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("updatePassword", "Passwort ändern", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("deleteStatistics","Statistik löschen", "btn"));
+
+
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("settingsBackHome", "Hauptmenü", "btn btn-light navbar-brand", "navbar navbar-light bg-primary"));
+
+    let wrapper = view.createGenericElementWithOneAttribute("span", "class", "btnGrid");
+    wrapper.appendChild(view.createButton("updatePicture","Profilbild ändern", "btn btn-primary"));
+    wrapper.appendChild(view.createButton("updatePassword", "Passwort ändern", "btn btn-primary"));
+    wrapper.appendChild(view.createButton("deleteStatistics","Statistik löschen", "btn btn-danger"));
+
+    document.getElementsByTagName("article")[0].appendChild(wrapper);
     document.getElementById("updatePicture").addEventListener("click", updatePicture.show);
     document.getElementById("updatePassword").addEventListener("click", controllerSettings.updatePassword);
     document.getElementById("deleteStatistics").addEventListener("click", controllerSettings.deleteStatistics);
-    document.getElementById("backHome").addEventListener("click", mainMenu.show);
+    document.getElementById("settingsBackHome").addEventListener("click", mainMenu.show);
 }

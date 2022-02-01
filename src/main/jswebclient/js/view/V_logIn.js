@@ -8,11 +8,16 @@ import * as view from "./V_view.js";
  */
 export function show() {
     controller.clearStage();
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("back home", "Zurück", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createInput("input","text", "userName","" ,"Nutzername", "userName"));
-    document.getElementsByTagName("article")[0].appendChild(view.createInput("input","password", "password", "", "Password", "password"));
-    document.getElementsByTagName("article")[0].appendChild(view.createInput("input","submit", "", "Senden", "", "button"));
+    document.getElementsByTagName("main")[0].setAttribute("class", "mainGrid");
+    let form = document.createElement("form");
+    form.appendChild(view.createInput("input","text", "userName","" ,"Nutzername", "userName"));
+    form.appendChild(view.createInput("input","password", "password", "", "Password", "password"));
+    form.appendChild(view.createInput("input","submit", "", "Senden", "", "LoginButton", "btn btn-primary"));
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("loginBackHome", "Zurück", "btn btn-light navbar-brand", "navbar navbar-light bg-primary"));
+    document.getElementsByTagName("article")[0].appendChild(form);
     document.getElementsByTagName("main")[0].appendChild(view.createAside("div", "aside","","img", "logInLamp", "img/bulb.png","p", "", "MiB-Quiz"));
-    document.getElementById("back home").addEventListener("click", choice.show);
-    document.getElementById("button").addEventListener("click", function (){C_logIn.runLogIn("userName","password")});
+    document.getElementById("loginBackHome").addEventListener("click", choice.show);
+    document.getElementById("LoginButton").addEventListener("click", function (event){
+        event.preventDefault();
+        C_logIn.runLogIn("userName","password"); });
 }

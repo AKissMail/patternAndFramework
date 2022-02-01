@@ -8,10 +8,12 @@ import * as settings from "./V_settings.js";
  */
 export function show() {
     base.clearStage();
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("backHome", "Zurück", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createGenericElementWithClassAndID("span", "","uploadFrom"));
-    document.getElementsByTagName("span")[0].appendChild(view.createInput("input", "file", "","","","inputFile"));
-    document.getElementsByTagName("span")[0].appendChild(view.createButton("button", "Hochladen", "btn"));
-    document.getElementById("backHome").addEventListener("click", settings.show);
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("updatePictureBackHome", "Zurück", "btn btn-light navbar-brand", "navbar navbar-light bg-primary"));
+
+    document.getElementsByTagName("article")[0].appendChild(view.createGenericElementWithClassAndID("from", "btnGrid","uploadFrom"));
+    document.getElementById("uploadFrom").appendChild(view.createInput("input", "file", "","","","inputFile"));
+    document.getElementById("uploadFrom").appendChild(view.createButton("button", "Hochladen", "btn btn-primary"));
+
+    document.getElementById("updatePictureBackHome").addEventListener("click", settings.show);
     controller.base64Picture();
 }

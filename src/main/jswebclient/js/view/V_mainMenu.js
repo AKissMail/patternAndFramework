@@ -13,13 +13,17 @@ import * as choice from "./V_start.js";
  */
 export function show() {
     base.clearStage();
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("mainMenuLogout", "Abmelden", "btn btn-light navbar-brand", "navbar navbar-light bg-primary"));
+
     document.getElementsByTagName("article")[0].appendChild(view.createGenericElementWithOneAttribute("img","id", "thumbnail"));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h2","Hallo "+ apiCalls.decodeCookie("playername")));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("logout", "Abmelden", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("startGame", "Quiz starten", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("settings", "Einstellungen", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("highscore", "Highscore", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("statistic", "Spielstatistik", "btn"));
+    let wrapper = view.createGenericElementWithOneAttribute("span","class", "btnGrid");
+    wrapper.appendChild(view.createButton("startGame", "Quiz starten", "btn btn-primary"));
+    wrapper.appendChild(view.createButton("settings", "Einstellungen", "btn btn-primary"));
+    wrapper.appendChild(view.createButton("highscore", "Highscore", "btn btn-primary"));
+    wrapper.appendChild(view.createButton("statistic", "Spielstatistik", "btn btn-primary"));
+    document.getElementsByTagName("article")[0].appendChild(wrapper);
+
     apiCalls.getPicture(apiCalls.decodeCookie("playername"), function (response){
         let pic= "data:image/gif;base64,"+ response;
         document.getElementById("thumbnail").setAttribute("src", pic);
@@ -31,7 +35,7 @@ export function show() {
  * kleine helfer function, welch die eventListener setzt.
  */
 function addEventListener(){
-    document.getElementById("logout").addEventListener("click", function(){apiCalls.logout(choice.show)});
+    document.getElementById("mainMenuLogout").addEventListener("click", function(){apiCalls.logout(choice.show)});
     document.getElementById("startGame").addEventListener("click", gameModus.show);
     document.getElementById("settings").addEventListener("click",settings.show);
     document.getElementById("highscore").addEventListener("click", highscore.show);

@@ -10,10 +10,14 @@ import {showEnterGame} from "./V_joineGame.js";
  */
 export function show() {
     base.clearStage();
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("back home","Hauptmenü", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("newGame","neues Spiel erstellen", "btn"));
-    document.getElementsByTagName("article")[0].appendChild(view.createButton("enterGame","eine Spiel beitreten", "btn"));
-    document.getElementById("back home").addEventListener("click", mainMenu.show);
-    document.getElementById("newGame").addEventListener("click", newGame.showNewGamePreload);
-    document.getElementById("enterGame").addEventListener("click", function (){apiCalls.getOpenGames(showEnterGame)});
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("gameModusBackHome","Hauptmenü", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
+
+    let wrapper = view.createGenericElementWithOneAttribute("span", "class","btnGrid");
+    wrapper.appendChild(view.createButton("gameModusNewGame","neues Spiel erstellen", "btn btn-primary"));
+    wrapper.appendChild(view.createButton("gameModusEnterGame","eine Spiel beitreten", "btn btn-primary"));
+
+    document.getElementsByTagName("article")[0].appendChild(wrapper);
+    document.getElementById("gameModusBackHome").addEventListener("click", mainMenu.show);
+    document.getElementById("gameModusNewGame").addEventListener("click", newGame.showNewGamePreload);
+    document.getElementById("gameModusEnterGame").addEventListener("click", function (){apiCalls.getOpenGames(showEnterGame)});
 }

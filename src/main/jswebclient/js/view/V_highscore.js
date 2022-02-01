@@ -9,14 +9,15 @@ import * as view from './V_view.js';
 export function show() {
     base.clearStage();
     apiCalls.getHighscore(showData);
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("back home", "Hauptmenü", "btn"));
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("highscoreBackHome", "Hauptmenü", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
 }
 
 export function showData (data){
+
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h1", "Highscore"));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", data.length + " Einträge gefunden"));
 
-    let scoreTable = view.createGenericElementWithOneAttribute("table", "id", "scoreTable");
+    let scoreTable = view.createGenericElementWithTwoAttribute("table", "id", "scoreTable", "class", "table table-hover");
     let scoreTableHeading = document.createElement("tr");
     scoreTableHeading.appendChild(view.createGenericText("th", "Platz"));
     scoreTableHeading.appendChild(view.createGenericText("th","User"));
@@ -34,5 +35,5 @@ export function showData (data){
         scoreTable.appendChild(row);
     }
     document.getElementsByTagName("article")[0].appendChild(scoreTable);
-    document.getElementById("back home").addEventListener("click", mainMenu.show);
+    document.getElementById("highscoreBackHome").addEventListener("click", mainMenu.show);
 }

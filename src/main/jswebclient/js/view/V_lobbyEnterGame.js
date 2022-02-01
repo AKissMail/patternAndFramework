@@ -14,10 +14,9 @@ import * as model from "../model/M_model.js";
  */
 export function show(response) {
     document.cookie = "isplayerone = false"
-    console.log(response);
     controller.clearStage();
     document.cookie = "gameID=" + response.valueOf().id;
-    document.getElementsByTagName("nav")[0].appendChild(view.createButton("","Hauptmenü", "btn"));
+    document.getElementsByTagName("header")[0].appendChild(view.createNavBar("lobbyEnterGameBackHome","Hauptmenü", "btn btn-light navbar-brand","navbar navbar-light bg-primary"));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h1", "Gegner wird angefragt"));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", "Der gegner muss das Spiel beginnen."));
     document.getElementsByTagName("article")[0].appendChild(view.createGenericElementWithTwoAttribute("img" , "src", "img/settingsGear.png", "id", "rotation"));
@@ -25,10 +24,12 @@ export function show(response) {
     loop(150)
 }
 
-
+/**
+ * Die ist ein loop der n mal nach dem Status von dem angefragten Spiel fragt.
+ * @param counter die Zahl der Nachfragen.
+ */
 function loop (counter){
     if(counter >= 1){
-        console.log(counter);
         setTimeout(function(){
             model.getGameByID(model.decodeCookie("gameID"), function (result) {
                 console.log(result);

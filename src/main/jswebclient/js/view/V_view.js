@@ -7,8 +7,8 @@
  *
  */
 export function createButton (id, text, cssClass){
-    let span = document.createElement('div');
-    let p = document.createElement('p');
+    let span = document.createElement('span');
+    let p = document.createElement('span');
     span.setAttribute('id', id);
     span.setAttribute('class', cssClass);
     p.append(text);
@@ -53,15 +53,17 @@ export function createAside (wType, wId, wCssClass,mType, mId, mSrc, cType, cId,
  * @param value wert des Attributes value
  * @param placeholder wert des Attributes placeholder
  * @param id wert des Attributes id
+ * @param CssClass die CSS Klasse des Feldes
  * @returns {*} den Input
  */
-export function createInput(tagName, type, name, value, placeholder, id){
+export function createInput(tagName, type, name, value, placeholder, id,CssClass ){
     let input = document.createElement(tagName);
     input.setAttribute("type", type);
     input.setAttribute("name", name);
     input.setAttribute("value", value);
     input.setAttribute("placeholder", placeholder);
     input.setAttribute("id", id);
+    input.setAttribute("class", CssClass);
     return input;
 }
 
@@ -92,10 +94,10 @@ export function createGenericText(tagName,text){
 }
 
 /**
- *
- * @param tagName
- * @param attribute
- * @param attributeValue
+ * Diese Function erstellt ein Element mit einem Attribute
+ * @param tagName name des Tags
+ * @param attribute titel des Attributs
+ * @param attributeValue inhalt des Attributes
  * @returns {*}Das Dom-Element
  */
 export function createGenericElementWithOneAttribute (tagName,attribute,attributeValue) {
@@ -103,6 +105,17 @@ export function createGenericElementWithOneAttribute (tagName,attribute,attribut
     element.setAttribute(attribute, attributeValue);
     return element;
 }
+
+/**
+ * Diese Function erstellt ein Element mit zwei Attributen
+ * Diese Function erstellt ein Element mit einem Attribute
+ * @param tagName name des Tags
+ * @param attributeOne titel des Attributs
+ * @param attributeOneValue inhalt des Attributes
+ * @param attributeTwo titel des zweiten Attributes
+ * @param attributeTwoValue inhalt des Attributes
+ * @returns {*}Das Dom-Element
+ */
 export function createGenericElementWithTwoAttribute (tagName,attributeOne,attributeOneValue, attributeTwo,attributeTwoValue) {
     let element = document.createElement(tagName);
     element.setAttribute(attributeOne, attributeOneValue);
@@ -125,22 +138,41 @@ export function createOption(attributeValue, text) {
 
 /**
  * Diese Function erstellt ein brake.
- * @returns {HTMLBRElement}Das Dom-Element
+ * @returns {HTMLBRElement} Das Dom-Element
  */
 export function createBarak(){
     return document.createElement("br");
 }
 
 /**
- * @todo
- * @returns {HTMLButtonElement}
+ * Dies Function erstellt ein Button des Typs Button.
+ * @returns {HTMLButtonElement} Das Dom-Element
  */
-export function createQuestionButton (id, value){
+export function createQuestionButton (type, id, Cssclass, value){
     let btn = document.createElement("button");
-    btn.setAttribute("type", "button");
+    btn.setAttribute("type", type);
     btn.setAttribute("id",id);
-    btn.setAttribute("class", "question");
+    btn.setAttribute("class", Cssclass);
     btn.setAttribute("value", value);
     btn.append(value);
     return btn;
+}
+
+/**
+ * Diese Function erstellt eine Navigationsbar.
+ * @param id Id der Bar
+ * @param text Inhalt des Textes
+ * @param CssClassSpan Die CSS klasse des innern Elements
+ * @param CssClassBar Die CSS Klasse der navbar
+ * @returns {HTMLElement} die navbar
+ */
+export function createNavBar (id, text, CssClassSpan, CssClassBar){
+    let bar = document.createElement("nav");
+    let span = document.createElement("span");
+    span.setAttribute("id", id);
+    span.setAttribute("class", CssClassSpan);
+    span.append(text);
+    bar.setAttribute("class", CssClassBar);
+    bar.append(span);
+    return bar;
 }

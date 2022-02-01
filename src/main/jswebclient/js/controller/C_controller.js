@@ -10,18 +10,11 @@ export function clearStage() {
     document.querySelector("footer").remove();
     // die struktur wir neu aufgebaut
     let header = document.createElement("header");
-    let nav = document.createElement("nav");
     let main = document.createElement("main");
     let article = document.createElement("article");
     let footer = document.createElement("footer");
-    header.appendChild(nav);
     main.appendChild(article);
     document.getElementsByTagName("body")[0].appendChild(header);
     document.getElementsByTagName("body")[0].appendChild(main);
     document.getElementsByTagName("body")[0].appendChild(footer);
-}
-
-
-export function startGame(category, size) {
- //@todo
 }

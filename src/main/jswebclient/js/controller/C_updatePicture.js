@@ -5,7 +5,7 @@ import * as mainMenu from '../view/V_mainMenu.js';
  * Dies function holt aus einem Input eine Bild und mach daraus ein Base 64 String und passt diese für die Datenbank an.
  */
 export function base64Picture() {
-    const toBase64 = file => new Promise((resolve, reject) => {
+    const data = file => new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
@@ -14,16 +14,13 @@ export function base64Picture() {
 
     $('#button').click(function() {
         const uploadedFile = document.querySelector('#inputFile').files[0];
-        toBase64(uploadedFile)
+        data(uploadedFile)
             .then(res => {
                 let cutRes = res.split(',');
                 let data = cutRes[1];
-                console.log(data);
                 apiCalls.updatePicture(data, function (){
-                    console.log(res);
                     mainMenu.show();
                 });
-
             })
             .catch(err => {
                 alert("Das hat leider nicht geklappt" + err);
