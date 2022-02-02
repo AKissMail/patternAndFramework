@@ -63,8 +63,8 @@ Das Repository besteht aus folgenden Ordnern (hier sind nur die wichtigsten gena
     ┃ ┃ ┃ ┃ ┣ 📂 wise2122_java_client
     ┃ ┃ ┃ ┃ ┗ 📂 wise2122_java_server
     ┃ ┃ ┃ ┃ ┃ ┣ 📂 docker.mysql
-    ┃ ┃ ┃ ┃ ┃ ┃ ┗📜 data.sql                 <- SQL Script mit Beispieldaten (Fragen, Kategorien, zwei Spieler)
-    ┃ ┃ ┃ ┃ ┃ ┗ 📜 MibquizzzApplication.java <- corsConfiguration
+    ┃ ┃ ┃ ┃ ┃ ┃ ┗📜 data.sql                 <-- SQL Script mit Beispieldaten (Fragen, Kategorien, zwei Spieler)
+    ┃ ┃ ┃ ┃ ┃ ┗ 📜 MibquizzzApplication.java <-- corsConfiguration
     ┃ ┃ ┣ 📂 jswebclient                     <-- Daten der Webapp
     ┃ ┃ ┗ 📂 resources
     ┣ 📂 target
@@ -102,3 +102,6 @@ Das Repository besteht aus folgenden Ordnern (hier sind nur die wichtigsten gena
     direkt aus der IDE startet, dann wird normal ein Port angehangen. Dieser muss dann im zuvor genannten Eintrag
     ergänzt werden. Diese Konfiguration verhindert Cross Site Requests und man gibt explizit an, wer Anfragen an die
     REST-API stellen darf.
+11. Es sind nun 2 Test User vorhanden mit den Logindaten: 
+    1. User: **Hinrichs** Passwort: **test123**
+    2. User: **Goerner**  Passwort:  **test123**
