@@ -99,5 +99,6 @@ Das Repository besteht aus folgenden Ordnern (hier sind nur die wichtigsten gena
 10. Falls der Browser **CORS** Fehler produziert, bitte prüfen, ob in
     der `src/main/java/de/gruppeo/wise2122_java_server/MibquizzzApplication.java`
     unter `.allowedOrigins("http://localhost")` die Adresse und Port des JS-Clients korrekt ist. Wenn man `index.html`
-    direkt aus der IDE startet, dann wir normal ein Port angehangen. Dieser muss dann im zuvor genannten Eintrag ergänzt
-    werden. Dies verhindert Cross Site Requests.
+    direkt aus der IDE startet, dann wird normal ein Port angehangen. Dieser muss dann im zuvor genannten Eintrag
+    ergänzt werden. Diese Konfiguration verhindert Cross Site Requests und man gibt explizit an, wer Anfragen an die
+    REST-API stellen darf.

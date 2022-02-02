@@ -1,5 +1,11 @@
 # noinspection SpellCheckingInspectionForFile @ schema/"mibquizzz"
 
+# Das ist eine alte version. Das Schema wird automatisch von Server angelegt!
+########## NICHT BENUTZEN! ########
+
+
+
+
 # Erstelle die Datenbank, falls nicht existent
 CREATE DATABASE IF NOT EXISTS mibquizzz CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

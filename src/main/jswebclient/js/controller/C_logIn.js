@@ -10,10 +10,10 @@ export function runLogIn(idUserName, idPassword) {
     let userName = document.getElementById(idUserName).value;
     let password = document.getElementById(idPassword).value;
     apiCalls.logInUser(userName, password, (r,err)=>{
-        if(err === null){
+        if(err === undefined){
 
-            document.cookie = "token = " + response;
-            document.cookie = "playername =" + playername;
+            document.cookie = "token = " + r;
+            document.cookie = "playername =" + userName;
             console.log(decodeCookie("token"));
             mainMenu.show();
         }else {

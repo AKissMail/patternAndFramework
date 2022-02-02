@@ -17,7 +17,8 @@ export function show() {
  * @param data die Antwort vom Server
  */
 export function showData(data) {
-   if (!data.length > 0) {
+    console.log(data);
+   if (data.length > 0) {
         document.getElementsByTagName("article")[0].appendChild(view.createGenericText("h1", "Spielstatistik"));
         document.getElementsByTagName("article")[0].appendChild(view.createGenericText("p", data.length + " Spielrunden gefunden"));
 

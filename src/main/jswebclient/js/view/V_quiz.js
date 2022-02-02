@@ -14,6 +14,7 @@ export function show(round){
     let game = round;
     if (game.valueOf().rounds.valueOf().rounds > 0) {
         game.valueOf().rounds.valueOf().rounds = game.valueOf().rounds.valueOf().rounds - 1;
+
         counter(5, game);
         let start = new Date();
         let answersArray = quizController.mixArray([game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].correctAnswer, game.valueOf().questions[game.valueOf().rounds.valueOf().rounds].falseAnswer1,
@@ -74,11 +75,13 @@ export function show(round){
  * @param game das Spiel als JSON,
  */
 function counter(i, game){
+    console.log(i);
     setTimeout(()=>{
         if(i>=0) {
             if (!send){
             let timer = document.getElementById("timer");
                 timer.removeChild(timer.childNodes[0]);
+                console.log("timer = " +i);
                 timer.append(view.createGenericText("p", i));
             counter(i - 1, game);
             }

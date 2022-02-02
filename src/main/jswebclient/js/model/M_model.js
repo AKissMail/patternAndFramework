@@ -42,7 +42,7 @@ function connection({path, method = "GET", body, datatype = "JSON", doneFunction
                 "Access-Control-Allow-Origin": "http://localhost:8080",
                 "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
                 "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                "Access-Control-Max-Age": "30",
+                "Access-Control-Max-Age": "3600",
                 "Content-Type": "application/json",
                 "Platform": "web",
                 "Accept": "*/*",
@@ -251,7 +251,7 @@ export function createGame(category, size, callback) {
         body: {
             "username" : decodeCookie("playername"),
             "category":  category,
-            "rounds" : size
+            "rounds" : parseInt(size)
         },
         doneFunction: function (response) {
             callback(response);
