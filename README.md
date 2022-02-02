@@ -21,7 +21,7 @@ Es folgt eine Auswahl der wichtigsten Frameworks und Technologien, welche jedoch
 
 * **Server-App:** REST API ist mit Spring Boot (Spring-Framework) umgesetzt, JPA Hibernate, javax servlet, lombok, JWT (
   JSON Web Token)
-* **Java-Spiel-Client:** JavaFX, lombok ... <-- @Jan Bitte ergänzen @ToDo
+* **Java-Spiel-Client:** JavaFX, lombok
 * **JavaScript-Spiel-Client:** Bootstrap, jQuery
 
 ### Tech-Stack
