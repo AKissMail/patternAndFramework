@@ -21,7 +21,6 @@ public class CLobby {
 
     public static Timer lobbyTimer;
     private String playerTwo;
-
     private String playerOne = MConfig.getInstance().getUsername();
     private String category = MConfig.getInstance().getCategory().toString();
     private int rounds = (int) MConfig.getInstance().getRounds();

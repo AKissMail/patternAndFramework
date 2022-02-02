@@ -36,7 +36,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="label_result_points" text="Dein Gegner beendet das Quiz gleich ..." />
+                  <Label fx:id="label_result_points" text="Das Spielergebnis steht gleich fest ..." />
                </children>
                <BorderPane.margin>
                   <Insets top="10.0" />

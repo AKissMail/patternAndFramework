@@ -27,6 +27,9 @@ public class CQuiz implements Initializable {
     TimerTask questionTask;
     Button[] buttons;
 
+    public static Timer quizTimer;
+    public static Timer questionTimer;
+
     private final int gameID;
     private int questionNumber;
     private final String playerOne;
@@ -34,8 +37,6 @@ public class CQuiz implements Initializable {
     private double seconds;
     private double totalSeconds;
     private int nextQuestion;
-    public static Timer quizTimer;
-    public static Timer questionTimer;
     private final ArrayList<MQuestion> questions;
     private String correctAnswer;
 
@@ -94,9 +95,7 @@ public class CQuiz implements Initializable {
     private void runQuizRound() {
         try {
             questionTask.cancel();
-        } catch (Exception e) {
-            System.out.println("Timer ist null");
-        }
+        } catch (Exception e) {}
 
         if (getCurrentRound() == getTotalRounds()) {
             countdownTask.cancel();
@@ -130,7 +129,7 @@ public class CQuiz implements Initializable {
     private void checkAnswer(boolean isTimeUp, Button clickedButton) {
         boolean isCorrect = false;
         countdownTask.cancel();
-        nextQuestion = 5;
+        nextQuestion = MConfig.getInstance().getDefaultNextQuestion();
 
         // Deaktiviert Antworten
         disableAnswers(true);
@@ -158,7 +157,6 @@ public class CQuiz implements Initializable {
             con.dropAnswer(gameID, isPlayerOne(), isCorrect, getTime());
         } catch (Exception e) {
             log.error("Gegner hat das Spiel vorzeitig verlassen");
-            // @TODO Ergebnisbildschirm anzeigen
         }
 
         // Aktualisiert den Spielerscore
