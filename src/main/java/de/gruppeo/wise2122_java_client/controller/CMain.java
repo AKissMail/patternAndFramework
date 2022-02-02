@@ -1,6 +1,5 @@
 package de.gruppeo.wise2122_java_client.controller;
 
-import de.gruppeo.wise2122_java_client.helper.Configuration;
 import de.gruppeo.wise2122_java_client.helper.Loader;
 import de.gruppeo.wise2122_java_client.model.MConfig;
 import javafx.fxml.Initializable;
@@ -8,14 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
 public class CMain implements Initializable {
-    Loader loader;
-    Configuration config;
+    private final Loader loader;
 
     @FXML private BorderPane mainPane;
     @FXML private Circle circle_main_picture;
@@ -23,7 +20,6 @@ public class CMain implements Initializable {
 
     public CMain() {
         loader = new Loader();
-        config = new Configuration();
     }
 
     @Override

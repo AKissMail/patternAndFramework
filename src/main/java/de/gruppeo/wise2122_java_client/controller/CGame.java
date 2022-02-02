@@ -7,7 +7,6 @@ import de.gruppeo.wise2122_java_client.model.MGame;
 import de.gruppeo.wise2122_java_client.parser.PGame;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -17,11 +16,13 @@ import java.net.URL;
 import java.util.*;
 
 public class CGame implements Initializable {
-    Loader loader;
-    PGame mapper;
-    Alert alert;
+    private Loader loader;
+    private PGame mapper;
+    private Alert alert;
 
     public static Timer gameTimer;
+    public static TimerTask joinTask;
+    public static TimerTask opponentTask;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_game_foundGames;
@@ -33,16 +34,16 @@ public class CGame implements Initializable {
         gameTimer = new Timer();
     }
 
+    /**
+     * TimerTask fragt den Server kontinuierlich nach neuen Gegnern.
+     * Wenn neue Gegner gefunden wurden, werden sie der Liste hinzugefügt.
+     * Wenn ein angezeigter Gegner die Lobby (Wartebereich) verlässt, wird
+     * er von der Liste entfernt. Die Refreshrate wird im Config-Objekt gespeichert.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /**
-         * TimerTask fragt den Server kontinuierlich nach neuen Gegnern.
-         * Wenn neue Gegner gefunden wurden, werden sie der Liste hinzugefügt.
-         * Wenn ein angezeigter Gegner die Lobby (Wartebereich) verlässt, wird
-         * er von der Liste entfernt. Die Refreshrate wird im Config-Objekt gespeichert.
-         */
-        TimerTask task = new TimerTask() {
+        opponentTask = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -54,9 +55,7 @@ public class CGame implements Initializable {
                         e.printStackTrace();
                     }
 
-                    // Setzt Labeltext
                     setLabelAvailableGames();
-
                     List<String> serverGames = new ArrayList<>();
 
                     // Befüllt Auswahlliste mit offenen Spielen
@@ -78,7 +77,6 @@ public class CGame implements Initializable {
 
                     // Verringert Auswahlliste, wenn Spiele nicht mehr existieren
                     if (serverGames.size() != listView_game_gamelist.getItems().size()) {
-
                         int index = 0;
 
                         for (int i = 0; i < listView_game_gamelist.getItems().size(); i++) {
@@ -91,21 +89,18 @@ public class CGame implements Initializable {
                 });
             }
         };
-        gameTimer.scheduleAtFixedRate(task, 0, MConfig.getInstance().getRefreshrate());
+        gameTimer.scheduleAtFixedRate(opponentTask, 0, MConfig.getInstance().getRefreshrate());
 
         /**
          * ChangeListener wacht über die Spieleliste, registriert, wenn
          * ein Spiel ausgewählt wurde und sorgt sich um das Aktivieren
          * und Deaktivieren des Buttons.
          */
-        listView_game_gamelist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldGame, String newGame) {
-                if (newGame != null) {
-                    button_game_joinGame.setDisable(false);
-                } else {
-                    button_game_joinGame.setDisable(true);
-                }
+        listView_game_gamelist.getSelectionModel().selectedItemProperty().addListener((ChangeListener<String>) (observable, oldGame, newGame) -> {
+            if (newGame != null) {
+                button_game_joinGame.setDisable(false);
+            } else {
+                button_game_joinGame.setDisable(true);
             }
         });
     }
@@ -127,7 +122,7 @@ public class CGame implements Initializable {
         Connection addPlayerTwo = new Connection("/games/update");
         addPlayerTwo.updateGame(joinedGameID, "", playerTwo, "JOINED");
 
-        TimerTask task = new TimerTask() {
+        joinTask = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -143,7 +138,7 @@ public class CGame implements Initializable {
                 });
             }
         };
-        gameTimer.scheduleAtFixedRate(task, 0, MConfig.getInstance().getRefreshrate());
+        gameTimer.scheduleAtFixedRate(joinTask, 0, MConfig.getInstance().getRefreshrate());
 
         // Zeigt Meldung an
         ButtonType RELOAD = new ButtonType("Spiel wechseln");

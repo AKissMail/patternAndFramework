@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 
 public class CSettings {
 
-    private Loader loader;
+    private final Loader loader;
 
     @FXML private BorderPane mainPane;
 

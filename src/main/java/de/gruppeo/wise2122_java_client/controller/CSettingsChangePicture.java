@@ -20,9 +20,7 @@ import java.util.ResourceBundle;
 
 public class CSettingsChangePicture implements Initializable {
 
-    private Loader loader;
-    private FileChooser fileChooser;
-    private File file;
+    private final Loader loader;
 
     @FXML private Circle circle_settings_picture;
 
@@ -40,8 +38,8 @@ public class CSettingsChangePicture implements Initializable {
      * Zeigt Maske zur Auswahl
      * eines neuen Profilbildes an.
      *
-     * @param event
-     * @throws MalformedURLException
+     * @param event Mouseclick
+     * @throws MalformedURLException Fehlerhafter Pfad
      */
     public void onAction_uploadPicture(ActionEvent event) throws Exception {
         String playername = MConfig.getInstance().getUsername();
@@ -50,9 +48,9 @@ public class CSettingsChangePicture implements Initializable {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         // Initialisierung des FileChoosers zur Auswahl eines Dateipfads
-        fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Wähle ein Profilbild aus");
-        this.file = fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(stage);
 
         // Speichert enkodiertes Image in Datenbank
         Connection upload = new Connection("/player/uploadthumbnailstr");

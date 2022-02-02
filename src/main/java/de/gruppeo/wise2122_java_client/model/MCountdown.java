@@ -13,7 +13,8 @@ import lombok.Getter;
 
 @Getter
 public class MCountdown {
-    private double totalSeconds;
+    
+    private final double totalSeconds;
     private double currentSeconds;
 
     /**
@@ -29,7 +30,7 @@ public class MCountdown {
      * Verringert die maximale Sekundenzahl
      * des Timers um die übergebenen Sekunden.
      *
-     * @param seconds
+     * @param seconds Zu verringernde Sekunden
      */
     public void decreaseSeconds(double seconds) {
         this.currentSeconds -= seconds;

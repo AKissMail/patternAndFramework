@@ -7,8 +7,9 @@ import de.gruppeo.wise2122_java_client.controller.CResult;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.Timer;
 
 public class Start extends Application {
 
@@ -16,10 +17,6 @@ public class Start extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Start.class.getResource("fxml/logIn.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
-
-        // Fügt App-Icon hinzu (nur Windows)
-        //Image icon = new Image("src/main/resources/de/gruppeo/wise2122_java_client/images/quizzzIcon.png)");
-        //stage.getIcons().add(icon);
 
         // Setzt Fensterparameter
         stage.setTitle("Quizzz");
@@ -29,15 +26,21 @@ public class Start extends Application {
 
         // Wird nach Programmende ausgeführt
         stage.setOnCloseRequest(event -> {
-                try {
-                    // Beendet alle Timer
-                    CGame.gameTimer.cancel();
-                    CLobby.lobbyTimer.cancel();
-                    CQuiz.quizTimer.cancel();
-                    CQuiz.questionTimer.cancel();
-                    CResult.resultTimer.cancel();
-                    CResult.showResultTimer.cancel();
-                } catch (Exception e) {}
+
+            // Liste aller im Spiel verwendeten Timer
+            ArrayList<Timer> timers = new ArrayList<>();
+            timers.add(CGame.gameTimer);
+            timers.add(CLobby.lobbyTimer);
+            timers.add(CQuiz.quizTimer);
+            timers.add(CQuiz.questionTimer);
+            timers.add(CResult.resultTimer);
+            timers.add(CResult.showResultTimer);
+
+                for (Timer timer : timers) {
+                    if (timer != null) {
+                        timer.cancel();
+                    }
+                }
             }
         );
     }

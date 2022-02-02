@@ -21,24 +21,25 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CQuiz implements Initializable {
-    Loader loader;
-    MCountdown countdown;
-    TimerTask countdownTask;
-    TimerTask questionTask;
-    Button[] buttons;
 
+    private final Loader loader;
+    private MCountdown countdown;
+
+    public static TimerTask countdownTask;
+    public static TimerTask questionTask;
     public static Timer quizTimer;
     public static Timer questionTimer;
 
     private final int gameID;
     private int questionNumber;
+    private int nextQuestion;
+    private String correctAnswer;
     private final String playerOne;
     private final String playerTwo;
     private double seconds;
     private double totalSeconds;
-    private int nextQuestion;
     private final ArrayList<MQuestion> questions;
-    private String correctAnswer;
+    private Button[] buttons;
 
     @FXML private BorderPane mainPane;
     @FXML private ProgressBar progressBar_quiz_progress;
@@ -76,9 +77,7 @@ public class CQuiz implements Initializable {
         playerOne = mapper.getGames().get(0).getPlayerone().getUsername();
         playerTwo = mapper.getGames().get(0).getPlayertwo().getUsername();
 
-        for (MQuestion question : mapper.getGames().get(0).getQuestions()) {
-            questions.add(question);
-        }
+        for (MQuestion question : mapper.getGames().get(0).getQuestions()) questions.add(question);
     }
 
     @Override
@@ -95,7 +94,7 @@ public class CQuiz implements Initializable {
     private void runQuizRound() {
         try {
             questionTask.cancel();
-        } catch (Exception e) {}
+        } catch (Exception ignored){}
 
         if (getCurrentRound() == getTotalRounds()) {
             countdownTask.cancel();

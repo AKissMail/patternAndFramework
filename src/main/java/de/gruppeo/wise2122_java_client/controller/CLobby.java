@@ -1,7 +1,6 @@
 package de.gruppeo.wise2122_java_client.controller;
 
 import de.gruppeo.wise2122_java_client.helper.Connection;
-import de.gruppeo.wise2122_java_client.helper.Validation;
 import de.gruppeo.wise2122_java_client.helper.Loader;
 import de.gruppeo.wise2122_java_client.model.MConfig;
 import de.gruppeo.wise2122_java_client.model.MGame;
@@ -16,14 +15,15 @@ import javafx.fxml.FXML;
 import java.util.*;
 
 public class CLobby {
-    Loader loader;
-    Validation validation;
+    private final Loader loader;
 
     public static Timer lobbyTimer;
+    public static TimerTask registerTask;
+
     private String playerTwo;
-    private String playerOne = MConfig.getInstance().getUsername();
-    private String category = MConfig.getInstance().getCategory().toString();
-    private int rounds = (int) MConfig.getInstance().getRounds();
+    private final String playerOne = MConfig.getInstance().getUsername();
+    private final String category = MConfig.getInstance().getCategory().toString();
+    private final int rounds = (int) MConfig.getInstance().getRounds();
 
     @FXML private BorderPane mainPane;
     @FXML private Button button_lobby_startQuiz;
@@ -35,7 +35,6 @@ public class CLobby {
 
     public CLobby() {
         loader = new Loader();
-        validation = new Validation();
         lobbyTimer = new Timer();
     }
 
@@ -45,7 +44,7 @@ public class CLobby {
      * beigetreten ist. Dann wird der Spielername und das
      * Profilbild des Gegners angezeigt.
      *
-     * @throws Exception
+     * @throws Exception Gegner konnte nicht hinzugefügt werden
      */
     public void initialize() throws Exception {
         String playername = MConfig.getInstance().getUsername();
@@ -54,7 +53,7 @@ public class CLobby {
         loader.loadThumbnail(circle_lobby_playerOne, playername);
         label_lobby_playerOne.setText(playername);
 
-        TimerTask task = new TimerTask() {
+        registerTask = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -80,7 +79,7 @@ public class CLobby {
                 });
             }
         };
-        lobbyTimer.scheduleAtFixedRate(task, 0, MConfig.getInstance().getRefreshrate());
+        lobbyTimer.scheduleAtFixedRate(registerTask, 0, MConfig.getInstance().getRefreshrate());
     }
 
     /**
@@ -90,7 +89,7 @@ public class CLobby {
      * der Rundenzahl und dem Benutzer, der
      * das Spiel gestartet hat.
      *
-     * @throws Exception
+     * @throws Exception Spiel konnte nicht registriert werden
      */
     private void registerNewGame() throws Exception {
         // Erstellt neues Spiel
@@ -152,10 +151,10 @@ public class CLobby {
     }
 
     /**
-     * Zeigt die Quiz-Kategorien an und
-     * löscht das von Spieler 1 erstellte
-     * Spiel wieder, damit eine neue Spiel-
-     * Konfiguration vorgenommen werden kann.
+     * Zeigt die Quiz-Kategorien an und löscht
+     * das von Spieler 1 erstellte Spiel wieder,
+     * damit eine neue Spiel-Konfiguration vorgenommen
+     * werden kann.
      */
     public void onMouseClicked_back() {
         // Beendet den Timer

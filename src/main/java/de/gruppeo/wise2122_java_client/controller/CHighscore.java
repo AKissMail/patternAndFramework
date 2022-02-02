@@ -15,8 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CHighscore implements Initializable {
-    Loader loader;
-    PHighscore mapperHighscore;
+    private final Loader loader;
 
     @FXML private BorderPane mainPane;
     @FXML private TableView<Object> table_highscore_points;
@@ -39,7 +38,7 @@ public class CHighscore implements Initializable {
      * und fügt Daten in die Tabelle ein.
      */
     private void loadHighscoreData() {
-        mapperHighscore = new PHighscore(new Connection("/highscore"));
+        PHighscore mapperHighscore = new PHighscore(new Connection("/highscore"));
 
         column_highscore_rank.setCellValueFactory(new PropertyValueFactory<>("rank"));
         column_highscore_player.setCellValueFactory(new PropertyValueFactory<>("playername"));

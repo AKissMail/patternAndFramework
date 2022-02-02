@@ -6,7 +6,7 @@ import javafx.scene.control.ButtonType;
 
 public class CSettingsResetScore {
 
-    public void onMouseClicked_resetScore() throws Exception {
+    public void onMouseClicked_resetScore() {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Möchtest du deine Spieldaten wirklich zurücksetzen?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
 

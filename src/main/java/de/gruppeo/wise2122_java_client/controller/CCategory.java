@@ -18,10 +18,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CCategory implements Initializable {
-    Loader loader;
-    Validation validation;
-    PCategory mapperCategory;
-    PRounds mapperRounds;
+    private final Loader loader;
+    private final Validation validation;
+    private final PCategory mapperCategory;
+    private final PRounds mapperRounds;
 
     @FXML private BorderPane mainPane;
     @FXML private ComboBox combo_category_selectedCategory;

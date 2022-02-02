@@ -15,22 +15,22 @@ import javafx.fxml.FXML;
 
 public class CResult {
 
-    Loader loader;
-    TimerTask resultTask;
-    TimerTask showResultTask;
+    private final Loader loader;
 
+    public static TimerTask resultTask;
+    public static TimerTask showResultTask;
     public static Timer resultTimer;
     public static Timer showResultTimer;
 
-    int gameID;
-    String gameStatus;
-    int scorePlayerOne;
-    int scorePlayerTwo;
-    int rounds;
-    String playerOne;
-    String playerTwo;
-    boolean showResults;
-    double showResultsSeconds;
+    private final int gameID;
+    private int scorePlayerOne;
+    private int scorePlayerTwo;
+    private int rounds;
+    private String gameStatus;
+    private String playerOne;
+    private String playerTwo;
+    private boolean showResults;
+    private double showResultsSeconds;
 
     @FXML private BorderPane mainPane;
     @FXML private Label label_result_resultText;
@@ -115,7 +115,7 @@ public class CResult {
      * Berechnet die maximale Wartezeit
      * auf das Spielergebnis.
      *
-     * @return (Spielrunden * (Countdown + NextQuestion-Timer))
+     * @return (Spielrunden * (Countdown + NextQuestionTimer))
      */
     private double getWaitingSeconds() {
         return rounds * (MConfig.getInstance().getDefaultCountdown() + MConfig.getInstance().getDefaultNextQuestion());

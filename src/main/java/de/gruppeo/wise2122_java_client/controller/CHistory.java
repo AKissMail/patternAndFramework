@@ -16,8 +16,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
 public class CHistory implements Initializable {
-    Loader loader;
-    PHistory mapperHistory;
+    private final Loader loader;
 
     @FXML private BorderPane mainPane;
     @FXML private TableView<Object> table_history_gameHistory;
@@ -43,7 +42,7 @@ public class CHistory implements Initializable {
      * und fügt Daten in die Tabelle ein.
      */
     private void loadHistoryData() {
-        mapperHistory = new PHistory(new Connection("/games/history?playername=" + MConfig.getInstance().getUsername()));
+        PHistory mapperHistory = new PHistory(new Connection("/games/history?playername=" + MConfig.getInstance().getUsername()));
 
         column_history_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         column_history_player.setCellValueFactory(new PropertyValueFactory<>("playername"));

@@ -3,14 +3,12 @@ package de.gruppeo.wise2122_java_client.controller;
 import de.gruppeo.wise2122_java_client.helper.*;
 import de.gruppeo.wise2122_java_client.model.MConfig;
 import de.gruppeo.wise2122_java_server.security.JwtTokenProvider;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -19,9 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CLogIn implements Initializable {
-    Loader loader;
-    Validation validation;
-    JwtTokenProvider tokenProvider;
+    private final Loader loader;
+    private final JwtTokenProvider tokenProvider;
 
     @FXML private BorderPane mainPane;
     @FXML private TextField textField_logIn_username;
@@ -30,23 +27,19 @@ public class CLogIn implements Initializable {
 
     public CLogIn() {
         loader = new Loader();
-        validation = new Validation();
         tokenProvider = new JwtTokenProvider();
     }
 
+    /**
+     * Ermöglicht, dass sich der User auch
+     * mit einem ENTER-Schlag anmelden kann.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        /**
-         * Ermöglicht, dass sich der User auch
-         * mit einem ENTER-Schlag anmelden kann.
-         */
-        textField_logIn_password.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-                    logIn();
-                }
+        textField_logIn_password.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                logIn();
             }
         });
     }

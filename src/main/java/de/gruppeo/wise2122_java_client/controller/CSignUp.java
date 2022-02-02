@@ -14,13 +14,10 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 
 public class CSignUp {
-    Loader loader;
-    Validation validation;
-    JwtTokenProvider tokenProvider;
-    Alert alert;
-
-    ArrayList<Boolean> list;
-    private int requiredFields = 3;
+    private final Loader loader;
+    private final Validation validation;
+    private final JwtTokenProvider tokenProvider;
+    private final ArrayList<Boolean> list;
 
     @FXML private TextField textField_signUp_username;
     @FXML private TextField textField_signUp_password1;
@@ -38,10 +35,10 @@ public class CSignUp {
     public CSignUp() {
         loader = new Loader();
         validation = new Validation();
-        list =  new ArrayList<Boolean>();
+        list =  new ArrayList<>();
         tokenProvider = new JwtTokenProvider();
 
-        for (int i = 1; i <= requiredFields; i++) {
+        for (int i = 1; i <= 3; i++) {
             list.add(false);
         }
     }
@@ -77,7 +74,7 @@ public class CSignUp {
             switch (signUp.getConnection().getResponseCode()) {
                 case 400:
                     System.out.println("Response Code: 400");
-                    alert = new Alert(Alert.AlertType.WARNING, "Der eingegebene Benutzername ist bereits vergeben. Bitte versuche es erneut.", ButtonType.OK);
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Der eingegebene Benutzername ist bereits vergeben. Bitte versuche es erneut.", ButtonType.OK);
                     alert.showAndWait();
                     textField_signUp_username.clear();
                     textField_signUp_username.requestFocus();
