@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.*;
 
 public class CGame implements Initializable {
-    private Loader loader;
+    private final Loader loader;
     private PGame mapper;
     private Alert alert;
 
