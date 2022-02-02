@@ -28,13 +28,19 @@ export function show(){
 function addEventListener(){
     document.getElementById("registrationBackHome").addEventListener("click", choice.show);
     document.getElementById("button").addEventListener("click", function (){
+        if (document.getElementById("userName").value == null || document.getElementById("userName").value == ""|| document.getElementById("userName").value == " "){
+            alert("Der Nutzername ist nicht Okay. Bitte gib kein Leerzeichen an!");
+            return;
+        }
         if(document.getElementById("password").value === document.getElementById("passwordVerify").value){
             apiCalls.createPlayer(document.getElementById("userName").value, document.getElementById("password").value, (r, err) => {
-                if(err===null){
+                console.log(r,err);
+                if(err===undefined){
                     choice.show();
                 }
                 else {
                     alert("Registrierung fehlgeschlagen");
+
                 }
             });
         }else{

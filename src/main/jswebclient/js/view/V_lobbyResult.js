@@ -32,7 +32,7 @@ function loop(counter){
                 model.getGameByID(model.decodeCookie("gameID"), function (result) {
                     console.log(result);
                     if (result.valueOf().gamestatus == "CLOSE") {
-                        if (model.decodeCookie("")){
+                        if (model.decodeCookie("isplayerone")){
                             Vresult.show(result.valueOf().playeronescore, result.valueOf().playertwoscore,result.valueOf().playertwo.valueOf().username);
                         }else {
                             Vresult.show(result.valueOf().playertwoscore, result.valueOf().playeronescore,result.valueOf().playertwo.valueOf().username);

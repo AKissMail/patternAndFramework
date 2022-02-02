@@ -10,6 +10,7 @@ import * as controllerLobby from '../controller/C_lobby.js';
  * @param result
  */
 export function show(result) {
+    console.log(result);
     document.cookie = "isplayerone = true"
     document.cookie = "gameID=" + result.valueOf().id;
     controller.clearStage();
