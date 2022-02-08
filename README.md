@@ -40,6 +40,8 @@ Es folgt eine Auswahl der wichtigsten Frameworks und Technologien, welche jedoch
 
 ![Hauptfenster der Client-App](doc/img/Spielablauf_Uebersicht.png)
 
+![](doc/MIBQuizzz.mp4)
+
 ## Ordnerstruktur
 
 Das Repository besteht aus folgenden Ordnern (hier sind nur die wichtigsten genannt):
@@ -73,8 +75,6 @@ Das Repository besteht aus folgenden Ordnern (hier sind nur die wichtigsten gena
     ┣ 📜 lombok.config
     ┣ 📜 pom.xml
     ┗ 📜 README.md
-
-![](doc/MIBQuizzz.mp4)
 
 ## Build-Prozess und Docker
 
