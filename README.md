@@ -74,6 +74,8 @@ Das Repository besteht aus folgenden Ordnern (hier sind nur die wichtigsten gena
     ┣ 📜 pom.xml
     ┗ 📜 README.md
 
+![](doc/MIBQuizzz.mp4)
+
 ## Build-Prozess und Docker
 
 1. Repo mit `git` in die IDE klonen - wir empfehlen **IntelliJ**.
